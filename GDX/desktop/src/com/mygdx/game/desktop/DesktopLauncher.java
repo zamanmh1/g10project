@@ -2,7 +2,7 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mygdx.game.GameGDX;
+import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
 public class DesktopLauncher 
 {
@@ -12,6 +12,6 @@ public class DesktopLauncher
 		config.width = 528; //172
 		config.height = 768; //256
 		config.title = "Team 10: Hack";
-		new LwjglApplication(new GameGDX(), config);
+		new LwjglApplication(new PrisonEscapeGame(), config);
 	}
 }

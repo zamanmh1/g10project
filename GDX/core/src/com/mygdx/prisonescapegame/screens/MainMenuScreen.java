@@ -8,15 +8,15 @@ import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
 public class MainMenuScreen implements Screen {
 
-	private static final int LOGO_WIDTH = 300;
-	private static final int LOGO_HEIGHT = 150;
-	private static final int LOGO_Y = 500;
-	private static final int PLAY_BUTTON_WIDTH = 300;
-	private static final int PLAY_BUTTON_HEIGHT = 150;
+	private static final int LOGO_WIDTH = 500;
+	private static final int LOGO_HEIGHT = 400;
+	private static final int LOGO_Y = 400;
+	private static final int PLAY_BUTTON_WIDTH = 200;
+	private static final int PLAY_BUTTON_HEIGHT = 110;
 	private static final int PLAY_BUTTON_Y = 300;
-	private static final int EXIT_BUTTON_WIDTH = 300;
-	private static final int EXIT_BUTTON_HEIGHT = 150;
-	private static final int EXIT_BUTTON_Y = 200;
+	private static final int EXIT_BUTTON_WIDTH = 200;
+	private static final int EXIT_BUTTON_HEIGHT = 110;
+	private static final int EXIT_BUTTON_Y = 150;
 
 	PrisonEscapeGame game;
 
@@ -28,11 +28,11 @@ public class MainMenuScreen implements Screen {
 
 	public MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
-		logo = new Texture("logo.jpg");
-		playButtonActive = new Texture("play_active.jpg");
-		playButtonInActive = new Texture("play_inactive.jpg");
-		exitButtonActive = new Texture("exit_active.jpg");
-		exitButtonInActive = new Texture("exit_inactive.jpg");
+		logo = new Texture("logo.png");
+		playButtonActive = new Texture("play_active.png");
+		playButtonInActive = new Texture("play_inactive.png");
+		exitButtonActive = new Texture("exit_active.png");
+		exitButtonInActive = new Texture("exit_inactive.png");
 
 	}
 
@@ -43,7 +43,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.batch.begin();
 
@@ -53,6 +53,10 @@ public class MainMenuScreen implements Screen {
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
 
 			game.batch.draw(playButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+			if (Gdx.input.isTouched()) {
+				this.dispose();
+				game.setScreen(new MainGameScreen(game));
+			}
 		} else {
 			game.batch.draw(playButtonInActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 
@@ -62,7 +66,10 @@ public class MainMenuScreen implements Screen {
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
 
-			game.batch.draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH,EXIT_BUTTON_HEIGHT);
+			game.batch.draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+			if (Gdx.input.isTouched()) {
+				Gdx.app.exit();
+			}
 		} else {
 			game.batch.draw(exitButtonInActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 
