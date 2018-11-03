@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
 public class MainMenuScreen implements Screen {
@@ -17,7 +19,7 @@ public class MainMenuScreen implements Screen {
 	private static final int EXIT_BUTTON_WIDTH = 200;
 	private static final int EXIT_BUTTON_HEIGHT = 110;
 	private static final int EXIT_BUTTON_Y = 150;
-
+	private Stage stage;
 	PrisonEscapeGame game;
 
 	Texture logo;
@@ -25,6 +27,7 @@ public class MainMenuScreen implements Screen {
 	Texture playButtonInActive;
 	Texture exitButtonActive;
 	Texture exitButtonInActive;
+	
 
 	public MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
@@ -39,6 +42,7 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void show() {
 
+		
 	}
 
 	@Override
@@ -54,7 +58,7 @@ public class MainMenuScreen implements Screen {
 
 			game.batch.draw(playButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			if (Gdx.input.isTouched()) {
-				this.dispose();
+			
 				game.setScreen(new MainGameScreen(game));
 			}
 		} else {
