@@ -5,11 +5,17 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player extends Sprite implements InputProcessor
+public class Player implements InputProcessor
 {
 	
 	private Vector2 velocity = new Vector2();
@@ -21,50 +27,51 @@ public class Player extends Sprite implements InputProcessor
 	private boolean collisionX;
 	private boolean collisionY;
 	private String colProp = "blocked";
-	private TiledMapTileLayer collisionLayer;
+	private MapObjects objects;
+	private MapLayer collisionObjectLayer;
 	private float tempCX;
 	private float tempCY;
+	private Sprite playerSprite;
 	
 	
-	public Player(Sprite pSprite)
+	public Player(Sprite sprite)
 	{
-		super(pSprite);
+		this.playerSprite = sprite;
 		//this.collisionLayer = collisionLayer;
-		
+	
 	}
 	
-	@Override
 	public void draw(Batch spriteBatch)
 	{
 		update(Gdx.graphics.getDeltaTime());
-		super.draw(spriteBatch);
+		playerSprite.draw(spriteBatch);
 		
 	}
 	
 	public void update(float delta)
 	{
-		setY(getY() + velocity.y * delta);
-		setX(getX() + velocity.x * delta);
+		playerSprite.setY(playerSprite.getY() + velocity.y * delta);
+		playerSprite.setX(playerSprite.getX() + velocity.x * delta);
 		
-		oldX = getX();
-		oldY = getY();
+		oldX = playerSprite.getX();
+		oldY = playerSprite.getY();
 		collisionX = false;
 		collisionY = false;
 		
-		if(oldX < getX())
+		if(oldX < playerSprite.getX())
 		{
 			//moved to the right
 		}
-		else if(oldX > getX())
+		else if(oldX > playerSprite.getX())
 		{
 			//moved to the left
 		}
 		
-		if(oldY < getY())
+		if(oldY < playerSprite.getY())
 		{
 			//moved down
 		}
-		else if(oldY > getY())
+		else if(oldY > playerSprite.getY())
 		{
 			//moved up
 		}
@@ -73,21 +80,21 @@ public class Player extends Sprite implements InputProcessor
 	
 	private float getCurrentCellX() //gets current cell by taking x value / tile width to get the cell value
 	{
-		return getX() / 16;
+		return playerSprite.getX() / 16;
 	}
 	
 	private float getCurrentCellY()
 	{
-		return getY() / 16;
+		return playerSprite.getY() / 16;
 	}
 	
-	private boolean cellBlocked(float x, float y)
+	/*private boolean cellBlocked(float x, float y)
 	{
 		Cell cell = collisionLayer.getCell((int) x, (int) y);
 		return cell.getTile().getProperties().containsKey(colProp);
-	}
+	} */
 
-	public boolean collisionUp()
+	/*public boolean collisionUp()
 	{
 		float i = getCurrentCellY() - 1;
 		for(i = i; i <= i + 2; i++)
@@ -101,32 +108,43 @@ public class Player extends Sprite implements InputProcessor
 			}
 		}
 		return false;
-	}
+	}*/
 
 	
 	@Override
 	public boolean keyDown(int keycode) //If key is held down
-	{
-		if(keycode == Keys.W)
-		{
-			//System.out.println("" + collisionUp());
+	{			
+		float oldX1 = playerSprite.getX();
+		float oldY1 = playerSprite.getY();
+		
+		switch(keycode) {
+		case Keys.W:
 			//velocity.y = speed;
-			setY(getY() + 16);
-		}
-		if(keycode == Keys.S)
-		{
+			playerSprite.setY(playerSprite.getY() + 16);
+			if (checkCollision(keycode)) {
+				playerSprite.setY(oldY1);
+			}
+			break;
+		case Keys.S:
 			//velocity.y = -speed;
-			setY(getY() - 16);
-		}
-		if(keycode == Keys.A)
-		{
+			playerSprite.setY(playerSprite.getY() - 16);
+			if (checkCollision(keycode)) {
+				playerSprite.setY(oldY1);
+			}
+			break;
+		case Keys.A:
 			//velocity.x = -speed;
-			setX(getX() - 16);
-		}
-		if(keycode == Keys.D)
-		{
+			playerSprite.setX(playerSprite.getX() - 16);
+			if (checkCollision(keycode)) {
+				playerSprite.setX(oldX1);
+			}
+			break;
+		case Keys.D:
 			//velocity.x = speed;
-			setX(getX() + 16);
+			playerSprite.setX(playerSprite.getX() + 16);
+			if (checkCollision(keycode)) {
+				playerSprite.setX(oldX1);
+			}
 		}
 		return true;
 	}
@@ -184,6 +202,56 @@ public class Player extends Sprite implements InputProcessor
 		return false;
 	}
 	
+	public Sprite getPlayerSprite() {
+		return playerSprite;
+	}
+	
+	public void collisionSetUp(TiledMap tilemap) {
+			int objectLayerID = 1;
+			collisionObjectLayer = tilemap.getLayers().get(objectLayerID);
+			objects = collisionObjectLayer.getObjects();
+	}
+	
+	public boolean checkCollision(int keycode) {
+		
+		/*switch(keycode) {
+		case Keys.W:
+			playerSprite.setY(playerSprite.getY() + 16);
+			break;
+		case Keys.S:
+			playerSprite.setY(playerSprite.getY() - 16);
+			break;
+		case Keys.A:
+			playerSprite.setX(playerSprite.getX() - 16);
+			break;
+		case Keys.D:
+			playerSprite.setX(playerSprite.getX() + 16);
+		}*/
+		
+		for(RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+			Rectangle rectangle = rectangleObject.getRectangle();
+			if(Intersector.overlaps(rectangle, playerSprite.getBoundingRectangle())) {
+				System.out.println("Collision occured");					
+				return true;
+			}
+		}	
+		return false;
+	}
+	
+	/*
+	int objectLayerId = 5;
+	TiledMapTileLayer collisionObjectLayer = (TiledMapTileLayer)map.getLayers().get(objectLayerId);
+	MapObjects objects = collisionObjectLayer.getObjects();
+
+	// there are several other types, Rectangle is probably the most common one
+	for (RectangleMapObject rectangleObject : objects.getByType(RectangleMapObject.class)) {
+
+	    Rectangle rectangle = rectangleObject.getRectangle();
+	    if (Intersector.overlaps(rectangle, player.getRectangle()) {
+	        // collision happened
+	    }
+	}	
+	*/
 }
 
 

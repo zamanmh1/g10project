@@ -6,9 +6,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.entities.Player;
 
 public class Map implements Screen
@@ -36,8 +41,9 @@ public class Map implements Screen
 		
 		//for now, unless we have a better way, loading the player directly onto map for hack.
 		player = new Player(new Sprite(new Texture("sprites/playerspriteR.png")));
-		player.setPosition(80, 64);
+		player.getPlayerSprite().setPosition(80, 64);
 		Gdx.input.setInputProcessor(player);
+		player.collisionSetUp(this.getTileMap());
 		
 		//test();
 	}
@@ -88,14 +94,14 @@ public class Map implements Screen
 	public void dispose() {
 		tilemap.dispose();
 		mapRenderer.dispose();
-		player.getTexture().dispose();
+		player.getPlayerSprite().getTexture().dispose();
 	}
 	
 	public TiledMap getTileMap()
 	{
 		return tilemap;
 	}
-	
+
 //	public void test()
 //	{
 //		System.out.println(tilemap.getLayers().get(1).getName());

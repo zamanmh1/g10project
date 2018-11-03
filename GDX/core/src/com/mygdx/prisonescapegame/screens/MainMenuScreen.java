@@ -49,20 +49,20 @@ public class MainMenuScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		game.batch.begin();
+		game.getSpriteBatch().begin();
 
 		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2;
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
 
-			game.batch.draw(playButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+			game.getSpriteBatch().draw(playButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			if (Gdx.input.isTouched()) {
 			
 				game.setScreen(new MainGameScreen(game));
 			}
 		} else {
-			game.batch.draw(playButtonInActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+			game.getSpriteBatch().draw(playButtonInActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 
 		}
 		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2;
@@ -70,17 +70,17 @@ public class MainMenuScreen implements Screen {
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
 
-			game.batch.draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+			game.getSpriteBatch().draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 			if (Gdx.input.isTouched()) {
 				Gdx.app.exit();
 			}
 		} else {
-			game.batch.draw(exitButtonInActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+			game.getSpriteBatch().draw(exitButtonInActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 
 		}
 
-		game.batch.draw(logo, PrisonEscapeGame.WIDTH / 2 - LOGO_WIDTH / 2, LOGO_Y, LOGO_WIDTH, LOGO_HEIGHT);
-		game.batch.end();
+		game.getSpriteBatch().draw(logo, PrisonEscapeGame.WIDTH / 2 - LOGO_WIDTH / 2, LOGO_Y, LOGO_WIDTH, LOGO_HEIGHT);
+		game.getSpriteBatch().end();
 
 	}
 
