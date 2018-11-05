@@ -208,7 +208,10 @@ public class Player implements InputProcessor
 	
 	public void collisionSetUp(TiledMap tilemap) {
 			int objectLayerID = 1;
-			collisionObjectLayer = tilemap.getLayers().get(objectLayerID);
+			//collisionObjectLayer = tilemap.getLayers().get(objectLayerID);
+			int layerID = tilemap.getLayers().getIndex("Collision");
+			collisionObjectLayer = tilemap.getLayers().get(layerID);
+
 			objects = collisionObjectLayer.getObjects();
 	}
 	
