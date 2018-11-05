@@ -57,3 +57,5 @@ hs_err_pid*
 .recommenders/index/http___download_eclipse_org_recommenders_models_photon_/_1.nrm
 .recommenders/index/http___download_eclipse_org_recommenders_models_photon_/_1.prx
 .recommenders/index/http___download_eclipse_org_recommenders_models_photon_/_1.tis
+/.metadata/
+/.recommenders/
