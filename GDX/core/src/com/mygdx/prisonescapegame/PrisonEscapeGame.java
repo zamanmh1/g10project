@@ -3,7 +3,7 @@ package com.mygdx.prisonescapegame;
 import com.badlogic.gdx.Game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.prisonescapegame.screens.MainMenuScreen;
+import com.mygdx.prisonescapegame.screens.Splash;
 
 public class PrisonEscapeGame extends Game {
 
@@ -15,7 +15,7 @@ public class PrisonEscapeGame extends Game {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new Splash(this));
 	}
 
 	@Override

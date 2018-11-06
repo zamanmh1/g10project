@@ -10,17 +10,16 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.game.map.Map;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
-public class MainGameScreen implements Screen {
+public class Splash implements Screen {
 
 	PrisonEscapeGame game;
-	private Sprite loading;
+	private Sprite splash;
 	private TweenManager tweenManager;
 	
-	public MainGameScreen (PrisonEscapeGame game) {
+	public Splash (PrisonEscapeGame game) {
 		this.game = game;
 		
 	}
@@ -32,10 +31,10 @@ public class MainGameScreen implements Screen {
 
 		game.getSpriteBatch().begin();
 		
-		loading.setPosition(Gdx.graphics.getWidth()/2 - loading.getWidth()/2, 
-				Gdx.graphics.getHeight()/2 - loading.getHeight()/2);
+		splash.setPosition(Gdx.graphics.getWidth()/2 - splash.getWidth()/2, 
+				Gdx.graphics.getHeight()/2 - splash.getHeight()/2);
 		
-		loading.draw(game.getSpriteBatch());
+		splash.draw(game.getSpriteBatch());
 		game.getSpriteBatch().end();
 
 		tweenManager.update(delta);
@@ -51,14 +50,14 @@ public class MainGameScreen implements Screen {
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
-		loading = new Sprite(new Texture("loading.png"));
+		splash = new Sprite(new Texture("logo.png"));
 
-		Tween.set(loading, SpriteAccessor.ALPHA).target(0).start(tweenManager);
-		Tween.to(loading, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, .5f).setCallback(new TweenCallback() {
+		Tween.set(splash, SpriteAccessor.ALPHA).target(0).start(tweenManager);
+		Tween.to(splash, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, .5f).setCallback(new TweenCallback() {
 
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
-				((Game) Gdx.app.getApplicationListener()).setScreen(new Map());
+				((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenuScreen(game));
 			}
 		}).start(tweenManager);
 
@@ -81,7 +80,7 @@ public class MainGameScreen implements Screen {
 	@Override
 	public void dispose() {
 		
-		loading.getTexture().dispose();
+		splash.getTexture().dispose();
 	}
 
 }
