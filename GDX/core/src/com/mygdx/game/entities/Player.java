@@ -9,8 +9,6 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -19,24 +17,24 @@ public class Player implements InputProcessor
 {
 	
 	private Vector2 velocity = new Vector2();
-	private float speed = 8 * 2f;
-	private float oldX;
-	private float oldY;
-	private float tileWidth;
-	private float tileHeight;
-	private boolean collisionX;
-	private boolean collisionY;
-	private String colProp = "blocked";
+	//private float speed = 8 * 2f;
+	private TiledMap mapUse;
 	private MapObjects objects;
+	private MapObjects useObjects;
+	private MapObjects doorObj;
 	private MapLayer collisionObjectLayer;
+	private MapLayer useObjectLayer;
 	private float tempCX;
 	private float tempCY;
 	private Sprite playerSprite;
+	private boolean hasKey;
+	private MapLayer doorLayer;
 	
 	
 	public Player(Sprite sprite)
 	{
 		this.playerSprite = sprite;
+		hasKey = false;
 		//this.collisionLayer = collisionLayer;
 	
 	}
@@ -53,29 +51,6 @@ public class Player implements InputProcessor
 		playerSprite.setY(playerSprite.getY() + velocity.y * delta);
 		playerSprite.setX(playerSprite.getX() + velocity.x * delta);
 		
-		oldX = playerSprite.getX();
-		oldY = playerSprite.getY();
-		collisionX = false;
-		collisionY = false;
-		
-		if(oldX < playerSprite.getX())
-		{
-			//moved to the right
-		}
-		else if(oldX > playerSprite.getX())
-		{
-			//moved to the left
-		}
-		
-		if(oldY < playerSprite.getY())
-		{
-			//moved down
-		}
-		else if(oldY > playerSprite.getY())
-		{
-			//moved up
-		}
-		
 	}
 	
 	private float getCurrentCellX() //gets current cell by taking x value / tile width to get the cell value
@@ -87,28 +62,6 @@ public class Player implements InputProcessor
 	{
 		return playerSprite.getY() / 16;
 	}
-	
-	/*private boolean cellBlocked(float x, float y)
-	{
-		Cell cell = collisionLayer.getCell((int) x, (int) y);
-		return cell.getTile().getProperties().containsKey(colProp);
-	} */
-
-	/*public boolean collisionUp()
-	{
-		float i = getCurrentCellY() - 1;
-		for(i = i; i <= i + 2; i++)
-		{
-			tempCY = i;
-			tempCX = getCurrentCellX();
-			if(cellBlocked(tempCX, tempCY))
-			{
-				System.out.println("" + tempCY + " " + tempCX);
-				return true;
-			}
-		}
-		return false;
-	}*/
 
 	
 	@Override
@@ -124,7 +77,7 @@ public class Player implements InputProcessor
 			if (checkCollision(keycode)) {
 				playerSprite.setY(oldY1);
 			}
-			break;
+			break; 
 		case Keys.S:
 			//velocity.y = -speed;
 			playerSprite.setY(playerSprite.getY() - 16);
@@ -144,6 +97,18 @@ public class Player implements InputProcessor
 			playerSprite.setX(playerSprite.getX() + 16);
 			if (checkCollision(keycode)) {
 				playerSprite.setX(oldX1);
+			}
+			break;
+		case Keys.E:
+			//Check if on use layer, if there pick up/use
+			if(useObject() == true && getLayerVisibility("Key") == true)
+			{
+				hasKey = true;
+				setLayerVisibility("Key", false);
+			}
+			if(useDoor() == true && hasKey == true)
+			{
+				playerSprite.setY(playerSprite.getY() + 32);
 			}
 		}
 		return true;
@@ -206,14 +171,69 @@ public class Player implements InputProcessor
 		return playerSprite;
 	}
 	
+	//These set ups can probably be all pushed into one method looping and setting up the individual
+	//MapObjects for each layer.
+	
 	public void collisionSetUp(TiledMap tilemap) {
 			int objectLayerID = 1;
 			//collisionObjectLayer = tilemap.getLayers().get(objectLayerID);
 			int layerID = tilemap.getLayers().getIndex("Collision");
 			collisionObjectLayer = tilemap.getLayers().get(layerID);
-
+			
 			objects = collisionObjectLayer.getObjects();
 	}
+	
+	public void useLayerSetUp(TiledMap tilemap)
+	{
+		int layerID = tilemap.getLayers().getIndex("Use");
+		useObjectLayer = tilemap.getLayers().get(layerID);
+		
+		useObjects = useObjectLayer.getObjects();
+		
+		mapUse = tilemap;
+	}
+	
+	public void doorLayerSetUp(TiledMap tilemap)
+	{
+		int layerID = tilemap.getLayers().getIndex("Door");
+		useObjectLayer = tilemap.getLayers().get(layerID); //This should be doorLayer but there's a bug when it changes
+		
+		doorObj = useObjectLayer.getObjects();
+	}
+	
+	
+	//This felt like the easiest method of interacting with objects for now being as they're all literally rectangles
+	//However we end up with A LOT of repeated code, but it works. Defo need to think about how to re-factor this.
+	public boolean useObject()
+	{
+		for(RectangleMapObject rectangleObject : useObjects.getByType(RectangleMapObject.class)) 
+		{
+			Rectangle rectangle = rectangleObject.getRectangle();
+			if(Intersector.overlaps(rectangle, playerSprite.getBoundingRectangle())) 
+			{
+				System.out.println("Used");	
+				
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean useDoor()
+	{
+		for(RectangleMapObject rectangleObject : doorObj.getByType(RectangleMapObject.class)) 
+		{
+			Rectangle rectangle = rectangleObject.getRectangle();
+			if(Intersector.overlaps(rectangle, playerSprite.getBoundingRectangle())) 
+			{
+				System.out.println("Used Door");	
+				
+				return true;
+			}
+		}
+		return false;
+	}
+
 	
 	public boolean checkCollision(int keycode) {
 		
@@ -240,6 +260,20 @@ public class Player implements InputProcessor
 		}	
 		return false;
 	}
+	
+	//These methods should probably be put into the Map class
+	public boolean getLayerVisibility(String layerID)
+	{
+		int layer = mapUse.getLayers().getIndex(layerID);
+		return mapUse.getLayers().get(layer).isVisible();
+	}
+	
+	public void setLayerVisibility(String layerID, boolean visibility)
+	{
+		int layer = mapUse.getLayers().getIndex(layerID);
+		mapUse.getLayers().get(layer).setVisible(visibility);
+	}
+	
 	
 	/*
 	int objectLayerId = 5;

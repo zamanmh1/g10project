@@ -51,7 +51,7 @@ public class MainGameScreen implements Screen {
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
-		loading = new Sprite(new Texture("loading.png"));
+		loading = new Sprite(new Texture("assets/loading.png"));
 
 		Tween.set(loading, SpriteAccessor.ALPHA).target(0).start(tweenManager);
 		Tween.to(loading, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, .5f).setCallback(new TweenCallback() {

@@ -50,7 +50,8 @@ public class Splash implements Screen {
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
-		splash = new Sprite(new Texture("logo.png"));
+		splash = new Sprite(new Texture("assets/logo.png"));
+		//I've had to add assets/ to the path, for some reason just using the name would refuse to work
 
 		Tween.set(splash, SpriteAccessor.ALPHA).target(0).start(tweenManager);
 		Tween.to(splash, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, .5f).setCallback(new TweenCallback() {

@@ -33,11 +33,11 @@ public class MainMenuScreen implements Screen {
 
 	public MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
-		logo = new Sprite(new Texture("logo.png"));
-		playButtonActive = new Sprite(new Texture("play_active.png"));
-		playButtonInActive = new Sprite(new Texture("play_inactive.png"));
-		exitButtonActive = new Sprite(new Texture("exit_active.png"));
-		exitButtonInActive = new Sprite(new Texture("exit_inactive.png"));
+		logo = new Sprite(new Texture("assets/logo.png"));
+		playButtonActive = new Sprite(new Texture("assets/play_active.png"));
+		playButtonInActive = new Sprite(new Texture("assets/play_inactive.png"));
+		exitButtonActive = new Sprite(new Texture("assets/exit_active.png"));
+		exitButtonInActive = new Sprite(new Texture("assets/exit_inactive.png"));
 
 	}
 

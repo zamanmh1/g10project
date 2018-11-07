@@ -28,7 +28,7 @@ public class Map implements Screen
 	public void show() 
 	{
 		TmxMapLoader loader = new TmxMapLoader();
-		tilemap = loader.load("sprites/hack.tmx");
+		tilemap = loader.load("assets/sprites/hack.tmx");
 		//above lines initialises the map loader and loads the .tmx map file.
 		
 		
@@ -40,10 +40,13 @@ public class Map implements Screen
 		//Sets the camera and renders the scene from the bottom left. /3 to zoom in to match the size of the window.
 		
 		//for now, unless we have a better way, loading the player directly onto map for hack.
-		player = new Player(new Sprite(new Texture("sprites/playerspriteR.png")));
+		player = new Player(new Sprite(new Texture("assets/sprites/playerspriteR.png")));
 		player.getPlayerSprite().setPosition(80, 64);
 		Gdx.input.setInputProcessor(player);
 		player.collisionSetUp(this.getTileMap());
+		player.useLayerSetUp(tilemap);
+		player.doorLayerSetUp(tilemap);
+//		player.layerSetUps(tilemap);
 		
 		//test();
 	}
@@ -100,6 +103,18 @@ public class Map implements Screen
 	public TiledMap getTileMap()
 	{
 		return tilemap;
+	}
+	
+	public boolean getLayerVisibility(String layerID)
+	{
+		int layer = tilemap.getLayers().getIndex(layerID);
+		return tilemap.getLayers().get(layer).isVisible();
+	}
+	
+	public void setLayerVisibility(String layerID, boolean visibility)
+	{
+		int layer = tilemap.getLayers().getIndex(layerID);
+		tilemap.getLayers().get(layer).setVisible(visibility);
 	}
 
 //	public void test()
