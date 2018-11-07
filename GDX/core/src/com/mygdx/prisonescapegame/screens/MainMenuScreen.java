@@ -28,6 +28,7 @@ public class MainMenuScreen implements Screen {
 	Sprite exitButtonActive;
 	Sprite exitButtonInActive;
 	Tween Active;
+	private Sprite backgroundSprite;
 	
 	
 
@@ -38,6 +39,7 @@ public class MainMenuScreen implements Screen {
 		playButtonInActive = new Sprite(new Texture("assets/play_inactive.png"));
 		exitButtonActive = new Sprite(new Texture("assets/exit_active.png"));
 		exitButtonInActive = new Sprite(new Texture("assets/exit_inactive.png"));
+		backgroundSprite = new Sprite(new Texture("assets/background.png"));
 
 	}
 
@@ -45,7 +47,8 @@ public class MainMenuScreen implements Screen {
 	public void show() {
 		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
-		
+		Tween.set(backgroundSprite,SpriteAccessor.ALPHA).target(0).start(tweenManager);
+		Tween.to(backgroundSprite,SpriteAccessor.ALPHA, 2).target(1).start(tweenManager);
 		Tween.set(logo,SpriteAccessor.ALPHA).target(0).start(tweenManager);
 		Tween.to(logo,SpriteAccessor.ALPHA, 2).target(1).start(tweenManager);
 		Tween.set(playButtonInActive,SpriteAccessor.ALPHA).target(0).start(tweenManager);
@@ -64,8 +67,9 @@ public class MainMenuScreen implements Screen {
 		tweenManager.update(delta);
 		
 		game.getSpriteBatch().begin();
-
-		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2;
+	
+		backgroundSprite.draw(game.getSpriteBatch());
+		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 100;
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
@@ -84,7 +88,7 @@ public class MainMenuScreen implements Screen {
 			playButtonInActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			playButtonInActive.draw(game.getSpriteBatch());
 		}
-		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2;
+		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 100;
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
@@ -103,9 +107,7 @@ public class MainMenuScreen implements Screen {
 
 		}
 		
-		logo.setPosition(Gdx.graphics.getWidth()/2 - logo.getWidth()/2, 
-				Gdx.graphics.getHeight()/2 - logo.getHeight()/2 + 180);
-		logo.draw(game.getSpriteBatch());
+	
 		game.getSpriteBatch().end();
 
 	}

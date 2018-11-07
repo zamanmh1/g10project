@@ -7,8 +7,8 @@ import com.mygdx.prisonescapegame.screens.Splash;
 
 public class PrisonEscapeGame extends Game {
 
-	public static final int WIDTH = 528;
-	public static final int HEIGHT = 768;
+	public static final int WIDTH = 720;
+	public static final int HEIGHT = 520;
 	
 	private SpriteBatch batch;
 

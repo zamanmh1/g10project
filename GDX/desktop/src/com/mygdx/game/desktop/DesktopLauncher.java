@@ -9,8 +9,8 @@ public class DesktopLauncher
 	public static void main (String[] arg) 
 	{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 528; //172
-		config.height = 768; //256
+		config.width = 720; //528
+		config.height = 520; //768
 		config.title = "Team 10: Hack";
 		config.foregroundFPS = 60;
 		new LwjglApplication(new PrisonEscapeGame(), config);

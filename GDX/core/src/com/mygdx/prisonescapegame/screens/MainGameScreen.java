@@ -58,6 +58,9 @@ public class MainGameScreen implements Screen {
 
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
+				
+//				config.width = 720; //528
+//				config.height = 520; //768
 				((Game) Gdx.app.getApplicationListener()).setScreen(new Map());
 			}
 		}).start(tweenManager);
