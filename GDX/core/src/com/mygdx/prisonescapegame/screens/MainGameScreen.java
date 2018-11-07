@@ -61,6 +61,7 @@ public class MainGameScreen implements Screen {
 				
 //				config.width = 720; //528
 //				config.height = 520; //768
+				Gdx.graphics.setWindowedMode(528, 768); //Resizes window for map
 				((Game) Gdx.app.getApplicationListener()).setScreen(new Map());
 			}
 		}).start(tweenManager);

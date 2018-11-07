@@ -32,11 +32,11 @@ public class Map implements Screen
 		//above lines initialises the map loader and loads the .tmx map file.
 		
 		
-		
+		//Gdx.graphics.setWindowedMode(528, 768);
 		mapRenderer = new OrthogonalTiledMapRenderer(tilemap); //initialises the Orthogonal (top-down) renderer for the map
 		oCamera = new OrthographicCamera(); //creates a camera to display the map on screen
 		//oCamera.setToOrtho(false, 11,16);
-		oCamera.setToOrtho(false, 528/3, 768/3);
+		oCamera.setToOrtho(false, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
 		//Sets the camera and renders the scene from the bottom left. /3 to zoom in to match the size of the window.
 		
 		//for now, unless we have a better way, loading the player directly onto map for hack.
