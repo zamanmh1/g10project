@@ -14,15 +14,26 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
+/**
+ * CLASS DESCRIPTION
+ * 
+ * @author Sam Ward
+ * 
+ * @version 0.1
+ * @since 0.1
+ * 
+ */
+
 public class MainGameScreen implements Screen {
 
-	PrisonEscapeGame game;
+	private PrisonEscapeGame game;
 	private Sprite loading;
-	private TweenManager tweenManager;
+	private TweenManager tween;
 	
 	public MainGameScreen (PrisonEscapeGame game) {
 		this.game = game;
-		
+		tween = new TweenManager();
+		loading = new Sprite(new Texture(Gdx.files.internal("data/loading.png")));
 	}
 
 	@Override
@@ -30,15 +41,15 @@ public class MainGameScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		game.getSpriteBatch().begin();
+		game.getGameController().getSpriteBatch().begin();
 		
 		loading.setPosition(Gdx.graphics.getWidth()/2 - loading.getWidth()/2, 
 				Gdx.graphics.getHeight()/2 - loading.getHeight()/2);
 		
-		loading.draw(game.getSpriteBatch());
-		game.getSpriteBatch().end();
+		loading.draw(game.getGameController().getSpriteBatch());
+		game.getGameController().getSpriteBatch().end();
 
-		tweenManager.update(delta);
+		tween.update(delta);
 	}
 
 	@Override
@@ -47,13 +58,9 @@ public class MainGameScreen implements Screen {
 
 	@Override
 	public void show() {
-
-		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
-		loading = new Sprite(new Texture("assets/loading.png"));
-
-		Tween.set(loading, SpriteAccessor.ALPHA).target(0).start(tweenManager);
+		Tween.set(loading, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(loading, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, .5f).setCallback(new TweenCallback() {
 
 			@Override
@@ -62,11 +69,11 @@ public class MainGameScreen implements Screen {
 //				config.width = 720; //528
 //				config.height = 520; //768
 				Gdx.graphics.setWindowedMode(528, 768); //Resizes window for map
-				((Game) Gdx.app.getApplicationListener()).setScreen(new Map());
+				((Game) Gdx.app.getApplicationListener()).setScreen(game.getGameController().getPlayer().getCurrentMap());
 			}
-		}).start(tweenManager);
+		}).start(tween);
 
-		tweenManager.update(Float.MIN_VALUE); // update once avoid short flash of splash before animation
+		tween.update(Float.MIN_VALUE); // update once avoid short flash of splash before animation
 	}
 
 	@Override
@@ -83,8 +90,7 @@ public class MainGameScreen implements Screen {
 	}
 
 	@Override
-	public void dispose() {
-		
+	public void dispose() {		
 		loading.getTexture().dispose();
 	}
 

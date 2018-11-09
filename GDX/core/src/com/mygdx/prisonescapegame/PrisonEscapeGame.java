@@ -1,21 +1,35 @@
 package com.mygdx.prisonescapegame;
 
+import com.mygdx.game.entities.Player;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.prisonescapegame.screens.Splash;
+/**
+ * CLASS DESCRIPTION
+ * 
+ * @author Sam Ward
+ * 
+ * @version 0.1
+ * @since 0.1
+ * 
+ */
 
 public class PrisonEscapeGame extends Game {
 
 	public static final int WIDTH = 720;
 	public static final int HEIGHT = 520;
 	
-	private SpriteBatch batch;
-
+	private GameController game;
+	public Player player;
+	
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
-		this.setScreen(new Splash(this));
+		this.player = new Player(new Sprite(new Texture(Gdx.files.internal("data/sprites/playerspriteR.png"))));
+
+		this.game = new GameHandler(this);
+		game.setMap("data/sprites/hack.tmx");
 	}
 
 	@Override
@@ -23,8 +37,8 @@ public class PrisonEscapeGame extends Game {
 		super.render();		
 	}
 	
-	public SpriteBatch getSpriteBatch() {
-		return batch;
+	public GameController getGameController() {
+		return game;
 	}
 
 }
