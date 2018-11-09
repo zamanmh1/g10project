@@ -11,6 +11,16 @@ import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
+/**
+ * CLASS DESCRIPTION
+ * 
+ * @author Sam Ward
+ * 
+ * @version 0.1
+ * @since 0.1
+ * 
+ */
+
 public class MainMenuScreen implements Screen {
 
 	private static final int PLAY_BUTTON_WIDTH = 174;
@@ -22,50 +32,53 @@ public class MainMenuScreen implements Screen {
 	private static final int HELP_BUTTON_WIDTH = 174;
 	private static final int HELP_BUTTON_Y = 200;
 	private static final int HELP_BUTTON_HEIGHT = 52;
-	PrisonEscapeGame game;
-	private TweenManager tweenManager;
 
-	Sprite logo;
-	Sprite playButtonActive;
-	Sprite playButtonInActive;
-	Sprite exitButtonActive;
-	Sprite exitButtonInActive;
+
 	
+	private PrisonEscapeGame game;
+	private TweenManager tween;
+
+	private Sprite logo;
+	private Sprite playButtonActive;
+	private Sprite playButtonInActive;
+	private Sprite exitButtonActive;
+	private Sprite exitButtonInActive;
 	private Sprite backgroundSprite;
 	
-	 Sprite helpButtonActive;
-	Sprite helpButtonInActive;
+	private Sprite helpButtonActive;
+	private Sprite helpButtonInActive;
 	
 	
 
 	public MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
-		logo = new Sprite(new Texture("assets/logo.png"));
-		playButtonActive = new Sprite(new Texture("assets/play_active.png"));
-		playButtonInActive = new Sprite(new Texture("assets/play_inactive.png"));
-		exitButtonActive = new Sprite(new Texture("assets/exit_active.png"));
-		exitButtonInActive = new Sprite(new Texture("assets/exit_inactive.png"));
-		helpButtonActive = new Sprite(new Texture("assets/help_active.png"));
-		helpButtonInActive = new Sprite(new Texture("assets/help_inactive.png"));
-		backgroundSprite = new Sprite(new Texture("assets/background.png"));
+
+		tween = new TweenManager();
+		logo = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
+		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/play_active.png")));
+		playButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/play_inactive.png")));
+		exitButtonActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
+		exitButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/exit_inactive.png")));
+		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/background.png")));
+		helpButtonActive = new Sprite(new Texture("data/help_active.png"));
+		helpButtonInActive = new Sprite(new Texture("data/help_inactive.png"));
 
 	}
 
 	@Override
 	public void show() {
-		tweenManager = new TweenManager();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
-		Tween.set(backgroundSprite,SpriteAccessor.ALPHA).target(0).start(tweenManager);
-		Tween.to(backgroundSprite,SpriteAccessor.ALPHA, 2).target(1).start(tweenManager);
-		Tween.set(logo,SpriteAccessor.ALPHA).target(0).start(tweenManager);
-		Tween.to(logo,SpriteAccessor.ALPHA, 2).target(1).start(tweenManager);
-		Tween.set(playButtonInActive,SpriteAccessor.ALPHA).target(0).start(tweenManager);
-		Tween.to(playButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tweenManager);
-		Tween.set(exitButtonInActive,SpriteAccessor.ALPHA).target(0).start(tweenManager);
-		Tween.to(exitButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tweenManager);
-		Tween.set(helpButtonInActive,SpriteAccessor.ALPHA).target(0).start(tweenManager);
-		Tween.to(helpButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tweenManager);
-		
+		Tween.set(backgroundSprite,SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(backgroundSprite,SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(logo,SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(logo,SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(playButtonInActive,SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(playButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(exitButtonInActive,SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(exitButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(helpButtonInActive,SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(helpButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
+	
 		
 	}
 
@@ -74,11 +87,11 @@ public class MainMenuScreen implements Screen {
 		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		tweenManager.update(delta);
+		tween.update(delta);
 		
-		game.getSpriteBatch().begin();
+		game.getGameController().getSpriteBatch().begin();
 	
-		backgroundSprite.draw(game.getSpriteBatch());
+		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 100;
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
@@ -87,7 +100,7 @@ public class MainMenuScreen implements Screen {
 			
 			playButtonActive.setPosition(x, PLAY_BUTTON_Y);
 			playButtonActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
-			playButtonActive.draw(game.getSpriteBatch());
+			playButtonActive.draw(game.getGameController().getSpriteBatch());
 			if (Gdx.input.isTouched()) {
 				game.setScreen(new MainGameScreen(game));
 				
@@ -96,7 +109,7 @@ public class MainMenuScreen implements Screen {
 			
 			playButtonInActive.setPosition(x, PLAY_BUTTON_Y);
 			playButtonInActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
-			playButtonInActive.draw(game.getSpriteBatch());
+			playButtonInActive.draw(game.getGameController().getSpriteBatch());
 		}
 		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 100;
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -105,17 +118,17 @@ public class MainMenuScreen implements Screen {
 
 			exitButtonActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-			exitButtonActive.draw(game.getSpriteBatch());
+			exitButtonActive.draw(game.getGameController().getSpriteBatch());
 			
 			if (Gdx.input.isTouched()) {
-				Gdx.net.openURI("http://prisonescape.online/help.html");
+				Gdx.app.exit();
 
 
 			}
 		} else {
 			exitButtonInActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonInActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-			exitButtonInActive.draw(game.getSpriteBatch());
+			exitButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
 		x = PrisonEscapeGame.WIDTH / 2 - HELP_BUTTON_WIDTH / 2 + 100;
@@ -123,22 +136,23 @@ public class MainMenuScreen implements Screen {
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
 
-			helpButtonActive.setPosition(x, HELP_BUTTON_Y);
-			helpButtonActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
-			helpButtonActive.draw(game.getSpriteBatch());
+			exitButtonActive.setPosition(x, HELP_BUTTON_Y);
+			exitButtonActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
+			exitButtonActive.draw(game.getGameController().getSpriteBatch());
 			
 			if (Gdx.input.isTouched()) {
-				Gdx.app.exit();
+				Gdx.net.openURI("http://prisonescape.online/help.html");
+
+
 			}
 		} else {
-			helpButtonInActive.setPosition(x, HELP_BUTTON_Y);
-			helpButtonInActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
-			helpButtonInActive.draw(game.getSpriteBatch());
+			exitButtonInActive.setPosition(x, HELP_BUTTON_Y);
+			exitButtonInActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
+			exitButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-		
 	
-		game.getSpriteBatch().end();
+		game.getGameController().getSpriteBatch().end();
 
 	}
 
@@ -168,8 +182,9 @@ public class MainMenuScreen implements Screen {
 		playButtonActive.getTexture().dispose();
 		playButtonInActive.getTexture().dispose(); 
 		exitButtonActive.getTexture().dispose(); 
-		exitButtonInActive.getTexture().dispose();
-	
+		exitButtonInActive.getTexture().dispose();	
+		helpButtonActive.getTexture().dispose(); 
+		helpButtonInActive.getTexture().dispose();	
 	}
 
 }

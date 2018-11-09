@@ -4,6 +4,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import aurelienribon.tweenengine.TweenAccessor;
 
+/**
+ * CLASS DESCRIPTION
+ * 
+ * @author
+ * 
+ * @version 0.1
+ * @since 0.1
+ * 
+ */
+
 public class SpriteAccessor implements TweenAccessor<Sprite> {
 
 	public static final int ALPHA = 0;
