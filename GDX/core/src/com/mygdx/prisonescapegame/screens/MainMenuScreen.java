@@ -136,19 +136,19 @@ public class MainMenuScreen implements Screen {
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
 
-			exitButtonActive.setPosition(x, HELP_BUTTON_Y);
-			exitButtonActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
-			exitButtonActive.draw(game.getGameController().getSpriteBatch());
+			helpButtonActive.setPosition(x, HELP_BUTTON_Y);
+			helpButtonActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
+			helpButtonActive.draw(game.getGameController().getSpriteBatch());
 			
 			if (Gdx.input.isTouched()) {
-				Gdx.net.openURI("http://prisonescape.online/help.html");
+			
 
 
 			}
 		} else {
-			exitButtonInActive.setPosition(x, HELP_BUTTON_Y);
-			exitButtonInActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
-			exitButtonInActive.draw(game.getGameController().getSpriteBatch());
+			helpButtonInActive.setPosition(x, HELP_BUTTON_Y);
+			helpButtonInActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
+			helpButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
 	
