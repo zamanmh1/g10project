@@ -23,12 +23,17 @@ import aurelienribon.tweenengine.TweenManager;
 
 public class MainMenuScreen implements Screen {
 
-	private static final int PLAY_BUTTON_WIDTH = 200;
-	private static final int PLAY_BUTTON_HEIGHT = 110;
+	private static final int PLAY_BUTTON_WIDTH = 174;
+	private static final int PLAY_BUTTON_HEIGHT = 52;
 	private static final int PLAY_BUTTON_Y = 300;
-	private static final int EXIT_BUTTON_WIDTH = 200;
-	private static final int EXIT_BUTTON_HEIGHT = 110;
-	private static final int EXIT_BUTTON_Y = 150;
+	private static final int EXIT_BUTTON_WIDTH = 174;
+	private static final int EXIT_BUTTON_HEIGHT = 52;
+	private static final int EXIT_BUTTON_Y = 100;
+	private static final int HELP_BUTTON_WIDTH = 174;
+	private static final int HELP_BUTTON_Y = 200;
+	private static final int HELP_BUTTON_HEIGHT = 52;
+
+
 	
 	private PrisonEscapeGame game;
 	private TweenManager tween;
@@ -38,13 +43,16 @@ public class MainMenuScreen implements Screen {
 	private Sprite playButtonInActive;
 	private Sprite exitButtonActive;
 	private Sprite exitButtonInActive;
-	private Tween active;
 	private Sprite backgroundSprite;
+	
+	private Sprite helpButtonActive;
+	private Sprite helpButtonInActive;
 	
 	
 
 	public MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
+
 		tween = new TweenManager();
 		logo = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
 		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/play_active.png")));
@@ -52,6 +60,8 @@ public class MainMenuScreen implements Screen {
 		exitButtonActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
 		exitButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/exit_inactive.png")));
 		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/background.png")));
+		helpButtonActive = new Sprite(new Texture("data/help_active.png"));
+		helpButtonInActive = new Sprite(new Texture("data/help_inactive.png"));
 
 	}
 
@@ -66,7 +76,9 @@ public class MainMenuScreen implements Screen {
 		Tween.to(playButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
 		Tween.set(exitButtonInActive,SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(exitButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		active = Tween.to(playButtonActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(helpButtonInActive,SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(helpButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
+	
 		
 	}
 
@@ -110,13 +122,35 @@ public class MainMenuScreen implements Screen {
 			
 			if (Gdx.input.isTouched()) {
 				Gdx.app.exit();
+
+
 			}
 		} else {
 			exitButtonInActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonInActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 			exitButtonInActive.draw(game.getGameController().getSpriteBatch());
 
-		}		
+		}
+		x = PrisonEscapeGame.WIDTH / 2 - HELP_BUTTON_WIDTH / 2 + 100;
+		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
+
+			exitButtonActive.setPosition(x, HELP_BUTTON_Y);
+			exitButtonActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
+			exitButtonActive.draw(game.getGameController().getSpriteBatch());
+			
+			if (Gdx.input.isTouched()) {
+				Gdx.net.openURI("http://prisonescape.online/help.html");
+
+
+			}
+		} else {
+			exitButtonInActive.setPosition(x, HELP_BUTTON_Y);
+			exitButtonInActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
+			exitButtonInActive.draw(game.getGameController().getSpriteBatch());
+
+		}
 	
 		game.getGameController().getSpriteBatch().end();
 
@@ -149,6 +183,8 @@ public class MainMenuScreen implements Screen {
 		playButtonInActive.getTexture().dispose(); 
 		exitButtonActive.getTexture().dispose(); 
 		exitButtonInActive.getTexture().dispose();	
+		helpButtonActive.getTexture().dispose(); 
+		helpButtonInActive.getTexture().dispose();	
 	}
 
 }
