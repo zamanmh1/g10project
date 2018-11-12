@@ -31,27 +31,15 @@ public class PlayerMover implements InputProcessor {
 		switch(keycode) {
 		case Keys.W:
 			player.getPlayerSprite().setY(oldY + 16);
-			if (player.getCurrentMap().checkTouching("Collision")) {
-				player.getPlayerSprite().setY(oldY);
-			}
 			break; 
 		case Keys.S:
 			player.getPlayerSprite().setY(oldY - 16);
-			if (player.getCurrentMap().checkTouching("Collision")) {
-				player.getPlayerSprite().setY(oldY);
-			}
 			break;
 		case Keys.A:
 			player.getPlayerSprite().setX(oldX - 16);
-			if (player.getCurrentMap().checkTouching("Collision")) {
-				player.getPlayerSprite().setX(oldX);
-			}
 			break;
 		case Keys.D:
 			player.getPlayerSprite().setX(oldX + 16);
-			if (player.getCurrentMap().checkTouching("Collision")) {
-				player.getPlayerSprite().setX(oldX);
-			}
 			break;
 		case Keys.E:
 			//Check if on use layer, if there pick up/use
@@ -65,6 +53,12 @@ public class PlayerMover implements InputProcessor {
 				player.getPlayerSprite().setY(oldY + 32);
 			}
 		}
+		
+		if (player.getCurrentMap().checkTouching("Collision")) {
+			player.getPlayerSprite().setY(oldY);
+			player.getPlayerSprite().setX(oldX);
+		}
+		
 		return true;
 	}
 
