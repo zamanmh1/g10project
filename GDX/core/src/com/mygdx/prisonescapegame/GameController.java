@@ -2,7 +2,6 @@ package com.mygdx.prisonescapegame;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.entities.Player;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 
 /**
  * CLASS DESCRIPTION

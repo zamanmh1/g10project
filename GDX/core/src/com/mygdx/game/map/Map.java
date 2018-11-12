@@ -20,7 +20,7 @@ import com.mygdx.game.entities.Player;
  * 
  * @author Sam Ward
  * 
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  * 
  */
@@ -106,7 +106,7 @@ public class Map implements Screen
 	public void dispose() {
 		tilemap.dispose();
 		mapRenderer.dispose();
-		player.getPlayerSprite().getTexture().dispose();
+		player.getSprite().getTexture().dispose();
 	}
 	
 	public TiledMap getTileMap()
@@ -127,7 +127,7 @@ public class Map implements Screen
 		
 		for(RectangleMapObject rectangleObject : objectTouching.getByType(RectangleMapObject.class)) {
 			Rectangle rectangle = rectangleObject.getRectangle();
-			if(Intersector.overlaps(rectangle, player.getPlayerSprite().getBoundingRectangle())) {
+			if(Intersector.overlaps(rectangle, player.getSprite().getBoundingRectangle())) {
 				return true;
 			}
 		}	

@@ -8,7 +8,7 @@ import com.badlogic.gdx.Input.Keys;
  * 
  * @author Sam Ward
  * 
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  * 
  */
@@ -25,21 +25,21 @@ public class PlayerMover implements InputProcessor {
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		float oldX = player.getPlayerSprite().getX();
-		float oldY = player.getPlayerSprite().getY();
+		float oldX = player.getSprite().getX();
+		float oldY = player.getSprite().getY();
 
 		switch(keycode) {
 		case Keys.W:
-			player.getPlayerSprite().setY(oldY + 16);
+			player.getSprite().setY(oldY + 16);
 			break; 
 		case Keys.S:
-			player.getPlayerSprite().setY(oldY - 16);
+			player.getSprite().setY(oldY - 16);
 			break;
 		case Keys.A:
-			player.getPlayerSprite().setX(oldX - 16);
+			player.getSprite().setX(oldX - 16);
 			break;
 		case Keys.D:
-			player.getPlayerSprite().setX(oldX + 16);
+			player.getSprite().setX(oldX + 16);
 			break;
 		case Keys.E:
 			//Check if on use layer, if there pick up/use
@@ -50,13 +50,13 @@ public class PlayerMover implements InputProcessor {
 			}
 			if(player.getCurrentMap().checkTouching("Door") == true && hasKey == true)
 			{
-				player.getPlayerSprite().setY(oldY + 32);
+				player.getSprite().setY(oldY + 32);
 			}
 		}
 		
 		if (player.getCurrentMap().checkTouching("Collision")) {
-			player.getPlayerSprite().setY(oldY);
-			player.getPlayerSprite().setX(oldX);
+			player.getSprite().setY(oldY);
+			player.getSprite().setX(oldX);
 		}
 		
 		return true;

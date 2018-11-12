@@ -10,7 +10,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.game.map.Map;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
@@ -19,7 +18,7 @@ import com.mygdx.prisonescapegame.PrisonEscapeGame;
  * 
  * @author Sam Ward
  * 
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  * 
  */

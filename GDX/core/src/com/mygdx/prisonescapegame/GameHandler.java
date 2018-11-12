@@ -3,7 +3,6 @@ package com.mygdx.prisonescapegame;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.game.entities.Player;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.mygdx.prisonescapegame.screens.Splash;
 
 /**
@@ -11,7 +10,7 @@ import com.mygdx.prisonescapegame.screens.Splash;
  * 
  * @author Sam Ward
  * 
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  * 
  */
