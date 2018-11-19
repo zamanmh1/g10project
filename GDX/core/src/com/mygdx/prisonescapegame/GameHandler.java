@@ -2,6 +2,8 @@ package com.mygdx.prisonescapegame;
 
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.game.entities.Player;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.prisonescapegame.screens.Splash;
 
@@ -19,11 +21,13 @@ public class GameHandler implements GameController {
 	
 	private final PrisonEscapeGame game;
 	private SpriteBatch batch;
-
+	private Sound sound;
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
 		batch = new SpriteBatch();
 		game.setScreen(new Splash(game));
+		sound = Gdx.audio.newSound(Gdx.files.internal("data/BackgroundSound.mp3"));
+		sound.play(1.0f);
 	}
 	
 	@Override
