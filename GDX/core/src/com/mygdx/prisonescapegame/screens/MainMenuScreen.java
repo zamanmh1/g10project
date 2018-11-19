@@ -1,8 +1,8 @@
 package com.mygdx.prisonescapegame.screens;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -33,8 +33,6 @@ public class MainMenuScreen implements Screen {
 	private static final int HELP_BUTTON_Y = 200;
 	private static final int HELP_BUTTON_HEIGHT = 52;
 
-
-	
 	private PrisonEscapeGame game;
 	private TweenManager tween;
 
@@ -44,11 +42,13 @@ public class MainMenuScreen implements Screen {
 	private Sprite exitButtonActive;
 	private Sprite exitButtonInActive;
 	private Sprite backgroundSprite;
-	
+
 	private Sprite helpButtonActive;
 	private Sprite helpButtonInActive;
-	
-	
+	private Sound mouseOverSound;
+	private boolean checkPlayButtonMouseOver;
+	private boolean checkExitButtonMouseOver;
+	private boolean checkHelpButtonMouseOver;
 
 	public MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
@@ -62,23 +62,26 @@ public class MainMenuScreen implements Screen {
 		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/background.png")));
 		helpButtonActive = new Sprite(new Texture("data/help_active.png"));
 		helpButtonInActive = new Sprite(new Texture("data/help_inactive.png"));
+		mouseOverSound = Gdx.audio.newSound(Gdx.files.internal("data/MouseOver.ogg"));
+		checkPlayButtonMouseOver = false;
+		checkExitButtonMouseOver = false;
+		checkHelpButtonMouseOver = false;
 
 	}
 
 	@Override
 	public void show() {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
-		Tween.set(backgroundSprite,SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(backgroundSprite,SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(logo,SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(logo,SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(playButtonInActive,SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(playButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(exitButtonInActive,SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(exitButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(helpButtonInActive,SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(helpButtonInActive,SpriteAccessor.ALPHA, 2).target(1).start(tween);
-	
+		Tween.set(backgroundSprite, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(backgroundSprite, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(logo, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(logo, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
 		
 	}
 
@@ -86,30 +89,39 @@ public class MainMenuScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		tween.update(delta);
-		
+
 		game.getGameController().getSpriteBatch().begin();
-	
+		
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 100;
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
 
-			
 			playButtonActive.setPosition(x, PLAY_BUTTON_Y);
 			playButtonActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			playButtonActive.draw(game.getGameController().getSpriteBatch());
-			if (Gdx.input.isTouched()) {
-				game.setScreen(new MainGameScreen(game));
+
+			if (checkPlayButtonMouseOver == false) {
+				mouseOverSound.play(1f);
+				checkPlayButtonMouseOver = true;
 				
 			}
-		} else {
 			
+
+			if (Gdx.input.isTouched()) {
+
+				game.setScreen(new MainGameScreen(game));
+
+			}
+		} else {
+			checkPlayButtonMouseOver = false;
 			playButtonInActive.setPosition(x, PLAY_BUTTON_Y);
 			playButtonInActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			playButtonInActive.draw(game.getGameController().getSpriteBatch());
+
 		}
 		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 100;
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -119,13 +131,17 @@ public class MainMenuScreen implements Screen {
 			exitButtonActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 			exitButtonActive.draw(game.getGameController().getSpriteBatch());
-			
+			if (checkExitButtonMouseOver == false) {
+				mouseOverSound.play(1f);
+				checkExitButtonMouseOver = true;
+				
+			}
 			if (Gdx.input.isTouched()) {
 				Gdx.app.exit();
 
-
 			}
 		} else {
+			checkExitButtonMouseOver = false;
 			exitButtonInActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonInActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 			exitButtonInActive.draw(game.getGameController().getSpriteBatch());
@@ -139,19 +155,22 @@ public class MainMenuScreen implements Screen {
 			helpButtonActive.setPosition(x, HELP_BUTTON_Y);
 			helpButtonActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
 			helpButtonActive.draw(game.getGameController().getSpriteBatch());
-			
+			if (checkHelpButtonMouseOver == false) {
+				mouseOverSound.play(1f);
+				checkHelpButtonMouseOver = true;
+				
+			}
 			if (Gdx.input.isTouched()) {
-			
-
 
 			}
 		} else {
+			checkHelpButtonMouseOver = false;
 			helpButtonInActive.setPosition(x, HELP_BUTTON_Y);
 			helpButtonInActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
 			helpButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-	
+
 		game.getGameController().getSpriteBatch().end();
 
 	}
@@ -180,11 +199,12 @@ public class MainMenuScreen implements Screen {
 	public void dispose() {
 		logo.getTexture().dispose();
 		playButtonActive.getTexture().dispose();
-		playButtonInActive.getTexture().dispose(); 
-		exitButtonActive.getTexture().dispose(); 
-		exitButtonInActive.getTexture().dispose();	
-		helpButtonActive.getTexture().dispose(); 
-		helpButtonInActive.getTexture().dispose();	
+		playButtonInActive.getTexture().dispose();
+		exitButtonActive.getTexture().dispose();
+		exitButtonInActive.getTexture().dispose();
+		helpButtonActive.getTexture().dispose();
+		helpButtonInActive.getTexture().dispose();
+		mouseOverSound.dispose();
 	}
 
 }
