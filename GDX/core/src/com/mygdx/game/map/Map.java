@@ -72,6 +72,10 @@ public class Map implements Screen
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		//Sets camera position to be where player is. Updated before camera is rendered for smooth operation.
+		oCamera.position.set(player.getSprite().getX(), player.getSprite().getY(), 0);
+		oCamera.update();
+		
 		mapRenderer.setView(oCamera);
 		mapRenderer.render();
 		//renders the map and sets the view of the camera to display the map
@@ -86,6 +90,7 @@ public class Map implements Screen
 	public void resize(int width, int height) {
 		//oCamera.viewportHeight = height;
 		//oCamera.viewportWidth = width;
+		//oCamera.position.set(player.getSprite().getX(), player.getSprite().getY(), 0);
 		//oCamera.update();
 		//Test stuff; setToOrtho method above achieves the effect much better and cleaner.
 	}
