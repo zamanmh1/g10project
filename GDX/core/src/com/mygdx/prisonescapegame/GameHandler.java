@@ -22,17 +22,18 @@ import com.mygdx.prisonescapegame.screens.Splash;
 public class GameHandler implements GameController {
 	
 	private final PrisonEscapeGame game;
+
 	private ItemHandler itemHandler;
 	private SpriteBatch batch;
 	private Music music;
-	
+
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
 		batch = new SpriteBatch();
 		game.setScreen(new Splash(game));
 		itemHandler = new ItemHandler();
 		setMap("data/playerSprites/hack.tmx");
-		
+
 		music = Gdx.audio.newMusic(Gdx.files.internal("data/BackgroundSound.mp3"));
 		music.setLooping(true);
 		music.setVolume(0.5f);
@@ -54,5 +55,4 @@ public class GameHandler implements GameController {
 		getPlayer().setMap(map, 80, 64);
 		itemHandler.refreshItems(map);
 	}	
-
 }

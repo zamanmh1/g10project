@@ -26,7 +26,7 @@ public class PrisonEscapeGame extends Game {
 	
 	@Override
 	public void create() {
-		this.player = new Player(new Sprite(new Texture(Gdx.files.internal("data/playerSprites/playerspriteR.png"))));
+		this.player = new Player(new Sprite(new Texture(Gdx.files.internal("data/sprites/playerspriteR.png"))));
 		this.game = new GameHandler(this);
 	}
 
