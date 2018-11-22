@@ -2,6 +2,7 @@ package com.mygdx.prisonescapegame.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,11 +33,13 @@ public class MainMenuScreen implements Screen {
 	private static final int HELP_BUTTON_WIDTH = 174;
 	private static final int HELP_BUTTON_Y = 200;
 	private static final int HELP_BUTTON_HEIGHT = 52;
+	private static final int VOLUME_BUTTON_WIDTH = 50;
+	private static final int VOLUME_BUTTON_Y = 50;
+	private static final int VOLUME_BUTTON_HEIGHT = 50;
 
 	private PrisonEscapeGame game;
 	private TweenManager tween;
 
-	private Sprite logo;
 	private Sprite playButtonActive;
 	private Sprite playButtonInActive;
 	private Sprite exitButtonActive;
@@ -49,12 +52,14 @@ public class MainMenuScreen implements Screen {
 	private boolean checkPlayButtonMouseOver;
 	private boolean checkExitButtonMouseOver;
 	private boolean checkHelpButtonMouseOver;
+	private Sprite volumeButtonFull;
+	private Sprite volumeButtonMute;
+	private boolean volumeClicked;
 
 	public MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
 
 		tween = new TweenManager();
-		logo = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
 		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/play_active.png")));
 		playButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/play_inactive.png")));
 		exitButtonActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
@@ -62,10 +67,13 @@ public class MainMenuScreen implements Screen {
 		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/background.png")));
 		helpButtonActive = new Sprite(new Texture("data/help_active.png"));
 		helpButtonInActive = new Sprite(new Texture("data/help_inactive.png"));
+		volumeButtonFull = new Sprite(new Texture("data/Volume-full.png"));
+		volumeButtonMute = new Sprite(new Texture("data/Volume-off.png"));
 		mouseOverSound = Gdx.audio.newSound(Gdx.files.internal("data/MouseOver.ogg"));
 		checkPlayButtonMouseOver = false;
 		checkExitButtonMouseOver = false;
 		checkHelpButtonMouseOver = false;
+		volumeClicked = false;
 
 	}
 
@@ -74,15 +82,15 @@ public class MainMenuScreen implements Screen {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(backgroundSprite, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(backgroundSprite, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(logo, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(logo, SpriteAccessor.ALPHA, 2).target(1).start(tween);
 		Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
 		Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
 		Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		
+		Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+
 	}
 
 	@Override
@@ -93,7 +101,7 @@ public class MainMenuScreen implements Screen {
 		tween.update(delta);
 
 		game.getGameController().getSpriteBatch().begin();
-		
+
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 100;
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -107,9 +115,8 @@ public class MainMenuScreen implements Screen {
 			if (checkPlayButtonMouseOver == false) {
 				mouseOverSound.play(1f);
 				checkPlayButtonMouseOver = true;
-				
+
 			}
-			
 
 			if (Gdx.input.isTouched()) {
 
@@ -134,7 +141,7 @@ public class MainMenuScreen implements Screen {
 			if (checkExitButtonMouseOver == false) {
 				mouseOverSound.play(1f);
 				checkExitButtonMouseOver = true;
-				
+
 			}
 			if (Gdx.input.isTouched()) {
 				Gdx.app.exit();
@@ -158,16 +165,45 @@ public class MainMenuScreen implements Screen {
 			if (checkHelpButtonMouseOver == false) {
 				mouseOverSound.play(1f);
 				checkHelpButtonMouseOver = true;
-				
+
 			}
 			if (Gdx.input.isTouched()) {
-
+				game.setScreen(new HelpScreen(game));
 			}
 		} else {
 			checkHelpButtonMouseOver = false;
 			helpButtonInActive.setPosition(x, HELP_BUTTON_Y);
 			helpButtonInActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
 			helpButtonInActive.draw(game.getGameController().getSpriteBatch());
+
+		}
+
+		x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 300;
+		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.isTouched()) {
+
+			if (volumeClicked == false) {
+				volumeClicked = true;
+
+			} else {
+				volumeClicked = false;
+			}
+
+		}
+		Music music = game.getGameController().getMusic();
+		if (volumeClicked == false) {
+			music.play();
+			volumeButtonFull.setPosition(x, VOLUME_BUTTON_Y);
+			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
+			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
+		} else {
+
+			music.pause();
+			mouseOverSound.stop();
+			volumeButtonMute.setPosition(x, VOLUME_BUTTON_Y);
+			volumeButtonMute.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
+			volumeButtonMute.draw(game.getGameController().getSpriteBatch());
 
 		}
 
@@ -197,13 +233,15 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		logo.getTexture().dispose();
+
 		playButtonActive.getTexture().dispose();
 		playButtonInActive.getTexture().dispose();
 		exitButtonActive.getTexture().dispose();
 		exitButtonInActive.getTexture().dispose();
 		helpButtonActive.getTexture().dispose();
 		helpButtonInActive.getTexture().dispose();
+		volumeButtonFull.getTexture().dispose();
+		volumeButtonMute.getTexture().dispose();
 		mouseOverSound.dispose();
 	}
 

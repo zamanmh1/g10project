@@ -1,5 +1,6 @@
 package com.mygdx.prisonescapegame;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.entities.Player;
 
@@ -20,5 +21,7 @@ public interface GameController {
 	Player getPlayer();
 	
 	void setMap(String map);
+	
+	Music getMusic();
 	
 }

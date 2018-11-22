@@ -46,7 +46,10 @@ public class GameHandler implements GameController {
 	public void setMap(String map) {
 		getPlayer().setMap(map, 80, 64);
 	}
-	
+	@Override
+	public Music getMusic() {
+		return music;
+	}
 
 	
 	
