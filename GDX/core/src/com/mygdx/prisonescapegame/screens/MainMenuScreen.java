@@ -179,31 +179,36 @@ public class MainMenuScreen implements Screen {
 		}
 
 		x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 300;
+		
 		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.isTouched()) {
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
 
 			if (volumeClicked == false) {
 				volumeClicked = true;
 
-			} else {
+			} else if (volumeClicked == true) {
 				volumeClicked = false;
 			}
+
 
 		}
 		Music music = game.getGameController().getMusic();
 		if (volumeClicked == false) {
-			music.play();
+			
 			volumeButtonFull.setPosition(x, VOLUME_BUTTON_Y);
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
-		} else {
+			music.play();
+			
+		} else if (volumeClicked == true){
 
-			music.pause();
-			mouseOverSound.stop();
+			
 			volumeButtonMute.setPosition(x, VOLUME_BUTTON_Y);
 			volumeButtonMute.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonMute.draw(game.getGameController().getSpriteBatch());
+			music.pause();
+			mouseOverSound.stop();
 
 		}
 
