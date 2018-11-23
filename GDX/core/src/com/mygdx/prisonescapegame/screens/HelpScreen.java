@@ -47,7 +47,7 @@ public class HelpScreen implements Screen {
 		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/back_active.png")));
 		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/back.png")));
 
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("data/vision-bold-font.fnt"));
 		movementText = "Press W,S,A,D for movement";
 		objectPickingText = "Press E for picking up objects";
 	}
@@ -75,9 +75,9 @@ public class HelpScreen implements Screen {
 		game.getGameController().getSpriteBatch().begin();
 
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
-		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2 + 50,
+		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2 ,
 				Gdx.graphics.getHeight() / 2 + 100);
-		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2 + 50,
+		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 - 50);
 
 		int x = 300;
