@@ -15,7 +15,7 @@ import aurelienribon.tweenengine.TweenManager;
 /**
  * CLASS DESCRIPTION
  * 
- * @author Sam Ward
+ * @author Sam Ward, Shibu George
  * 
  * @version 0.1
  * @since 0.1
@@ -39,7 +39,7 @@ public class MainMenuScreen implements Screen {
 
 	private PrisonEscapeGame game;
 	private TweenManager tween;
-
+	private static MainMenuScreen mainInstance;
 	private Sprite playButtonActive;
 	private Sprite playButtonInActive;
 	private Sprite exitButtonActive;
@@ -48,15 +48,15 @@ public class MainMenuScreen implements Screen {
 
 	private Sprite helpButtonActive;
 	private Sprite helpButtonInActive;
-	private Sound mouseOverSound;
+	private  Sound mouseOverSound;
 	private boolean checkPlayButtonMouseOver;
 	private boolean checkExitButtonMouseOver;
 	private boolean checkHelpButtonMouseOver;
 	private Sprite volumeButtonFull;
 	private Sprite volumeButtonMute;
-	private boolean volumeClicked;
+	private boolean volumeMuted;
 
-	public MainMenuScreen(PrisonEscapeGame game) {
+	private MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
 
 		tween = new TweenManager();
@@ -73,7 +73,7 @@ public class MainMenuScreen implements Screen {
 		checkPlayButtonMouseOver = false;
 		checkExitButtonMouseOver = false;
 		checkHelpButtonMouseOver = false;
-		volumeClicked = false;
+		volumeMuted = false;
 
 	}
 
@@ -90,6 +90,8 @@ public class MainMenuScreen implements Screen {
 		Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
 		Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Tween.set(volumeButtonMute, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(volumeButtonMute, SpriteAccessor.ALPHA, 2).target(1).start(tween);
 
 	}
 
@@ -103,7 +105,31 @@ public class MainMenuScreen implements Screen {
 		game.getGameController().getSpriteBatch().begin();
 
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
+		
 		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 100;
+		
+		playButton(x);
+		
+		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 100;
+		
+		exitButton(x);
+		
+		x = PrisonEscapeGame.WIDTH / 2 - HELP_BUTTON_WIDTH / 2 + 100;
+		
+		helpButton(x);
+
+		x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 300;
+		
+		volumeButton(x);
+
+		game.getGameController().getSpriteBatch().end();
+
+	}
+	
+	
+
+	private void playButton(int x) {
+		
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
@@ -130,7 +156,9 @@ public class MainMenuScreen implements Screen {
 			playButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 100;
+	}
+	
+	private void exitButton(int x) {
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
@@ -154,7 +182,9 @@ public class MainMenuScreen implements Screen {
 			exitButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-		x = PrisonEscapeGame.WIDTH / 2 - HELP_BUTTON_WIDTH / 2 + 100;
+	}
+	
+	private void helpButton(int x) {
 		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
@@ -177,33 +207,31 @@ public class MainMenuScreen implements Screen {
 			helpButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-
-		x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 300;
 		
+	}
+	
+	private void volumeButton(int x) {
 		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
+			if (volumeMuted == false) {
+				volumeMuted = true;
 
-			if (volumeClicked == false) {
-				volumeClicked = true;
-
-			} else if (volumeClicked == true) {
-				volumeClicked = false;
+			} else if (volumeMuted == true) {
+				volumeMuted = false;
 			}
-
-
 		}
+
 		Music music = game.getGameController().getMusic();
-		if (volumeClicked == false) {
-			
+		if (volumeMuted == false) {
+
 			volumeButtonFull.setPosition(x, VOLUME_BUTTON_Y);
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
 			music.play();
-			
-		} else if (volumeClicked == true){
 
-			
+		} else if (volumeMuted == true) {
+
 			volumeButtonMute.setPosition(x, VOLUME_BUTTON_Y);
 			volumeButtonMute.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonMute.draw(game.getGameController().getSpriteBatch());
@@ -211,9 +239,14 @@ public class MainMenuScreen implements Screen {
 			mouseOverSound.stop();
 
 		}
-
-		game.getGameController().getSpriteBatch().end();
-
+	}
+	public Sound mouseOverSound() {
+		
+		return mouseOverSound;
+	}
+	public boolean checkSoundMuted() {
+		return volumeMuted;	
+		
 	}
 
 	@Override
@@ -249,5 +282,12 @@ public class MainMenuScreen implements Screen {
 		volumeButtonMute.getTexture().dispose();
 		mouseOverSound.dispose();
 	}
+	public static MainMenuScreen getInstance(PrisonEscapeGame game) {
+		if (mainInstance == null) {
+			mainInstance = new MainMenuScreen(game);
+		}
+		return mainInstance;
+	}
+	
 
 }

@@ -1,6 +1,8 @@
 package com.mygdx.prisonescapegame.screens;
 
+
 import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,8 +16,17 @@ import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
-public class HelpScreen implements Screen{
-	
+/**
+ * CLASS DESCRIPTION
+ * 
+ * @author Shibu George
+ * 
+ * @version 0.1
+ * @since 0.1
+ * 
+ */
+public class HelpScreen implements Screen {
+
 	private PrisonEscapeGame game;
 	private Sprite backgroundSprite;
 	private TweenManager tween;
@@ -24,20 +35,18 @@ public class HelpScreen implements Screen{
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private Sprite backButtonActive;
 	private boolean checkBackButtonMouseOver;
-	private Sound mouseOverSound;
 	private Sprite backButtonInActive;
 	private BitmapFont font;
 	private String movementText;
 	private String objectPickingText;
-	
-	
+
 	public HelpScreen(PrisonEscapeGame game) {
 		this.game = game;
 		tween = new TweenManager();
 		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/background.png")));
 		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/back_active.png")));
 		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/back.png")));
-		mouseOverSound = Gdx.audio.newSound(Gdx.files.internal("data/MouseOver.ogg"));
+
 		font = new BitmapFont();
 		movementText = "Press W,S,A,D for movement";
 		objectPickingText = "Press E for picking up objects";
@@ -53,7 +62,7 @@ public class HelpScreen implements Screen{
 		Tween.to(backButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
 		Tween.set(font, BitmapAccessor.ALPHA).target(0).start(tween);
 		Tween.to(font, BitmapAccessor.ALPHA, 2).target(1).start(tween);
-		
+
 	}
 
 	@Override
@@ -64,14 +73,23 @@ public class HelpScreen implements Screen{
 		tween.update(delta);
 
 		game.getGameController().getSpriteBatch().begin();
-		
+
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
-		font.draw(game.getGameController().getSpriteBatch(),
-				movementText,Gdx.graphics.getWidth()/2 + 50,Gdx.graphics.getHeight()/2+100);
-		font.draw(game.getGameController().getSpriteBatch(),
-				objectPickingText,Gdx.graphics.getWidth()/2 + 50,Gdx.graphics.getHeight()/2-50);
-		
+		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2 + 50,
+				Gdx.graphics.getHeight() / 2 + 100);
+		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2 + 50,
+				Gdx.graphics.getHeight() / 2 - 50);
+
 		int x = 300;
+
+		backButton(x);
+
+		
+		game.getGameController().getSpriteBatch().end();
+
+	}
+
+	private void backButton(int x) {
 		if (Gdx.input.getX() < x + BACK_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BACK_BUTTON_Y) {
@@ -81,15 +99,20 @@ public class HelpScreen implements Screen{
 			backButtonActive.draw(game.getGameController().getSpriteBatch());
 
 			if (checkBackButtonMouseOver == false) {
-				mouseOverSound.play(1f);
+				Sound mouse = MainMenuScreen.getInstance(game).mouseOverSound();
+				Boolean muted = MainMenuScreen.getInstance(game).checkSoundMuted();
+				if (muted) {
+					mouse.stop();
+				} else {
+					mouse.play(1f);
+				}
 				checkBackButtonMouseOver = true;
-				
+
 			}
-			
 
 			if (Gdx.input.isTouched()) {
 
-				game.setScreen(new MainMenuScreen(game));
+				game.setScreen(MainMenuScreen.getInstance(game));
 
 			}
 		} else {
@@ -99,40 +122,37 @@ public class HelpScreen implements Screen{
 			backButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-		
-		
-		game.getGameController().getSpriteBatch().end();
-		
+
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose() {
 		backgroundSprite.getTexture().dispose();
-		
+
 	}
 
 }
