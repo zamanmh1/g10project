@@ -67,7 +67,7 @@ public class HelpScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 0);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		tween.update(delta);
