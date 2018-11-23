@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
+
+import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
@@ -80,19 +82,42 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void show() {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
-		Tween.set(backgroundSprite, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(backgroundSprite, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-		Tween.set(volumeButtonMute, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(volumeButtonMute, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		Timeline.createSequence().beginSequence()
+		.push(Tween.set(backgroundSprite, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.set(volumeButtonMute, SpriteAccessor.ALPHA).target(0))
+		.push(Tween.from(backgroundSprite, SpriteAccessor.ALPHA, 0).target(0))
+		.push(Tween.to(backgroundSprite, SpriteAccessor.ALPHA, 1).target(1))
+		.push(Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+		.push(Tween.to(playButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+		.push(Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+		.push(Tween.to(helpButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+		.push(Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+		.push(Tween.to(exitButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+		.push(Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 0).target(1))
+		.push(Tween.to(volumeButtonMute, SpriteAccessor.ALPHA, 0).target(1))
+		.end().start(tween);
+		
 
+//		Tween.set(backgroundSprite, SpriteAccessor.ALPHA).target(0).start(tween);
+//		Tween.to(backgroundSprite, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+//		Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+//		Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+//		Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+//		Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+//		Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+//		Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+//		Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0).start(tween);
+//		Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+//		Tween.set(volumeButtonMute, SpriteAccessor.ALPHA).target(0).start(tween);
+//		Tween.to(volumeButtonMute, SpriteAccessor.ALPHA, 2).target(1).start(tween);
+		
 	}
 
 	@Override
