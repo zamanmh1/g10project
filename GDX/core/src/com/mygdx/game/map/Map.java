@@ -13,7 +13,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.maps.MapLayer;
+import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.helpers.ItemHandler;
 
 /**
  * CLASS DESCRIPTION
@@ -33,6 +35,10 @@ public class Map implements Screen
 	private OrthographicCamera oCamera;
 	private Player player;
 	private TmxMapLoader loader;
+	private HashMap<String, Item> items;
+	
+	
+	private ItemHandler iHandler;
 	
 	private HashMap<String, MapObjects> mapObjects;
 
@@ -41,6 +47,9 @@ public class Map implements Screen
 		tilemap = null;
 		loader = new TmxMapLoader();	
 		mapObjects = new HashMap<String, MapObjects>();
+		
+		//new item handler
+		iHandler = new ItemHandler();
 	}
 	
 	public void setMap(String map) {
@@ -64,6 +73,10 @@ public class Map implements Screen
 		setupLayer("Collision");
 		setupLayer("Door");
 		setupLayer("Use");
+		
+		//gets all the items for the map
+		items = iHandler.getItems();
+		
 	}
 
 	@Override
@@ -79,6 +92,15 @@ public class Map implements Screen
 		mapRenderer.getBatch().begin();
 		//player.setPosition(80, 64);
 		player.draw(mapRenderer.getBatch());
+		
+		//Rendering the items
+		for(Item i : items.values())
+		{
+			i.getSprite().setPosition(i.getX(), i.getY()); // Testing if restartItems() was being called.
+			i.draw(mapRenderer.getBatch());
+		}
+		
+		
 		mapRenderer.getBatch().end();
 	}
 
