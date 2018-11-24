@@ -259,6 +259,21 @@ public class MainMenuScreen implements Screen {
 		return volumeMuted;	
 		
 	}
+	
+	public void setVolumeMute(boolean mute) {
+		volumeMuted = mute;
+		
+	}
+	
+	public Sprite volumeButtonMuted() {
+		return volumeButtonMute;	
+		
+	}
+	
+	public Sprite volumeButtonFull() {
+		return volumeButtonFull;	
+		
+	}
 
 	@Override
 	public void resize(int width, int height) {
