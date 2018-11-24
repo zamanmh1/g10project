@@ -83,7 +83,7 @@ public class MainMenuScreen implements Screen {
 	public void show() {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Timeline.createSequence().beginSequence()
-		.push(Tween.set(backgroundSprite, SpriteAccessor.ALPHA).target(0))
+		
 		.push(Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0))
 		.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
 		.push(Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0))
@@ -93,7 +93,6 @@ public class MainMenuScreen implements Screen {
 		.push(Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0))
 		.push(Tween.set(volumeButtonMute, SpriteAccessor.ALPHA).target(0))
 		.push(Tween.from(backgroundSprite, SpriteAccessor.ALPHA, 0).target(0))
-		.push(Tween.to(backgroundSprite, SpriteAccessor.ALPHA, 1).target(1))
 		.push(Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
 		.push(Tween.to(playButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
 		.push(Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
@@ -104,19 +103,6 @@ public class MainMenuScreen implements Screen {
 		.push(Tween.to(volumeButtonMute, SpriteAccessor.ALPHA, 0).target(1))
 		.end().start(tween);
 		
-
-//		Tween.set(backgroundSprite, SpriteAccessor.ALPHA).target(0).start(tween);
-//		Tween.to(backgroundSprite, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-//		Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-//		Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-//		Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-//		Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-//		Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-//		Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-//		Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0).start(tween);
-//		Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 2).target(1).start(tween);
-//		Tween.set(volumeButtonMute, SpriteAccessor.ALPHA).target(0).start(tween);
-//		Tween.to(volumeButtonMute, SpriteAccessor.ALPHA, 2).target(1).start(tween);
 		
 	}
 
