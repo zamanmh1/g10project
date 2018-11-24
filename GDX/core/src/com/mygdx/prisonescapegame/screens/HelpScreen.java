@@ -42,6 +42,14 @@ public class HelpScreen implements Screen {
 	private String objectPickingText;
 	private Sprite volumeButtonMuted;
 	private Sprite volumeButtonFull;
+	private Sprite wasdKeyboard;
+	private Sprite eKeyboard;
+	private static final int E_Y = 140;
+	private static final int E_WIDTH = 39;
+	private static final int E_HEIGHT = 39;
+	private static final int WASD_Y = 250;
+	private static final int WASD_WIDTH = 108;
+	private static final int WASD_HEIGHT = 75;
 	private static final int VOLUME_BUTTON_Y = 50;
 	private static final int VOLUME_BUTTON_WIDTH = 50;
 	private static final int VOLUME_BUTTON_HEIGHT = 50;
@@ -54,6 +62,8 @@ public class HelpScreen implements Screen {
 		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/back.png")));
 		volumeButtonMuted = MainMenuScreen.getInstance(game).volumeButtonMuted();
 		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
+		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/wasd.png")));
+		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/e.png")));
 		font = new BitmapFont(Gdx.files.internal("data/vision-bold-font.fnt"));
 		movementText = "Press W,S,A,D for movement";
 		objectPickingText = "Press E for picking up objects";
@@ -66,15 +76,19 @@ public class HelpScreen implements Screen {
 		Timeline.createSequence().beginSequence().push(Tween.set(font, BitmapAccessor.ALPHA).target(0))
 				.push(Tween.set(backButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(backButtonActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(font, BitmapAccessor.ALPHA).target(0))
+				.push(Tween.set(wasdKeyboard, BitmapAccessor.ALPHA).target(0))
+				.push(Tween.set(eKeyboard, BitmapAccessor.ALPHA).target(0))
 				.push(Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(volumeButtonMuted, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.from(backgroundSprite, SpriteAccessor.ALPHA, 0).target(0))
 				.push(Tween.to(font, BitmapAccessor.ALPHA, 0.5f).target(1))
+				.push(Tween.to(wasdKeyboard, BitmapAccessor.ALPHA, 0.2f).target(1))
+				.push(Tween.to(eKeyboard, BitmapAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(backButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(backButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 0.2f).target(1))
-				.push(Tween.to(volumeButtonMuted, SpriteAccessor.ALPHA, 0.2f).target(1))
-				.end().start(tween);
+				.push(Tween.to(volumeButtonMuted, SpriteAccessor.ALPHA, 0.2f).target(1)).end().start(tween);
 
 	}
 
@@ -88,12 +102,26 @@ public class HelpScreen implements Screen {
 		game.getGameController().getSpriteBatch().begin();
 
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
+
 		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 + 100);
+
+		int x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 130;
+
+		wasdKeyboard.setPosition(x, WASD_Y);
+		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
+		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
+
 		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 - 50);
 
-		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 40;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 165;
+
+		eKeyboard.setPosition(x, E_Y);
+		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
+		eKeyboard.draw(game.getGameController().getSpriteBatch());
+
+		x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 40;
 
 		backButton(x);
 
