@@ -1,1 +1,2 @@
-key01,data/itemSprites/key01.png,data/playerSprites/hack.tmx,key,50,50
+key01,data/itemSprites/key01.png,data/playerSprites/hack.tmx,KEY,3,3
+wep01,data/itemSprites/key01.png,data/playerSprites/hack.tmx,WEAPON,9,5

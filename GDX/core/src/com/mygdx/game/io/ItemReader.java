@@ -11,6 +11,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.entities.Item;
 
+/**
+ * CLASS DESCRIPTION
+ * 
+ * @author Sam Ward
+ * 
+ * @version 0.2
+ * @since 0.2
+ * 
+ */
+
 public class ItemReader {
 	private String csvFile = "data/loader/items.csv";
 	private BufferedReader bReader;
@@ -32,7 +42,7 @@ public class ItemReader {
 			while((line = bReader.readLine()) != null) {
 				String[] readItem = line.split(splitBy);
 				
-				Item i = new Item(new Sprite(new Texture(Gdx.files.internal(readItem[1]))), readItem[0], readItem[2], readItem[3], Float.valueOf(readItem[4]), Float.valueOf(readItem[5]));
+				Item i = new Item(new Sprite(new Texture(Gdx.files.internal(readItem[1]))), readItem[0], readItem[2], readItem[3], Integer.parseInt(readItem[4]), Integer.parseInt(readItem[5]));
 				items.put(i.getName(), i);
 			}
 			return items;
