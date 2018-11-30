@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="left-down" width="11" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="29">
- <tileset firstgid="1" source="D:/Sam/UNI/Year 2/Group Project/Project/MVP/g10project/GDX/core/assets/data/sprites/hacktilesetwdoor.tsx"/>
+ <tileset firstgid="1" source="hacktilesetwdoor.tsx"/>
  <layer id="1" name="Tile Layer 1" width="11" height="16">
-  <properties>
-   <property name="blocked" type="bool" value="true"/>
-  </properties>
   <data encoding="csv">
 1560,2296,2296,2296,2296,2296,2296,2296,2296,2296,1577,
 2249,1609,1622,1622,1622,1622,1622,1622,1622,1624,2249,
@@ -24,7 +21,7 @@
 2280,2296,2296,2296,2296,2296,2296,2296,2296,2296,2297
 </data>
  </layer>
- <layer id="5" name="Key" width="11" height="16" visible="0">
+ <layer id="5" name="Key" width="11" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,
@@ -44,7 +41,10 @@
 0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="2" name="Collision" visible="0">
+ <objectgroup id="2" name="Collision">
+  <properties>
+   <property name="Collision" value=""/>
+  </properties>
   <object id="7" type="Wall" x="96" y="128" width="80" height="16"/>
   <object id="12" type="Wall" x="160" y="0" width="16" height="128"/>
   <object id="13" type="Wall" x="0" y="0" width="160" height="16"/>
@@ -56,11 +56,11 @@
   <object id="19" type="Wall" x="49.452" y="49.452" width="28.5128" height="44.9969"/>
   <object id="20" type="Wall" x="96.6765" y="49.0065" width="29.8495" height="45.4424"/>
  </objectgroup>
- <objectgroup id="3" name="Door" visible="0">
+ <objectgroup id="3" name="Door">
   <object id="6" name="Door" type="Door" x="79.9772" y="144.005" width="16" height="16"/>
   <object id="28" name="Door" type="Door" x="80.0222" y="111.947" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="4" name="Use" visible="0">
+ <objectgroup id="4" name="Use">
   <object id="23" name="Key" x="128.61" y="211.057" width="15.4184" height="10.0635"/>
  </objectgroup>
 </map>
