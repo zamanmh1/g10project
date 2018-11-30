@@ -1,29 +1,27 @@
-package com.mygdx.game.map;
+package com.mygdx.prisonescapegame.screens;
 
-import java.util.HashMap;
-
-import com.badlogic.gdx.Game;
+import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.maps.MapLayer;
-import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.Actor;
+import com.mygdx.game.entities.Item;
+import com.mygdx.game.io.InteractionController;
+import com.mygdx.game.io.PlayerMovementController;
+import com.mygdx.game.model.TiledModel;
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
-import com.mygdx.prisonescapegame.screens.MainGameScreen;
-import com.mygdx.prisonescapegame.screens.MainMenuScreen;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -38,19 +36,26 @@ import aurelienribon.tweenengine.TweenManager;
  * 
  */
 
-public class Map implements Screen {
-
-	private TiledMap tilemap;
+public class Map implements Screen
+{	
+	private TiledMap tilemap; 
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera oCamera;
-	private Player player;
+	private Actor player;
 	private TmxMapLoader loader;
+	
+	private ArrayList<Item> items; // Items to be drawn on each rendered frame
+	
+	private InputMultiplexer inputHandler; // Allows for multiple user inputs to be used
+	private PlayerMovementController movementHandler;
+	private InteractionController interactionHandler;
+	
+	private TiledModel model;
+	
+	private SpriteBatch batch;
 	private Sprite optionBackground;
 	private Sprite playButtonInActive;
 	private Sprite exitButtonInActive;
-
-	private HashMap<String, MapObjects> mapObjects;
-	private SpriteBatch batch;
 	private TweenManager tween;
 	private boolean menuPressed;
 	private static final int PLAY_BUTTON_WIDTH = 174;
@@ -61,16 +66,20 @@ public class Map implements Screen {
 	private static final int EXIT_BUTTON_HEIGHT = 52;
 	private static final int EXIT_BUTTON_Y = 100;
 	private Sprite exitButtonActive;
-	
 
-
-	public Map(Player player) {
-		
+	public Map(Actor player) {
 		this.player = player;
 		tween = new TweenManager();
 		tilemap = null;
-		loader = new TmxMapLoader();
-		mapObjects = new HashMap<String, MapObjects>();
+		loader = new TmxMapLoader();	
+				
+		movementHandler = new PlayerMovementController(player);
+		interactionHandler = new InteractionController(player);
+		
+		inputHandler = new InputMultiplexer();
+		
+		inputHandler.addProcessor(movementHandler);
+		inputHandler.addProcessor(interactionHandler);
 		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
 		playButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/play_inactive.png")));
 		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/play_active.png")));
@@ -79,31 +88,38 @@ public class Map implements Screen {
 		batch = new SpriteBatch();
 		menuPressed = false;
 	}
-
-	public void setMap(String map) {
+	
+	public void setMap(String map, GameHandler gameHandler) {			
 		tilemap = loader.load(map);
+		model = new TiledModel(tilemap);
+		getTiledModel().getTile(player.getX(), player.getY()).setActor(player);
+		
+		
+		interactionHandler.setItemHandler(gameHandler); // high coupling (bad) provides way for interaction controller to handle finding items
+		items = new ArrayList<Item>(); // Resets items in map
 	}
-
+	
+	// Needed for rendering items in map
+	public void addItemToMap(Item i) {
+		items.add(i);
+	}
+	
+	// Stop given item being rendered in map
+	public void removeItemFromMap(Item i) {
+		items.remove(i);
+	}
+	
 	@Override
-	public void show() {
-		// Gdx.graphics.setWindowedMode(528, 768);
-		mapRenderer = new OrthogonalTiledMapRenderer(tilemap); // initialises the Orthogonal (top-down) renderer for the
-																// map
-		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
-		// oCamera.setToOrtho(false, 11,16);
-		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
-		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to
-		// match the size of the window.
-
-		// for now, unless we have a better way, loading the player directly onto map
-		// for hack.
-		// player.getPlayerSprite().setPosition(80, 64);
-		Gdx.input.setInputProcessor(player.getPlayerMover());
-
-		setupLayer("Collision");
-		setupLayer("Door");
-		setupLayer("Use");
-
+	public void show() 
+	{		
+		//Gdx.graphics.setWindowedMode(528, 768);
+		mapRenderer = new OrthogonalTiledMapRenderer(tilemap); //initialises the Orthogonal (top-down) renderer for the map
+		oCamera = new OrthographicCamera(); //creates a camera to display the map on screen
+		//oCamera.setToOrtho(false, 11,16);
+		oCamera.setToOrtho(false, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
+		//Sets the camera and renders the scene from the bottom left. /3 to zoom in to match the size of the window.
+		
+		Gdx.input.setInputProcessor(inputHandler);
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(optionBackground, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
@@ -115,29 +131,44 @@ public class Map implements Screen {
 		Tween.to(exitButtonActive, SpriteAccessor.ALPHA, 1.0f).target(0.5f).start(tween);
 		Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 1.0f).target(0.5f).start(tween);
-
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) 
+	{	
+		// updates using time since last render call
+		movementHandler.update(delta);
+		player.update(delta);
+		tween.update(delta);
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		tween.update(delta);
-		// Sets camera position to be where player is. Updated before camera is rendered
-		// for smooth operation.
-		oCamera.position.set(player.getSprite().getX(), player.getSprite().getY(), 0);
+		
+		// Smooth camera based on updated player position
+		oCamera.position.set(player.getWorldX()+0.5f, player.getWorldY()+0.5f, 0);
 		oCamera.update();
-
+		
 		mapRenderer.setView(oCamera);
 		mapRenderer.render();
-		// renders the map and sets the view of the camera to display the map
-
+		//renders the map and sets the view of the camera to display the map
+		
 		mapRenderer.getBatch().begin();
-		// player.setPosition(80, 64);
-		player.draw(mapRenderer.getBatch());
-
+		//player.draw(mapRenderer.getBatch());
+		
+		
+		mapRenderer.getBatch().draw(player.getSprite(),
+				player.getWorldX(), 
+				player.getWorldY(),
+				GameSettings.TILE_SIZE,
+				GameSettings.TILE_SIZE); // Render player
+		
+		//Rendering the items in the given map
+		for(Item i : items)
+		{
+			i.getSprite().setPosition(i.getWorldX(), i.getWorldY()); // Testing if restartItems() was being called.
+			i.getSprite().draw(mapRenderer.getBatch());
+		}		
+		
 		mapRenderer.getBatch().end();
-
 		batch.begin();
 		menuKeyCheck();
 		
@@ -156,7 +187,6 @@ public class Map implements Screen {
 
 		batch.end();
 	}
-
 	private void menuKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (menuPressed == false) {
@@ -223,29 +253,24 @@ public class Map implements Screen {
 		
 	}
 	
-	
-
 	@Override
 	public void resize(int width, int height) {
-		// oCamera.viewportHeight = height;
-		// oCamera.viewportWidth = width;
-		// oCamera.position.set(player.getSprite().getX(), player.getSprite().getY(),
-		// 0);
-		// oCamera.update();
-		// Test stuff; setToOrtho method above achieves the effect much better and
-		// cleaner.
+		//oCamera.viewportHeight = height;
+		//oCamera.viewportWidth = width;
+		//oCamera.update();
+		//oCamera.position.set(player.getSprite().getX(), player.getSprite().getY(), 0);
+		//Test stuff; setToOrtho method above achieves the effect much better and cleaner.
 	}
 
 	@Override
-	public void pause() {
-	}
+	public void pause() {	}
 
 	@Override
-	public void resume() {
-	}
+	public void resume() {	}
 
 	@Override
-	public void hide() {
+	public void hide() 
+	{
 		dispose();
 	}
 
@@ -255,37 +280,15 @@ public class Map implements Screen {
 		mapRenderer.dispose();
 		player.getSprite().getTexture().dispose();
 	}
-
-	public TiledMap getTileMap() {
+	
+	public TiledMap getTileMap()
+	{
 		return tilemap;
 	}
-
-	public void setupLayer(String layerID) {
-		int layer = tilemap.getLayers().getIndex(layerID);
-		MapLayer objectLayer = tilemap.getLayers().get(layer);
-		MapObjects object = objectLayer.getObjects();
-
-		mapObjects.put(layerID, object);
+	
+	public TiledModel getTiledModel() {
+		return model;
 	}
-
-	public boolean checkTouching(String layerID) {
-		MapObjects objectTouching = mapObjects.get(layerID);
-
-		for (RectangleMapObject rectangleObject : objectTouching.getByType(RectangleMapObject.class)) {
-			Rectangle rectangle = rectangleObject.getRectangle();
-			if (Intersector.overlaps(rectangle, player.getSprite().getBoundingRectangle())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean getLayerVisibility(String layerID) {
-		return tilemap.getLayers().get(tilemap.getLayers().getIndex(layerID)).isVisible();
-	}
-
-	public void setLayerVisibility(String layerID, boolean visibility) {
-		tilemap.getLayers().get(tilemap.getLayers().getIndex(layerID)).setVisible(visibility);
-	}
-
+	
 }
+

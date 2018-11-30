@@ -39,13 +39,15 @@ public class MainGameScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+	
 		game.getGameController().getSpriteBatch().begin();
 		
 		loading.setPosition(Gdx.graphics.getWidth()/2 - loading.getWidth()/2, 
 				Gdx.graphics.getHeight()/2 - loading.getHeight()/2);
 		
 		loading.draw(game.getGameController().getSpriteBatch());
+		
+		
 		game.getGameController().getSpriteBatch().end();
 
 		tween.update(delta);

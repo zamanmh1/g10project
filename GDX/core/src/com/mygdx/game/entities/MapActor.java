@@ -1,8 +1,5 @@
 package com.mygdx.game.entities;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-
 /**
  * A simplified representation of an Actor in the assumed TiledMap.
  * 
@@ -14,15 +11,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  */
 
 public interface MapActor {
-
-	
+		
 	/**
 	 * The methods which MapActor objects must implement.
 	 */
-	abstract Sprite getSprite();
-	abstract float getXCell();
-	abstract float getYCell();
-	abstract void draw(Batch spriteBatch);
-	//public abstract void update(float delta);
 	
+	// Any item which wants to occupy a tile within map must implement.
+	int getX();
+	int getY();	
+	float getWorldX();
+	float getWorldY();
 }
