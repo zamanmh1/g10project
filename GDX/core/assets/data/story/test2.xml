@@ -1,0 +1,35 @@
+<speech>
+	<npc1>
+		<dialogue currState="1">"game state was 1, will be 1a"
+			<state>1a</state>
+		</dialogue>
+		<dialogue currState="1a">"game state is 1a, will be 1b"
+			<state>1b</state>
+		</dialogue>
+		<dialogue currState="1b">"game state was 1a, now 1b"
+			
+		</dialogue>
+	</npc1>
+	<key01>
+		<dialogue currState="1a">"You already have a weapon to beat up the guards, why do you need a key? You take it anyway"
+		</dialogue>
+		<dialogue>"Picked up key"
+			<state>1b</state>
+		</dialogue>
+	</key01>
+
+	<wep01>
+		<dialogue currState="1b">"You already have a key, what do you need this for?! Evil Bastard..."
+		</dialogue>
+		<dialogue>"Picked up weapon"
+			<state>1a</state>
+		</dialogue>
+	</wep01>
+	
+	<quest1>
+		<objective currState="1">
+			"Get the Key"
+		</objective>
+	</quest1>
+</speech>
+

@@ -1,0 +1,19 @@
+<speech>
+	<dialogue currState="1">"Hello, is this a test piece of dialogue"
+		<choice>"yes"
+			<dialogue>"You said yes!?"</dialogue>
+			<state>1b</state>
+		</choice>
+		<choice>"No"
+			<dialogue>"NO!? What do you mean no!?"</dialogue>
+			<state>1c</state>
+		</choice>
+	</dialogue>
+	<dialogue currState="1b">"Thanks for saying yes!"
+		<state>1</state>
+	</dialogue>
+		
+	<dialogue currState="1c">"Sorry for giving you an outburst like that!"
+		<state>1</state>
+	</dialogue>
+</speech>

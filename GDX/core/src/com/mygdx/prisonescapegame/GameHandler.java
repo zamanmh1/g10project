@@ -40,7 +40,7 @@ public class GameHandler implements GameController {
 		batch = new SpriteBatch();
 		game.setScreen(new Splash(game));
 		iHandler = new ItemHandler();
-		setMap("data/playerSprites/hack.tmx");
+		setMap("data/maps/hack.tmx");
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("data/BackgroundSound.mp3"));
 		music.setLooping(true);

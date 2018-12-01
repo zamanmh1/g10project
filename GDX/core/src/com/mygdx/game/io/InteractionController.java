@@ -6,6 +6,7 @@ import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.model.Tile;
+import com.mygdx.prisonescapegame.Dialogue;
 import com.mygdx.prisonescapegame.GameHandler;
 
 /**
@@ -21,6 +22,7 @@ import com.mygdx.prisonescapegame.GameHandler;
 public class InteractionController extends InputAdapter {
 	private Actor actor;
 	private GameHandler gameHandler;
+	private Dialogue d = new Dialogue();
 	
 	public InteractionController(Actor actor) {
 		this.actor = actor;
@@ -54,6 +56,11 @@ public class InteractionController extends InputAdapter {
 					gameHandler.getItemHandler().foundItem(i); // Set item as found.
 					actor.getCurrentMap().getTiledModel().getTile(i.getX(), i.getY()).setActor(null); // Remove from tile in model.
 					gameHandler.removeActor(i); // Remove from list of actors.
+					if(d.hasDialogue(i.getName())) //Null pointer safety in case dialogue doesn't exist
+					{
+						d.getDialogue(i.getName()); //Get Dialogue
+					}
+					
 					return true;
 				}
 			}
