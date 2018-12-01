@@ -3,6 +3,7 @@ package com.mygdx.game.entities;
 import com.mygdx.game.util.ActorAnimation;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
+import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.prisonescapegame.screens.Map;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
@@ -38,9 +39,9 @@ public class Actor implements MapActor {
 	
 	private ActorAnimation animations;
 	
-	public Actor(int x, int y, ActorAnimation animations)
+	public Actor(int x, int y, ActorAnimation animations, PrisonEscapeGame game)
 	{
-		this.currentMap = new Map(this);
+		this.currentMap = new Map(this, game);
 		this.x = x;
 		this.y = y;
 		this.worldX = x * GameSettings.TILE_SIZE; // World coordinates adjusted for tile size.

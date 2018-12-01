@@ -49,7 +49,7 @@ public class PrisonEscapeGame extends Game {
 				atlas.findRegion("player_stand_west")
 		);
 		
-		this.player = new Actor(5, 5, animations);
+		this.player = new Actor(5, 5, animations, this);
 		this.game = new GameHandler(this);
 	}
 
