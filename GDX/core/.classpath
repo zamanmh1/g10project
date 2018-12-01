@@ -12,6 +12,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="lib" path="/Users/sean-mac/Documents/Uni/Year 2/Personal TP/Workspace/gdx-tools.jar"/>
+	<classpathentry kind="lib" path="/GDX/libs/gdx-tools.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
