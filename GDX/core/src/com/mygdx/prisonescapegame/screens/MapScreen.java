@@ -72,12 +72,12 @@ public class MapScreen implements Screen
 	private static final int EXIT_BUTTON_HEIGHT = 52;
 	private static final int EXIT_BUTTON_Y = 100;
 	private Sprite exitButtonMenuActive;
-	private Sprite logo;
 	private PrisonEscapeGame game;
 	private SpriteBatch batch;
 	
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
+
 		this.player = player;
 		this.game = game;
 		tween = new TweenManager();
@@ -85,7 +85,7 @@ public class MapScreen implements Screen
 		tilemap = null;
 		
 		batch = new SpriteBatch();	
-				
+
 		movementHandler = new PlayerMovementController(player);
 		interactionHandler = new InteractionController(player);
 		
@@ -144,12 +144,13 @@ public class MapScreen implements Screen
 		//mapRenderer = new OrthogonalTiledMapRenderer(tilemap); //initialises the Orthogonal (top-down) renderer for the map
 		oCamera = new OrthographicCamera(); //creates a camera to display the map on screen
 		//oCamera.setToOrtho(false, 11,16);
+	
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
 		//Sets the camera and renders the scene from the bottom left. /3 to zoom in to match the size of the window.
 		
 		Gdx.input.setInputProcessor(inputHandler);
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
-		
+
 		Tween.set(optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
 		Tween.to(optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
 		Tween.set(playButtonMenuActive, SpriteAccessor.ALPHA).target(0f).start(tween);
@@ -175,6 +176,7 @@ public class MapScreen implements Screen
 		
 		// Smooth camera based on updated player position
 		oCamera.position.set(player.getWorldX()+0.5f, player.getWorldY()+0.5f, 0);
+		
 		oCamera.update();
 		
 		mapRenderer.setView(oCamera);
@@ -199,6 +201,7 @@ public class MapScreen implements Screen
 		}		
 		
 		mapRenderer.getBatch().end();
+		
 		if (menuKeyCheck() == true) {
 			
 			
@@ -237,7 +240,7 @@ public class MapScreen implements Screen
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
 
-			playButtonMenuActive.setPosition(x, PLAY_BUTTON_Y);
+			playButtonMenuActive.setPosition(x,PLAY_BUTTON_Y);
 			playButtonMenuActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			playButtonMenuActive.draw(batch);
 
@@ -251,7 +254,7 @@ public class MapScreen implements Screen
 			}
 		} else {
 		
-			playButtonMenuInActive.setPosition(x, PLAY_BUTTON_Y);
+			playButtonMenuInActive.setPosition(x,PLAY_BUTTON_Y);
 			playButtonMenuInActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			playButtonMenuInActive.draw(batch);
 
@@ -303,6 +306,7 @@ public class MapScreen implements Screen
 		//oCamera.update();
 		//oCamera.position.set(player.getSprite().getX(), player.getSprite().getY(), 0);
 		//Test stuff; setToOrtho method above achieves the effect much better and cleaner.
+		
 	}
 
 	@Override
@@ -328,6 +332,7 @@ public class MapScreen implements Screen
 		playButtonMenuActive.getTexture().dispose();
 		optionBackground.getTexture().dispose();
 		playButtonMenuInActive.getTexture().dispose();
+
 	}
 	
 	public TiledMap getTileMap()
