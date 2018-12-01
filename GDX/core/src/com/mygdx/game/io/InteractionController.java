@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
+import com.mygdx.game.model.Map;
 import com.mygdx.game.model.Tile;
 import com.mygdx.prisonescapegame.Dialogue;
 import com.mygdx.prisonescapegame.GameHandler;
@@ -38,8 +39,25 @@ public class InteractionController extends InputAdapter {
 		// Triggered upon key release (only called once).
 		if (keycode == Keys.E) {			
 			Tile target = actor.getCurrentMap().getTiledModel().getTile(actor.getX() + actor.getFacing().getMoveX(), actor.getY() + actor.getFacing().getMoveY()); // If player facing actor to interact with.
+			
+			// If tile facing is a teleporter tile.
+			if (target.getTeleporter() == true) {
+				// Get whether moving forwards or backwards in teleporter.
+				String telType = target.getTeleporterType();
+				
+				// Get current map.
+				Map currentMap = gameHandler.getMapHandler().getMap(gameHandler.getMapHandler().getCurrentMap(), telType);
+				// Get map moving to.
+				Map movingTo = gameHandler.getMapHandler().getMap(currentMap.getLeadsTo(), telType);
+				
+				
+				gameHandler.setMap(movingTo.getFileLocation(), movingTo.getSpawnX(), movingTo.getSpawnY());
+				actor.changeFacing(movingTo.getDirection());
+				gameHandler.getMapHandler().setCurrentMap(movingTo.getName());
+			}
+			
 			// If actor in tile facing.
-			if(target.getActor() != null) {
+			else if(target.getActor() != null) {
 				MapActor interactingActor = target.getActor();
 				
 				// If interacting with an Actor.

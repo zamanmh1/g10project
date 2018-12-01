@@ -4,7 +4,7 @@ import com.mygdx.game.util.ActorAnimation;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
-import com.mygdx.prisonescapegame.screens.Map;
+import com.mygdx.prisonescapegame.screens.MapScreen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 
@@ -20,7 +20,7 @@ import com.badlogic.gdx.math.Interpolation;
 
 public class Actor implements MapActor {
 	
-	private Map currentMap;
+	private MapScreen currentMap;
 	private int x, y; // Coordinates in model.
 	private DIRECTION facing;
 	
@@ -41,7 +41,7 @@ public class Actor implements MapActor {
 	
 	public Actor(int x, int y, ActorAnimation animations, PrisonEscapeGame game)
 	{
-		this.currentMap = new Map(this, game);
+		this.currentMap = new MapScreen(this, game);
 		this.x = x;
 		this.y = y;
 		this.worldX = x * GameSettings.TILE_SIZE; // World coordinates adjusted for tile size.
@@ -168,11 +168,12 @@ public class Actor implements MapActor {
 		
 	}
 	
-	public void setMap(String maps, GameHandler gameHandler) {
-		currentMap.setMap(maps, gameHandler);
+	public void setMap(String maps, GameHandler gameHandler, int x, int y) {
+		currentMap.setMap(maps, gameHandler, x, y);
+		this.teleport(x, y);
 	}
 
-	public Map getCurrentMap() {
+	public MapScreen getCurrentMap() {
 		return currentMap;
 	}
 	
@@ -206,5 +207,12 @@ public class Actor implements MapActor {
 	
 	public DIRECTION getFacing() {
 		return this.facing;
+	}
+	
+	public void teleport(int x, int y) {
+		this.worldX = x * GameSettings.TILE_SIZE;
+		this.worldY = y * GameSettings.TILE_SIZE;		
+		this.x = x;
+		this.y = y;
 	}
 }

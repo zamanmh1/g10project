@@ -15,6 +15,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.io.InteractionController;
@@ -40,13 +44,12 @@ import aurelienribon.tweenengine.TweenManager;
  * 
  */
 
-public class Map implements Screen
+public class MapScreen implements Screen
 {	
 	private TiledMap tilemap; 
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera oCamera;
 	private Actor player;
-	private TmxMapLoader loader;
 	
 	private ArrayList<Item> items; // Items to be drawn on each rendered frame
 	
@@ -54,8 +57,7 @@ public class Map implements Screen
 	private PlayerMovementController movementHandler;
 	private InteractionController interactionHandler;
 	
-	private TiledModel model;
-	
+	private TiledModel model;	
 
 	private Sprite optionBackground;
 	private Sprite playButtonMenuInActive;
@@ -72,16 +74,17 @@ public class Map implements Screen
 	private Sprite exitButtonMenuActive;
 	private Sprite logo;
 	private PrisonEscapeGame game;
-	private boolean exitPressed;
+	private SpriteBatch batch;
 	
 
-	public Map(Actor player, PrisonEscapeGame game) {
+	public MapScreen(Actor player, PrisonEscapeGame game) {
 		this.player = player;
 		this.game = game;
 		tween = new TweenManager();
+		mapRenderer = new OrthogonalTiledMapRenderer(null);
 		tilemap = null;
-		loader = new TmxMapLoader();	
-				exitPressed = false;
+		
+		batch = new SpriteBatch();	
 				
 		movementHandler = new PlayerMovementController(player);
 		interactionHandler = new InteractionController(player);
@@ -95,14 +98,27 @@ public class Map implements Screen
 		playButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/play_active.png")));
 		exitButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
 		exitButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/exit_inactive.png")));
-		logo = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
 		menuPressed = false;
 	}
 	
-	public void setMap(String map, GameHandler gameHandler) {			
-		tilemap = loader.load(map);
+	public void setMap(String map, GameHandler gameHandler, int newX, int newY) {			
+		tilemap = new TmxMapLoader().load(map);
+		
+		/** 
+		 * If already a map being shown, try to dispose of it.
+		 * However, if it is the first map to be shown there is nothing to dispose of. 
+		 */
+		try {
+			mapRenderer.getMap().dispose();
+		} catch  (NullPointerException e) {	
+			// Initial call to method to setup first map.
+			// Maybe output a message to welcome player to game?
+		}
+
+		mapRenderer.setMap(tilemap);
+		
 		model = new TiledModel(tilemap);
-		getTiledModel().getTile(player.getX(), player.getY()).setActor(player);
+		getTiledModel().getTile(newX, newY).setActor(player);
 		
 		interactionHandler.setItemHandler(gameHandler); // high coupling (bad) provides way for interaction controller to handle finding items
 		
@@ -125,7 +141,7 @@ public class Map implements Screen
 	public void show() 
 	{		
 		//Gdx.graphics.setWindowedMode(528, 768);
-		mapRenderer = new OrthogonalTiledMapRenderer(tilemap); //initialises the Orthogonal (top-down) renderer for the map
+		//mapRenderer = new OrthogonalTiledMapRenderer(tilemap); //initialises the Orthogonal (top-down) renderer for the map
 		oCamera = new OrthographicCamera(); //creates a camera to display the map on screen
 		//oCamera.setToOrtho(false, 11,16);
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
@@ -134,10 +150,16 @@ public class Map implements Screen
 		Gdx.input.setInputProcessor(inputHandler);
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		
-		
-		
-		
-		//Tween.to(exitButtonMenuActive, SpriteAccessor.ALPHA, 1.0f).target(0.5f).start(tween);
+		Tween.set(optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
+		Tween.set(playButtonMenuActive, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(playButtonMenuActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
+		Tween.set(playButtonMenuInActive, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(playButtonMenuInActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
+		Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(exitButtonMenuActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
+		Tween.set(exitButtonMenuInActive, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(exitButtonMenuInActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
 		
 	}
 
@@ -180,16 +202,16 @@ public class Map implements Screen
 		if (menuKeyCheck() == true) {
 			
 			
-			game.getGameController().getSpriteBatch().begin();
+			batch.begin();
 			optionBackground.setPosition(Gdx.graphics.getWidth() / 2 - optionBackground.getWidth() / 2,
 					Gdx.graphics.getHeight() / 2 - optionBackground.getHeight() / 2);
 			
 			
 			
-			optionBackground.draw(game.getGameController().getSpriteBatch());
+			optionBackground.draw(batch);
 			playButtonMenu();
 			exitButtonMenu();
-			game.getGameController().getSpriteBatch().end();
+			batch.end();
 		}
 		 
 		
@@ -217,7 +239,7 @@ public class Map implements Screen
 
 			playButtonMenuActive.setPosition(x, PLAY_BUTTON_Y);
 			playButtonMenuActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
-			playButtonMenuActive.draw(game.getGameController().getSpriteBatch());
+			playButtonMenuActive.draw(batch);
 
 			
 
@@ -231,7 +253,7 @@ public class Map implements Screen
 		
 			playButtonMenuInActive.setPosition(x, PLAY_BUTTON_Y);
 			playButtonMenuInActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
-			playButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
+			playButtonMenuInActive.draw(batch);
 
 		}
 		
@@ -245,19 +267,19 @@ public class Map implements Screen
 
 			exitButtonMenuActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonMenuActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-			exitButtonMenuActive.draw(game.getGameController().getSpriteBatch());
+			exitButtonMenuActive.draw(batch);
 
 			
 
 			if (Gdx.input.justTouched()) {
 				Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
-				Tween.set(logo, SpriteAccessor.ALPHA).target(0).start(tween);
-				Tween.to(logo, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(0, 0).setCallback(new TweenCallback() {
+				Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
+				Tween.to(exitButtonMenuActive, SpriteAccessor.ALPHA, 0.5f).target(1).repeatYoyo(0, 0).setCallback(new TweenCallback() {
 
 					@Override
 					public void onEvent(int type, BaseTween<?> source) {
-						((Game) Gdx.app.getApplicationListener()).setScreen(MainMenuScreen.getInstance(null));
+						game.setScreen(MainMenuScreen.getInstance(game));
 					}
 				}).start(tween);
 				//game.setScreen(MainMenuScreen.getInstance(null));
@@ -267,7 +289,7 @@ public class Map implements Screen
 		
 			exitButtonMenuInActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonMenuInActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-			exitButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
+			exitButtonMenuInActive.draw(batch);
 
 		}
 		
@@ -285,7 +307,6 @@ public class Map implements Screen
 
 	@Override
 	public void pause() {
-		Gdx.app.getApplicationListener().pause();
 	}
 
 	@Override
@@ -302,6 +323,11 @@ public class Map implements Screen
 		tilemap.dispose();
 		mapRenderer.dispose();
 		player.getSprite().getTexture().dispose();
+		exitButtonMenuInActive.getTexture().dispose();
+		exitButtonMenuActive.getTexture().dispose();
+		playButtonMenuActive.getTexture().dispose();
+		optionBackground.getTexture().dispose();
+		playButtonMenuInActive.getTexture().dispose();
 	}
 	
 	public TiledMap getTileMap()

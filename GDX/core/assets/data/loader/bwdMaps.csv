@@ -1,0 +1,4 @@
+cell,data/maps/cell.tmx,3,5,null,SOUTH
+cellblock,data/maps/cellblock.tmx,3,7,cell,WEST
+cellblockG,data/maps/cellblockG.tmx,34,7,cellblock,WEST
+foodhall,data/maps/foodhall.tmx,0,0,cellblockG,WEST

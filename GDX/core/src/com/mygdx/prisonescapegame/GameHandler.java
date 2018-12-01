@@ -5,6 +5,7 @@ import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.helpers.ItemHandler;
+import com.mygdx.game.helpers.MapHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,8 @@ public class GameHandler implements GameController {
 	
 	private final PrisonEscapeGame game;
 
-	private ItemHandler iHandler;
+	private MapHandler mapHandler;
+	private ItemHandler itemHandler;
 	private SpriteBatch batch;
 	private Music music;
 	
@@ -39,8 +41,10 @@ public class GameHandler implements GameController {
 		
 		batch = new SpriteBatch();
 		game.setScreen(new Splash(game));
-		iHandler = new ItemHandler();
-		setMap("data/maps/hack.tmx");
+		
+		mapHandler = new MapHandler();
+		itemHandler = new ItemHandler();
+		setMap("data/maps/cell.tmx", getPlayer().getX(), getPlayer().getY());
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("data/BackgroundSound.mp3"));
 		music.setLooping(true);
@@ -64,13 +68,21 @@ public class GameHandler implements GameController {
 	}
 	
 	@Override
-	public void setMap(String map) {
+	public void setMap(String map, int x, int y) {
+		// In initial call, player actor won't be in the map.
+		// Catches null pointer without throwing run time error.
+		try {
+			actors.remove(getPlayer());
+		} catch  (NullPointerException e) {	
+			
+		}
+
 		actors = new ArrayList<MapActor>();
 		actors.add(getPlayer());
 		
-		getPlayer().setMap(map, this);
+		getPlayer().setMap(map, this, x, y);
 		
-		for (Item i : iHandler.getAllItems().values()) {
+		for (Item i : itemHandler.getAllItems().values()) {
 			if (i.getAppearsIn().equals(map)) {
 				getPlayer().getCurrentMap().addItemToMap(i);
 				addActor(i);
@@ -93,6 +105,10 @@ public class GameHandler implements GameController {
 	}
 	
 	public ItemHandler getItemHandler() {
-		return this.iHandler;
+		return this.itemHandler;
+	}
+	
+	public MapHandler getMapHandler() {
+		return this.mapHandler;
 	}
 }
