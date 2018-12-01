@@ -1,14 +1,24 @@
 package com.mygdx.game.io;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.model.Map;
 import com.mygdx.game.model.Tile;
+import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.Dialogue;
 import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.screens.MainMenuScreen;
+
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenManager;
 
 /**
  * CLASS DESCRIPTION
@@ -25,8 +35,10 @@ public class InteractionController extends InputAdapter {
 	private GameHandler gameHandler;
 	private Dialogue d = new Dialogue();
 	
+	
 	public InteractionController(Actor actor) {
 		this.actor = actor;
+		
 	}
 	
 	public void setItemHandler(GameHandler gameHandler) {
@@ -51,6 +63,8 @@ public class InteractionController extends InputAdapter {
 				Map movingTo = gameHandler.getMapHandler().getMap(currentMap.getLeadsTo(), telType);
 				
 				
+
+			
 				gameHandler.setMap(movingTo.getFileLocation(), movingTo.getSpawnX(), movingTo.getSpawnY());
 				actor.changeFacing(movingTo.getDirection());
 				gameHandler.getMapHandler().setCurrentMap(movingTo.getName());

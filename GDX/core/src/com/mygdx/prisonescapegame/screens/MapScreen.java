@@ -7,6 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -74,6 +76,14 @@ public class MapScreen implements Screen
 	private Sprite exitButtonMenuActive;
 	private PrisonEscapeGame game;
 	private SpriteBatch batch;
+	private boolean checkPlayButtonMouseOver;
+	private boolean checkExitButtonMouseOver;
+	private static final int VOLUME_BUTTON_WIDTH = 50;
+	private static final int VOLUME_BUTTON_Y = 50;
+	private static final int VOLUME_BUTTON_HEIGHT = 50;
+	private Sprite volumeButtonMuted;
+	private Sprite volumeButtonFull;
+
 	
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
@@ -90,7 +100,6 @@ public class MapScreen implements Screen
 		interactionHandler = new InteractionController(player);
 		
 		inputHandler = new InputMultiplexer();
-		
 		inputHandler.addProcessor(movementHandler);
 		inputHandler.addProcessor(interactionHandler);
 		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
@@ -98,18 +107,26 @@ public class MapScreen implements Screen
 		playButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/play_active.png")));
 		exitButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
 		exitButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/exit_inactive.png")));
+		volumeButtonMuted = MainMenuScreen.getInstance(game).volumeButtonMuted();
+		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
 		menuPressed = false;
+		checkPlayButtonMouseOver = false;
+		checkExitButtonMouseOver = false;
 	}
 	
-	public void setMap(String map, GameHandler gameHandler, int newX, int newY) {			
-		tilemap = new TmxMapLoader().load(map);
+	public void setMap(String map, GameHandler gameHandler, int newX, int newY) {	
 		
+		tilemap = new TmxMapLoader().load(map);
 		/** 
 		 * If already a map being shown, try to dispose of it.
 		 * However, if it is the first map to be shown there is nothing to dispose of. 
 		 */
 		try {
+			
 			mapRenderer.getMap().dispose();
+			
+			
+			
 		} catch  (NullPointerException e) {	
 			// Initial call to method to setup first map.
 			// Maybe output a message to welcome player to game?
@@ -123,6 +140,8 @@ public class MapScreen implements Screen
 		interactionHandler.setItemHandler(gameHandler); // high coupling (bad) provides way for interaction controller to handle finding items
 		
 		items = new ArrayList<Item>(); // Resets items in map
+		
+		
 	}
 	
 	
@@ -150,7 +169,7 @@ public class MapScreen implements Screen
 		
 		Gdx.input.setInputProcessor(inputHandler);
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
-
+		
 		Tween.set(optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
 		Tween.to(optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
 		Tween.set(playButtonMenuActive, SpriteAccessor.ALPHA).target(0f).start(tween);
@@ -201,11 +220,11 @@ public class MapScreen implements Screen
 		}		
 		
 		mapRenderer.getBatch().end();
-		
+		batch.begin();
 		if (menuKeyCheck() == true) {
 			
 			
-			batch.begin();
+			
 			optionBackground.setPosition(Gdx.graphics.getWidth() / 2 - optionBackground.getWidth() / 2,
 					Gdx.graphics.getHeight() / 2 - optionBackground.getHeight() / 2);
 			
@@ -214,9 +233,10 @@ public class MapScreen implements Screen
 			optionBackground.draw(batch);
 			playButtonMenu();
 			exitButtonMenu();
-			batch.end();
+			volumeButton();
+			
 		}
-		 
+		batch.end();
 		
 		}
 		
@@ -244,6 +264,14 @@ public class MapScreen implements Screen
 			playButtonMenuActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			playButtonMenuActive.draw(batch);
 
+			if (checkPlayButtonMouseOver == false) {
+				Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
+
+				getMouseOverSound.play(1f);
+
+				checkPlayButtonMouseOver = true;
+
+			}
 			
 
 			if (Gdx.input.isTouched()) {
@@ -253,7 +281,7 @@ public class MapScreen implements Screen
 
 			}
 		} else {
-		
+			checkPlayButtonMouseOver = false;
 			playButtonMenuInActive.setPosition(x,PLAY_BUTTON_Y);
 			playButtonMenuInActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
 			playButtonMenuInActive.draw(batch);
@@ -272,6 +300,14 @@ public class MapScreen implements Screen
 			exitButtonMenuActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 			exitButtonMenuActive.draw(batch);
 
+			if (checkExitButtonMouseOver == false) {
+				Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
+
+				getMouseOverSound.play(1f);
+
+				checkExitButtonMouseOver = true;
+
+			}
 			
 
 			if (Gdx.input.justTouched()) {
@@ -289,7 +325,7 @@ public class MapScreen implements Screen
 
 			}
 		} else {
-		
+			checkExitButtonMouseOver = false;
 			exitButtonMenuInActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonMenuInActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 			exitButtonMenuInActive.draw(batch);
@@ -298,6 +334,39 @@ public class MapScreen implements Screen
 		
 	}
 
+	private void volumeButton() {
+		int x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 300;
+		Boolean muted = MainMenuScreen.getInstance(game).checkSoundMuted();
+		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
+			if (muted == false) {
+
+				MainMenuScreen.getInstance(game).setVolumeMute(true);
+
+			} else if (muted == true) {
+				MainMenuScreen.getInstance(game).setVolumeMute(false);
+			}
+		}
+
+		Music music = game.getGameController().getMusic();
+		Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
+		if (muted) {
+
+			volumeButtonMuted.setPosition(x, VOLUME_BUTTON_Y);
+			volumeButtonMuted.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
+			volumeButtonMuted.draw(batch);
+			music.pause();
+			getMouseOverSound.stop();
+		} else {
+
+			volumeButtonFull.setPosition(x, VOLUME_BUTTON_Y);
+			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
+			volumeButtonFull.draw(batch);
+			music.play();
+		}
+
+	}
 	
 	@Override
 	public void resize(int width, int height) {

@@ -2,6 +2,16 @@ package com.mygdx.game.tween;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+/**
+ * CLASS DESCRIPTION
+ * 
+ * @author Shibu George
+ * 
+ * @version 0.1
+ * @since 0.1
+ * 
+ */
+
 import aurelienribon.tweenengine.TweenAccessor;
 
 public class BitmapAccessor implements TweenAccessor<BitmapFont>  {
