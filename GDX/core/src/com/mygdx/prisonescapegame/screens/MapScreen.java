@@ -172,6 +172,10 @@ public class MapScreen implements Screen
 		
 		Tween.set(optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
 		Tween.to(optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
+		Tween.set(volumeButtonMuted, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(volumeButtonMuted, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
+		Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
 		Tween.set(playButtonMenuActive, SpriteAccessor.ALPHA).target(0f).start(tween);
 		Tween.to(playButtonMenuActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
 		Tween.set(playButtonMenuInActive, SpriteAccessor.ALPHA).target(0f).start(tween);
