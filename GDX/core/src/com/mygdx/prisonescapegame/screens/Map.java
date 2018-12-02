@@ -13,8 +13,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.Item;
+import com.mygdx.game.io.DialogueUI;
 import com.mygdx.game.io.InteractionController;
 import com.mygdx.game.io.PlayerMovementController;
 import com.mygdx.game.model.TiledModel;
@@ -29,9 +33,9 @@ import aurelienribon.tweenengine.TweenManager;
 /**
  * CLASS DESCRIPTION
  * 
- * @author Sam Ward
+ * @author Sam Ward, Sean Corcoran
  * 
- * @version 0.2
+ * @version 0.3
  * @since 0.1
  * 
  */
@@ -66,12 +70,17 @@ public class Map implements Screen
 	private static final int EXIT_BUTTON_HEIGHT = 52;
 	private static final int EXIT_BUTTON_Y = 100;
 	private Sprite exitButtonActive;
+	
+	private static Stage stage;
+
 
 	public Map(Actor player) {
 		this.player = player;
 		tween = new TweenManager();
 		tilemap = null;
 		loader = new TmxMapLoader();	
+		
+		stage = new Stage();
 				
 		movementHandler = new PlayerMovementController(player);
 		interactionHandler = new InteractionController(player);
@@ -80,6 +89,7 @@ public class Map implements Screen
 		
 		inputHandler.addProcessor(movementHandler);
 		inputHandler.addProcessor(interactionHandler);
+		inputHandler.addProcessor(stage);
 		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
 		playButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/play_inactive.png")));
 		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/play_active.png")));
@@ -142,7 +152,7 @@ public class Map implements Screen
 		tween.update(delta);
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		// Smooth camera based on updated player position
 		oCamera.position.set(player.getWorldX()+0.5f, player.getWorldY()+0.5f, 0);
 		oCamera.update();
@@ -161,14 +171,21 @@ public class Map implements Screen
 				GameSettings.TILE_SIZE,
 				GameSettings.TILE_SIZE); // Render player
 		
+		//stage.act();
+		//stage.draw();
+		
 		//Rendering the items in the given map
 		for(Item i : items)
 		{
 			i.getSprite().setPosition(i.getWorldX(), i.getWorldY()); // Testing if restartItems() was being called.
 			i.getSprite().draw(mapRenderer.getBatch());
-		}		
+		}				
+
 		
+		//stage.draw(); //For some reason when this is in play, actors start to disappear when interacted with.
 		mapRenderer.getBatch().end();
+		stage.act();
+		stage.draw();
 		batch.begin();
 		menuKeyCheck();
 		
@@ -184,8 +201,10 @@ public class Map implements Screen
 			exitButtonMenu();
 			
 		}
+		
 
 		batch.end();
+
 	}
 	private void menuKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
@@ -279,6 +298,7 @@ public class Map implements Screen
 		tilemap.dispose();
 		mapRenderer.dispose();
 		player.getSprite().getTexture().dispose();
+		stage.dispose();
 	}
 	
 	public TiledMap getTileMap()
@@ -288,6 +308,11 @@ public class Map implements Screen
 	
 	public TiledModel getTiledModel() {
 		return model;
+	}
+	
+	public static Stage getStage()
+	{
+		return stage;
 	}
 	
 }
