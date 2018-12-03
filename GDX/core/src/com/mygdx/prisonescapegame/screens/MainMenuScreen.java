@@ -28,10 +28,10 @@ public class MainMenuScreen implements Screen {
 
 	private static final int PLAY_BUTTON_WIDTH = 174;
 	private static final int PLAY_BUTTON_HEIGHT = 52;
-	private static final int PLAY_BUTTON_Y = 500;
+	private static final int PLAY_BUTTON_Y = 600;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = 300;
+	private static final int EXIT_BUTTON_Y = 200;
 	private static final int HELP_BUTTON_WIDTH = 174;
 	private static final int HELP_BUTTON_Y = 400;
 	private static final int HELP_BUTTON_HEIGHT = 52;
@@ -115,21 +115,22 @@ public class MainMenuScreen implements Screen {
 
 		game.getGameController().getSpriteBatch().begin();
 
+		backgroundSprite.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 		
-		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 100;
+		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 200;
 		
 		playButton(x);
 		
-		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 100;
+		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 200;
 		
 		exitButton(x);
 		
-		x = PrisonEscapeGame.WIDTH / 2 - HELP_BUTTON_WIDTH / 2 + 100;
+		x = PrisonEscapeGame.WIDTH / 2 - HELP_BUTTON_WIDTH / 2 + 200;
 		
 		helpButton(x);
 
-		x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 300;
+		x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
 		
 		volumeButton(x);
 

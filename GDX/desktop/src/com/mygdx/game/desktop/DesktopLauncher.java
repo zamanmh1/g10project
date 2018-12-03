@@ -1,9 +1,9 @@
 package com.mygdx.game.desktop;
 
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
@@ -25,8 +25,10 @@ public class DesktopLauncher
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+
 		config.width = (int) screenSize.getWidth(); //528
 		config.height = (int) screenSize.getHeight(); //768
+
 		config.fullscreen = true;
 		config.title = "Team 10: Hack";
 		config.foregroundFPS = 60;

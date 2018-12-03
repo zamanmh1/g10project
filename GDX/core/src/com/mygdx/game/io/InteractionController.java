@@ -13,6 +13,7 @@ import com.mygdx.game.model.Tile;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.Dialogue;
 import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.screens.MapScreen;
 import com.mygdx.prisonescapegame.screens.MainMenuScreen;
 
 import aurelienribon.tweenengine.BaseTween;
@@ -23,9 +24,9 @@ import aurelienribon.tweenengine.TweenManager;
 /**
  * CLASS DESCRIPTION
  * 
- * @author Sam Ward
+ * @author Sam Ward, Sean Corcoran
  * 
- * @version 0.2
+ * @version 0.3
  * @since 0.2
  * 
  */
@@ -34,6 +35,7 @@ public class InteractionController extends InputAdapter {
 	private Actor actor;
 	private GameHandler gameHandler;
 	private Dialogue d = new Dialogue();
+	private DialogueUI dBox = new DialogueUI();
 	
 	
 	public InteractionController(Actor actor) {
@@ -90,7 +92,8 @@ public class InteractionController extends InputAdapter {
 					gameHandler.removeActor(i); // Remove from list of actors.
 					if(d.hasDialogue(i.getName())) //Null pointer safety in case dialogue doesn't exist
 					{
-						d.getDialogue(i.getName()); //Get Dialogue
+						dBox.showDialogue(MapScreen.getStage(), i.getName());
+						//System.out.println(d.getDialogue(i.getName()));
 					}
 					
 					return true;

@@ -36,11 +36,11 @@ public class Dialogue
 		//entityRoot = root.getChildByName("entity");
 	}
 	
-	public void getDialogue(String name)
+	public String getDialogue(String name)
 	{
 		entityRoot = root.getChildByName(name); //new root xml node
 		
-		System.out.println(entityRoot.getName());
+		//System.out.println(entityRoot.getName());
 		
 		Iterator iterator_dialogue = entityRoot.getChildrenByName("dialogue").iterator(); 
 		
@@ -51,15 +51,17 @@ public class Dialogue
 			if(currElement.hasAttribute("currState") == false || currElement.get("currState").equals(GameSettings.getGameState()))
 			{
 				String text = currElement.getText();
-				System.out.println(text);
+				//System.out.println(text);
+				
 				if(currElement.hasChild("state"))
 				{
 					GameSettings.setGameState(currElement.getChildByName("state").getText());
-					System.out.println("state is " + GameSettings.getGameState());
+					//System.out.println("state is " + GameSettings.getGameState());
 				}
-				break;
+				return text;
 			}
 		 }
+		return null;
 	}
 	
 	public boolean hasDialogue(String name)
@@ -70,5 +72,6 @@ public class Dialogue
 		}
 		return false;
 	}
+	
 	
 }
