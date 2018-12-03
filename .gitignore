@@ -60,3 +60,4 @@ hs_err_pid*
 /.metadata/
 /.recommenders/
 .DS_Store
+GDX/.gradle/buildOutputCleanup/outputFiles.bin
