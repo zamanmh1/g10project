@@ -29,6 +29,7 @@ import com.mygdx.game.io.InteractionController;
 import com.mygdx.game.io.PlayerMovementController;
 import com.mygdx.game.model.TiledModel;
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.prisonescape.scenes.Hud;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
@@ -52,6 +53,8 @@ public class MapScreen implements Screen {
 	private TiledMap tilemap;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera oCamera;
+	private Viewport gamePort; // Hud
+	private Hud hud;
 	private Actor player;
 
 	private ArrayList<Item> items; // Items to be drawn on each rendered frame
@@ -198,6 +201,8 @@ public class MapScreen implements Screen {
 		// Orthogonal (top-down) renderer for the map
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
 		// oCamera.setToOrtho(false, 11,16);
+		gamePort = new FitViewport(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT, oCamera);
+		hud = new Hud(game.getGameController().getSpriteBatch());
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to
@@ -250,10 +255,14 @@ public class MapScreen implements Screen {
 		oCamera.position.set(player.getWorldX() + 0.5f, player.getWorldY() + 0.5f, 0);
 
 		oCamera.update();
-
+		
 		mapRenderer.setView(oCamera);
 		mapRenderer.render();
 		// renders the map and sets the view of the camera to display the map
+		
+		// set HUD camera
+		game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
+		hud.stage.draw();
 
 		mapRenderer.getBatch().begin();
 		// player.draw(mapRenderer.getBatch());
@@ -295,6 +304,7 @@ public class MapScreen implements Screen {
 		game.getGameController().getSpriteBatch().end();
 
 	}
+	
 
 	private boolean menuKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
