@@ -20,13 +20,13 @@ public interface GameController {
 	SpriteBatch getSpriteBatch();
 	
 	Actor getPlayer();
-	
-	void setMap(String map);
-	
+		
 	Music getMusic();
 
 	void addActor(MapActor a);
 	
 	void removeActor(MapActor a);
+
+	void setMap(String map, int x, int y);
 
 }

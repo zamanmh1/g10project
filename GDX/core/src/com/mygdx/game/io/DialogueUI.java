@@ -51,7 +51,7 @@ public class DialogueUI extends ScreenAdapter
 		Dialog dialog = new Dialog(name, skin)
 		{
 			{
-				text(dText);
+				text("The quick brown fox jumped over the lazy dog");
 				//button("OK");
 			}
 //			@Override
@@ -65,6 +65,7 @@ public class DialogueUI extends ScreenAdapter
 		dialog.setMovable(false);
 		dialog.setModal(false);
 		dialog.sizeBy(dialog.getPrefWidth(), 5);
+		//dialog.pack();
 		s.addActor(dialog);
 	}
 	

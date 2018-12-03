@@ -1,2 +1,2 @@
-key01,data/itemSprites/key01.png,data/maps/hack.tmx,KEY,3,3
-wep01,data/itemSprites/key01.png,data/maps/hack.tmx,WEAPON,9,5
+key01,data/itemSprites/key01.png,data/maps/cell.tmx,KEY,3,3
+wep01,data/itemSprites/key01.png,data/maps/foodhall.tmx,WEAPON,4,5

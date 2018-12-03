@@ -1,14 +1,25 @@
 package com.mygdx.game.io;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
+import com.mygdx.game.model.Map;
 import com.mygdx.game.model.Tile;
+import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.Dialogue;
 import com.mygdx.prisonescapegame.GameHandler;
-import com.mygdx.prisonescapegame.screens.Map;
+import com.mygdx.prisonescapegame.screens.MapScreen;
+import com.mygdx.prisonescapegame.screens.MainMenuScreen;
+
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenManager;
 
 /**
  * CLASS DESCRIPTION
@@ -26,8 +37,10 @@ public class InteractionController extends InputAdapter {
 	private Dialogue d = new Dialogue();
 	private DialogueUI dBox = new DialogueUI();
 	
+	
 	public InteractionController(Actor actor) {
 		this.actor = actor;
+		
 	}
 	
 	public void setItemHandler(GameHandler gameHandler) {
@@ -40,8 +53,27 @@ public class InteractionController extends InputAdapter {
 		// Triggered upon key release (only called once).
 		if (keycode == Keys.E) {			
 			Tile target = actor.getCurrentMap().getTiledModel().getTile(actor.getX() + actor.getFacing().getMoveX(), actor.getY() + actor.getFacing().getMoveY()); // If player facing actor to interact with.
+			
+			// If tile facing is a teleporter tile.
+			if (target.getTeleporter() == true) {
+				// Get whether moving forwards or backwards in teleporter.
+				String telType = target.getTeleporterType();
+				
+				// Get current map.
+				Map currentMap = gameHandler.getMapHandler().getMap(gameHandler.getMapHandler().getCurrentMap(), telType);
+				// Get map moving to.
+				Map movingTo = gameHandler.getMapHandler().getMap(currentMap.getLeadsTo(), telType);
+				
+				
+
+			
+				gameHandler.setMap(movingTo.getFileLocation(), movingTo.getSpawnX(), movingTo.getSpawnY());
+				actor.changeFacing(movingTo.getDirection());
+				gameHandler.getMapHandler().setCurrentMap(movingTo.getName());
+			}
+			
 			// If actor in tile facing.
-			if(target.getActor() != null) {
+			else if(target.getActor() != null) {
 				MapActor interactingActor = target.getActor();
 				
 				// If interacting with an Actor.
@@ -60,7 +92,7 @@ public class InteractionController extends InputAdapter {
 					gameHandler.removeActor(i); // Remove from list of actors.
 					if(d.hasDialogue(i.getName())) //Null pointer safety in case dialogue doesn't exist
 					{
-						dBox.showDialogue(Map.getStage(), i.getName());
+						dBox.showDialogue(MapScreen.getStage(), i.getName());
 						//System.out.println(d.getDialogue(i.getName()));
 					}
 					

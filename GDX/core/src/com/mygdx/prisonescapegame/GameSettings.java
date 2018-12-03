@@ -11,7 +11,7 @@ package com.mygdx.prisonescapegame;
  */
 
 public class GameSettings {
-	public static int TILE_SIZE = 16;
+	public static int TILE_SIZE = 32;
 	private static String gameState = "1";
 
 	public static String getGameState()
