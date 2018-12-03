@@ -60,8 +60,6 @@ public class MapScreen implements Screen
 	private PlayerMovementController movementHandler;
 	private InteractionController interactionHandler;
 	
-	private boolean isPaused;
-	
 	private TiledModel model;	
 
 	private Sprite optionBackground;
@@ -70,12 +68,12 @@ public class MapScreen implements Screen
 	private TweenManager tween;
 	private boolean menuPressed;
 	private static final int PLAY_BUTTON_WIDTH = 174;
-	private static final int PLAY_BUTTON_Y = 300;
+	private static final int PLAY_BUTTON_Y = 500;
 	private static final int PLAY_BUTTON_HEIGHT = 52;
 	private Sprite playButtonMenuActive;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = 100;
+	private static final int EXIT_BUTTON_Y = 300;
 	private Sprite exitButtonMenuActive;
 	private PrisonEscapeGame game;
 	private SpriteBatch batch;
