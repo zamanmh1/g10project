@@ -20,8 +20,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class PrisonEscapeGame extends Game {
 
-	public static final int WIDTH = 720;
-	public static final int HEIGHT = 520;
+	public static final int WIDTH = 1366;
+	public static final int HEIGHT = 768;
 	
 	private AssetManager assetManager;
 	

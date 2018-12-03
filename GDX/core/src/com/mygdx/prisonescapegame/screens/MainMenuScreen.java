@@ -28,12 +28,12 @@ public class MainMenuScreen implements Screen {
 
 	private static final int PLAY_BUTTON_WIDTH = 174;
 	private static final int PLAY_BUTTON_HEIGHT = 52;
-	private static final int PLAY_BUTTON_Y = 300;
+	private static final int PLAY_BUTTON_Y = 500;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = 100;
+	private static final int EXIT_BUTTON_Y = 300;
 	private static final int HELP_BUTTON_WIDTH = 174;
-	private static final int HELP_BUTTON_Y = 200;
+	private static final int HELP_BUTTON_Y = 400;
 	private static final int HELP_BUTTON_HEIGHT = 52;
 	private static final int VOLUME_BUTTON_WIDTH = 50;
 	private static final int VOLUME_BUTTON_Y = 50;

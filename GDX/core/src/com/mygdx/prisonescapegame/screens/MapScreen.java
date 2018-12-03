@@ -59,6 +59,8 @@ public class MapScreen implements Screen
 	private PlayerMovementController movementHandler;
 	private InteractionController interactionHandler;
 	
+	private boolean isPaused;
+	
 	private TiledModel model;	
 
 	private Sprite optionBackground;
@@ -112,6 +114,7 @@ public class MapScreen implements Screen
 		menuPressed = false;
 		checkPlayButtonMouseOver = false;
 		checkExitButtonMouseOver = false;
+		
 	}
 	
 	public void setMap(String map, GameHandler gameHandler, int newX, int newY) {	
@@ -190,6 +193,11 @@ public class MapScreen implements Screen
 	@Override
 	public void render(float delta) 
 	{	
+		//float oldDelta = delta;
+		//if (menuPressed) {
+		//	delta = 0;
+		//}
+		
 		// updates using time since last render call
 		movementHandler.update(delta);
 		player.update(delta);
@@ -223,8 +231,11 @@ public class MapScreen implements Screen
 			i.getSprite().draw(mapRenderer.getBatch());
 		}		
 		
+		//delta = oldDelta;
+		
 		mapRenderer.getBatch().end();
 		batch.begin();
+		
 		if (menuKeyCheck() == true) {
 			
 			
