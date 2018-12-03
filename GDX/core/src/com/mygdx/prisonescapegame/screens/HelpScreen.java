@@ -101,6 +101,7 @@ public class HelpScreen implements Screen {
 
 		game.getGameController().getSpriteBatch().begin();
 
+		backgroundSprite.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 
 		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2,

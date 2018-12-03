@@ -115,6 +115,7 @@ public class MainMenuScreen implements Screen {
 
 		game.getGameController().getSpriteBatch().begin();
 
+		backgroundSprite.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 		
 		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 200;
