@@ -51,7 +51,7 @@ public class DialogueUI extends ScreenAdapter
 		Dialog dialog = new Dialog(name, skin)
 		{
 			{
-				text("The quick brown fox jumped over the lazy dog");
+				text(dText);
 				//button("OK");
 			}
 //			@Override
