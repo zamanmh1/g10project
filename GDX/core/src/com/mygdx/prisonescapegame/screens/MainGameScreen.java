@@ -6,8 +6,10 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
@@ -28,6 +30,7 @@ public class MainGameScreen implements Screen {
 	private PrisonEscapeGame game;
 	private Sprite loading;
 	private TweenManager tween;
+	
 	
 	public MainGameScreen (PrisonEscapeGame game) {
 		this.game = game;
