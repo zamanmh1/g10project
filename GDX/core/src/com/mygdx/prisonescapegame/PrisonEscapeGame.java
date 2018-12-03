@@ -2,6 +2,10 @@ package com.mygdx.prisonescapegame;
 
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.util.ActorAnimation;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -19,9 +23,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  */
 
 public class PrisonEscapeGame extends Game {
-
-	public static final int WIDTH = 1366;
-	public static final int HEIGHT = 768;
+	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static final int WIDTH =(int) screenSize.getWidth();
+	public static final int HEIGHT = (int) screenSize.getHeight();
 	
 	private AssetManager assetManager;
 	
