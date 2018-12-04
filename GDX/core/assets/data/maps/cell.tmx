@@ -3,8 +3,8 @@
  <tileset firstgid="1" source="mvpplaceholder.tsx"/>
  <layer id="2" name="Tile Layer 1" width="7" height="7">
   <data encoding="csv">
-1,18,18,28,18,18,3,
-11,9,2,2,2,35,11,
+1,18,18,36,18,18,3,
+11,9,2,38,2,35,11,
 11,27,10,10,10,43,11,
 11,27,10,10,10,12,11,
 11,27,10,10,10,12,11,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.1" name="mvpplaceholder" tilewidth="32" tileheight="32" tilecount="64" columns="8">
+<tileset version="1.2" tiledversion="1.2.0" name="mvpplaceholder" tilewidth="32" tileheight="32" tilecount="64" columns="8">
  <image source="mvpplaceholder.png" width="256" height="256"/>
  <tile id="0">
   <properties>
@@ -14,6 +14,7 @@
  <tile id="4">
   <properties>
    <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_fwd" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="5">
@@ -24,6 +25,7 @@
  <tile id="6">
   <properties>
    <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_bwd" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="7">
@@ -39,6 +41,7 @@
  <tile id="12">
   <properties>
    <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_fwd" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="13">
@@ -49,6 +52,7 @@
  <tile id="14">
   <properties>
    <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_bwd" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="15">
@@ -80,7 +84,6 @@
  <tile id="27">
   <properties>
    <property name="blocked" type="bool" value="true"/>
-   <property name="teleporter_fwd" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="32">
@@ -96,6 +99,18 @@
  <tile id="34">
   <properties>
    <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="35">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_fwd" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="36">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_fwd" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="40">
@@ -124,6 +139,18 @@
   </properties>
  </tile>
  <tile id="45">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_bwd" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="46">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_bwd" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="47">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
@@ -158,6 +185,17 @@
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="54">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="55">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_bwd" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="56">
   <properties>
    <property name="blocked" type="bool" value="true"/>
@@ -176,6 +214,17 @@
  <tile id="59">
   <properties>
    <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="62">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="63">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="teleporter_bwd" type="bool" value="true"/>
   </properties>
  </tile>
 </tileset>
