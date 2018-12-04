@@ -2,17 +2,21 @@ package com.mygdx.prisonescapegame;
 
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.game.entities.Actor;
+import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.helpers.ItemHandler;
 import com.mygdx.game.helpers.MapHandler;
+import com.mygdx.game.helpers.NPCHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.prisonescapegame.screens.MapScreen;
 import com.mygdx.prisonescapegame.screens.Splash;
 
 /**
@@ -28,24 +32,28 @@ import com.mygdx.prisonescapegame.screens.Splash;
 public class GameHandler implements GameController {
 	
 	private final PrisonEscapeGame game;
+	private MapScreen currentMap;
 
 	private MapHandler mapHandler;
 	private ItemHandler itemHandler;
+	private NPCHandler NPCsHandler;
+	
 	private SpriteBatch batch;
 	private Music music;
 	
 	private List<MapActor> actors;
+	private HashMap<Actor, ActorAction> actions;
 	
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;	
 		
 		batch = new SpriteBatch();
 		game.setScreen(new Splash(game));
-		
+
 		mapHandler = new MapHandler();
 		itemHandler = new ItemHandler();
-		setMap("data/maps/cell.tmx", getPlayer().getX(), getPlayer().getY());
-
+		NPCsHandler = new NPCHandler(this);
+		
 		music = Gdx.audio.newMusic(Gdx.files.internal("data/BackgroundSound.mp3"));
 		music.setLooping(true);
 		music.setVolume(0.5f);
@@ -71,36 +79,66 @@ public class GameHandler implements GameController {
 	public void setMap(String map, int x, int y) {
 		// In initial call, player actor won't be in the map.
 		// Catches null pointer without throwing run time error.
+		// Creates new map screen on null pointer caught.
 		try {
 			actors.remove(getPlayer());
 		} catch  (NullPointerException e) {	
-			
+			currentMap = new MapScreen(getPlayer(), this.game);
 		}
 
 		actors = new ArrayList<MapActor>();
+		actions = new HashMap<Actor, ActorAction>();
+		
 		actors.add(getPlayer());
 		
-		getPlayer().setMap(map, this, x, y);
+		currentMap.setMap(map, this, getPlayer().getX(), getPlayer().getY());
+		getPlayer().teleport(getPlayer().getX(), getPlayer().getY());
 		
 		for (Item i : itemHandler.getAllItems().values()) {
 			if (i.getAppearsIn().equals(map)) {
-				getPlayer().getCurrentMap().addItemToMap(i);
+				currentMap.addItemToMap(i);
 				addActor(i);
+			}
+		}		
+		for (ActorAction action : NPCsHandler.getAllNPCs().values()) {
+			if (action.getAppearsIn().equals(map)) {
+				currentMap.addNPCToMap(action);
+				addActor(action.getActor(), action);
 			}
 		}
 	}	
 	
 	public void addActor(MapActor a) {
-		getPlayer().getCurrentMap().getTiledModel().getTile(a.getX(), a.getY()).setActor(a); // Add actor to tile in model (tile becomes unwalkable).
+		currentMap.getTiledModel().getTile(a.getX(), a.getY()).setActor(a); // Add actor to tile in model (tile becomes unwalkable).
 		actors.add(a); // Update list of actors in action.
 	}
 	
+	public void addActor(Actor a, ActorAction action) {
+		addActor(a);
+		actions.put(a, action);
+	}
+	
 	public void removeActor(MapActor a) {
-		getPlayer().getCurrentMap().getTiledModel().getTile(a.getX(), a.getY()).setActor(null); // Set tile in model to null (empty, can be walked in).
+		currentMap.getTiledModel().getTile(a.getX(), a.getY()).setActor(null); // Set tile in model to null (empty, can be walked in).
 		actors.remove(a); // Remove actor from list of current actors.
 		
 		if (a instanceof Item) {
-			getPlayer().getCurrentMap().removeItemFromMap((Item) a); // Remove from being rendered in map if item object.
+			currentMap.removeItemFromMap((Item) a); // Remove from being rendered in map if item object.
+		}
+		if(actions.containsKey(a)) {
+			actions.remove(a);
+		}
+	}
+	
+	public void update(float delta) {
+		for (MapActor a: actors) {
+			if(a instanceof Actor) {
+				Actor actor = (Actor) a;
+				if(actions.containsKey(actor)) {
+					actions.get(actor).update(delta);
+				}
+				actor.update(delta);
+			}
 		}
 	}
 	
@@ -110,5 +148,13 @@ public class GameHandler implements GameController {
 	
 	public MapHandler getMapHandler() {
 		return this.mapHandler;
+	}
+	
+	public MapScreen getMapScreen() {
+		return this.currentMap;
+	}
+	
+	public PrisonEscapeGame getGame() {
+		return this.game;
 	}
 }

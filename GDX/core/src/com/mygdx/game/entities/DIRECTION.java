@@ -25,6 +25,21 @@ public enum DIRECTION {
 		this.moveY = moveY;
 	}
 	
+	public static DIRECTION getBehind(DIRECTION dir) {
+		switch(dir) {
+		case NORTH:
+			return SOUTH;
+		case EAST:
+			return WEST;
+		case SOUTH:
+			return NORTH;
+		case WEST:
+			return EAST;
+		}
+		return null;
+
+	}
+	
 	public int getMoveX() {
 		return moveX;
 	}

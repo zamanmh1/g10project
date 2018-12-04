@@ -63,6 +63,9 @@ public class PlayerMovementController extends InputAdapter {
 	// Calls method releaseDirection to finish movement in certain direction.
 	@Override
 	public boolean keyUp(int keycode) {
+		if (player.getFrozen()) {
+			return false;
+		}
 		if (keycode == Keys.W) {
 			releaseDirection(DIRECTION.NORTH);
 		}

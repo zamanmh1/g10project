@@ -1,6 +1,7 @@
 package com.mygdx.game.entities;
 
 import com.mygdx.game.util.ActorAnimation;
+import com.mygdx.prisonescapegame.GameController;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
@@ -20,7 +21,8 @@ import com.badlogic.gdx.math.Interpolation;
 
 public class Actor implements MapActor {
 	
-	private MapScreen currentMap;
+	//private MapScreen currentMap;
+	private GameController gameHandler;
 	private int x, y; // Coordinates in model.
 	private DIRECTION facing;
 	
@@ -39,9 +41,12 @@ public class Actor implements MapActor {
 	
 	private ActorAnimation animations;
 	
-	public Actor(int x, int y, ActorAnimation animations, PrisonEscapeGame game)
+	private boolean isFrozen = false;
+	
+	public Actor(int x, int y, ActorAnimation animations, GameController gameHandler)
 	{
-		this.currentMap = new MapScreen(this, game);
+		//this.currentMap = new MapScreen(this, game);
+		this.gameHandler = gameHandler;
 		this.x = x;
 		this.y = y;
 		this.worldX = x * GameSettings.TILE_SIZE; // World coordinates adjusted for tile size.
@@ -56,8 +61,7 @@ public class Actor implements MapActor {
 		STANDING,
 		REFACING,
 		;
-	}
-	
+	}	
 	
 	public void update(float delta) {
 		if (currentState == ACTOR_STATE.WALKING) {
@@ -99,8 +103,19 @@ public class Actor implements MapActor {
 		movementRequest = false;
 	}
 	
+	public boolean getFrozen() {
+		return this.isFrozen;
+	}
+	
+	public void setFrozen(boolean isFrozen) {
+		this.isFrozen = isFrozen;
+	}
+	
 	public boolean move(DIRECTION dir) {
 		// If already moving, submit movement request.
+		if(isFrozen) {
+			return false;
+		}
 		if(currentState == ACTOR_STATE.WALKING) {
 			if (facing == dir) {
 				movementRequest = true;
@@ -108,27 +123,30 @@ public class Actor implements MapActor {
 			return false;
 		}
 		// If actor already in tile.
-		if(currentMap.getTiledModel().getTile(x + (dir.getMoveX()) , y + dir.getMoveY()).getActor() != null) {
+		if(gameHandler.getMapScreen().getTiledModel().getTile(x + (dir.getMoveX()) , y + dir.getMoveY()).getActor() != null) {
 			changeFacing(dir);
 			return false;
 		}
 		// If tile not walkable.
-		if(currentMap.getTiledModel().getTile(x + dir.getMoveX(), y + dir.getMoveY()).getWalkable() == false) {
+		if(gameHandler.getMapScreen().getTiledModel().getTile(x + dir.getMoveX(), y + dir.getMoveY()).getWalkable() == false) {
 			changeFacing(dir);
 			return false;
 		}		
 		// Prepare for incoming move.
 		prepareMove(dir);
-		currentMap.getTiledModel().getTile(getX(), getY()).setActor(null);	// Moving out of tile in model.
+		gameHandler.getMapScreen().getTiledModel().getTile(getX(), getY()).setActor(null);	// Moving out of tile in model.
 		// Get detected movement.
 		x = x + dir.getMoveX();
 		y = y + dir.getMoveY();
-		currentMap.getTiledModel().getTile(getX(), getY()).setActor(this); // Move into tile in model.
+		gameHandler.getMapScreen().getTiledModel().getTile(getX(), getY()).setActor(this); // Move into tile in model.
 		
 		return true;
 	}	
 	
 	public boolean changeFacing(DIRECTION dir) {
+		if(isFrozen) {
+			return false;
+		}
 		if (currentState != ACTOR_STATE.STANDING) {
 			return false;
 		}
@@ -168,14 +186,14 @@ public class Actor implements MapActor {
 		
 	}
 	
-	public void setMap(String maps, GameHandler gameHandler, int x, int y) {
-		currentMap.setMap(maps, gameHandler, x, y);
+	/*public void setMap(String maps, GameHandler gameHandler, int x, int y) {
+		game.getGameController().getMapScreen().setMap(maps, gameHandler, x, y);
 		this.teleport(x, y);
-	}
+	}*/
 
-	public MapScreen getCurrentMap() {
+	/*public MapScreen getCurrentMap() {
 		return currentMap;
-	}
+	}*/
 	
 	public int getX() {
 		return x;
@@ -214,5 +232,9 @@ public class Actor implements MapActor {
 		this.worldY = y * GameSettings.TILE_SIZE;		
 		this.x = x;
 		this.y = y;
+	}
+	
+	public ACTOR_STATE getState() {
+		return this.currentState;
 	}
 }

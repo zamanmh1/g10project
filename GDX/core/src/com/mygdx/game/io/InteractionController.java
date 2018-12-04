@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.entities.Actor;
+import com.mygdx.game.entities.DIRECTION;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.model.Map;
@@ -51,8 +52,11 @@ public class InteractionController extends InputAdapter {
 	public boolean keyUp(int keycode) {
 		// E is use key for now.
 		// Triggered upon key release (only called once).
+		if (actor.getFrozen()) {
+			return false;
+		}
 		if (keycode == Keys.E) {			
-			Tile target = actor.getCurrentMap().getTiledModel().getTile(actor.getX() + actor.getFacing().getMoveX(), actor.getY() + actor.getFacing().getMoveY()); // If player facing actor to interact with.
+			Tile target = gameHandler.getMapScreen().getTiledModel().getTile(actor.getX() + actor.getFacing().getMoveX(), actor.getY() + actor.getFacing().getMoveY()); // If player facing actor to interact with.
 			
 			// If tile facing is a teleporter tile.
 			if (target.getTeleporter() == true) {
@@ -63,10 +67,7 @@ public class InteractionController extends InputAdapter {
 				Map currentMap = gameHandler.getMapHandler().getMap(gameHandler.getMapHandler().getCurrentMap(), telType);
 				// Get map moving to.
 				Map movingTo = gameHandler.getMapHandler().getMap(currentMap.getLeadsTo(), telType);
-				
-				
-
-			
+							
 				gameHandler.setMap(movingTo.getFileLocation(), movingTo.getSpawnX(), movingTo.getSpawnY());
 				actor.changeFacing(movingTo.getDirection());
 				gameHandler.getMapHandler().setCurrentMap(movingTo.getName());
@@ -80,6 +81,8 @@ public class InteractionController extends InputAdapter {
 				if(interactingActor instanceof Actor) {
 					Actor a = (Actor) interactingActor;
 					// Interact with Actor
+					a.changeFacing(DIRECTION.getBehind(actor.getFacing()));			
+					a.setFrozen(true);
 					
 					return true;
 				
@@ -88,7 +91,7 @@ public class InteractionController extends InputAdapter {
 					Item i = (Item) interactingActor;
 					// Interact with Item
 					gameHandler.getItemHandler().foundItem(i); // Set item as found.
-					actor.getCurrentMap().getTiledModel().getTile(i.getX(), i.getY()).setActor(null); // Remove from tile in model.
+					gameHandler.getMapScreen().getTiledModel().getTile(i.getX(), i.getY()).setActor(null); // Remove from tile in model.
 					gameHandler.removeActor(i); // Remove from list of actors.
 					if(d.hasDialogue(i.getName())) //Null pointer safety in case dialogue doesn't exist
 					{

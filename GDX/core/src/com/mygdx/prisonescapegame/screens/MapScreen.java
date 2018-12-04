@@ -19,11 +19,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Actor;
+import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.io.InteractionController;
 import com.mygdx.game.io.PlayerMovementController;
@@ -58,6 +60,7 @@ public class MapScreen implements Screen {
 	private Actor player;
 
 	private ArrayList<Item> items; // Items to be drawn on each rendered frame
+	private ArrayList<ActorAction> npcs;
 
 	private InputMultiplexer inputHandler; // Allows for multiple user inputs to be used
 	private PlayerMovementController movementHandler;
@@ -181,7 +184,7 @@ public class MapScreen implements Screen {
 														// to handle finding items
 
 		items = new ArrayList<Item>(); // Resets items in map
-
+		npcs = new ArrayList<ActorAction>();
 	}
 
 	// Needed for rendering items in map
@@ -192,6 +195,10 @@ public class MapScreen implements Screen {
 	// Stop given item being rendered in map
 	public void removeItemFromMap(Item i) {
 		items.remove(i);
+	}
+	
+	public void addNPCToMap(ActorAction action) {
+		npcs.add(action);
 	}
 
 	@Override
@@ -245,9 +252,11 @@ public class MapScreen implements Screen {
 		// }
 
 		// updates using time since last render call
-		movementHandler.update(delta);
-		player.update(delta);
-		tween.update(delta);
+		if(!menuPressed) {
+			movementHandler.update(delta);		
+			game.getGameController().update(delta);
+			tween.update(delta);
+		}
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -262,13 +271,18 @@ public class MapScreen implements Screen {
 		
 		// set HUD camera
 		game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
-		hud.stage.draw();
+		//hud.stage.draw();
 
 		mapRenderer.getBatch().begin();
 		// player.draw(mapRenderer.getBatch());
 
 		mapRenderer.getBatch().draw(player.getSprite(), player.getWorldX(), player.getWorldY(), GameSettings.TILE_SIZE,
 				GameSettings.TILE_SIZE); // Render player
+		
+		for (ActorAction action: npcs) {
+			mapRenderer.getBatch().draw(action.getActor().getSprite(), action.getActor().getWorldX(), action.getActor().getWorldY(), GameSettings.TILE_SIZE,
+					GameSettings.TILE_SIZE);
+		}
 
 		// Rendering the items in the given map
 		for (Item i : items) {
@@ -310,9 +324,15 @@ public class MapScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (menuPressed == false) {
 				menuPressed = true;
+				player.setFrozen(true);
+				inputHandler.clear();
 
 			} else if (menuPressed == true) {
 				menuPressed = false;
+				player.setFrozen(false);
+				inputHandler.addProcessor(movementHandler);
+				inputHandler.addProcessor(interactionHandler);
+				inputHandler.addProcessor(stage);
 			}
 
 		}

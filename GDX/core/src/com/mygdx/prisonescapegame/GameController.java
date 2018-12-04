@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.MapActor;
+import com.mygdx.prisonescapegame.screens.MapScreen;
 
 /**
  * CLASS DESCRIPTION
@@ -28,5 +29,11 @@ public interface GameController {
 	void removeActor(MapActor a);
 
 	void setMap(String map, int x, int y);
+	
+	MapScreen getMapScreen();
+	
+	PrisonEscapeGame getGame();
+	
+	void update(float delta);
 
 }

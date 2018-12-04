@@ -53,8 +53,9 @@ public class PrisonEscapeGame extends Game {
 				atlas.findRegion("player_stand_west")
 		);
 		
-		this.player = new Actor(5, 5, animations, this);
 		this.game = new GameHandler(this);
+		this.player = new Actor(5, 5, animations, game);
+		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
 	}
 
 	@Override
