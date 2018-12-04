@@ -129,9 +129,7 @@ public class MapScreen implements Screen {
 		interactionHandler = new InteractionController(player);
 
 		inputHandler = new InputMultiplexer();
-		inputHandler.addProcessor(movementHandler);
-		inputHandler.addProcessor(interactionHandler);
-		inputHandler.addProcessor(stage);
+		
 		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
 		remumeButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/resume_unactive.png")));
 		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/resume_active.png")));
@@ -246,17 +244,18 @@ public class MapScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// float oldDelta = delta;
-		// if (menuPressed) {
-		// delta = 0;
-		// }
+		
 
 		// updates using time since last render call
 		if(!menuPressed) {
 			movementHandler.update(delta);		
 			game.getGameController().update(delta);
-			tween.update(delta);
+			player.setFrozen(false);
 		}
+		inputHandler.addProcessor(movementHandler);
+		inputHandler.addProcessor(interactionHandler);
+		inputHandler.addProcessor(stage);
+		tween.update(delta);
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -296,7 +295,8 @@ public class MapScreen implements Screen {
 		game.getGameController().getSpriteBatch().begin();
 
 		if (menuKeyCheck() == true) {
-
+			player.setFrozen(true);
+			inputHandler.clear();
 			optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
 					PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
 			logo.setPosition(PrisonEscapeGame.WIDTH/2 - logo.getWidth()/2, 
@@ -324,15 +324,12 @@ public class MapScreen implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (menuPressed == false) {
 				menuPressed = true;
-				player.setFrozen(true);
-				inputHandler.clear();
+				
 
 			} else if (menuPressed == true) {
 				menuPressed = false;
-				player.setFrozen(false);
-				inputHandler.addProcessor(movementHandler);
-				inputHandler.addProcessor(interactionHandler);
-				inputHandler.addProcessor(stage);
+				
+				
 			}
 
 		}
@@ -395,8 +392,8 @@ public class MapScreen implements Screen {
 				}
 
 				if (Gdx.input.isTouched()) {
-					helpPressed = true;
-					buttonActive = false;
+					
+					
 					Tween.set(resumeButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(remumeButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(helpButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
@@ -404,6 +401,8 @@ public class MapScreen implements Screen {
 					Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(exitButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					helpScreenUI();
+					helpPressed = true;
+					buttonActive = false;
 
 				}
 			}
