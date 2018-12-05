@@ -40,7 +40,6 @@ public class GameHandler implements GameController {
 	
 	private SpriteBatch batch;
 	private Music music;
-	
 	private List<MapActor> actors;
 	private HashMap<Actor, ActorAction> actions;
 	
@@ -82,6 +81,7 @@ public class GameHandler implements GameController {
 		// Creates new map screen on null pointer caught.
 		try {
 			actors.remove(getPlayer());
+			getMapScreen().getTiledModel().getTile(getPlayer().getX(), getPlayer().getY()).setActor(null);
 		} catch  (NullPointerException e) {	
 			currentMap = new MapScreen(getPlayer(), this.game);
 		}
@@ -91,8 +91,10 @@ public class GameHandler implements GameController {
 		
 		actors.add(getPlayer());
 		
-		currentMap.setMap(map, this, getPlayer().getX(), getPlayer().getY());
-		getPlayer().teleport(getPlayer().getX(), getPlayer().getY());
+		currentMap.setMap(map, this);
+		getMapScreen().getTiledModel().getTile(x, y).setActor(getPlayer());
+		
+		getPlayer().teleport(x, y);
 		
 		for (Item i : itemHandler.getAllItems().values()) {
 			if (i.getAppearsIn().equals(map)) {
@@ -156,5 +158,9 @@ public class GameHandler implements GameController {
 	
 	public PrisonEscapeGame getGame() {
 		return this.game;
+	}
+	
+	public HashMap<Actor, ActorAction> getActions(){
+		return this.actions;
 	}
 }

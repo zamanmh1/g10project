@@ -1,0 +1,69 @@
+<cellBlockTop>
+	<trippieMaroon>
+		<dialogue currState="1">
+			"What you staring at?"
+		</dialogue>
+		<dialogue currState="1.1">
+			"Yo, WayTay sent you? Pass that here."
+			
+			Trippie Maroon opened package
+			
+			"Yes! I needed this... 
+			Hey, if you get bored, talk to me again yeah."
+			<state> 1.2</state>
+		</dialogue>
+		<dialogue currState="1.2">
+			"You got bored quick, there is this guy with rainbow hair in this block I hate
+			He has been playing pranks on me for weeks now, I want to poison him.
+			The dinner lady has the worst smoking habit this side on the ocean and you can 
+			trade her cigarettes for pretty much anything. Take these and buy me some laxatives"
+			
+			Player obtained 5 cigarettes
+			<state> 1.3</state>
+		</dialogue>
+	</trippieMaroon>
+	
+	<prisoner1>
+		<dialogue>
+			"who are you staring at boy?"
+		</dialogue>
+	</prisoner1>
+	
+	<prisoner2>
+		<dialogue>
+			"I strike fear into the hearts of everyone knows my name...
+			My name is Placement Application"
+			
+			Player felt a shudder down their spine
+		</dialogue>
+	</prisoner2>
+	
+	<prisoner3>
+		<dialogue>
+			prisoner spits at player
+		</dialogue>
+	</prisoner3>
+	
+	<prisoner4>
+		<dialogue>
+			"hey man take these, I don't want them anymore, I need to stop gambling"
+			
+			player obtained playing cards
+		</dialogue>
+	</prisoner4>
+	
+	<prisoner5>
+		<dialogue>
+			"Have you heard the rumour that you can hear screams in the basement at midnight?"
+			
+			Player found this disturbing"
+		</dialogue>
+	</prisoner5->
+	
+	<prisoner6>
+		<dialogue>
+			"Leave me be man, I don't want any problems today"
+		</dialogue>
+	</prisoner6>
+	
+</cellBlockTop>

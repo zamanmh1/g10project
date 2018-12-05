@@ -1,0 +1,11 @@
+<cell>
+	<book>
+		<dialogue>
+			"Hello Peter, just woke up? You're in jail for life. 
+			You may not remember why but that doesn't matter right now.
+			Enclosed in this book is the key to your cell, tread carefully..."
+			
+			Player obtained cellkey
+		</dialogue>
+	</book>
+</cell>

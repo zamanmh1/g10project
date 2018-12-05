@@ -216,6 +216,11 @@
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="61">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="62">
   <properties>
    <property name="blocked" type="bool" value="true"/>

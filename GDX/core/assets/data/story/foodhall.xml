@@ -1,0 +1,36 @@
+<canteen>
+	<dinnerLady>
+		<dialogue currState="1">
+			"Today we are serving our special of sardines and sadness...
+			Unless you have something to trade?"
+			
+			Player spends 5 cigarettes
+			Payer obtained laxatives
+			<state>1.4</state>
+		</dialogue>
+		
+	</dinnerLady>
+	
+	<prisoner1>
+		<dialogue>
+			"Every day this food gets worse"
+		</dialogue>
+	</prisoner1>
+	
+	<prisoner2>
+		<dialogue>
+			"I can't believe I'm eating this crap"
+		</dialogue>
+	</prisoner2>
+	
+	<prisoner3>
+		<dialogue>
+			"I miss freash air and the peep show"
+		</dialogue>
+	</prisoner3>
+	
+	
+</canteen>
+
+	
+	

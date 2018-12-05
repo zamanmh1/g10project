@@ -164,7 +164,7 @@ public class MapScreen implements Screen {
 
 	}
 
-	public void setMap(String map, GameHandler gameHandler, int newX, int newY) {
+	public void setMap(String map, GameHandler gameHandler) {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
@@ -188,7 +188,6 @@ public class MapScreen implements Screen {
 		
 		mapRenderer.setMap(tilemap);
 		model = new TiledModel(tilemap);
-		getTiledModel().getTile(newX, newY).setActor(player);
 
 		interactionHandler.setItemHandler(gameHandler); // high coupling (bad) provides way for interaction controller
 														// to handle finding items

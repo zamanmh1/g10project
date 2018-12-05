@@ -24,7 +24,7 @@ import com.badlogic.gdx.utils.XmlReader.Element;
 public class Dialogue 
 {
 	private XmlReader xReader;
-	private String xmlDoc = "data/story/test2.xml";
+	private String xmlDoc = "data/story/amalgamation.xml";
 	private Element root;
 	private Element entityRoot;
 	

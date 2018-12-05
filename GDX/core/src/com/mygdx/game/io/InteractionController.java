@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.entities.Actor;
+import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.DIRECTION;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
@@ -80,10 +81,18 @@ public class InteractionController extends InputAdapter {
 				// If interacting with an Actor.
 				if(interactingActor instanceof Actor) {
 					Actor a = (Actor) interactingActor;
+					ActorAction action = gameHandler.getActions().get(a);
 					// Interact with Actor
-					a.changeFacing(DIRECTION.getBehind(actor.getFacing()));			
-					a.setFrozen(true);
-					
+					if(a.getFrozen() == false) {	
+						if(d.hasDialogue(action.getActionFor()))
+						{
+							a.changeFacing(DIRECTION.getBehind(actor.getFacing()));		
+							a.setFrozen(true);
+							dBox.showDialogue(MapScreen.getStage(), action.getActionFor());
+						}
+					} else {
+						a.setFrozen(false);
+					}
 					return true;
 				
 				// If interacting with an item.
