@@ -70,14 +70,14 @@ public class MapScreen implements Screen {
 	private TweenManager tween;
 	private boolean menuPressed;
 	private static final int RESUME_BUTTON_WIDTH = 305;
-	private static final int RESUME_BUTTON_Y = 400;
+	private static final int RESUME_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 50;
 	private static final int RESUME_BUTTON_HEIGHT = 53;
 	private Sprite resumeButtonMenuActive;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = 200;
+	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 - 150;
 	private static final int HELP_BUTTON_WIDTH = 174;
-	private static final int HELP_BUTTON_Y = 300;
+	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 - 50;
 	private static final int HELP_BUTTON_HEIGHT = 52;
 	private Sprite exitButtonMenuActive;
 	private PrisonEscapeGame game;
