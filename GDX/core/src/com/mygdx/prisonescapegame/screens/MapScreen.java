@@ -100,7 +100,7 @@ public class MapScreen implements Screen {
 	private Sprite backButtonActive;
 	private Sprite backButtonInActive;
 	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = 700;
+	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 300;
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private boolean checkBackButtonMouseOver;
 	private boolean helpPressed;
@@ -111,7 +111,7 @@ public class MapScreen implements Screen {
 	private String movementText;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
-	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 + 10;
+	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 - 20;
 	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 200;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
