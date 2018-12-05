@@ -111,8 +111,8 @@ public class MapScreen implements Screen {
 	private String movementText;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
-	private static final int WASD_Y = 350;
-	private static final int E_Y = 150;
+	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 + 10;
+	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 200;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
 	private String objectPickingText;
@@ -351,7 +351,7 @@ public class MapScreen implements Screen {
 	}
 
 	private void resumeButtonMenu() {
-		int x = (int) (Gdx.graphics.getWidth() / 2 - remumeButtonMenuInActive.getWidth() / 2);
+		int x = (int) (PrisonEscapeGame.WIDTH / 2 - remumeButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > RESUME_BUTTON_Y) {
@@ -386,7 +386,7 @@ public class MapScreen implements Screen {
 	}
 
 	private void helpButtonMenu() {
-		int x = (int) (Gdx.graphics.getWidth() / 2 - helpButtonMenuInActive.getWidth() / 2);
+		int x = (int) (PrisonEscapeGame.WIDTH / 2 - helpButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
@@ -428,7 +428,7 @@ public class MapScreen implements Screen {
 	}
 
 	private void exitButtonMenu() {
-		int x = (int) (Gdx.graphics.getWidth() / 2 - exitButtonMenuInActive.getWidth() / 2);
+		int x = (int) (PrisonEscapeGame.WIDTH / 2 - exitButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {

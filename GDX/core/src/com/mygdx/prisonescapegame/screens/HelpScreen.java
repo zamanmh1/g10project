@@ -44,10 +44,10 @@ public class HelpScreen implements Screen {
 	private Sprite volumeButtonFull;
 	private Sprite wasdKeyboard;
 	private Sprite eKeyboard;
-	private static final int E_Y = 200;
+	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 200;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
-	private static final int WASD_Y = 450;
+	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
 	private static final int VOLUME_BUTTON_Y = 50;
