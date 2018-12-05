@@ -14,17 +14,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
@@ -112,14 +106,12 @@ public class MapScreen implements Screen {
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
 	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 - 20;
-	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 200;
+	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 210;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
 	private String objectPickingText;
 	private Sprite logo;
 	private Sprite roomTransition;
-	private boolean firstRoom;
-	private float delay = 2;
 	private static Stage stage;
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
@@ -160,7 +152,7 @@ public class MapScreen implements Screen {
 		checkExitButtonMouseOver = false;
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
-		firstRoom = true;
+		
 
 	}
 
@@ -508,19 +500,19 @@ public class MapScreen implements Screen {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x);
-		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2 - 200,
-				Gdx.graphics.getHeight() / 2 + 100);
+		font.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2  - 200,
+				PrisonEscapeGame.HEIGHT / 2 + 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 10;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
 		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
 
-		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2 - 200,
-				Gdx.graphics.getHeight() / 2 - 100);
+		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, PrisonEscapeGame.WIDTH / 2 - 200,
+				PrisonEscapeGame.HEIGHT / 2 - 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 30;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 20;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);

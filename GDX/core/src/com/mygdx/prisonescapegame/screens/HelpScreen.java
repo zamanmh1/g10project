@@ -107,7 +107,7 @@ public class HelpScreen implements Screen {
 		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 + 200);
 
-		int x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 150;
+		int x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 170;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
@@ -116,7 +116,7 @@ public class HelpScreen implements Screen {
 		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 - 50);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 185;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 205;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
