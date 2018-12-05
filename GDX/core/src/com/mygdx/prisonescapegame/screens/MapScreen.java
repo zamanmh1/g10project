@@ -14,17 +14,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
@@ -76,14 +70,14 @@ public class MapScreen implements Screen {
 	private TweenManager tween;
 	private boolean menuPressed;
 	private static final int RESUME_BUTTON_WIDTH = 305;
-	private static final int RESUME_BUTTON_Y = 400;
+	private static final int RESUME_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 50;
 	private static final int RESUME_BUTTON_HEIGHT = 53;
 	private Sprite resumeButtonMenuActive;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = 200;
+	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 - 150;
 	private static final int HELP_BUTTON_WIDTH = 174;
-	private static final int HELP_BUTTON_Y = 300;
+	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 - 50;
 	private static final int HELP_BUTTON_HEIGHT = 52;
 	private Sprite exitButtonMenuActive;
 	private PrisonEscapeGame game;
@@ -100,7 +94,7 @@ public class MapScreen implements Screen {
 	private Sprite backButtonActive;
 	private Sprite backButtonInActive;
 	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = 700;
+	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 300;
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private boolean checkBackButtonMouseOver;
 	private boolean helpPressed;
@@ -111,15 +105,13 @@ public class MapScreen implements Screen {
 	private String movementText;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
-	private static final int WASD_Y = 350;
-	private static final int E_Y = 150;
+	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 - 20;
+	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 210;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
 	private String objectPickingText;
 	private Sprite logo;
 	private Sprite roomTransition;
-	private boolean firstRoom;
-	private float delay = 2;
 	private static Stage stage;
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
@@ -160,7 +152,7 @@ public class MapScreen implements Screen {
 		checkExitButtonMouseOver = false;
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
-		firstRoom = true;
+		
 
 	}
 
@@ -350,7 +342,7 @@ public class MapScreen implements Screen {
 	}
 
 	private void resumeButtonMenu() {
-		int x = (int) (Gdx.graphics.getWidth() / 2 - remumeButtonMenuInActive.getWidth() / 2);
+		int x = (int) (PrisonEscapeGame.WIDTH / 2 - remumeButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > RESUME_BUTTON_Y) {
@@ -385,7 +377,7 @@ public class MapScreen implements Screen {
 	}
 
 	private void helpButtonMenu() {
-		int x = (int) (Gdx.graphics.getWidth() / 2 - helpButtonMenuInActive.getWidth() / 2);
+		int x = (int) (PrisonEscapeGame.WIDTH / 2 - helpButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
@@ -427,7 +419,7 @@ public class MapScreen implements Screen {
 	}
 
 	private void exitButtonMenu() {
-		int x = (int) (Gdx.graphics.getWidth() / 2 - exitButtonMenuInActive.getWidth() / 2);
+		int x = (int) (PrisonEscapeGame.WIDTH / 2 - exitButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
@@ -507,19 +499,19 @@ public class MapScreen implements Screen {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x);
-		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2 - 200,
-				Gdx.graphics.getHeight() / 2 + 100);
+		font.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2  - 200,
+				PrisonEscapeGame.HEIGHT / 2 + 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 10;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
 		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
 
-		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2 - 200,
-				Gdx.graphics.getHeight() / 2 - 100);
+		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, PrisonEscapeGame.WIDTH / 2 - 200,
+				PrisonEscapeGame.HEIGHT / 2 - 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 30;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 20;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);

@@ -32,7 +32,7 @@ public class HelpScreen implements Screen {
 	private Sprite backgroundSprite;
 	private TweenManager tween;
 	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = 700;
+	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 300;
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private Sprite backButtonActive;
 	private boolean checkBackButtonMouseOver;
@@ -44,10 +44,10 @@ public class HelpScreen implements Screen {
 	private Sprite volumeButtonFull;
 	private Sprite wasdKeyboard;
 	private Sprite eKeyboard;
-	private static final int E_Y = 200;
+	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 200;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
-	private static final int WASD_Y = 450;
+	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 + 20;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
 	private static final int VOLUME_BUTTON_Y = 50;
@@ -107,7 +107,7 @@ public class HelpScreen implements Screen {
 		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 + 200);
 
-		int x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 150;
+		int x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 170;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
@@ -116,7 +116,7 @@ public class HelpScreen implements Screen {
 		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 - 50);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 185;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 205;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
