@@ -21,6 +21,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -115,6 +117,9 @@ public class MapScreen implements Screen {
 	private static final int E_HEIGHT = 39;
 	private String objectPickingText;
 	private Sprite logo;
+	private Sprite roomTransition;
+	private boolean firstRoom;
+	private float delay = 2;
 	private static Stage stage;
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
@@ -129,7 +134,7 @@ public class MapScreen implements Screen {
 		interactionHandler = new InteractionController(player);
 
 		inputHandler = new InputMultiplexer();
-		
+
 		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
 		remumeButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/resume_unactive.png")));
 		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/resume_active.png")));
@@ -147,6 +152,7 @@ public class MapScreen implements Screen {
 		font = new BitmapFont(Gdx.files.internal("data/vision-bold-font.fnt"));
 		objectPickingText = "Press E for picking up objects \n and going through doors";
 		movementText = "Press W,S,A,D for movement";
+		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/black_background.jpg")));
 		menuPressed = false;
 		helpPressed = false;
 		checkResumeButtonMouseOver = false;
@@ -154,27 +160,33 @@ public class MapScreen implements Screen {
 		checkExitButtonMouseOver = false;
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
+		firstRoom = true;
 
 	}
 
 	public void setMap(String map, GameHandler gameHandler, int newX, int newY) {
+		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
+		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
+		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
+	
 
 		tilemap = new TmxMapLoader().load(map);
+
 		/**
 		 * If already a map being shown, try to dispose of it. However, if it is the
 		 * first map to be shown there is nothing to dispose of.
 		 */
 		try {
-
+			
 			mapRenderer.getMap().dispose();
+			
 
 		} catch (NullPointerException e) {
 			// Initial call to method to setup first map.
 			// Maybe output a message to welcome player to game?
 		}
-
+		
 		mapRenderer.setMap(tilemap);
-
 		model = new TiledModel(tilemap);
 		getTiledModel().getTile(newX, newY).setActor(player);
 
@@ -183,6 +195,8 @@ public class MapScreen implements Screen {
 
 		items = new ArrayList<Item>(); // Resets items in map
 		npcs = new ArrayList<ActorAction>();
+		
+		
 	}
 
 	// Needed for rendering items in map
@@ -194,7 +208,7 @@ public class MapScreen implements Screen {
 	public void removeItemFromMap(Item i) {
 		items.remove(i);
 	}
-	
+
 	public void addNPCToMap(ActorAction action) {
 		npcs.add(action);
 	}
@@ -244,11 +258,10 @@ public class MapScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		
 
 		// updates using time since last render call
-		if(!menuPressed) {
-			movementHandler.update(delta);		
+		if (!menuPressed) {
+			movementHandler.update(delta);
 			game.getGameController().update(delta);
 			player.setFrozen(false);
 		}
@@ -263,24 +276,24 @@ public class MapScreen implements Screen {
 		oCamera.position.set(player.getWorldX() + 0.5f, player.getWorldY() + 0.5f, 0);
 
 		oCamera.update();
-		
+
 		mapRenderer.setView(oCamera);
 		mapRenderer.render();
 		// renders the map and sets the view of the camera to display the map
-		
+
 		// set HUD camera
 		game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
-		//hud.stage.draw();
+		// hud.stage.draw();
 
 		mapRenderer.getBatch().begin();
 		// player.draw(mapRenderer.getBatch());
 
 		mapRenderer.getBatch().draw(player.getSprite(), player.getWorldX(), player.getWorldY(), GameSettings.TILE_SIZE,
 				GameSettings.TILE_SIZE); // Render player
-		
-		for (ActorAction action: npcs) {
-			mapRenderer.getBatch().draw(action.getActor().getSprite(), action.getActor().getWorldX(), action.getActor().getWorldY(), GameSettings.TILE_SIZE,
-					GameSettings.TILE_SIZE);
+
+		for (ActorAction action : npcs) {
+			mapRenderer.getBatch().draw(action.getActor().getSprite(), action.getActor().getWorldX(),
+					action.getActor().getWorldY(), GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
 		}
 
 		// Rendering the items in the given map
@@ -294,15 +307,18 @@ public class MapScreen implements Screen {
 		stage.draw();
 		game.getGameController().getSpriteBatch().begin();
 
+		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
+				PrisonEscapeGame.HEIGHT / 2 - roomTransition.getHeight() / 2);
+
+		roomTransition.draw(game.getGameController().getSpriteBatch());
 		if (menuKeyCheck() == true) {
 			player.setFrozen(true);
 			inputHandler.clear();
 			optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
 					PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
-			logo.setPosition(PrisonEscapeGame.WIDTH/2 - logo.getWidth()/2, 
-					PrisonEscapeGame.HEIGHT/2 - logo.getHeight()/2 + 250);
-			
-		
+			logo.setPosition(PrisonEscapeGame.WIDTH / 2 - logo.getWidth() / 2,
+					PrisonEscapeGame.HEIGHT / 2 - logo.getHeight() / 2 + 250);
+
 			optionBackground.draw(game.getGameController().getSpriteBatch());
 			logo.draw(game.getGameController().getSpriteBatch());
 			resumeButtonMenu();
@@ -318,18 +334,15 @@ public class MapScreen implements Screen {
 		game.getGameController().getSpriteBatch().end();
 
 	}
-	
 
 	private boolean menuKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (menuPressed == false) {
 				menuPressed = true;
-				
 
 			} else if (menuPressed == true) {
 				menuPressed = false;
-				
-				
+
 			}
 
 		}
@@ -392,8 +405,7 @@ public class MapScreen implements Screen {
 				}
 
 				if (Gdx.input.isTouched()) {
-					
-					
+
 					Tween.set(resumeButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(remumeButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(helpButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
@@ -434,15 +446,17 @@ public class MapScreen implements Screen {
 
 				}
 				if (Gdx.input.isTouched()) {
-				Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
-				Tween.to(exitButtonMenuActive, SpriteAccessor.ALPHA, 0.5f).target(1).repeatYoyo(0, 0f).setCallback(new TweenCallback() {
+					Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
+					Tween.to(exitButtonMenuActive, SpriteAccessor.ALPHA, 0.5f).target(1).repeatYoyo(0, 0f)
+							.setCallback(new TweenCallback() {
 
-					@Override
-					public void onEvent(int type, BaseTween<?> source) {
-						
-						((Game) Gdx.app.getApplicationListener()).setScreen(MainMenuScreen.getInstance(game));
-					}
-				}).start(tween);
+								@Override
+								public void onEvent(int type, BaseTween<?> source) {
+
+									((Game) Gdx.app.getApplicationListener())
+											.setScreen(MainMenuScreen.getInstance(game));
+								}
+							}).start(tween);
 				}
 			}
 
@@ -494,16 +508,16 @@ public class MapScreen implements Screen {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x);
-		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2 -200,
+		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2 - 200,
 				Gdx.graphics.getHeight() / 2 + 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 ;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
 		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
 
-		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2-200,
+		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2 - 200,
 				Gdx.graphics.getHeight() / 2 - 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 30;
