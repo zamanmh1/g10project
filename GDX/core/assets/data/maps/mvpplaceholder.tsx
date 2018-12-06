@@ -113,6 +113,11 @@
    <property name="teleporter_fwd" type="bool" value="true"/>
   </properties>
  </tile>
+ <tile id="39">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="40">
   <properties>
    <property name="blocked" type="bool" value="true"/>
