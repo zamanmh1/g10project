@@ -138,6 +138,9 @@
 	</Loony>
 	
 	<ShakyPrisoner>
+		<dialogue currState="1.2">
+			"Listen man, I saw you doing stuff with them, leave me alone."
+		</dialogue>
 		<dialogue currState="1.3">
 			"Listen man, I saw you doing stuff with them, leave me alone."
 		</dialogue>

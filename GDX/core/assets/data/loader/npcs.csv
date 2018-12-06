@@ -7,13 +7,13 @@ TrippieMaroon,npc_,data/maps/cellblock.tmx,2,9,2,2,1,1,1.00,3.00
 AggressivePrisoner,npc_,data/maps/cellblock.tmx,15,3,2,2,1,1,1.00,3.00
 PlacementApplication,npc_,data/maps/cellblock.tmx,7,1,2,2,1,1,1.00,3.00
 BadManners,npc_,data/maps/cellblock.tmx,22,9,2,2,1,1,1.00,3.00
-Spades,npc_,data/maps/cellblock.tmx,33,2,2,2,1,1,1.00,3.00
+Spades,npc_,data/maps/foodhall.tmx,2,6,2,2,1,1,1.00,3.00
 Loony,npc_,data/maps/cellblock.tmx,33,9,2,2,1,1,1.00,3.00
 ShakyPrisoner,npc_,data/maps/cellblock.tmx,7,11,2,2,1,1,1.00,3.00
 DinnerLady,npc_,data/maps/foodhall.tmx,7,3,2,10,10,10,10,60
 DisgustedPrisoner,npc_,data/maps/foodhall.tmx,11,7,2,2,1,1,1.00,3.00
 Biggie,npc_,data/maps/foodhall.tmx,6,9,2,2,1,1,1.00,3.00
-AnotherMobMember,npc_,data/maps/foodhall.tmx,2,6,2,2,1,1,1.00,3.00
+AnotherMobMember,npc_,data/maps/foodhall.tmx,2,12,2,2,1,1,1.00,3.00
 Ray,npc_,data/maps/cellblock.tmx,22,3,2,2,1,1,1.00,3.00
 Joe,npc_data/maps/cellblockG.tmx,24,9,2,2,1,1,1.00,3.00
 Tweak,npc_,data/maps/cellblockG.tmx,32,4,0,0,0,0,0,0
