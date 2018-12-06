@@ -90,7 +90,7 @@
 		</dialogue>
 		<dialogue currState="1.5">
 			"Ha! I saw the rainbow haired prick waddling to his cell. Cheers pal, I just might have more use for you..."
-				<state>1.6<state>
+				<state>1.6</state>
 		</dialogue>
 		<dialogue>
 			"I might have some more work for you soon. I'll be in touch."

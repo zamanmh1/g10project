@@ -58,22 +58,31 @@ public class InteractionController extends InputAdapter {
 		}
 		if (keycode == Keys.E) {			
 			Tile target = gameHandler.getMapScreen().getTiledModel().getTile(actor.getX() + actor.getFacing().getMoveX(), actor.getY() + actor.getFacing().getMoveY()); // If player facing actor to interact with.
-			
+
 			// If tile facing is a teleporter tile.
 			if (target.getTeleporter() == true) {
 				// Get whether moving forwards or backwards in teleporter.
-				String telType = target.getTeleporterType();
-				
-				// Get current map.
-				Map currentMap = gameHandler.getMapHandler().getMap(gameHandler.getMapHandler().getCurrentMap(), telType);
-				// Get map moving to.
-				Map movingTo = gameHandler.getMapHandler().getMap(currentMap.getLeadsTo(), telType);
-							
-				gameHandler.setMap(movingTo.getFileLocation(), movingTo.getSpawnX(), movingTo.getSpawnY());
-				actor.changeFacing(movingTo.getDirection());
-				gameHandler.getMapHandler().setCurrentMap(movingTo.getName());
+				try {
+					Item i = gameHandler.getItemHandler().getFoundItem("Book"); 
+
+					if (i != null) {
+						String telType = target.getTeleporterType();
+
+						// Get current map.
+						Map currentMap = gameHandler.getMapHandler().getMap(gameHandler.getMapHandler().getCurrentMap(), telType);
+						// Get map moving to.
+						Map movingTo = gameHandler.getMapHandler().getMap(currentMap.getLeadsTo(), telType);
+
+						gameHandler.setMap(movingTo.getFileLocation(), movingTo.getSpawnX(), movingTo.getSpawnY());
+						actor.changeFacing(movingTo.getDirection());
+						gameHandler.getMapHandler().setCurrentMap(movingTo.getName());
+
+					} 
+				}catch (NullPointerException e) {
+
+				}
 			}
-			
+
 			// If actor in tile facing.
 			else if(target.getActor() != null) {
 				MapActor interactingActor = target.getActor();
@@ -107,7 +116,6 @@ public class InteractionController extends InputAdapter {
 						dBox.showDialogue(MapScreen.getStage(), i.getName());
 						//System.out.println(d.getDialogue(i.getName()));
 					}
-					
 					return true;
 				}
 			}
