@@ -5,8 +5,8 @@ Prisoner,npc_,data/maps/cellblockG.tmx,22,10,2,2,1,1,1.00,3.00
 IllPrisoner,npc_,data/maps/cellblockG.tmx,2,2,2,2,1,1,1.00,3.00
 TrippieMaroon,npc_,data/maps/cellblock.tmx,2,9,2,2,1,1,1.00,3.00
 AggressivePrisoner,npc_,data/maps/cellblock.tmx,15,3,2,2,1,1,1.00,3.00
-PlacementApplication,npc_,data/maps/cellblock.tmx,22,9,2,2,1,1,1.00,3.00
-BadManners,npc_,data/maps/cellblock.tmx,7,1,2,2,1,1,1.00,3.00
+PlacementApplication,npc_,data/maps/cellblock.tmx,7,1,2,2,1,1,1.00,3.00
+BadManners,npc_,data/maps/cellblock.tmx,22,9,2,2,1,1,1.00,3.00
 Spades,npc_,data/maps/cellblock.tmx,7,11,2,2,1,1,1.00,3.00
 Loony,npc_,data/maps/cellblock.tmx,33,9,2,2,1,1,1.00,3.00
 ShakyPrisoner,npc_,data/maps/cellblock.tmx,33,2,2,2,1,1,1.00,3.00

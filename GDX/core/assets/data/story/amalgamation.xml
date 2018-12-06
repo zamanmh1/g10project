@@ -16,7 +16,7 @@
 			In return for your continued loyalty, we will protect you.
 			Deliver this package to Trippie Maroon on the top floor."
 			
-			Player obtained small package
+			You obtained a small package
 			<state>1.1</state>
 		</dialogue>
 		<dialogue>
@@ -124,7 +124,8 @@
 	<Spades>
 		<dialogue>
 			"Listen, you're gonna need to earn something valuable to trade if you wanna get by here.
-			Lucky for you, I've got a proposition for you, you bring me 2 packets of ramen, I'll give you my lucky dice and deck."
+			Lucky for you, I've got a proposition for you, you bring me 2 packets of ramen,
+			then I'll give you my lucky dice and deck."
 		</dialogue>
 	</Spades>
 	
@@ -195,7 +196,8 @@
 	
 	<Tweak>
 		<dialogue>
-			As you approach, he twitches and scurries about seemingly uncontrollably muttering something about an MVP and coffee...
+			As you approach, he twitches and scurries about, seemingly uncontrollably muttering something 
+			about an MVP and coffee...
 			
 			You figure it's best you left him alone for now.
 		</dialogue>
