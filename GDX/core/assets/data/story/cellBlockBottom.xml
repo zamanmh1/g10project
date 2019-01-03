@@ -1,0 +1,38 @@
+<cellBlockBottom>
+	<mobMember1>
+		<dialogue currState="1">
+			"Ptts hey stupid, I'm part of the gang WreyTay. You still owe us more favours.
+			In return for your continued loyalty, we will protect you.
+			Your first task is to deliver this package to the prisoner Trippie Maroon on
+			the top floor"
+			
+			Player obtained small package
+			<state>1.1</state>
+		</dialogue>
+	</mobMember1>
+	
+	<prisonerRainbow>
+		<dialogue>
+			"can't believe I went 11/11 and now I'm here"
+		</dialogue>
+	</prisonerRainbow>
+	
+	<prisoner2>
+		<dialogue>
+			"You get some cards and a dice and I'm down to gamble with you"
+		</dialogue>
+	</prisoner2>
+	
+	<prisoner3>
+		<dialogue>
+			"I've been arrested 7 times, I know that sounds like quite a lot but three
+			of those times were for vandalism"
+		</dialogue>
+	</prisoner3>
+	
+	<prisoner4>
+		<dialogue>
+			The prisoner looked incredibly pale and frightened
+		</dialogue>
+	</prisoner4>
+</cellBlockBottom>
