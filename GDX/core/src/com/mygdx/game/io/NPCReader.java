@@ -62,7 +62,7 @@ public class NPCReader {
 
 				Actor a = new Actor(Integer.parseInt(readItem[3]), Integer.parseInt(readItem[4]), animations, game);
 				
-				LimitedWalkingAction action = new LimitedWalkingAction(a, readItem[2], Integer.parseInt(readItem[3]), Integer.parseInt(readItem[4]), Integer.parseInt(readItem[5]), Integer.parseInt(readItem[6]), Float.parseFloat(readItem[7]), Float.parseFloat(readItem[8]), new Random(), readItem[0]);
+				LimitedWalkingAction action = new LimitedWalkingAction(a, readItem[2], Integer.parseInt(readItem[5]), Integer.parseInt(readItem[6]), Integer.parseInt(readItem[7]), Integer.parseInt(readItem[8]), Float.parseFloat(readItem[9]), Float.parseFloat(readItem[10]), new Random(Integer.parseInt(readItem[11])), readItem[0]);
 				
 				actions.put(action.getActionFor(), action);
 			}
