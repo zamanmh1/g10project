@@ -1,9 +1,11 @@
 package com.mygdx.game.helpers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mygdx.game.io.MapReader;
-import com.mygdx.game.model.Map;
+import com.mygdx.game.model.Teleporter;
+import com.mygdx.game.model.TiledModel;
 
 /**
  * CLASS DESCRIPTION
@@ -17,38 +19,43 @@ import com.mygdx.game.model.Map;
 
 public class MapHandler {
 	
-	private HashMap<String, Map> fwdMaps;
-	private HashMap<String, Map> bwdMaps;
+	private ArrayList<Teleporter> teleporters;
 	private String currentMap;
 	
 	public MapHandler() {
-		fwdMaps = new HashMap<String, Map>();
-		bwdMaps = new HashMap<String, Map>();
-		
+		teleporters = new ArrayList<Teleporter>();
+		currentMap = null;
 		loadMaps();
-		
-		currentMap = "cell";
 	}
 	
 	private void loadMaps() {
-		fwdMaps = new MapReader("data/loader/fwdMaps.csv").readMaps();
-		bwdMaps = new MapReader("data/loader/bwdMaps.csv").readMaps();
+		teleporters = new MapReader("data/loader/teleporters.csv").readTeleporters();
 	}
 	
-	public Map getMap(String mapName, String str) {
-		if(str.equals("fwd")) {
-			return fwdMaps.get(mapName);
-		} else if(str.equals("bwd")) {
-			return bwdMaps.get(mapName);
-		}		
+	public Teleporter getTeleporter(String srcFile, int srcX, int srcY) {
+		for(Teleporter m: teleporters) {
+			if(srcFile.equals(m.getSourceFile())
+					&& srcX == m.getPlaySourceX()
+					&& srcY == m.getPlaySourceY()) {				
+				return m;
+			}
+		}
 		return null;
 	}
 	
-	public String getCurrentMap() {
-		return this.currentMap;
+	public void initialiseTeleporters(TiledModel model) {
+		for(Teleporter m: teleporters) {
+			if(m.getSourceFile().equals(currentMap)) {
+				model.setTeleporterTile(m.getTelSourceX(), m.getTelSourceY());
+			}
+		}
 	}
 	
 	public void setCurrentMap(String map) {
 		this.currentMap = map;
+	}
+	
+	public String getCurrentMap() {
+		return currentMap;
 	}
 }

@@ -17,7 +17,6 @@ public class Tile {
 	private MapActor actor;
 	private boolean walkable;
 	private boolean teleporter;
-	private String teleporterType;
 	
 	public Tile() {
 		actor = null;
@@ -45,17 +44,7 @@ public class Tile {
 		return teleporter;
 	}
 	
-	public String getTeleporterType() {
-		return teleporterType;
-	}
-	
-	public void setTeleporter(boolean teleporter, String str) {			
-		if(str.equals("fwd")) {
-			this.teleporter = teleporter;
-			this.teleporterType = str;
-		} else if(str.equals("bwd")) {
-			this.teleporter = teleporter;
-			this.teleporterType = str;
-		}
+	public void setTeleporter() {			
+		this.teleporter = true;
 	}
 }

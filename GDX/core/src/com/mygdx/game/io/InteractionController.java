@@ -10,7 +10,7 @@ import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.DIRECTION;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
-import com.mygdx.game.model.Map;
+import com.mygdx.game.model.Teleporter;
 import com.mygdx.game.model.Tile;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.Dialogue;
@@ -60,20 +60,15 @@ public class InteractionController extends InputAdapter {
 			Tile target = gameHandler.getMapScreen().getTiledModel().getTile(actor.getX() + actor.getFacing().getMoveX(), actor.getY() + actor.getFacing().getMoveY()); // If player facing actor to interact with.
 			
 			// If tile facing is a teleporter tile.
-			if (target.getTeleporter() == true) {
-				// Get whether moving forwards or backwards in teleporter.
-				String telType = target.getTeleporterType();
-				
-				// Get current map.
-				Map currentMap = gameHandler.getMapHandler().getMap(gameHandler.getMapHandler().getCurrentMap(), telType);
-				// Get map moving to.
-				Map movingTo = gameHandler.getMapHandler().getMap(currentMap.getLeadsTo(), telType);
+			if (target.getTeleporter() == true) {			
+				// Find the teleporter.
+				Teleporter teleporter = gameHandler.getMapHandler().getTeleporter(gameHandler.getMapHandler().getCurrentMap(), actor.getX(), actor.getY());
 							
-				gameHandler.setMap(movingTo.getFileLocation(), movingTo.getSpawnX(), movingTo.getSpawnY());
-				actor.changeFacing(movingTo.getDirection());
-				gameHandler.getMapHandler().setCurrentMap(movingTo.getName());
-			}
-			
+				// Change showing map and player's location within it.
+				gameHandler.setMap(teleporter.getDestinationFile(), teleporter.getPlayerDestinationX(), teleporter.getPlayerDestinationY());
+				// Change the direction that the player is facing.
+				actor.changeFacing(teleporter.getPlayerDestinationDirection());
+			}			
 			// If actor in tile facing.
 			else if(target.getActor() != null) {
 				MapActor interactingActor = target.getActor();
