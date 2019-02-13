@@ -65,6 +65,7 @@ public class MapScreen implements Screen {
 	private TiledModel model;
 
 	private Sprite optionBackground;
+	private Sprite inventoryBackground;
 	private Sprite remumeButtonMenuInActive;
 	private Sprite exitButtonMenuInActive;
 	private TweenManager tween;
@@ -101,7 +102,7 @@ public class MapScreen implements Screen {
 	private boolean buttonActive;
 	private Sprite wasdKeyboard;
 	private Sprite eKeyboard;
-	private BitmapFont font;
+	private BitmapFont fontSmall;
 	private String movementText;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
@@ -112,6 +113,9 @@ public class MapScreen implements Screen {
 	private String objectPickingText;
 	private Sprite logo;
 	private Sprite roomTransition;
+	private boolean inventoryPressed;
+	private String inventoryText;
+	private BitmapFont fontBig;
 	private static Stage stage;
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
@@ -128,6 +132,7 @@ public class MapScreen implements Screen {
 		inputHandler = new InputMultiplexer();
 
 		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
+		inventoryBackground = new Sprite(new Texture(Gdx.files.internal("data/inventory_background.jpg")));
 		remumeButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/resume_unactive.png")));
 		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/resume_active.png")));
 		exitButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
@@ -141,11 +146,14 @@ public class MapScreen implements Screen {
 		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/wasd.png")));
 		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/e.png")));
 		logo = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
-		font = new BitmapFont(Gdx.files.internal("data/vision-bold-font.fnt"));
+		fontSmall = new BitmapFont(Gdx.files.internal("data/vision-bold-font.fnt"));
+		fontBig = new BitmapFont(Gdx.files.internal("data/vision-bold-font-big.fnt"));
 		objectPickingText = "Press E for picking up objects \n and going through doors";
 		movementText = "Press W,S,A,D for movement";
+		inventoryText = "Inventory";
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/black_background.jpg")));
 		menuPressed = false;
+		inventoryPressed = false;
 		helpPressed = false;
 		checkResumeButtonMouseOver = false;
 		checkHelpButtonMouseOver = false;
@@ -322,10 +330,31 @@ public class MapScreen implements Screen {
 			}
 
 		}
+		if (inventoryKeyCheck() == true) {
+			inventoryBackground.setSize(inventoryBackground.getWidth(), PrisonEscapeGame.HEIGHT);
+			inventoryBackground.draw(game.getGameController().getSpriteBatch());
+			fontBig.draw(game.getGameController().getSpriteBatch(), inventoryText, 70,
+					PrisonEscapeGame.HEIGHT - 10);
+
+		}
 		game.getGameController().getSpriteBatch().end();
 
 	}
 
+	private boolean inventoryKeyCheck() {
+		if (Gdx.input.isKeyJustPressed(Keys.I)) {
+			if (inventoryPressed == false) {
+				inventoryPressed = true;
+
+			} else if (inventoryPressed == true) {
+				inventoryPressed = false;
+
+			}
+
+		}
+		return inventoryPressed;
+
+	}
 	private boolean menuKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (menuPressed == false) {
@@ -499,7 +528,7 @@ public class MapScreen implements Screen {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x);
-		font.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2  - 200,
+		fontSmall.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2  - 200,
 				PrisonEscapeGame.HEIGHT / 2 + 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 10;
@@ -508,7 +537,7 @@ public class MapScreen implements Screen {
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
 		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
 
-		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, PrisonEscapeGame.WIDTH / 2 - 200,
+		fontSmall.draw(game.getGameController().getSpriteBatch(), objectPickingText, PrisonEscapeGame.WIDTH / 2 - 200,
 				PrisonEscapeGame.HEIGHT / 2 - 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 20;
