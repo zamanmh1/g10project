@@ -1,7 +1,6 @@
 package com.mygdx.prisonescapegame.screens;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -72,14 +71,14 @@ public class MapScreen implements Screen {
 	private TweenManager tween;
 	private boolean menuPressed;
 	private static final int RESUME_BUTTON_WIDTH = 305;
-	private static final int RESUME_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 50;
+	private static final int RESUME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 50;
 	private static final int RESUME_BUTTON_HEIGHT = 53;
 	private Sprite resumeButtonMenuActive;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 - 150;
+	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 150;
 	private static final int HELP_BUTTON_WIDTH = 174;
-	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 - 50;
+	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 50;
 	private static final int HELP_BUTTON_HEIGHT = 52;
 	private Sprite exitButtonMenuActive;
 	private PrisonEscapeGame game;
@@ -96,7 +95,7 @@ public class MapScreen implements Screen {
 	private Sprite backButtonActive;
 	private Sprite backButtonInActive;
 	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 300;
+	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 300;
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private boolean checkBackButtonMouseOver;
 	private boolean helpPressed;
@@ -107,8 +106,8 @@ public class MapScreen implements Screen {
 	private String movementText;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
-	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 - 20;
-	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 210;
+	private static final int WASD_Y = PrisonEscapeGame.HEIGHT / 2 - 20;
+	private static final int E_Y = PrisonEscapeGame.HEIGHT / 2 - 210;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
 	private String objectPickingText;
@@ -118,6 +117,7 @@ public class MapScreen implements Screen {
 	private String inventoryText;
 	private BitmapFont fontBig;
 	private String mapName;
+	private Sprite inventoryBox;
 	private static Stage stage;
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
@@ -135,6 +135,7 @@ public class MapScreen implements Screen {
 
 		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
 		inventoryBackground = new Sprite(new Texture(Gdx.files.internal("data/inventory_background.jpg")));
+		inventoryBox = new Sprite(new Texture(Gdx.files.internal("data/inventory_box.png")));
 		remumeButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/resume_unactive.png")));
 		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/resume_active.png")));
 		exitButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
@@ -162,7 +163,6 @@ public class MapScreen implements Screen {
 		checkExitButtonMouseOver = false;
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
-		
 
 	}
 
@@ -170,7 +170,7 @@ public class MapScreen implements Screen {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
-	
+
 		mapName = map;
 		tilemap = new TmxMapLoader().load(map);
 
@@ -179,15 +179,14 @@ public class MapScreen implements Screen {
 		 * first map to be shown there is nothing to dispose of.
 		 */
 		try {
-			
+
 			mapRenderer.getMap().dispose();
-			
 
 		} catch (NullPointerException e) {
 			// Initial call to method to setup first map.
 			// Maybe output a message to welcome player to game?
 		}
-		
+
 		mapRenderer.setMap(tilemap);
 		model = new TiledModel(tilemap);
 
@@ -196,8 +195,7 @@ public class MapScreen implements Screen {
 
 		items = new ArrayList<Item>(); // Resets items in map
 		npcs = new ArrayList<ActorAction>();
-		
-		
+
 	}
 
 	// Needed for rendering items in map
@@ -307,9 +305,7 @@ public class MapScreen implements Screen {
 		stage.act();
 		stage.draw();
 		game.getGameController().getSpriteBatch().begin();
-		
-		
-		
+
 		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - roomTransition.getHeight() / 2);
 
@@ -334,16 +330,26 @@ public class MapScreen implements Screen {
 			}
 
 		}
+		//Display of inventory
 		if (inventoryKeyCheck() == true) {
 			inventoryBackground.setSize(inventoryBackground.getWidth(), PrisonEscapeGame.HEIGHT);
 			inventoryBackground.draw(game.getGameController().getSpriteBatch());
-			fontBig.draw(game.getGameController().getSpriteBatch(), inventoryText, 70,
-					PrisonEscapeGame.HEIGHT - 10);
-			fontBig.draw(game.getGameController().getSpriteBatch(), "Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 400,
-					PrisonEscapeGame.HEIGHT - 10);
-		}else {
-			fontBig.draw(game.getGameController().getSpriteBatch(), "Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 40,
-					PrisonEscapeGame.HEIGHT - 10);
+			
+			//Row and column of inventory boxes
+			for (int x = 0; x < 300; x += 170) {
+				for (int y = 0; y < PrisonEscapeGame.HEIGHT; y += 125) {
+					inventoryBox.setPosition(x, y);
+					inventoryBox.draw(game.getGameController().getSpriteBatch());
+
+				}
+			}
+
+			fontBig.draw(game.getGameController().getSpriteBatch(), inventoryText, 70, PrisonEscapeGame.HEIGHT - 10);
+			fontBig.draw(game.getGameController().getSpriteBatch(),
+					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 400, PrisonEscapeGame.HEIGHT - 10);
+		} else {
+			fontBig.draw(game.getGameController().getSpriteBatch(),
+					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 40, PrisonEscapeGame.HEIGHT - 10);
 		}
 		game.getGameController().getSpriteBatch().end();
 
@@ -363,6 +369,7 @@ public class MapScreen implements Screen {
 		return inventoryPressed;
 
 	}
+
 	private boolean menuKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (menuPressed == false) {
@@ -536,7 +543,7 @@ public class MapScreen implements Screen {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x);
-		fontSmall.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2  - 200,
+		fontSmall.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2 - 200,
 				PrisonEscapeGame.HEIGHT / 2 + 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 10;
