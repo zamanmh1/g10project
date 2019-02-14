@@ -1,6 +1,7 @@
 package com.mygdx.prisonescapegame.screens;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -116,6 +117,7 @@ public class MapScreen implements Screen {
 	private boolean inventoryPressed;
 	private String inventoryText;
 	private BitmapFont fontBig;
+	private String mapName;
 	private static Stage stage;
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
@@ -169,7 +171,7 @@ public class MapScreen implements Screen {
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
 	
-
+		mapName = map;
 		tilemap = new TmxMapLoader().load(map);
 
 		/**
@@ -305,7 +307,9 @@ public class MapScreen implements Screen {
 		stage.act();
 		stage.draw();
 		game.getGameController().getSpriteBatch().begin();
-
+		
+		
+		
 		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - roomTransition.getHeight() / 2);
 
@@ -335,7 +339,11 @@ public class MapScreen implements Screen {
 			inventoryBackground.draw(game.getGameController().getSpriteBatch());
 			fontBig.draw(game.getGameController().getSpriteBatch(), inventoryText, 70,
 					PrisonEscapeGame.HEIGHT - 10);
-
+			fontBig.draw(game.getGameController().getSpriteBatch(), "Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 400,
+					PrisonEscapeGame.HEIGHT - 10);
+		}else {
+			fontBig.draw(game.getGameController().getSpriteBatch(), "Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 40,
+					PrisonEscapeGame.HEIGHT - 10);
 		}
 		game.getGameController().getSpriteBatch().end();
 
