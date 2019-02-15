@@ -85,11 +85,11 @@ public class MapScreen extends PauseMenu implements Screen {
 		movementHandler = new PlayerMovementController(player);
 		interactionHandler = new InteractionController(player);
 		inputHandler = new InputMultiplexer();
-		inventoryBackground = new Sprite(new Texture(Gdx.files.internal("data/inventory_background.jpg")));
-		inventoryBox = new Sprite(new Texture(Gdx.files.internal("data/inventory_box.png")));
-		fontBig = new BitmapFont(Gdx.files.internal("data/vision-bold-font-big.fnt"));
+		inventoryBackground = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/inventory_background.jpg")));
+		inventoryBox = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/inventory_box.png")));
+		fontBig = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big.fnt"));
 		inventoryText = "Inventory";
-		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/black_background.jpg")));
+		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		menuPressed = false;
 		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
 		inventoryPressed = false;

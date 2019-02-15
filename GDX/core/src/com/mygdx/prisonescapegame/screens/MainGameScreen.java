@@ -32,7 +32,7 @@ public class MainGameScreen implements Screen {
 	public MainGameScreen (PrisonEscapeGame game) {
 		this.game = game;
 		tween = new TweenManager();
-		loading = new Sprite(new Texture(Gdx.files.internal("data/loading.png")));
+		loading = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loading.png")));
 	}
 
 	@Override

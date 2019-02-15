@@ -72,22 +72,22 @@ public class PauseMenu {
 	
 	public PauseMenu() {
 		
-		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
-		remumeButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/resume_unactive.png")));
-		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/resume_active.png")));
-		exitButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
-		exitButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/exit_inactive.png")));
-		helpButtonMenuActive = new Sprite(new Texture("data/help_active.png"));
-		helpButtonMenuInActive = new Sprite(new Texture("data/help_inactive.png"));
-		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/back_active.png")));
-		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/back.png")));
-		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/wasd.png")));
-		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/e.png")));
-		logo = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
+		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/OptionMenuBackGround.jpg")));
+		remumeButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/resume_unactive.png")));
+		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/resume_active.png")));
+		exitButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_active.png")));
+		exitButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_inactive.png")));
+		helpButtonMenuActive = new Sprite(new Texture("data/menuSprites/help_active.png"));
+		helpButtonMenuInActive = new Sprite(new Texture("data/menuSprites/help_inactive.png"));
+		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back_active.png")));
+		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back.png")));
+		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/wasd.png")));
+		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/e.png")));
+		logo = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/logo.png")));
 		objectPickingText = "Press E for picking up objects \n and going through doors";
 		movementText = "Press W,S,A,D for movement";
 		helpPressed = false;
-		fontSmall = new BitmapFont(Gdx.files.internal("data/vision-bold-font.fnt"));
+		fontSmall = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		checkResumeButtonMouseOver = false;
 		checkHelpButtonMouseOver = false;
 		checkExitButtonMouseOver = false;
