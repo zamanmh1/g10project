@@ -43,6 +43,8 @@ public class GameHandler implements GameController {
 	private List<MapActor> actors;
 	private HashMap<Actor, ActorAction> actions;
 	
+	private String currentMapFile;
+	
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;	
 		
@@ -93,6 +95,9 @@ public class GameHandler implements GameController {
 		
 		currentMap.setMap(map, this);
 		getMapScreen().getTiledModel().getTile(x, y).setActor(getPlayer());
+		
+		mapHandler.setCurrentMap(map);
+		mapHandler.initialiseTeleporters(getMapScreen().getTiledModel());
 		
 		getPlayer().teleport(x, y);
 		
@@ -162,5 +167,9 @@ public class GameHandler implements GameController {
 	
 	public HashMap<Actor, ActorAction> getActions(){
 		return this.actions;
+	}
+	
+	public String getCurrentMapFile() {
+		return this.currentMapFile;
 	}
 }

@@ -32,7 +32,7 @@ public class LimitedWalkingAction extends ActorAction {
 		this.limitNorth = limitNorth;
 		this.limitSouth = limitSouth;
 		this.limitEast = limitEast;
-		this.limitSouth = limitSouth;
+		this.limitWest = limitWest;
 		this.minMoveInterval = minMoveInterval;
 		this.maxMoveInterval = maxMoveInterval;
 		this.random = random;
@@ -50,10 +50,10 @@ public class LimitedWalkingAction extends ActorAction {
 		if(timer >= currentWaitTime) {
 			int direction = random.nextInt(DIRECTION.values().length);
 			DIRECTION moveDir = DIRECTION.values()[direction];
-			if(((thisMove.x + moveDir.getMoveX()) > limitEast) ||
-					(-(thisMove.x + moveDir.getMoveX()) > limitWest) ||
-						((thisMove.y + moveDir.getMoveY()) > limitNorth) ||
-							(-(thisMove.y + moveDir.getMoveY()) > limitSouth)) {
+			if(thisMove.x + moveDir.getMoveX() > limitEast ||
+					-(thisMove.x + moveDir.getMoveX()) > limitWest ||
+					thisMove.y + moveDir.getMoveY() > limitNorth ||
+					-(thisMove.y + moveDir.getMoveY()) > limitSouth) {
 				getActor().changeFacing(moveDir);
 				currentWaitTime = calculateWaitTime();
 				timer = 0.0f;

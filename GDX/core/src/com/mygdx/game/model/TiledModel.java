@@ -36,11 +36,6 @@ public class TiledModel {
 				if(layer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
 					tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property "blocked".
 				}
-				if(layer.getCell(x,y).getTile().getProperties().containsKey("teleporter_fwd")) {
-					tiles[x][y].setTeleporter(true, "fwd");
-				} else if(layer.getCell(x,y).getTile().getProperties().containsKey("teleporter_bwd")) {
-					tiles[x][y].setTeleporter(true, "bwd");
-				}
 			}
 		}
 	}
@@ -51,6 +46,10 @@ public class TiledModel {
 	
 	public void setTile(Tile tile, int x, int y) {
 		tiles[x][y] = tile;
+	}
+	
+	public void setTeleporterTile(int x, int y) {
+		tiles[x][y].setTeleporter();
 	}
 	
 	public int getWidth() {

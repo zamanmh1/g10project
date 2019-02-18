@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.entities.Item;
-import com.mygdx.game.model.Map;
+import com.mygdx.game.model.Teleporter;
 
 /**
  * CLASS DESCRIPTION
@@ -33,19 +34,22 @@ public class MapReader {
 		}
 	}
 	
-	public HashMap<String, Map> readMaps(){
-		HashMap<String, Map> maps = new HashMap<String, Map>();
+	public ArrayList<Teleporter> readTeleporters(){
+		ArrayList<Teleporter> teleporters = new ArrayList<Teleporter>();
 		String line = "";
 		String splitBy = ",";
-		
+				
 		try {
+			bReader.readLine(); // Discard column titles
+			
 			while((line = bReader.readLine()) != null) {
 				String[] readItem = line.split(splitBy);
 				
-				Map m = new Map(readItem[0], readItem[1], Integer.parseInt(readItem[2]), Integer.parseInt(readItem[3]), readItem[4], readItem[5]);
-				maps.put(m.getName(), m);
+				Teleporter m = new Teleporter(readItem[0], Integer.parseInt(readItem[1]), Integer.parseInt(readItem[2]), Integer.parseInt(readItem[3]), 
+						Integer.parseInt(readItem[4]), readItem[5], Integer.parseInt(readItem[6]), Integer.parseInt(readItem[7]), readItem[8]);
+				teleporters.add(m);
 			}
-			return maps;
+			return teleporters;
 		} catch (IOException e) {
 			System.out.println(e.toString());
 			return null;
