@@ -58,8 +58,9 @@ public class InteractionController extends InputAdapter {
 		}
 		if (keycode == Keys.E) {			
 			Tile target = gameHandler.getMapScreen().getTiledModel().getTile(actor.getX() + actor.getFacing().getMoveX(), actor.getY() + actor.getFacing().getMoveY()); // If player facing actor to interact with.
-			
+
 			// If tile facing is a teleporter tile.
+
 			if (target.getTeleporter() == true) {			
 				// Find the teleporter.
 				Teleporter teleporter = gameHandler.getMapHandler().getTeleporter(gameHandler.getMapHandler().getCurrentMap(), actor.getX(), actor.getY());
@@ -69,6 +70,7 @@ public class InteractionController extends InputAdapter {
 				// Change the direction that the player is facing.
 				actor.changeFacing(teleporter.getPlayerDestinationDirection());
 			}			
+		
 			// If actor in tile facing.
 			else if(target.getActor() != null) {
 				MapActor interactingActor = target.getActor();
@@ -102,7 +104,6 @@ public class InteractionController extends InputAdapter {
 						dBox.showDialogue(MapScreen.getStage(), i.getName());
 						//System.out.println(d.getDialogue(i.getName()));
 					}
-					
 					return true;
 				}
 			}

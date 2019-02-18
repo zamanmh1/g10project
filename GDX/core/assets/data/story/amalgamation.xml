@@ -1,29 +1,46 @@
 <speech>
-	<book>
+	<Book>
 		<dialogue>
-			"Hello Peter, just woke up? You're in jail for life. 
-			You may not remember why but that doesn't matter right now.
+			"Hello, just woke up? You're in jail for life...
+			You probably don't remember why but that doesn't matter right now.
+			Why don't you have a little look around? Maybe you'll get some hints as to why.
 			Enclosed in this book is the key to your cell, tread carefully..."
 			
-			Player obtained cellkey
+			You obtained the key to your cell.
 		</dialogue>
-	</book>
+	</Book>
 
 	<MobMember>
 		<dialogue currState="1">
-			"Ptts hey stupid, I'm part of the gang WreyTay. You still owe us more favours.
+			"Psst. Hey, stupid, I'm in with some powerful people round here; You still owe us more favours.
 			In return for your continued loyalty, we will protect you.
-			Your first task is to deliver this package to the prisoner Trippie Maroon on
-			the top floor"
+			Deliver this package to Trippie Maroon on the top floor."
 			
-			Player obtained small package
+			You obtained a small package
 			<state>1.1</state>
+		</dialogue>
+		<dialogue>
+			"Don't ask any questions you don't wanna know the answer to."
 		</dialogue>
 	</MobMember>
 	
 	<Rainbow>
+		<dialogue currState="1.4">
+			You call Rainbow over and distract him as you quickly sneak a laxative into his cup of water.
+				<state>1.5</state>
+		</dialogue>
+		<dialogue currState="1.5">
+			Rainbow's stomach starts making some noises.
+			
+			Oh Jesus, that lady must have cooked up some real bad food!
+			
+			He runs off in an awkward pose back to his cell.
+		</dialogue>
+		<dialogue currState="1.6">
+			He gives you a grimace. His stomach makes some more noises.
+		</dialogue>
 		<dialogue>
-			"can't believe I went 11/11 and now I'm here"
+			"Can't believe I went 11/11 and now I'm here."
 		</dialogue>
 	</Rainbow>
 	
@@ -36,13 +53,13 @@
 	<Prisoner>
 		<dialogue>
 			"I've been arrested 7 times, I know that sounds like quite a lot but three
-			of those times were for vandalism"
+			of those times were for vandalism."
 		</dialogue>
 	</Prisoner>
 	
 	<IllPrisoner>
 		<dialogue>
-			The prisoner looked incredibly pale and frightened
+			The prisoner looked incredibly pale and frightened.
 		</dialogue>
 	</IllPrisoner>
 
@@ -51,9 +68,9 @@
 			"What you staring at?"
 		</dialogue>
 		<dialogue currState="1.1">
-			"Yo, WayTay sent you? Pass that here."
+			"Yo, WrayTay sent you? Pass that here."
 			
-			Trippie Maroon opened package
+			Trippie Maroon opens the package
 			
 			"Yes! I needed this... 
 			Hey, if you get bored, talk to me again yeah."
@@ -61,41 +78,54 @@
 		</dialogue>
 		<dialogue currState="1.2">
 			"You got bored quick, there is this guy with rainbow hair in this block I hate
-			He has been playing pranks on me for weeks now, I want to poison him.
+			He has been messing with me for weeks now, I need you to take care of him.
 			The dinner lady has the worst smoking habit this side on the ocean and you can 
-			trade her cigarettes for pretty much anything. Take these and buy me some laxatives"
+			trade her cigarettes for pretty much anything. Take these and buy me some laxatives."
 			
-			Player obtained 5 cigarettes
+			Trippie hands you 5 cigarettes
 			<state> 1.3</state>
+		</dialogue>
+		<dialogue currState="1.3">
+			"Get going!"
+		</dialogue>
+		<dialogue currState="1.5">
+			"Ha! I saw the rainbow haired prick waddling to his cell. Cheers pal, I just might have more use for you..."
+				<state>1.6</state>
+		</dialogue>
+		<dialogue>
+			"I might have some more work for you soon. I'll be in touch."
 		</dialogue>
 	</TrippieMaroon>
 	
 	<AggressivePrisoner>
+		<dialogue currState="1.3">
+			"Just cause Trippie's got you as his errand boy ain't mean nothin' to me if you get in my way again"
+		</dialogue>
 		<dialogue>
-			"who are you staring at boy?"
+			"Who you staring at boy?"
 		</dialogue>
 	</AggressivePrisoner>
 	
 	<PlacementApplication>
 		<dialogue>
-			"I strike fear into the hearts of everyone knows my name...
+			"I strike fear into the hearts of everyone who knows my name...
 			My name is Placement Application"
 			
-			Player felt a shudder down their spine
+			You felt a shudder down your spine for some reason
 		</dialogue>
 	</PlacementApplication>
 	
 	<BadManners>
 		<dialogue>
-			prisoner spits at player
+			The prisoner spits at you
 		</dialogue>
 	</BadManners>
 	
 	<Spades>
 		<dialogue>
-			"hey man take these, I don't want them anymore, I need to stop gambling"
-			
-			player obtained playing cards
+			"Listen, you're gonna need to earn something valuable to trade if you wanna get by here.
+			Lucky for you, I've got a proposition for you, you bring me 2 packets of ramen,
+			then I'll give you my lucky dice and deck."
 		</dialogue>
 	</Spades>
 	
@@ -103,31 +133,43 @@
 		<dialogue>
 			"Have you heard the rumour that you can hear screams in the basement at midnight?"
 			
-			Player found this disturbing"
+			You found this disturbing
 		</dialogue>
 	</Loony>
 	
-	<APrisoner>
+	<ShakyPrisoner>
+		<dialogue currState="1.2">
+			"Listen man, I saw you doing stuff with them, leave me alone."
+		</dialogue>
+		<dialogue currState="1.3">
+			"Listen man, I saw you doing stuff with them, leave me alone."
+		</dialogue>
 		<dialogue>
 			"Leave me be man, I don't want any problems today"
 		</dialogue>
-	</APrisoner>
+	</ShakyPrisoner>
 	
 	<DinnerLady>
-		<dialogue currState="1">
-			"Today we are serving our special of sardines and sadness...
-			Unless you have something to trade?"
+		<dialogue currState="1.3">
+			"You'd think I wouldn't have my sense of smell anymore, but I know tobacco anywhere. 
+			Trippie sent you? He ordered this the other day, slide what you got under the tray."
 			
-			Player spends 5 cigarettes
-			Player obtained laxatives
-			<state>1.4</state>
+			You passed her the 5 cigarettes, in return you get some laxatives.
+				<state>1.4</state>
 		</dialogue>
-		
+		<dialogue currState="1.4">
+			"You know what those are right? Don't even try one else you won't be out of your cell for while."
+		</dialogue>
+		<dialogue>
+			"Today we are serving our special of sardines and sadness...
+			
+			Unless you got something for me?"
+		</dialogue>
 	</DinnerLady>
 	
 	<DisgustedPrisoner>
 		<dialogue>
-			"Every day this food gets worse"
+			"Every day this food gets worse."
 		</dialogue>
 	</DisgustedPrisoner>
 	
@@ -143,5 +185,37 @@
 		</dialogue>
 	</AnotherMobMember>
 	
+	<Ray>
+		<dialogue>
+			The prisoner stares at you.
+		</dialogue>
+	</Ray>
+	
+	<Joe>
+		<dialogue>
+			The prisoner gives you a nod.
+		</dialogue>
+	</Joe>
+	
+	<Tweak>
+		<dialogue>
+			As you approach, he twitches and scurries about, seemingly uncontrollably muttering something 
+			about an MVP and coffee...
+			
+			You figure it's best you left him alone for now.
+		</dialogue>
+	</Tweak>
+	
+	<Tim>
+		<dialogue>
+			The prisoner stares at you.
+		</dialogue>
+	</Tim>
+	
+	<Moon>
+		<dialogue>
+			The prisoner gives you a nod.
+		</dialogue>
+	</Moon>
 	
 </speech>

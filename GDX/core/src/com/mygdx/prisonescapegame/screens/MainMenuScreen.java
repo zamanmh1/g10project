@@ -62,16 +62,16 @@ public class MainMenuScreen implements Screen {
 		this.game = game;
 
 		tween = new TweenManager();
-		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/play_active.png")));
-		playButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/play_inactive.png")));
-		exitButtonActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
-		exitButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/exit_inactive.png")));
-		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/background.png")));
-		helpButtonActive = new Sprite(new Texture("data/help_active.png"));
-		helpButtonInActive = new Sprite(new Texture("data/help_inactive.png"));
-		volumeButtonFull = new Sprite(new Texture("data/Volume-full.png"));
-		volumeButtonMute = new Sprite(new Texture("data/Volume-off.png"));
-		mouseOverSound = Gdx.audio.newSound(Gdx.files.internal("data/MouseOver.ogg"));
+		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/play_active.png")));
+		playButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/play_inactive.png")));
+		exitButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_active.png")));
+		exitButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_inactive.png")));
+		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/background.png")));
+		helpButtonActive = new Sprite(new Texture("data/menuSprites/help_active.png"));
+		helpButtonInActive = new Sprite(new Texture("data/menuSprites/help_inactive.png"));
+		volumeButtonFull = new Sprite(new Texture("data/menuSprites/Volume-full.png"));
+		volumeButtonMute = new Sprite(new Texture("data/menuSprites/Volume-off.png"));
+		mouseOverSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/MouseOver.ogg"));
 		checkPlayButtonMouseOver = false;
 		checkExitButtonMouseOver = false;
 		checkHelpButtonMouseOver = false;

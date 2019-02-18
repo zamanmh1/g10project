@@ -30,7 +30,7 @@ public class DesktopLauncher
 		config.height = (int) screenSize.getHeight(); //768
 
 		config.fullscreen = true;
-		config.title = "Team 10: Hack";
+		config.title = "Prison Breakout Team 10: Final";
 		config.foregroundFPS = 60;
 		new LwjglApplication(new PrisonEscapeGame(), config);
 	}

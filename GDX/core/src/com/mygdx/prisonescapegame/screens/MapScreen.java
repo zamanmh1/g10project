@@ -47,7 +47,7 @@ import aurelienribon.tweenengine.TweenManager;
  * 
  */
 
-public class MapScreen implements Screen {
+public class MapScreen extends PauseMenu implements Screen {
 	private TiledMap tilemap;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera oCamera;
@@ -61,61 +61,21 @@ public class MapScreen implements Screen {
 	private InputMultiplexer inputHandler; // Allows for multiple user inputs to be used
 	private PlayerMovementController movementHandler;
 	private InteractionController interactionHandler;
-
 	private TiledModel model;
-
-	private Sprite optionBackground;
-	private Sprite remumeButtonMenuInActive;
-	private Sprite exitButtonMenuInActive;
+	private Sprite inventoryBackground;
 	private TweenManager tween;
-	private boolean menuPressed;
-	private static final int RESUME_BUTTON_WIDTH = 305;
-	private static final int RESUME_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 50;
-	private static final int RESUME_BUTTON_HEIGHT = 53;
-	private Sprite resumeButtonMenuActive;
-	private static final int EXIT_BUTTON_WIDTH = 174;
-	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 - 150;
-	private static final int HELP_BUTTON_WIDTH = 174;
-	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 - 50;
-	private static final int HELP_BUTTON_HEIGHT = 52;
-	private Sprite exitButtonMenuActive;
 	private PrisonEscapeGame game;
-	private boolean checkResumeButtonMouseOver;
-	private boolean checkExitButtonMouseOver;
-	private static final int VOLUME_BUTTON_WIDTH = 50;
-	private static final int VOLUME_BUTTON_Y = 50;
-	private static final int VOLUME_BUTTON_HEIGHT = 50;
-	private Sprite volumeButtonMuted;
-	private Sprite volumeButtonFull;
-	private Sprite helpButtonMenuActive;
-	private Sprite helpButtonMenuInActive;
-	private boolean checkHelpButtonMouseOver;
-	private Sprite backButtonActive;
-	private Sprite backButtonInActive;
-	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 300;
-	private static final int BACK_BUTTON_HEIGHT = 40;
-	private boolean checkBackButtonMouseOver;
-	private boolean helpPressed;
-	private boolean buttonActive;
-	private Sprite wasdKeyboard;
-	private Sprite eKeyboard;
-	private BitmapFont font;
-	private String movementText;
-	private static final int WASD_WIDTH = 108;
-	private static final int WASD_HEIGHT = 75;
-	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 - 20;
-	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 210;
-	private static final int E_WIDTH = 39;
-	private static final int E_HEIGHT = 39;
-	private String objectPickingText;
-	private Sprite logo;
 	private Sprite roomTransition;
+	private boolean inventoryPressed;
+	private String inventoryText;
+	private BitmapFont fontBig;
+	private String mapName;
+	private Sprite inventoryBox;
+	
 	private static Stage stage;
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
-
+		
 		this.player = player;
 		this.game = game;
 		tween = new TweenManager();
@@ -124,35 +84,16 @@ public class MapScreen implements Screen {
 		stage = new Stage();
 		movementHandler = new PlayerMovementController(player);
 		interactionHandler = new InteractionController(player);
-
 		inputHandler = new InputMultiplexer();
-
-		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/OptionMenuBackGround.jpg")));
-		remumeButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/resume_unactive.png")));
-		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/resume_active.png")));
-		exitButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/exit_active.png")));
-		exitButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/exit_inactive.png")));
-		volumeButtonMuted = MainMenuScreen.getInstance(game).volumeButtonMuted();
-		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
-		helpButtonMenuActive = new Sprite(new Texture("data/help_active.png"));
-		helpButtonMenuInActive = new Sprite(new Texture("data/help_inactive.png"));
-		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/back_active.png")));
-		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/back.png")));
-		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/wasd.png")));
-		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/e.png")));
-		logo = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));
-		font = new BitmapFont(Gdx.files.internal("data/vision-bold-font.fnt"));
-		objectPickingText = "Press E for picking up objects \n and going through doors";
-		movementText = "Press W,S,A,D for movement";
-		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/black_background.jpg")));
+		inventoryBackground = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/inventory_background.jpg")));
+		inventoryBox = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/inventory_box.png")));
+		fontBig = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big.fnt"));
+		inventoryText = "Inventory";
+		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		menuPressed = false;
-		helpPressed = false;
-		checkResumeButtonMouseOver = false;
-		checkHelpButtonMouseOver = false;
-		checkExitButtonMouseOver = false;
-		checkBackButtonMouseOver = false;
-		buttonActive = true;
-		
+		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
+		inventoryPressed = false;
+	
 
 	}
 
@@ -160,8 +101,8 @@ public class MapScreen implements Screen {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
-	
 
+		mapName = map;
 		tilemap = new TmxMapLoader().load(map);
 
 		/**
@@ -169,15 +110,14 @@ public class MapScreen implements Screen {
 		 * first map to be shown there is nothing to dispose of.
 		 */
 		try {
-			
+
 			mapRenderer.getMap().dispose();
-			
 
 		} catch (NullPointerException e) {
 			// Initial call to method to setup first map.
 			// Maybe output a message to welcome player to game?
 		}
-		
+
 		mapRenderer.setMap(tilemap);
 		model = new TiledModel(tilemap);
 
@@ -186,8 +126,7 @@ public class MapScreen implements Screen {
 
 		items = new ArrayList<Item>(); // Resets items in map
 		npcs = new ArrayList<ActorAction>();
-		
-		
+
 	}
 
 	// Needed for rendering items in map
@@ -224,26 +163,7 @@ public class MapScreen implements Screen {
 		Tween.to(logo, SpriteAccessor.ALPHA, 1.0f).target(1).start(tween);
 		Tween.set(optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
 		Tween.to(optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
-		Tween.set(volumeButtonMuted, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(volumeButtonMuted, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
-		Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
-		Tween.set(resumeButtonMenuActive, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(resumeButtonMenuActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
-		Tween.set(helpButtonMenuInActive, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(helpButtonMenuInActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
-		Tween.set(helpButtonMenuActive, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(helpButtonMenuActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
-		Tween.set(remumeButtonMenuInActive, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(remumeButtonMenuInActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
-		Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(exitButtonMenuActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
-		Tween.set(exitButtonMenuInActive, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(exitButtonMenuInActive, SpriteAccessor.ALPHA, 1.0f).target(1f).start(tween);
-		Tween.set(backButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(backButtonInActive, SpriteAccessor.ALPHA, 1f).target(1).start(tween);
-		Tween.set(backButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(backButtonActive, SpriteAccessor.ALPHA, 1f).target(1).start(tween);
+	
 
 	}
 
@@ -312,17 +232,57 @@ public class MapScreen implements Screen {
 
 			optionBackground.draw(game.getGameController().getSpriteBatch());
 			logo.draw(game.getGameController().getSpriteBatch());
-			resumeButtonMenu();
-			helpButtonMenu();
-			exitButtonMenu();
-			volumeButton();
+			resumeButtonMenu(game);
+			helpButtonMenu(tween, game);
+			exitButtonMenu(tween, game);
+			volumeButton(game);
 			if (helpPressed) {
-				helpScreenUI();
+				helpScreenUI(game, tween);
 
 			}
 
 		}
+		
+		// Display of inventory
+		if (inventoryKeyCheck() == true) {
+			inventoryBackground.setSize(inventoryBackground.getWidth(), PrisonEscapeGame.HEIGHT);
+			inventoryBackground.draw(game.getGameController().getSpriteBatch());
+
+			// Row and column of inventory boxes
+			for (int x = 0; x < 300; x += 170) {
+				for (int y = 0; y < PrisonEscapeGame.HEIGHT; y += 125) {
+					inventoryBox.setPosition(x, y);
+					inventoryBox.draw(game.getGameController().getSpriteBatch());
+
+				}
+			}
+
+			// Text of Inventory
+			fontBig.draw(game.getGameController().getSpriteBatch(), inventoryText, 70, PrisonEscapeGame.HEIGHT - 10);
+			// Text of room names shifted to the right
+			fontBig.draw(game.getGameController().getSpriteBatch(),
+					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 400, PrisonEscapeGame.HEIGHT - 10);
+		} else {
+			// Text of room names
+			fontBig.draw(game.getGameController().getSpriteBatch(),
+					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 40, PrisonEscapeGame.HEIGHT - 10);
+		}
 		game.getGameController().getSpriteBatch().end();
+
+	}
+
+	private boolean inventoryKeyCheck() {
+		if (Gdx.input.isKeyJustPressed(Keys.I)) {
+			if (inventoryPressed == false) {
+				inventoryPressed = true;
+
+			} else if (inventoryPressed == true) {
+				inventoryPressed = false;
+
+			}
+
+		}
+		return inventoryPressed;
 
 	}
 
@@ -341,223 +301,7 @@ public class MapScreen implements Screen {
 
 	}
 
-	private void resumeButtonMenu() {
-		int x = (int) (PrisonEscapeGame.WIDTH / 2 - remumeButtonMenuInActive.getWidth() / 2);
-		if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > RESUME_BUTTON_Y) {
 
-			resumeButtonMenuActive.setPosition(x, RESUME_BUTTON_Y);
-			resumeButtonMenuActive.setSize(RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
-			resumeButtonMenuActive.draw(game.getGameController().getSpriteBatch());
-			if (buttonActive) {
-				if (checkResumeButtonMouseOver == false) {
-					Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
-
-					getMouseOverSound.play(1f);
-
-					checkResumeButtonMouseOver = true;
-
-				}
-
-				if (Gdx.input.isTouched()) {
-
-					menuPressed = false;
-
-				}
-			}
-		} else {
-			checkResumeButtonMouseOver = false;
-			remumeButtonMenuInActive.setPosition(x, RESUME_BUTTON_Y);
-			remumeButtonMenuInActive.setSize(RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
-			remumeButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
-
-		}
-
-	}
-
-	private void helpButtonMenu() {
-		int x = (int) (PrisonEscapeGame.WIDTH / 2 - helpButtonMenuInActive.getWidth() / 2);
-		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
-
-			helpButtonMenuActive.setPosition(x, HELP_BUTTON_Y);
-			helpButtonMenuActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
-			helpButtonMenuActive.draw(game.getGameController().getSpriteBatch());
-			if (buttonActive) {
-				if (checkHelpButtonMouseOver == false) {
-					Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
-
-					getMouseOverSound.play(1f);
-
-					checkHelpButtonMouseOver = true;
-
-				}
-
-				if (Gdx.input.isTouched()) {
-
-					Tween.set(resumeButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(remumeButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(helpButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(helpButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(exitButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					helpScreenUI();
-					helpPressed = true;
-					buttonActive = false;
-
-				}
-			}
-		} else {
-			checkHelpButtonMouseOver = false;
-			helpButtonMenuInActive.setPosition(x, HELP_BUTTON_Y);
-			helpButtonMenuInActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
-			helpButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
-
-		}
-	}
-
-	private void exitButtonMenu() {
-		int x = (int) (PrisonEscapeGame.WIDTH / 2 - exitButtonMenuInActive.getWidth() / 2);
-		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
-
-			exitButtonMenuActive.setPosition(x, EXIT_BUTTON_Y);
-			exitButtonMenuActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-			exitButtonMenuActive.draw(game.getGameController().getSpriteBatch());
-			if (buttonActive) {
-				if (checkExitButtonMouseOver == false) {
-					Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
-
-					getMouseOverSound.play(1f);
-
-					checkExitButtonMouseOver = true;
-
-				}
-				if (Gdx.input.isTouched()) {
-					Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.to(exitButtonMenuActive, SpriteAccessor.ALPHA, 0.5f).target(1).repeatYoyo(0, 0f)
-							.setCallback(new TweenCallback() {
-
-								@Override
-								public void onEvent(int type, BaseTween<?> source) {
-
-									((Game) Gdx.app.getApplicationListener())
-											.setScreen(MainMenuScreen.getInstance(game));
-								}
-							}).start(tween);
-				}
-			}
-
-		} else {
-			checkExitButtonMouseOver = false;
-			exitButtonMenuInActive.setPosition(x, EXIT_BUTTON_Y);
-			exitButtonMenuInActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
-			exitButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
-
-		}
-
-	}
-
-	private void volumeButton() {
-		int x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
-		Boolean muted = MainMenuScreen.getInstance(game).checkSoundMuted();
-		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
-			if (muted == false) {
-
-				MainMenuScreen.getInstance(game).setVolumeMute(true);
-
-			} else if (muted == true) {
-				MainMenuScreen.getInstance(game).setVolumeMute(false);
-			}
-		}
-
-		Music music = game.getGameController().getMusic();
-		Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
-		if (muted) {
-
-			volumeButtonMuted.setPosition(x, VOLUME_BUTTON_Y);
-			volumeButtonMuted.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
-			volumeButtonMuted.draw(game.getGameController().getSpriteBatch());
-			music.pause();
-			getMouseOverSound.stop();
-		} else {
-
-			volumeButtonFull.setPosition(x, VOLUME_BUTTON_Y);
-			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
-			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
-			music.play();
-		}
-
-	}
-
-	private void helpScreenUI() {
-		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
-
-		backButton(x);
-		font.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2  - 200,
-				PrisonEscapeGame.HEIGHT / 2 + 100);
-
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 10;
-
-		wasdKeyboard.setPosition(x, WASD_Y);
-		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
-		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
-
-		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, PrisonEscapeGame.WIDTH / 2 - 200,
-				PrisonEscapeGame.HEIGHT / 2 - 100);
-
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 20;
-
-		eKeyboard.setPosition(x, E_Y);
-		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
-		eKeyboard.draw(game.getGameController().getSpriteBatch());
-
-	}
-
-	private void backButton(int x) {
-
-		if (Gdx.input.getX() < x + BACK_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BACK_BUTTON_Y) {
-
-			backButtonActive.setPosition(x, BACK_BUTTON_Y);
-			backButtonActive.setSize(BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
-			backButtonActive.draw(game.getGameController().getSpriteBatch());
-
-			if (checkBackButtonMouseOver == false) {
-				Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
-
-				getMouseOverSound.play(1f);
-
-				checkBackButtonMouseOver = true;
-
-			}
-
-			if (Gdx.input.isTouched()) {
-				Tween.set(resumeButtonMenuActive, SpriteAccessor.ALPHA).target(1).start(tween);
-				Tween.set(remumeButtonMenuInActive, SpriteAccessor.ALPHA).target(1).start(tween);
-				Tween.set(helpButtonMenuActive, SpriteAccessor.ALPHA).target(1).start(tween);
-				Tween.set(helpButtonMenuInActive, SpriteAccessor.ALPHA).target(1).start(tween);
-				Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(1).start(tween);
-				Tween.set(exitButtonMenuInActive, SpriteAccessor.ALPHA).target(1).start(tween);
-				helpPressed = false;
-				buttonActive = true;
-
-			}
-		} else {
-			checkBackButtonMouseOver = false;
-			backButtonInActive.setPosition(x, BACK_BUTTON_Y);
-			backButtonInActive.setSize(BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
-			backButtonInActive.draw(game.getGameController().getSpriteBatch());
-
-		}
-
-	}
 
 	@Override
 	public void resize(int width, int height) {

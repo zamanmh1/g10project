@@ -55,7 +55,7 @@ public class GameHandler implements GameController {
 		itemHandler = new ItemHandler();
 		NPCsHandler = new NPCHandler(this);
 		
-		music = Gdx.audio.newMusic(Gdx.files.internal("data/BackgroundSound.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/BackgroundSound.mp3"));
 		music.setLooping(true);
 		music.setVolume(0.5f);
 		music.play();

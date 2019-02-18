@@ -32,7 +32,7 @@ public class Splash implements Screen {
 	public Splash (PrisonEscapeGame game) {
 		this.game = game;
 		tween = new TweenManager();
-		splash = new Sprite(new Texture(Gdx.files.internal("data/logo.png")));		
+		splash = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/logo.png")));		
 	}
 
 	@Override

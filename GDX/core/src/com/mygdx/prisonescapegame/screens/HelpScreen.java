@@ -57,14 +57,14 @@ public class HelpScreen implements Screen {
 	public HelpScreen(PrisonEscapeGame game) {
 		this.game = game;
 		tween = new TweenManager();
-		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/background.png")));
-		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/back_active.png")));
-		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/back.png")));
+		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/background.png")));
+		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back_active.png")));
+		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back.png")));
 		volumeButtonMuted = MainMenuScreen.getInstance(game).volumeButtonMuted();
 		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
-		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/wasd.png")));
-		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/e.png")));
-		font = new BitmapFont(Gdx.files.internal("data/vision-bold-font.fnt"));
+		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/wasd.png")));
+		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/e.png")));
+		font = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		movementText = "Press W,S,A,D for movement";
 		objectPickingText = "Press E for picking up objects \n and going through doors";
 	}

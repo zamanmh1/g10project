@@ -64,7 +64,7 @@ public class DialogueUI extends ScreenAdapter
 		//dialog.show(s);
 		dialog.setMovable(false);
 		dialog.setModal(false);
-		dialog.sizeBy(dialog.getPrefWidth(), 5);
+		dialog.sizeBy(dialog.getPrefWidth(), dialog.getPrefHeight());
 		//dialog.pack();
 		s.addActor(dialog);
 	}

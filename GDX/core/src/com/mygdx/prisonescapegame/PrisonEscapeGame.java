@@ -54,7 +54,7 @@ public class PrisonEscapeGame extends Game {
 		);
 		
 		this.game = new GameHandler(this);
-		this.player = new Actor(5, 5, animations, game);
+		this.player = new Actor(1, 2, animations, game);
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
 	}
 
