@@ -1,4 +1,5 @@
 package com.mygdx.prisonescapegame.screens;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -22,7 +23,6 @@ import aurelienribon.tweenengine.TweenManager;
  */
 public class PauseMenu {
 
-	
 	protected Sprite optionBackground;
 	protected Sprite remumeButtonMenuInActive;
 	protected Sprite exitButtonMenuInActive;
@@ -69,9 +69,8 @@ public class PauseMenu {
 	private String objectPickingText;
 	protected Sprite logo;
 
-	
 	public PauseMenu() {
-		
+
 		optionBackground = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/OptionMenuBackGround.jpg")));
 		remumeButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/resume_unactive.png")));
 		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/resume_active.png")));
@@ -94,8 +93,9 @@ public class PauseMenu {
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
 		menuPressed = false;
+
 	}
-	
+
 	protected void resumeButtonMenu(PrisonEscapeGame game) {
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - remumeButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -216,8 +216,6 @@ public class PauseMenu {
 
 	}
 
-	
-
 	protected void helpScreenUI(PrisonEscapeGame game, TweenManager tween) {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
@@ -281,7 +279,10 @@ public class PauseMenu {
 		}
 
 	}
+
 	protected void volumeButton(PrisonEscapeGame game) {
+		volumeButtonMuted = MainMenuScreen.getInstance(game).volumeButtonMuted();
+		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
 		int x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
 		Boolean muted = MainMenuScreen.getInstance(game).checkSoundMuted();
 		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -298,21 +299,40 @@ public class PauseMenu {
 
 		Music music = game.getGameController().getMusic();
 		Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
-		
-		
+
 		if (muted) {
-			volumeButtonMuted = MainMenuScreen.getInstance(game).volumeButtonMuted();
+			
 			volumeButtonMuted.setPosition(x, VOLUME_BUTTON_Y);
 			volumeButtonMuted.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonMuted.draw(game.getGameController().getSpriteBatch());
 			music.pause();
 			getMouseOverSound.stop();
 		} else {
-			volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
+			
 			volumeButtonFull.setPosition(x, VOLUME_BUTTON_Y);
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
 			music.play();
+		}
+
+	}
+
+	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween) {
+
+		optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
+				PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
+		logo.setPosition(PrisonEscapeGame.WIDTH / 2 - logo.getWidth() / 2,
+				PrisonEscapeGame.HEIGHT / 2 - logo.getHeight() / 2 + 250);
+
+		optionBackground.draw(game.getGameController().getSpriteBatch());
+		logo.draw(game.getGameController().getSpriteBatch());
+		resumeButtonMenu(game);
+		helpButtonMenu(tween, game);
+		exitButtonMenu(tween, game);
+		volumeButton(game);
+		if (helpPressed) {
+			helpScreenUI(game, tween);
+
 		}
 
 	}
