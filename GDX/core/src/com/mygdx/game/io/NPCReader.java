@@ -45,7 +45,9 @@ public class NPCReader {
 		try {
 			AssetManager assetManager = game.getGame().getAssetManager();
 			TextureAtlas atlas = assetManager.get("data/packed/textures.atlas", TextureAtlas.class);
-
+			
+			bReader.readLine();
+			
 			while((line = bReader.readLine()) != null) {
 				String[] readItem = line.split(splitBy);
 
