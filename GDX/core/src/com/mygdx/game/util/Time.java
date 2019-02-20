@@ -1,7 +1,9 @@
 package com.mygdx.game.util;
 
+import java.time.*;
 import java.awt.*;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *	@see https://github.com/jonbonazza/akatsuki
@@ -26,6 +28,18 @@ public class Time {
     
     public Calendar getCalendar() {
     	return this.cal;
+    }   
+    
+    public static Time setTime(Calendar cal, int hour, int minute) {   	
+    	if (hour < cal.get(Calendar.HOUR_OF_DAY) || 
+    			hour == cal.get(Calendar.HOUR_OF_DAY) && minute < cal.get(Calendar.MINUTE)) {
+    		cal.add(Calendar.DATE, 1);
+    	}
+    	
+    	cal.set(Calendar.HOUR_OF_DAY, hour);
+    	cal.set(Calendar.MINUTE, minute);
+    	
+    	return new Time(cal);
     }
 
     public static Time getTime(Calendar cal, int scale) {  	
