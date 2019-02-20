@@ -2,9 +2,12 @@ package com.mygdx.prisonescapegame;
 
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.util.ActorAnimation;
+import com.mygdx.game.util.Time;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
@@ -30,7 +33,8 @@ public class PrisonEscapeGame extends Game {
 	private AssetManager assetManager;
 	
 	private GameController game;
-	public Actor player;
+	protected Actor player;
+	protected Time time;
 	
 	@Override
 	public void create() {
@@ -55,6 +59,11 @@ public class PrisonEscapeGame extends Game {
 		
 		this.game = new GameHandler(this);
 		this.player = new Actor(1, 2, animations, game);
+		
+		// !!! Need to set game time and scale.
+		Calendar cal = new GregorianCalendar(1995, 12, 24, 7, 0);
+		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
+
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
 	}
 

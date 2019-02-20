@@ -1,6 +1,7 @@
 package com.mygdx.prisonescapegame.screens;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -27,6 +28,7 @@ import com.mygdx.game.io.InteractionController;
 import com.mygdx.game.io.PlayerMovementController;
 import com.mygdx.game.model.TiledModel;
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.game.util.Time;
 import com.mygdx.prisonescape.scenes.Hud;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
@@ -266,6 +268,19 @@ public class MapScreen extends PauseMenu implements Screen {
 			// Text of room names
 			fontBig.draw(game.getGameController().getSpriteBatch(),
 					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 40, PrisonEscapeGame.HEIGHT - 10);
+			
+			
+			// Time HUD Element
+			Time time = game.getGameController().getTime();
+			time = Time.getTime(time.getCalendar(), GameSettings.TIME_SCALE);
+			game.getGameController().setTime(time);
+			
+			String hour = String.format("%02d", time.getHour());
+			
+			String minutes = String.format("%02d", time.getMin());			
+			
+			fontBig.draw(game.getGameController().getSpriteBatch(),
+					"Time: " + hour + ":" + minutes, 40, PrisonEscapeGame.HEIGHT - 50);
 		}
 		game.getGameController().getSpriteBatch().end();
 

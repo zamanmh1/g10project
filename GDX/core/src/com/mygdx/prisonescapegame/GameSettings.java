@@ -11,6 +11,8 @@ package com.mygdx.prisonescapegame;
  */
 
 public class GameSettings {
+	// !!! UPDATE TIME SCALE
+	public static int TIME_SCALE = 20;
 	public static int TILE_SIZE = 32;
 	private static String gameState = "1";
 
