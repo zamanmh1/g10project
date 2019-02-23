@@ -32,7 +32,7 @@ public class HelpScreen implements Screen {
 	private Sprite backgroundSprite;
 	private TweenManager tween;
 	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT/2 + 300;
+	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 300;
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private Sprite backButtonActive;
 	private boolean checkBackButtonMouseOver;
@@ -44,10 +44,20 @@ public class HelpScreen implements Screen {
 	private Sprite volumeButtonFull;
 	private Sprite wasdKeyboard;
 	private Sprite eKeyboard;
-	private static final int E_Y = PrisonEscapeGame.HEIGHT/2 - 200;
+	private Sprite iKeyboard;
+	private Sprite escKeyboard;
+	private String inventoryText;
+	private String escText;
+	private static final int E_Y = PrisonEscapeGame.HEIGHT / 2 - 160;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
-	private static final int WASD_Y = PrisonEscapeGame.HEIGHT/2 + 20;
+	private static final int I_Y = PrisonEscapeGame.HEIGHT / 2 - 160;
+	private static final int I_WIDTH = 39;
+	private static final int I_HEIGHT = 39;
+	private static final int ESC_Y = PrisonEscapeGame.HEIGHT / 2 + 80;
+	private static final int ESC_WIDTH = 56;
+	private static final int ESC_HEIGHT = 39;
+	private static final int WASD_Y = PrisonEscapeGame.HEIGHT / 2 + 50;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
 	private static final int VOLUME_BUTTON_Y = 50;
@@ -64,9 +74,13 @@ public class HelpScreen implements Screen {
 		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
 		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/wasd.png")));
 		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/e.png")));
+		iKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/i.png")));
+		escKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/esc.png")));
 		font = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		movementText = "Press W,S,A,D for movement";
 		objectPickingText = "Press E for picking up objects \n and going through doors";
+		inventoryText = "Press I for inventory";
+		escText = "Press ESC for pause menu";
 	}
 
 	@Override
@@ -79,12 +93,17 @@ public class HelpScreen implements Screen {
 				.push(Tween.set(font, BitmapAccessor.ALPHA).target(0))
 				.push(Tween.set(wasdKeyboard, BitmapAccessor.ALPHA).target(0))
 				.push(Tween.set(eKeyboard, BitmapAccessor.ALPHA).target(0))
+				.push(Tween.set(iKeyboard, BitmapAccessor.ALPHA).target(0))
+				.push(Tween.set(escKeyboard, BitmapAccessor.ALPHA).target(0))
 				.push(Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(volumeButtonMuted, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.from(backgroundSprite, SpriteAccessor.ALPHA, 0).target(0))
 				.push(Tween.to(font, BitmapAccessor.ALPHA, 0.5f).target(1))
 				.push(Tween.to(wasdKeyboard, BitmapAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(eKeyboard, BitmapAccessor.ALPHA, 0.2f).target(1))
+				.push(Tween.to(iKeyboard, BitmapAccessor.ALPHA, 0.2f).target(1))
+				.push(Tween.to(escKeyboard, BitmapAccessor.ALPHA, 0.2f).target(1))
+				.push(Tween.to(escKeyboard, BitmapAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(backButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(backButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 0.2f).target(1))
@@ -104,23 +123,45 @@ public class HelpScreen implements Screen {
 		backgroundSprite.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 
-		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2,
+		// Drawing wasd keyboard sprite with text
+		font.draw(game.getGameController().getSpriteBatch(), movementText, Gdx.graphics.getWidth() / 2 - 110,
 				Gdx.graphics.getHeight() / 2 + 200);
 
-		int x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 170;
+		int x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 80;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
 		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
 
-		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2,
+		// Drawing e keyboard sprite with text
+		font.draw(game.getGameController().getSpriteBatch(), objectPickingText, Gdx.graphics.getWidth() / 2 - 110,
 				Gdx.graphics.getHeight() / 2 - 50);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 205;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 110;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
 		eKeyboard.draw(game.getGameController().getSpriteBatch());
+
+		// Drawing i keyboard sprite with text
+		font.draw(game.getGameController().getSpriteBatch(), inventoryText, Gdx.graphics.getWidth() / 2 + 340,
+				Gdx.graphics.getHeight() / 2 - 50);
+
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 500;
+
+		iKeyboard.setPosition(x, I_Y);
+		iKeyboard.setSize(I_WIDTH, I_HEIGHT);
+		iKeyboard.draw(game.getGameController().getSpriteBatch());
+
+		// Drawing esc keyboard sprite with text
+		font.draw(game.getGameController().getSpriteBatch(), escText, Gdx.graphics.getWidth() / 2 + 340,
+				Gdx.graphics.getHeight() / 2 + 200);
+
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 500;
+
+		escKeyboard.setPosition(x, ESC_Y);
+		escKeyboard.setSize(ESC_WIDTH, ESC_HEIGHT);
+		escKeyboard.draw(game.getGameController().getSpriteBatch());
 
 		x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
 

@@ -33,10 +33,13 @@ public class PauseMenu {
 	protected Sprite resumeButtonMenuActive;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 150;
+	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 250;
 	private static final int HELP_BUTTON_WIDTH = 174;
-	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 50;
+	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 150;
 	private static final int HELP_BUTTON_HEIGHT = 52;
+	private static final int SAVE_BUTTON_WIDTH = 427;
+	private static final int SAVE_BUTTON_HEIGHT = 54;
+	private static final int SAVE_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 50;
 	protected Sprite exitButtonMenuActive;
 	private boolean checkResumeButtonMouseOver;
 	private boolean checkExitButtonMouseOver;
@@ -66,8 +69,21 @@ public class PauseMenu {
 	private static final int E_Y = PrisonEscapeGame.HEIGHT / 2 - 210;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
+	private static final int ESC_Y = PrisonEscapeGame.HEIGHT / 2 - 20;
+	private static final int ESC_WIDTH = 56;
+	private static final int ESC_HEIGHT = 39;
+	private static final int I_Y = PrisonEscapeGame.HEIGHT / 2 - 210;
+	private static final int I_WIDTH = 39;
+	private static final int I_HEIGHT = 39;
 	private String objectPickingText;
 	protected Sprite logo;
+	private String inventoryText;
+	private String escText;
+	private Sprite iKeyboard;
+	private Sprite escKeyboard;
+	private Sprite saveButtonMenuActive;
+	private Sprite saveButtonMenuInActive;
+	private boolean checkSaveButtonMouseOver;
 
 	public PauseMenu() {
 
@@ -78,16 +94,23 @@ public class PauseMenu {
 		exitButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_inactive.png")));
 		helpButtonMenuActive = new Sprite(new Texture("data/menuSprites/help_active.png"));
 		helpButtonMenuInActive = new Sprite(new Texture("data/menuSprites/help_inactive.png"));
+		saveButtonMenuActive = new Sprite(new Texture("data/menuSprites/save_active.png"));
+		saveButtonMenuInActive = new Sprite(new Texture("data/menuSprites/save_inactive.png"));
 		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back_active.png")));
 		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back.png")));
 		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/wasd.png")));
 		eKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/e.png")));
+		iKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/i.png")));
+		escKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/esc.png")));
 		logo = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/logo.png")));
 		objectPickingText = "Press E for picking up objects \n and going through doors";
 		movementText = "Press W,S,A,D for movement";
+		inventoryText = "Press I for inventory";
+		escText = "Press ESC for pause menu";
 		helpPressed = false;
 		fontSmall = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		checkResumeButtonMouseOver = false;
+		checkSaveButtonMouseOver = false;
 		checkHelpButtonMouseOver = false;
 		checkExitButtonMouseOver = false;
 		checkBackButtonMouseOver = false;
@@ -131,6 +154,39 @@ public class PauseMenu {
 
 	}
 
+	protected void saveButtonMenu(PrisonEscapeGame game) {
+		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
+		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < SAVE_BUTTON_Y + SAVE_BUTTON_HEIGHT
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > SAVE_BUTTON_Y) {
+
+			saveButtonMenuActive.setPosition(x, SAVE_BUTTON_Y);
+			saveButtonMenuActive.setSize(SAVE_BUTTON_WIDTH, SAVE_BUTTON_HEIGHT);
+			saveButtonMenuActive.draw(game.getGameController().getSpriteBatch());
+			if (buttonActive) {
+				if (checkSaveButtonMouseOver == false) {
+					Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
+
+					getMouseOverSound.play(1f);
+
+					checkSaveButtonMouseOver = true;
+
+				}
+
+				if (Gdx.input.isTouched()) {
+
+				}
+
+			}
+		} else {
+			checkSaveButtonMouseOver = false;
+			saveButtonMenuInActive.setPosition(x, SAVE_BUTTON_Y);
+			saveButtonMenuInActive.setSize(SAVE_BUTTON_WIDTH, SAVE_BUTTON_HEIGHT);
+			saveButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
+
+		}
+	}
+
 	protected void helpButtonMenu(TweenManager tween, PrisonEscapeGame game) {
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - helpButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -158,6 +214,8 @@ public class PauseMenu {
 					Tween.set(helpButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(exitButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+					Tween.set(saveButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
+					Tween.set(saveButtonMenuInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					helpScreenUI(game, tween);
 					helpPressed = true;
 					buttonActive = false;
@@ -220,23 +278,41 @@ public class PauseMenu {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x, game, tween);
-		fontSmall.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2 - 200,
+		fontSmall.draw(game.getGameController().getSpriteBatch(), movementText, PrisonEscapeGame.WIDTH / 2 - 300,
 				PrisonEscapeGame.HEIGHT / 2 + 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 10;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 110;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
 		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
 
-		fontSmall.draw(game.getGameController().getSpriteBatch(), objectPickingText, PrisonEscapeGame.WIDTH / 2 - 200,
+		fontSmall.draw(game.getGameController().getSpriteBatch(), objectPickingText, PrisonEscapeGame.WIDTH / 2 - 300,
 				PrisonEscapeGame.HEIGHT / 2 - 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 20;
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 100;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
 		eKeyboard.draw(game.getGameController().getSpriteBatch());
+
+		fontSmall.draw(game.getGameController().getSpriteBatch(), inventoryText, PrisonEscapeGame.WIDTH / 2 + 200,
+				PrisonEscapeGame.HEIGHT / 2 - 100);
+
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 350;
+
+		iKeyboard.setPosition(x, I_Y);
+		iKeyboard.setSize(I_WIDTH, I_HEIGHT);
+		iKeyboard.draw(game.getGameController().getSpriteBatch());
+
+		fontSmall.draw(game.getGameController().getSpriteBatch(), escText, PrisonEscapeGame.WIDTH / 2 + 200,
+				PrisonEscapeGame.HEIGHT / 2 + 100);
+
+		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 350;
+
+		escKeyboard.setPosition(x, ESC_Y);
+		escKeyboard.setSize(ESC_WIDTH, ESC_HEIGHT);
+		escKeyboard.draw(game.getGameController().getSpriteBatch());
 
 	}
 
@@ -266,6 +342,8 @@ public class PauseMenu {
 				Tween.set(helpButtonMenuInActive, SpriteAccessor.ALPHA).target(1).start(tween);
 				Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(1).start(tween);
 				Tween.set(exitButtonMenuInActive, SpriteAccessor.ALPHA).target(1).start(tween);
+				Tween.set(saveButtonMenuActive, SpriteAccessor.ALPHA).target(1).start(tween);
+				Tween.set(saveButtonMenuInActive, SpriteAccessor.ALPHA).target(1).start(tween);
 				helpPressed = false;
 				buttonActive = true;
 
@@ -301,14 +379,14 @@ public class PauseMenu {
 		Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
 
 		if (muted) {
-			
+
 			volumeButtonMuted.setPosition(x, VOLUME_BUTTON_Y);
 			volumeButtonMuted.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonMuted.draw(game.getGameController().getSpriteBatch());
 			music.pause();
 			getMouseOverSound.stop();
 		} else {
-			
+
 			volumeButtonFull.setPosition(x, VOLUME_BUTTON_Y);
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
@@ -328,6 +406,7 @@ public class PauseMenu {
 		logo.draw(game.getGameController().getSpriteBatch());
 		resumeButtonMenu(game);
 		helpButtonMenu(tween, game);
+		saveButtonMenu(game);
 		exitButtonMenu(tween, game);
 		volumeButton(game);
 		if (helpPressed) {
