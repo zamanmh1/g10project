@@ -1,7 +1,7 @@
 package com.mygdx.game.util;
 
 import java.time.*;
-import java.awt.*;
+import com.badlogic.gdx.graphics.Color;
 import java.util.Calendar;
 import java.util.Date;
 

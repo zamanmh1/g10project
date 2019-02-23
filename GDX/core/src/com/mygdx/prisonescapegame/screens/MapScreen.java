@@ -10,14 +10,18 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -171,7 +175,6 @@ public class MapScreen extends PauseMenu implements Screen {
 
 	@Override
 	public void render(float delta) {
-
 		// updates using time since last render call
 		if (!menuPressed) {
 			movementHandler.update(delta);
@@ -190,6 +193,7 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		oCamera.update();
 
+		mapRenderer.getBatch().setColor(game.getGameController().getTime().getTint());
 		mapRenderer.setView(oCamera);
 		mapRenderer.render();
 		// renders the map and sets the view of the camera to display the map
@@ -200,7 +204,12 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		mapRenderer.getBatch().begin();
 		// player.draw(mapRenderer.getBatch());
-
+		
+		/**
+		 * !!! Placed here means that the tint doesn't effect players and items.
+		 */
+		mapRenderer.getBatch().setColor(1,1,1,1);
+		
 		mapRenderer.getBatch().draw(player.getSprite(), player.getWorldX(), player.getWorldY(), GameSettings.TILE_SIZE,
 				GameSettings.TILE_SIZE); // Render player
 
