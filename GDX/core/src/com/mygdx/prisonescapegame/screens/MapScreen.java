@@ -2,13 +2,10 @@ package com.mygdx.prisonescapegame.screens;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,16 +28,13 @@ import com.mygdx.prisonescape.scenes.Hud;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
-
-import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
 /**
  * CLASS DESCRIPTION
  * 
- * @author Sam Ward
+ * @author Sam Ward, Shibu George
  * 
  * @version 0.2
  * @since 0.1
@@ -61,6 +55,7 @@ public class MapScreen extends PauseMenu implements Screen {
 	private InputMultiplexer inputHandler; // Allows for multiple user inputs to be used
 	private PlayerMovementController movementHandler;
 	private InteractionController interactionHandler;
+
 	private TiledModel model;
 	private Sprite inventoryBackground;
 	private TweenManager tween;
@@ -71,11 +66,11 @@ public class MapScreen extends PauseMenu implements Screen {
 	private BitmapFont fontBig;
 	private String mapName;
 	private Sprite inventoryBox;
-	
+
 	private static Stage stage;
 
 	public MapScreen(Actor player, PrisonEscapeGame game) {
-		
+
 		this.player = player;
 		this.game = game;
 		tween = new TweenManager();
@@ -90,10 +85,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		fontBig = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big.fnt"));
 		inventoryText = "Inventory";
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
-		menuPressed = false;
-		volumeButtonFull = MainMenuScreen.getInstance(game).volumeButtonFull();
 		inventoryPressed = false;
-	
 
 	}
 
@@ -163,7 +155,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		Tween.to(logo, SpriteAccessor.ALPHA, 1.0f).target(1).start(tween);
 		Tween.set(optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
 		Tween.to(optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
-	
 
 	}
 
@@ -222,27 +213,14 @@ public class MapScreen extends PauseMenu implements Screen {
 				PrisonEscapeGame.HEIGHT / 2 - roomTransition.getHeight() / 2);
 
 		roomTransition.draw(game.getGameController().getSpriteBatch());
+
 		if (menuKeyCheck() == true) {
 			player.setFrozen(true);
 			inputHandler.clear();
-			optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
-					PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
-			logo.setPosition(PrisonEscapeGame.WIDTH / 2 - logo.getWidth() / 2,
-					PrisonEscapeGame.HEIGHT / 2 - logo.getHeight() / 2 + 250);
-
-			optionBackground.draw(game.getGameController().getSpriteBatch());
-			logo.draw(game.getGameController().getSpriteBatch());
-			resumeButtonMenu(game);
-			helpButtonMenu(tween, game);
-			exitButtonMenu(tween, game);
-			volumeButton(game);
-			if (helpPressed) {
-				helpScreenUI(game, tween);
-
-			}
+			drawPauseMenu(game, tween);
 
 		}
-		
+
 		// Display of inventory
 		if (inventoryKeyCheck() == true) {
 			inventoryBackground.setSize(inventoryBackground.getWidth(), PrisonEscapeGame.HEIGHT);
@@ -295,13 +273,9 @@ public class MapScreen extends PauseMenu implements Screen {
 				menuPressed = false;
 
 			}
-
 		}
 		return menuPressed;
-
 	}
-
-
 
 	@Override
 	public void resize(int width, int height) {
