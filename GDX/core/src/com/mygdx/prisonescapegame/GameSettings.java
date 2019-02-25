@@ -11,7 +11,12 @@ package com.mygdx.prisonescapegame;
  */
 
 public class GameSettings {
-	public static int TILE_SIZE = 32;
+	// !!! UPDATE TIME SCALE
+	public static final int TIME_SCALE = 20;
+	public static final int TILE_SIZE = 32;
+	public static final int HOUR_DAY_BEGINS = 7;
+	public static final int HOUR_NIGHT_BEGINS = 22;
+	
 	private static String gameState = "1";
 
 	public static String getGameState()

@@ -17,6 +17,7 @@ public class Tile {
 	private MapActor actor;
 	private boolean walkable;
 	private boolean teleporter;
+	private boolean alarm;
 	
 	public Tile() {
 		actor = null;
@@ -46,5 +47,13 @@ public class Tile {
 	
 	public void setTeleporter() {			
 		this.teleporter = true;
+	}
+	
+	public void setAlarm(boolean alarm) {
+		this.alarm = alarm;
+	}
+	
+	public boolean getAlaram() {
+		return alarm;
 	}
 }

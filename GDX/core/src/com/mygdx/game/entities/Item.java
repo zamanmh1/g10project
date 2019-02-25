@@ -34,9 +34,10 @@ public class Item implements MapActor {
 	
 	// Safer than using strings.
 	// Later can use state pattern to handle depending upon item type.
-	private enum ITEM_TYPE {
+	public enum ITEM_TYPE {
 		KEY,
 		WEAPON,
+		SLEEP,
 		;
 	}
 	

@@ -3,16 +3,21 @@ package com.mygdx.game.io;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+
+import java.util.Calendar;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.DIRECTION;
 import com.mygdx.game.entities.Item;
+import com.mygdx.game.entities.Item.ITEM_TYPE;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.model.Teleporter;
 import com.mygdx.game.model.Tile;
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.Dialogue;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.screens.MapScreen;
@@ -96,15 +101,25 @@ public class InteractionController extends InputAdapter {
 				} else if (interactingActor instanceof Item) {
 					Item i = (Item) interactingActor;
 					// Interact with Item
-					gameHandler.getItemHandler().foundItem(i); // Set item as found.
-					gameHandler.getMapScreen().getTiledModel().getTile(i.getX(), i.getY()).setActor(null); // Remove from tile in model.
-					gameHandler.removeActor(i); // Remove from list of actors.
-					if(d.hasDialogue(i.getName())) //Null pointer safety in case dialogue doesn't exist
-					{
-						dBox.showDialogue(MapScreen.getStage(), i.getName());
-						//System.out.println(d.getDialogue(i.getName()));
+					if (i.getType() == Item.ITEM_TYPE.SLEEP) {		
+						/**
+						 * !!! Need GUI to allow for user to enter the time that they want to change to.
+						 */
+//						Calendar cal = gameHandler.getTime().getCalendar();
+//						Time time = Time.getTime(cal);
+//						//time = time.setTime(cal, /*hour*/, /*minute*/);
+//						gameHandler.setTime(time);
+					} else {
+						gameHandler.getItemHandler().foundItem(i); // Set item as found.
+						gameHandler.getMapScreen().getTiledModel().getTile(i.getX(), i.getY()).setActor(null); // Remove from tile in model.
+						gameHandler.removeActor(i); // Remove from list of actors.
+						if(d.hasDialogue(i.getName())) //Null pointer safety in case dialogue doesn't exist
+						{
+							dBox.showDialogue(MapScreen.getStage(), i.getName());
+							//System.out.println(d.getDialogue(i.getName()));
+						}
+						return true;
 					}
-					return true;
 				}
 			}
 			return false;

@@ -1,0 +1,17 @@
+// NPCs //
+
+Guards:
+	guard01 -> 
+Prisoners:
+	npc01 -> casual white bald
+	npc02 -> orange jumpsuit black bald
+	npc03 -> orange jumpsuit black black hair
+	npc04 -> topless white brown hair
+	npc05 -> topless white bald
+	npc06 -> orange jumpsuit white blonde hair
+	npc07 -> orange jumpsuit white bald
+	npc08 -> orange jumpsuit white brown hair
+
+// Players //
+
+	player01 ->
