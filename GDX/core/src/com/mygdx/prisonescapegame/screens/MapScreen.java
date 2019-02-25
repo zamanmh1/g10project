@@ -2,6 +2,7 @@ package com.mygdx.prisonescapegame.screens;
 
 import java.util.ArrayList;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -299,7 +300,7 @@ public class MapScreen extends PauseMenu implements Screen {
 
 	@Override
 	public void hide() {
-		dispose();
+		//dispose();
 	}
 
 	@Override

@@ -9,10 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
-
-import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
 /**
@@ -250,17 +247,10 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-					Tween.set(exitButtonMenuActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.to(exitButtonMenuActive, SpriteAccessor.ALPHA, 0.5f).target(1).repeatYoyo(0, 0f)
-							.setCallback(new TweenCallback() {
-
-								@Override
-								public void onEvent(int type, BaseTween<?> source) {
-
+					
 									((Game) Gdx.app.getApplicationListener())
 											.setScreen(MainMenuScreen.getInstance(game));
-								}
-							}).start(tween);
+							
 				}
 			}
 
