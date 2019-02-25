@@ -30,6 +30,13 @@ public class Time {
     	return this.cal;
     }   
     
+    public boolean isDay() {   	
+    	if (getHour() >= 7 && getHour() < 22) {
+    		return true;
+    	} 
+    	return false;
+    }
+    
     public static Time setTime(Calendar cal, int hour, int minute) {   	
     	if (hour < cal.get(Calendar.HOUR_OF_DAY) || 
     			hour == cal.get(Calendar.HOUR_OF_DAY) && minute < cal.get(Calendar.MINUTE)) {
