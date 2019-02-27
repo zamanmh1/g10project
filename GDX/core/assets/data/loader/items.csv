@@ -1,1 +1,3 @@
 Book,data/itemSprites/newbook.png,data/maps/cell.tmx,KEY,5,4
+SpawnSleep,data/itemSprites/sleep.png,data/maps/cell.tmx,SLEEP,1,1
+SpawnSleep2,data/itemSprites/sleep.png,data/maps/cell.tmx,SLEEP,2,1

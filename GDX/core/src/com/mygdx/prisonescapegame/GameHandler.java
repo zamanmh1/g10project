@@ -8,8 +8,10 @@ import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.helpers.ItemHandler;
 import com.mygdx.game.helpers.MapHandler;
 import com.mygdx.game.helpers.NPCHandler;
+import com.mygdx.game.util.Time;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -69,6 +71,16 @@ public class GameHandler implements GameController {
 	@Override
 	public Actor getPlayer() {
 		return game.player;
+	}
+	
+	@Override
+	public Time getTime() {
+		return game.time;
+	}
+	
+	@Override
+	public void setTime(Time updatedTime) {
+		game.time = updatedTime;
 	}
 
 	@Override
