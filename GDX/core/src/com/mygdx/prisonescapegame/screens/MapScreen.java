@@ -2,7 +2,7 @@ package com.mygdx.prisonescapegame.screens;
 
 import java.util.ArrayList;
 
-
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -221,7 +221,10 @@ public class MapScreen extends PauseMenu implements Screen {
 			drawPauseMenu(game, tween);
 
 		}
-
+		if (Gdx.input.isKeyJustPressed(Keys.P)) {
+			((Game) Gdx.app.getApplicationListener())
+			.setScreen(new PuzzleScreen(game));
+		}
 		// Display of inventory
 		if (inventoryKeyCheck() == true) {
 			inventoryBackground.setSize(inventoryBackground.getWidth(), PrisonEscapeGame.HEIGHT);
