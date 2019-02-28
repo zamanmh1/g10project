@@ -2,6 +2,8 @@ package com.mygdx.game.util;
 
 import java.time.*;
 import com.badlogic.gdx.graphics.Color;
+import com.mygdx.prisonescapegame.GameSettings;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -31,7 +33,7 @@ public class Time {
     }   
     
     public boolean isDay() {   	
-    	if (getHour() >= 7 && getHour() < 22) {
+    	if (getHour() >= GameSettings.HOUR_DAY_BEGINS && getHour() < GameSettings.HOUR_NIGHT_BEGINS) {
     		return true;
     	} 
     	return false;
