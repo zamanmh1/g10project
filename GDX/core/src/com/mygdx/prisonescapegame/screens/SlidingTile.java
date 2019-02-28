@@ -1,5 +1,7 @@
 package com.mygdx.prisonescapegame.screens;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -10,17 +12,17 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class SlidingTile {
 	Texture puzzleImage;
-	Texture puzzleImageHover;
 	int finishRow;
 	int finishCol;
 	int currentRow;
 	int currentColumn;
-	boolean used = false;
-	String imageLoc = "data/puzzles/";
+	String blackTileLoc = "data/puzzles/black.png";
+	String tileLoc = "data/puzzles/prisoner/";
+	
 
 	/**
 	 * Creates row of x and y and assigns texture to each position, both puzzleImage
-	 * and puzzleImageHover when the mouse is over the image
+	 * and puzzleImageHover when the mouse is over the image. 
 	 * 
 	 * @param x position
 	 * @param y position
@@ -28,9 +30,8 @@ public class SlidingTile {
 	public SlidingTile(int x, int y) {
 		this.finishRow = x;
 		this.finishCol = y;
-
-		this.puzzleImage = new Texture(this.imageLoc + x + y + ".jpg");
-		this.puzzleImageHover = new Texture(this.imageLoc + x + y + "_hover.jpg");
+		
+		this.puzzleImage = new Texture(tileLoc + x + y + ".jpg");
 	}
 
 	/**
@@ -61,21 +62,11 @@ public class SlidingTile {
 	}
 
 	/**
-	 * Returns the puzzle image hover
-	 * 
-	 * @return puzzleImageHover
-	 */
-	public Texture getPuzzleImageHover() {
-		return this.puzzleImageHover;
-	}
-
-	/**
 	 * Texture with the black background
 	 * 
 	 */
 	public void clearTexture() {
-		this.puzzleImage = new Texture(this.imageLoc + "black.png");
-		this.puzzleImageHover = new Texture(this.imageLoc + "black.png");
+		this.puzzleImage = new Texture(this.blackTileLoc);
 	}
 
 	/**
