@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
@@ -32,7 +33,8 @@ public class MainGameScreen implements Screen {
 	public MainGameScreen (PrisonEscapeGame game) {
 		this.game = game;
 		tween = new TweenManager();
-		loading = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loading.png")));
+
+		loading = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loading.gif")));
 	}
 
 	@Override
@@ -44,9 +46,7 @@ public class MainGameScreen implements Screen {
 		
 		loading.setPosition(Gdx.graphics.getWidth()/2 - loading.getWidth()/2, 
 				Gdx.graphics.getHeight()/2 - loading.getHeight()/2);
-		
 		loading.draw(game.getGameController().getSpriteBatch());
-		
 		
 		game.getGameController().getSpriteBatch().end();
 
@@ -67,11 +67,6 @@ public class MainGameScreen implements Screen {
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
 				
-//				config.width = 720; //528
-//				config.height = 520; //768
-				//Gdx.graphics.setWindowedMode(1800, 900); //Resizes window for map
-				//Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode()); //Sets map to fullscreen, escaping is hard
-				//Gdx.graphics.setWindowedMode(1920, 1080);
 				((Game) Gdx.app.getApplicationListener()).setScreen(game.getGameController().getMapScreen());
 			}
 		}).start(tween);

@@ -1,6 +1,5 @@
 package com.mygdx.prisonescapegame.screens;
 
-import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
 

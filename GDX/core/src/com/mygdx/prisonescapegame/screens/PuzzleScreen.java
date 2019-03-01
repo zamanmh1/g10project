@@ -26,6 +26,7 @@ public class PuzzleScreen implements Screen {
 	private SlidingTile empty;
 	private boolean isPuzzleFinished = true;
 	private BitmapFont font;
+	private Sprite puzzleBackground;
 	
 
 
@@ -40,7 +41,7 @@ public class PuzzleScreen implements Screen {
 
 		this.game = game;
 		font = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
-		
+		puzzleBackground = new Sprite(new Texture(Gdx.files.internal("data/puzzles/puzzleBackground.png")));
 		
 		this.tiles = new SlidingTile[4][4];
 		for (int x = 1; x < 4; x++) {
@@ -80,15 +81,21 @@ public class PuzzleScreen implements Screen {
 	public void render(float delta) {
 
 		this.game.getGameController().getSpriteBatch().begin();
-	
-		font.draw(game.getGameController().getSpriteBatch(), "Complete puzzle to continue...",
-				PrisonEscapeGame.WIDTH / 2 - 200, PrisonEscapeGame.HEIGHT / 2 + 200);
+		puzzleBackground.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
+		puzzleBackground.setPosition(Gdx.graphics.getWidth()/2 - puzzleBackground.getWidth()/2, 
+				Gdx.graphics.getHeight()/2 - puzzleBackground.getHeight()/2);
+		puzzleBackground.draw(game.getGameController().getSpriteBatch());
+		
+//		font.draw(game.getGameController().getSpriteBatch(), "Complete puzzle to continue...",
+//				PrisonEscapeGame.WIDTH / 2 - 200, PrisonEscapeGame.HEIGHT / 2 + 300);
+		
+		
 		this.isPuzzleFinished = true;
 		for (int x = 1; x < 4; x++) {
 			for (int y = 1; y < 4; y++) {
 
 				float size = 128.0F;
-				float xLoc = (x - 1) * size + 600;
+				float xLoc = (x - 1) * size + 700;
 				float yLoc = 4.0F * size - y * size;
 				int hover = 0;
 
