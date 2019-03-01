@@ -7,6 +7,7 @@
 			Enclosed in this book is the key to your cell, tread carefully..."
 			
 			You obtained the key to your cell.
+			<objective>Leave your cell</objective>
 		</dialogue>
 	</Book>
 
@@ -18,6 +19,7 @@
 			
 			You obtained a small package
 			<state>1.1</state>
+			<objective>Deliver the package to Trippie Maroon</objective>
 		</dialogue>
 		<dialogue>
 			"Don't ask any questions you don't wanna know the answer to."

@@ -20,6 +20,7 @@ public class Item implements MapActor {
 	private String appearsIn;
 	private int x, y;
 	private boolean walkable;
+	private boolean found;
 	
 	public Item(Sprite sprite, String name, String appearsIn, String type, int x, int y) {
 		this.sprite = sprite;
@@ -76,4 +77,15 @@ public class Item implements MapActor {
 	public float getWorldY() {
 		return getY() * GameSettings.TILE_SIZE; // Coordinates in map (current tile * tile size)
 	}
+	
+	public boolean getFound()
+	{
+		return found;
+	}
+	
+	public void setFound(boolean b)
+	{
+		found = b;
+	}
+
 }

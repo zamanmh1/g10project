@@ -58,6 +58,10 @@ public class Dialogue
 					GameSettings.setGameState(currElement.getChildByName("state").getText());
 					//System.out.println("state is " + GameSettings.getGameState());
 				}
+				if(currElement.hasChild("objective"))
+				{
+					GameSettings.currentObjective = currElement.getChildByName("objective").getText();
+				}
 				return text;
 			}
 		 }
