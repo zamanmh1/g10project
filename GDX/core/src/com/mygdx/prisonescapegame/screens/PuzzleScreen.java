@@ -2,14 +2,12 @@ package com.mygdx.prisonescapegame.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.game.tween.SpriteAccessor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenManager;
 
 import java.util.Random;
 
@@ -22,11 +20,17 @@ import java.util.Random;
 public class PuzzleScreen implements Screen {
 
 	private PrisonEscapeGame game;
-	private SlidingTile[][] tiles;
-	private SlidingTile empty;
-	private boolean isPuzzleFinished = true;
-	private BitmapFont font;
+	private PuzzleTile[][] tiles;
+	private PuzzleTile empty;
+	private boolean isPuzzleFinished;
 	private Sprite puzzleBackground;
+	private Sprite actualImage;
+	private static final int QUIT_BUTTON_WIDTH = 174;
+	private static final int QUIT_BUTTON_HEIGHT = 62;
+	private static final int QUIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
+	private Sprite quitButtonActive;
+	private Sprite quitButtonInActive;
+	private boolean checkQuitButtonMouseOver;
 	
 
 
@@ -40,13 +44,14 @@ public class PuzzleScreen implements Screen {
 	public PuzzleScreen(PrisonEscapeGame game) {
 
 		this.game = game;
-		font = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		puzzleBackground = new Sprite(new Texture(Gdx.files.internal("data/puzzles/puzzleBackground.png")));
-		
-		this.tiles = new SlidingTile[4][4];
+		actualImage = new Sprite(new Texture(Gdx.files.internal("data/puzzles/police/actual.png")));
+		quitButtonActive = new Sprite(new Texture("data/menuSprites/quit_active.png"));
+		quitButtonInActive = new Sprite(new Texture("data/menuSprites/quit_inactive.png"));
+		this.tiles = new PuzzleTile[4][4];
 		for (int x = 1; x < 4; x++) {
 			for (int y = 1; y < 4; y++) {
-				this.tiles[x][y] = new SlidingTile(x, y);
+				this.tiles[x][y] = new PuzzleTile(x, y);
 			}
 		}
 		
@@ -55,8 +60,9 @@ public class PuzzleScreen implements Screen {
 
 		Random ran = new Random();
 		for (int i = 0; i < 40; i++) {
-			moveTile(1 + ran.nextInt(3), 1 + ran.nextInt(3));
+ 		moveTile(1 + ran.nextInt(3), 1 + ran.nextInt(3));
 		}
+		
 	}
 
 	/**
@@ -68,7 +74,7 @@ public class PuzzleScreen implements Screen {
 	 * @param y2
 	 */
 	private void swapTiles(int x1, int y1, int x2, int y2) {
-		SlidingTile temp = this.tiles[x1][y1];
+		PuzzleTile temp = this.tiles[x1][y1];
 		this.tiles[x1][y1] = this.tiles[x2][y2];
 		this.tiles[x2][y2] = temp;
 	}
@@ -86,9 +92,13 @@ public class PuzzleScreen implements Screen {
 				Gdx.graphics.getHeight()/2 - puzzleBackground.getHeight()/2);
 		puzzleBackground.draw(game.getGameController().getSpriteBatch());
 		
-//		font.draw(game.getGameController().getSpriteBatch(), "Complete puzzle to continue...",
-//				PrisonEscapeGame.WIDTH / 2 - 200, PrisonEscapeGame.HEIGHT / 2 + 300);
+		actualImage.setPosition(Gdx.graphics.getWidth()/2 - actualImage.getWidth()/2 - 433, 
+				Gdx.graphics.getHeight()/2 - actualImage.getHeight()/2 - 130);
+		actualImage.draw(game.getGameController().getSpriteBatch());
 		
+		int xQuit = PrisonEscapeGame.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 600;
+
+		quitButton(xQuit);
 		
 		this.isPuzzleFinished = true;
 		for (int x = 1; x < 4; x++) {
@@ -97,7 +107,6 @@ public class PuzzleScreen implements Screen {
 				float size = 128.0F;
 				float xLoc = (x - 1) * size + 700;
 				float yLoc = 4.0F * size - y * size;
-				int hover = 0;
 
 				float mouseX = Gdx.input.getX();
 				float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
@@ -121,6 +130,41 @@ public class PuzzleScreen implements Screen {
 		}
 
 		this.game.getGameController().getSpriteBatch().end();
+	}
+
+	private void quitButton(int x) {
+		if (Gdx.input.getX() < x + QUIT_BUTTON_WIDTH && Gdx.input.getX() > x
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < QUIT_BUTTON_Y + QUIT_BUTTON_HEIGHT
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > QUIT_BUTTON_Y) {
+
+			quitButtonActive.setPosition(x, QUIT_BUTTON_Y);
+			quitButtonActive.setSize(QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT);
+			quitButtonActive.draw(game.getGameController().getSpriteBatch());
+			
+				if (checkQuitButtonMouseOver == false) {
+					Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
+
+					getMouseOverSound.play(1f);
+					checkQuitButtonMouseOver = true;
+
+				}
+
+				if (Gdx.input.isTouched()) {
+					Stage stage = MapScreen.getStage();
+					stage.clear();
+					this.game.setScreen(game.getGameController().getMapScreen());
+					
+
+				}
+			
+		} else {
+			checkQuitButtonMouseOver = false;
+			quitButtonInActive.setPosition(x, QUIT_BUTTON_Y);
+			quitButtonInActive.setSize(QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT);
+			quitButtonInActive.draw(game.getGameController().getSpriteBatch());
+
+		}
+		
 	}
 
 	/**

@@ -34,7 +34,7 @@ public class MainGameScreen implements Screen {
 		this.game = game;
 		tween = new TweenManager();
 
-		loading = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loading.gif")));
+		loading = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loading.png")));
 	}
 
 	@Override
