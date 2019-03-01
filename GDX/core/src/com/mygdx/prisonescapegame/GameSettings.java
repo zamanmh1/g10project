@@ -17,6 +17,7 @@ public class GameSettings {
 	public static final int HOUR_DAY_BEGINS = 7;
 	public static final int HOUR_NIGHT_BEGINS = 22;
 	
+	public static String currentObjective = "";
 	private static String gameState = "1";
 
 	public static String getGameState()

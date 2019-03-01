@@ -28,6 +28,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.Item;
+import com.mygdx.game.io.HUD;
 import com.mygdx.game.io.InteractionController;
 import com.mygdx.game.io.PlayerMovementController;
 import com.mygdx.game.model.TiledModel;
@@ -75,6 +76,8 @@ public class MapScreen extends PauseMenu implements Screen {
 	private BitmapFont fontBig;
 	private String mapName;
 	private Sprite inventoryBox;
+	private Item foundItem;
+	private HUD h;
 
 	private static Stage stage;
 
@@ -138,6 +141,7 @@ public class MapScreen extends PauseMenu implements Screen {
 	// Stop given item being rendered in map
 	public void removeItemFromMap(Item i) {
 		items.remove(i);
+		foundItem = i;
 	}
 
 	public void addNPCToMap(ActorAction action) {
@@ -152,7 +156,8 @@ public class MapScreen extends PauseMenu implements Screen {
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
 		// oCamera.setToOrtho(false, 11,16);
 		gamePort = new FitViewport(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT, oCamera);
-		hud = new Hud(game.getGameController().getSpriteBatch());
+		//hud = new Hud(game.getGameController().getSpriteBatch());
+		h = new HUD();
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to
@@ -193,7 +198,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		// renders the map and sets the view of the camera to display the map
 
 		// set HUD camera
-		game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
+		//game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
 		// hud.stage.draw();
 
 		mapRenderer.getBatch().begin();
@@ -219,6 +224,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		}
 
 		mapRenderer.getBatch().end();
+		h.update(mapName.substring(10, mapName.lastIndexOf('.')), foundItem, getTime());
 		stage.act();
 		stage.draw();
 		game.getGameController().getSpriteBatch().begin();
@@ -235,54 +241,54 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		}
 
-		// Display of inventory
+//		// Display of inventory
 		if (inventoryKeyCheck() == true) {
-			inventoryBackground.setSize(inventoryBackground.getWidth(), PrisonEscapeGame.HEIGHT);
-			inventoryBackground.draw(game.getGameController().getSpriteBatch());
-
-			// Row and column of inventory boxes
-			for (int x = 0; x < 300; x += 170) {
-				for (int y = 0; y < PrisonEscapeGame.HEIGHT; y += 125) {
-					inventoryBox.setPosition(x, y);
-					inventoryBox.draw(game.getGameController().getSpriteBatch());
-
-				}
+//			inventoryBackground.setSize(inventoryBackground.getWidth(), PrisonEscapeGame.HEIGHT);
+//			inventoryBackground.draw(game.getGameController().getSpriteBatch());
+//
+//			// Row and column of inventory boxes
+//			for (int x = 0; x < 300; x += 170) {
+//				for (int y = 0; y < PrisonEscapeGame.HEIGHT; y += 125) {
+//					inventoryBox.setPosition(x, y);
+//					inventoryBox.draw(game.getGameController().getSpriteBatch());
+//
+//				}
 			}
 
-			// Text of Inventory
-			fontBig.draw(game.getGameController().getSpriteBatch(), inventoryText, 70, PrisonEscapeGame.HEIGHT - 10);
-			// Text of room names shifted to the right
-			fontBig.draw(game.getGameController().getSpriteBatch(),
-					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 400, PrisonEscapeGame.HEIGHT - 10);
-		} else {
-			// Text of room names
-			fontBig.draw(game.getGameController().getSpriteBatch(),
-					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 40, PrisonEscapeGame.HEIGHT - 10);
+//			// Text of Inventory
+//			fontBig.draw(game.getGameController().getSpriteBatch(), inventoryText, 70, PrisonEscapeGame.HEIGHT - 10);
+//			// Text of room names shifted to the right
+//			fontBig.draw(game.getGameController().getSpriteBatch(),
+//					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 400, PrisonEscapeGame.HEIGHT - 10);
+//		} else {
+//			// Text of room names
+//			fontBig.draw(game.getGameController().getSpriteBatch(),
+//					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 40, PrisonEscapeGame.HEIGHT - 10);
 			
 			
 			// Time HUD Element
-			Time time = game.getGameController().getTime();
-			time = Time.getTime(time.getCalendar(), GameSettings.TIME_SCALE);
-			game.getGameController().setTime(time);
-			
-			String hour = String.format("%02d", time.getHour());
-			
-			String minutes = String.format("%02d", time.getMin());			
-			
-			fontBig.draw(game.getGameController().getSpriteBatch(),
-					"Time: " + hour + ":" + minutes, 40, PrisonEscapeGame.HEIGHT - 50);
-		}
+//			Time time = game.getGameController().getTime();
+//			time = Time.getTime(time.getCalendar(), GameSettings.TIME_SCALE);
+//			game.getGameController().setTime(time);
+//			
+//			String hour = String.format("%02d", time.getHour());
+//			
+//			String minutes = String.format("%02d", time.getMin());			
+//			
+//			fontBig.draw(game.getGameController().getSpriteBatch(),
+//					"Time: " + hour + ":" + minutes, 40, PrisonEscapeGame.HEIGHT - 50);
+//		}
 		game.getGameController().getSpriteBatch().end();
 
 	}
 
 	private boolean inventoryKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.I)) {
-			if (inventoryPressed == false) {
-				inventoryPressed = true;
+			if (h.isVisible() == false) {
+				h.setVisible(true);
 
-			} else if (inventoryPressed == true) {
-				inventoryPressed = false;
+			} else if (h.isVisible() == true) {
+				h.setVisible(false);
 
 			}
 
@@ -352,6 +358,21 @@ public class MapScreen extends PauseMenu implements Screen {
 
 	public static Stage getStage() {
 		return stage;
+	}
+	
+	public String getTime()
+	{
+		Time time = game.getGameController().getTime();
+		time = Time.getTime(time.getCalendar(), GameSettings.TIME_SCALE);
+		game.getGameController().setTime(time);
+		
+		String hour = String.format("%02d", time.getHour());
+		
+		String minutes = String.format("%02d", time.getMin());
+		
+		h.setTimeImage(time.getHour());
+		
+		return hour + ":" + minutes;
 	}
 
 }
