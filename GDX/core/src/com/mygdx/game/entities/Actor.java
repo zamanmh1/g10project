@@ -142,13 +142,6 @@ public class Actor implements MapActor {
 		y = y + dir.getMoveY();
 		gameHandler.getMapScreen().getTiledModel().getTile(getX(), getY()).setActor(this); // Move into tile in model.
 		
-		/* If it is night time and moved into an alarm tile.
-		 * Trigger alarm, if not already been triggered. 
-		 */
-		if (gameHandler.getTime().isDay() == false && gameHandler.getMapScreen().getTiledModel().getTile(x, y).getAlarm() == true && gameHandler.getAlarm().getAlarm() == false) {			
-				gameHandler.getAlarm().setAlarm(true);				
-		} 
-		
 		return true;
 	}	
 	

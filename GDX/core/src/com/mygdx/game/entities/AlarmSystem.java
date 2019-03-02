@@ -38,12 +38,16 @@ public class AlarmSystem {
 			controller.addActor(guard.getActor(), guard);
 			controller.getMapScreen().addNPCToMap(guard);
 			
-			alarmStarted = System.currentTimeMillis();			
+			alarmStarted = System.currentTimeMillis();		
+			
+			// !!! Start alarm sound?
 		} else {						
 			controller.removeActor(guard.getActor());
 			controller.getMapScreen().removeNPCFromMap(guard);
 			guard = null;
 			alarmStarted = 0L;		
+			
+			// !!! End alarm sound?
 		}
 	}
 	
@@ -55,8 +59,15 @@ public class AlarmSystem {
 			if (timePassed > fiveMinutesInMillis) {
 				setAlarm(false);
 			}
-		}
-	}
+		} else {
+			// If it is night time and player moved into an alarm tile then trigger alarm.			
+			int playerX = controller.getPlayer().getX();
+			int playerY = controller.getPlayer().getY();
+			if (!controller.getTime().isDay() && controller.getMapScreen().getTiledModel().getTile(playerX, playerY).getAlarm()) {
+				setAlarm(true);
+			}
+		}					
+	} 
 	
 	public boolean getAlarm() {
 		return alarmStarted != 0L; // Checks if the alarm has started or if it is yet to be started.
