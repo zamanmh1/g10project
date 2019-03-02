@@ -5,6 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+
 /**
  * 
  * 
@@ -18,10 +19,10 @@ public class PuzzleTile {
 	private int currentRow;
 	private int currentColumn;
 	private String blackTileLoc = "data/puzzles/black.png";
-//	private String [] arr = {"data/puzzles/police/", "data/puzzles/logo/"};
-//	
-//	private Random random = new Random();
-//	private String loc = arr[random.nextInt(arr.length)];
+	private static String [] arr = {"police", "logo", "badlogic"};
+	private static Random randomTheme = new Random(1);
+	private static String puzzleTheme = arr[randomTheme.nextInt(arr.length)];
+	private String puzzleLoc;
 	/**
 	 * Creates row of x and y and assigns texture to each position, puzzleImage is
 	 * the Sprite that is used.
@@ -29,10 +30,13 @@ public class PuzzleTile {
 	 * @param x position
 	 * @param y position
 	 */
+	
+	
 	public PuzzleTile(int x, int y) {
 		this.finishRow = x;
 		this.finishCol = y;
-		this.puzzleImage = new Sprite(new Texture("data/puzzles/police/" + x + y + ".png"));
+		this.puzzleLoc = "data/puzzles/" + puzzleTheme + "/" + x + y + ".png";
+		this.puzzleImage = new Sprite(new Texture(puzzleLoc));
 	}
 
 	/**
@@ -62,6 +66,8 @@ public class PuzzleTile {
 		return this.puzzleImage;
 	}
 
+	
+
 	/**
 	 * Texture with the black background
 	 * 
@@ -78,7 +84,15 @@ public class PuzzleTile {
 	 * @return boolean true or false
 	 */
 	public boolean inCorrectPosition(int x, int y) {
-		return (x == this.finishRow) && (y == this.finishCol);
+		return ((x == finishRow) && (y == finishCol));
+	
 	}
+	
+	public static String getPuzzleTheme() {
+		return puzzleTheme;
+		
+		
+	}
+			
 
 }

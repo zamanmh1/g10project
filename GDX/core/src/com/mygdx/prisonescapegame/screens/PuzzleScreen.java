@@ -31,8 +31,6 @@ public class PuzzleScreen implements Screen {
 	private Sprite quitButtonActive;
 	private Sprite quitButtonInActive;
 	private boolean checkQuitButtonMouseOver;
-	
-
 
 	/**
 	 * Creates a 4 x 4 puzzle tile with one tile black. Creates SlidingTile to get
@@ -45,7 +43,8 @@ public class PuzzleScreen implements Screen {
 
 		this.game = game;
 		puzzleBackground = new Sprite(new Texture(Gdx.files.internal("data/puzzles/puzzleBackground.png")));
-		actualImage = new Sprite(new Texture(Gdx.files.internal("data/puzzles/police/actual.png")));
+		actualImage = new Sprite(
+				new Texture(Gdx.files.internal("data/puzzles/" + PuzzleTile.getPuzzleTheme() + "/actual.png")));
 		quitButtonActive = new Sprite(new Texture("data/menuSprites/quit_active.png"));
 		quitButtonInActive = new Sprite(new Texture("data/menuSprites/quit_inactive.png"));
 		this.tiles = new PuzzleTile[4][4];
@@ -54,52 +53,51 @@ public class PuzzleScreen implements Screen {
 				this.tiles[x][y] = new PuzzleTile(x, y);
 			}
 		}
-		
+
 		this.empty = this.tiles[3][3];
 		this.empty.clearTexture();
 
 		Random ran = new Random();
-		for (int i = 0; i < 40; i++) {
- 		moveTile(1 + ran.nextInt(3), 1 + ran.nextInt(3));
+		for (int i = 0; i < 41; i++) {
+			swapWithEmpty(1 + ran.nextInt(3), 1 + ran.nextInt(3));
 		}
-		
+
 	}
 
 	/**
-	 * When user clicks on the tile, it will swap from the empty tile.
+	 * Swaps the tile with the empty black tile
 	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
+	 * @param x
+	 * @param y
 	 */
-	private void swapTiles(int x1, int y1, int x2, int y2) {
-		PuzzleTile temp = this.tiles[x1][y1];
-		this.tiles[x1][y1] = this.tiles[x2][y2];
-		this.tiles[x2][y2] = temp;
+	private void swapWithEmpty(int x, int y) {
+		PuzzleTile temp = this.tiles[x][y];
+		this.tiles[x][y] = this.empty;
+		this.empty = temp;
+
 	}
 
 	@Override
 	public void show() {
-		
+
 	}
 
 	public void render(float delta) {
 
 		this.game.getGameController().getSpriteBatch().begin();
 		puzzleBackground.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
-		puzzleBackground.setPosition(Gdx.graphics.getWidth()/2 - puzzleBackground.getWidth()/2, 
-				Gdx.graphics.getHeight()/2 - puzzleBackground.getHeight()/2);
+		puzzleBackground.setPosition(Gdx.graphics.getWidth() / 2 - puzzleBackground.getWidth() / 2,
+				Gdx.graphics.getHeight() / 2 - puzzleBackground.getHeight() / 2);
 		puzzleBackground.draw(game.getGameController().getSpriteBatch());
-		
-		actualImage.setPosition(Gdx.graphics.getWidth()/2 - actualImage.getWidth()/2 - 433, 
-				Gdx.graphics.getHeight()/2 - actualImage.getHeight()/2 - 130);
+
+		actualImage.setPosition(Gdx.graphics.getWidth() / 2 - actualImage.getWidth() / 2 - 433,
+				Gdx.graphics.getHeight() / 2 - actualImage.getHeight() / 2 - 130);
 		actualImage.draw(game.getGameController().getSpriteBatch());
-		
+
 		int xQuit = PrisonEscapeGame.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 600;
 
 		quitButton(xQuit);
-		
+
 		this.isPuzzleFinished = true;
 		for (int x = 1; x < 4; x++) {
 			for (int y = 1; y < 4; y++) {
@@ -110,14 +108,18 @@ public class PuzzleScreen implements Screen {
 
 				float mouseX = Gdx.input.getX();
 				float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+				this.game.getGameController().getSpriteBatch().draw(this.tiles[x][y].getPuzzleImage(), xLoc, yLoc, size,
+						size);
+
 				if ((mouseX > xLoc) && (mouseX < xLoc + size) && (mouseY > yLoc) && (mouseY < yLoc + size)) {
-					if (Gdx.input.isTouched()) {
-						moveTile(x, y);
+					if (Gdx.input.justTouched()) {
+
+						swapWithEmpty(x, y);
+
 					}
-				} 
-					this.game.getGameController().getSpriteBatch().draw(this.tiles[x][y].getPuzzleImage(), xLoc, yLoc,
-							size, size);
-				
+				}
+
 				if (!this.tiles[x][y].inCorrectPosition(x, y)) {
 					this.isPuzzleFinished = false;
 				}
@@ -125,11 +127,17 @@ public class PuzzleScreen implements Screen {
 			}
 		}
 		if (this.isPuzzleFinished) {
+			Stage stage = MapScreen.getStage();
+			stage.clear();
 			dispose();
 			this.game.setScreen(game.getGameController().getMapScreen());
+
 		}
 
 		this.game.getGameController().getSpriteBatch().end();
+		Stage stage = MapScreen.getStage();
+		stage.act();
+		stage.draw();
 	}
 
 	private void quitButton(int x) {
@@ -140,23 +148,22 @@ public class PuzzleScreen implements Screen {
 			quitButtonActive.setPosition(x, QUIT_BUTTON_Y);
 			quitButtonActive.setSize(QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT);
 			quitButtonActive.draw(game.getGameController().getSpriteBatch());
-			
-				if (checkQuitButtonMouseOver == false) {
-					Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
 
-					getMouseOverSound.play(1f);
-					checkQuitButtonMouseOver = true;
+			if (checkQuitButtonMouseOver == false) {
+				Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
 
-				}
+				getMouseOverSound.play(1f);
+				checkQuitButtonMouseOver = true;
 
-				if (Gdx.input.isTouched()) {
-					Stage stage = MapScreen.getStage();
-					stage.clear();
-					this.game.setScreen(game.getGameController().getMapScreen());
-					
+			}
 
-				}
-			
+			if (Gdx.input.isTouched()) {
+				Stage stage = MapScreen.getStage();
+				stage.clear();
+				this.game.setScreen(game.getGameController().getMapScreen());
+
+			}
+
 		} else {
 			checkQuitButtonMouseOver = false;
 			quitButtonInActive.setPosition(x, QUIT_BUTTON_Y);
@@ -164,49 +171,7 @@ public class PuzzleScreen implements Screen {
 			quitButtonInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-		
-	}
 
-	/**
-	 * Checks whether tile has been moved
-	 * 
-	 * @param r
-	 * @param c
-	 * @return true or false
-	 */
-	public boolean moveTile(int r, int c) {
-		return (checkEmpty(r, c, -1, 0)) || (checkEmpty(r, c, 1, 0)) || (checkEmpty(r, c, 0, -1))
-				|| (checkEmpty(r, c, 0, 1));
-	}
-
-	/**
-	 * Checks to see if its empty
-	 * 
-	 * @param x
-	 * @param y
-	 * @param xChange
-	 * @param yChange
-	 * @return true or false
-	 */
-	private boolean checkEmpty(int x, int y, int xChange, int yChange) {
-		int xNext = x + xChange;
-		int yNext = y + yChange;
-		if ((isLegalSquare(xNext, yNext)) && (this.tiles[xNext][yNext] == this.empty)) {
-			swapTiles(x, y, xNext, yNext);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Check whether the square is legal and can be used
-	 * 
-	 * @param r
-	 * @param c
-	 * @return true or false
-	 */
-	public boolean isLegalSquare(int r, int c) {
-		return (r >= 0) && (r < 4) && (c >= 0) && (c < 4);
 	}
 
 	public void resize(int width, int height) {
