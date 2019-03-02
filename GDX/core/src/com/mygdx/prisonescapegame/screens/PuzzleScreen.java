@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
@@ -31,9 +32,10 @@ public class PuzzleScreen implements Screen {
 	private Sprite quitButtonActive;
 	private Sprite quitButtonInActive;
 	private boolean checkQuitButtonMouseOver;
+	private BitmapFont font;
 
 	/**
-	 * Creates a 4 x 4 puzzle tile with one tile black. Creates SlidingTile to get
+	 * Creates a 4 x 4 puzzle tile with one tile black. Creates PuzzleTile to get
 	 * the textures at each position. Random at each time PuzzleScreen is called so
 	 * the tiles are jumbled up.
 	 * 
@@ -47,6 +49,7 @@ public class PuzzleScreen implements Screen {
 				new Texture(Gdx.files.internal("data/puzzles/" + PuzzleTile.getPuzzleTheme() + "/actual.png")));
 		quitButtonActive = new Sprite(new Texture("data/menuSprites/quit_active.png"));
 		quitButtonInActive = new Sprite(new Texture("data/menuSprites/quit_inactive.png"));
+		font = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		this.tiles = new PuzzleTile[4][4];
 		for (int x = 1; x < 4; x++) {
 			for (int y = 1; y < 4; y++) {
@@ -93,7 +96,8 @@ public class PuzzleScreen implements Screen {
 		actualImage.setPosition(Gdx.graphics.getWidth() / 2 - actualImage.getWidth() / 2 - 433,
 				Gdx.graphics.getHeight() / 2 - actualImage.getHeight() / 2 - 130);
 		actualImage.draw(game.getGameController().getSpriteBatch());
-
+		font.draw(game.getGameController().getSpriteBatch(), "Click on any tile to be swapped by the empty tile", Gdx.graphics.getWidth() / 2 - 100,
+				Gdx.graphics.getHeight() / 2 + 200);
 		int xQuit = PrisonEscapeGame.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 600;
 
 		quitButton(xQuit);
