@@ -1,9 +1,12 @@
 package com.mygdx.game.entities;
 
+import java.util.Calendar;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.mygdx.game.util.ActorAnimation;
+import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
 
@@ -11,6 +14,8 @@ public class AlarmSystem {
 	private long alarmStarted;
 	private GameHandler controller;
 	private GuardChasingBehaviour guard;
+	
+	private boolean playerCaught;
 	
 	public AlarmSystem(GameHandler controller) {
 		this.alarmStarted = 0L;
@@ -33,20 +38,20 @@ public class AlarmSystem {
 					atlas.findRegion(guardSprite + "stand_west")
 					);
 
-			guard = new GuardChasingBehaviour("alarmGuard", controller.getMapHandler().getCurrentMap(), new Actor(controller.getPlayer().getX(), controller.getPlayer().getY(), animations, controller), controller.getPlayer());
+			guard = new GuardChasingBehaviour("alarmGuard", controller.getMapHandler().getCurrentMap(), new Actor(controller.getPlayer().getX(), controller.getPlayer().getY(), animations, controller), controller.getPlayer(), controller);
 			
 			controller.addActor(guard.getActor(), guard);
 			controller.getMapScreen().addNPCToMap(guard);
 			
+			playerCaught = false;
 			alarmStarted = System.currentTimeMillis();		
 			
 			// !!! Start alarm sound?
-		} else {						
+		} else {
 			controller.removeActor(guard.getActor());
 			controller.getMapScreen().removeNPCFromMap(guard);
 			guard = null;
-			alarmStarted = 0L;		
-			
+			alarmStarted = 0L;					
 			// !!! End alarm sound?
 		}
 	}
@@ -56,10 +61,18 @@ public class AlarmSystem {
 			long timePassed = System.currentTimeMillis() - alarmStarted;
 			long fiveMinutesInMillis = 900000 / GameSettings.TIME_SCALE; // 15 in game minutes.
 			
-			if (timePassed > fiveMinutesInMillis) {
+			if (timePassed > fiveMinutesInMillis || playerCaught == true) {
+				if (playerCaught == true) {
+					playerCaught = false;
+					
+					Calendar cal = controller.getTime().getCalendar();
+					Time time = Time.getTime(cal);
+					time = Time.setTime(cal, 7, 15);
+					controller.setTime(time);					
+				}
 				setAlarm(false);
 			}
-		} else {
+		} else if (getAlarm() == false){
 			// If it is night time and player moved into an alarm tile then trigger alarm.			
 			int playerX = controller.getPlayer().getX();
 			int playerY = controller.getPlayer().getY();
@@ -68,6 +81,10 @@ public class AlarmSystem {
 			}
 		}					
 	} 
+	
+	public void playerCaught() {
+		playerCaught = true;
+	}
 	
 	public boolean getAlarm() {
 		return alarmStarted != 0L; // Checks if the alarm has started or if it is yet to be started.
