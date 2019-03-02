@@ -3,6 +3,7 @@ package com.mygdx.prisonescapegame;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
+import com.mygdx.game.entities.AlarmSystem;
 import com.mygdx.game.entities.GuardChasingBehaviour;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
@@ -51,7 +52,8 @@ public class GameHandler implements GameController {
 	private Music music;
 	private List<MapActor> actors;
 	private HashMap<Actor, ActorAction> actions;
-	private GuardChasingBehaviour guard;
+	
+	private AlarmSystem alarm;
 	
 	private String currentMapFile;
 	
@@ -70,7 +72,7 @@ public class GameHandler implements GameController {
 		music.setVolume(0.5f);
 		music.play();
 		
-		guard = null;
+		alarm = new AlarmSystem(this);
 	}
 	
 	@Override
@@ -160,10 +162,6 @@ public class GameHandler implements GameController {
 	}
 	
 	public void update(float delta) {
-		if (guard != null) {
-			currentMap.addNPCToMap(guard);
-			addActor(guard.getActor(), guard);
-		}
 		for (MapActor a: actors) {
 			if(a instanceof Actor) {
 				Actor actor = (Actor) a;
@@ -173,6 +171,7 @@ public class GameHandler implements GameController {
 				actor.update(delta);
 			}
 		}
+		alarm.update();
 	}
 	
 	public ItemHandler getItemHandler() {
@@ -199,23 +198,7 @@ public class GameHandler implements GameController {
 		return this.currentMapFile;
 	}
 	
-	public void alarmTriggered() {
-		TextureAtlas atlas = game.getAssetManager().get("data/packed/textures.atlas", TextureAtlas.class);
-		
-		String guardSprite = "guard01_";
-		ActorAnimation animations = new ActorAnimation(
-				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_north"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_south"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_east"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_west"), PlayMode.LOOP_PINGPONG),
-				atlas.findRegion(guardSprite + "stand_north"),
-				atlas.findRegion(guardSprite + "stand_south"),
-				atlas.findRegion(guardSprite + "stand_east"),
-				atlas.findRegion(guardSprite + "stand_west")
-				);
-				
-		guard = new GuardChasingBehaviour ("alarmGuard", mapHandler.getCurrentMap(), new Actor(game.player.getX(), game.player.getY(), animations, this), game.player);
-		System.out.println("here");
-		//guard = guardBehaviour;
+	public AlarmSystem getAlarm() {
+		return this.alarm;
 	}
 }

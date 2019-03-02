@@ -66,14 +66,21 @@ public class InteractionController extends InputAdapter {
 
 			// If tile facing is a teleporter tile.
 
-			if (target.getTeleporter() == true) {			
-				// Find the teleporter.
-				Teleporter teleporter = gameHandler.getMapHandler().getTeleporter(gameHandler.getMapHandler().getCurrentMap(), actor.getX(), actor.getY());
-							
-				// Change showing map and player's location within it.
-				gameHandler.setMap(teleporter.getDestinationFile(), teleporter.getPlayerDestinationX(), teleporter.getPlayerDestinationY());
-				// Change the direction that the player is facing.
-				actor.changeFacing(teleporter.getPlayerDestinationDirection());
+			if (target.getTeleporter() == true) {
+				if (gameHandler.getAlarm().getAlarm() == false) {
+					// Find the teleporter.
+					Teleporter teleporter = gameHandler.getMapHandler().getTeleporter(gameHandler.getMapHandler().getCurrentMap(), actor.getX(), actor.getY());
+
+					// Change showing map and player's location within it.
+					gameHandler.setMap(teleporter.getDestinationFile(), teleporter.getPlayerDestinationX(), teleporter.getPlayerDestinationY());
+					// Change the direction that the player is facing.
+					actor.changeFacing(teleporter.getPlayerDestinationDirection());
+				} else {
+					/**
+					 * Alarm active, building on lockdown.
+					 * !!! Display message to user?
+					 */
+				}
 			}			
 		
 			// If actor in tile facing.

@@ -41,8 +41,6 @@ public class Actor implements MapActor {
 	
 	private ActorAnimation animations;
 	
-	private boolean trigAlarm;
-	
 	private boolean isFrozen = false;
 	
 	public Actor(int x, int y, ActorAnimation animations, GameController gameHandler)
@@ -56,7 +54,6 @@ public class Actor implements MapActor {
 		this.animations = animations;
 		this.currentState = ACTOR_STATE.STANDING;
 		this.facing = DIRECTION.SOUTH;
-		this.trigAlarm = false;
 	}
 	
 	public enum ACTOR_STATE {
@@ -148,12 +145,8 @@ public class Actor implements MapActor {
 		/* If it is night time and moved into an alarm tile.
 		 * Trigger alarm, if not already been triggered. 
 		 */
-		if (gameHandler.getTime().isDay() == false &&
-				gameHandler.getMapScreen().getTiledModel().getTile(x, y).getAlarm() == true) {			
-			if (trigAlarm == false) {
-				trigAlarm = true;		
-				gameHandler.alarmTriggered();				
-			}
+		if (gameHandler.getTime().isDay() == false && gameHandler.getMapScreen().getTiledModel().getTile(x, y).getAlarm() == true && gameHandler.getAlarm().getAlarm() == false) {			
+				gameHandler.getAlarm().setAlarm(true);				
 		} 
 		
 		return true;

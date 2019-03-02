@@ -144,6 +144,10 @@ public class MapScreen extends PauseMenu implements Screen {
 	public void addNPCToMap(ActorAction action) {
 		npcs.add(action);
 	}
+	
+	public void removeNPCFromMap(ActorAction action) {
+		npcs.remove(action);
+	}
 
 	@Override
 	public void show() {
