@@ -42,5 +42,7 @@ public interface GameController {
 	Time getTime();
 	
 	void setTime(Time updatedTime);
+	
+	void alarmTriggered();
 
 }

@@ -18,10 +18,10 @@ public class NPCHandler {
 	public NPCHandler(GameController game) {
 		npcs = new HashMap<String, ActorAction>();
 
-		loadItems(game);
+		loadNPCs(game);
 	}
 
-	private void loadItems(GameController game) {
+	private void loadNPCs(GameController game) {
 		NPCReader reader = new NPCReader(game);
 		npcs = reader.readNPCs();
 	}

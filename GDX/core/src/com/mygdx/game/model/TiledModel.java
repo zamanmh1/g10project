@@ -22,19 +22,28 @@ public class TiledModel {
 	public TiledModel(TiledMap tilemap) {
 		this.map = tilemap;
 		
-		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Tile Layer 1"); // Layer name/id needs to be the same for each TiledMap file.
-
-		width = layer.getWidth();
-		height = layer.getHeight();
+		TiledMapTileLayer levelLayer = getLayer("Tile Layer 1"); // Layer name/id needs to be the same for each TiledMap file.
+		TiledMapTileLayer alarmLayer = getLayer("Tile Layer 2");
+		
+		width = levelLayer.getWidth();
+		height = levelLayer.getHeight();
 		
 		tiles = new Tile[width][height];		
+				
 
 		// Creates model of given TiledMap.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				tiles[x][y] = new Tile();
-				if(layer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
+				if(levelLayer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
 					tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property "blocked".
+				} 
+				if (alarmLayer != null) {
+					if(alarmLayer.getCell(x,y) != null) {
+							if (alarmLayer.getCell(x, y).getTile().getProperties().containsKey("alarm")) {
+									tiles[x][y].setAlarm(true);
+							}
+					}
 				}
 			}
 		}
@@ -59,4 +68,8 @@ public class TiledModel {
 	public int getHeight() {
 		return height;
 	}		
+	
+	public TiledMapTileLayer getLayer(String name) {
+		return (TiledMapTileLayer) map.getLayers().get(name);
+	}
 }

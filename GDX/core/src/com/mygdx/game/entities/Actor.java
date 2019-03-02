@@ -22,7 +22,7 @@ import com.badlogic.gdx.math.Interpolation;
 public class Actor implements MapActor {
 	
 	//private MapScreen currentMap;
-	private GameController gameHandler;
+	protected GameController gameHandler;
 	private int x, y; // Coordinates in model.
 	private DIRECTION facing;
 	
@@ -41,6 +41,8 @@ public class Actor implements MapActor {
 	
 	private ActorAnimation animations;
 	
+	private boolean trigAlarm;
+	
 	private boolean isFrozen = false;
 	
 	public Actor(int x, int y, ActorAnimation animations, GameController gameHandler)
@@ -54,6 +56,7 @@ public class Actor implements MapActor {
 		this.animations = animations;
 		this.currentState = ACTOR_STATE.STANDING;
 		this.facing = DIRECTION.SOUTH;
+		this.trigAlarm = false;
 	}
 	
 	public enum ACTOR_STATE {
@@ -72,7 +75,7 @@ public class Actor implements MapActor {
 			// Move smoothly between origin and destination.
 			// Can change Interpolation for different movement styles.
 			worldX = Interpolation.linear.apply(origX, destX, animTimer/WALK_TIME_PER_TILE);
-			worldY = Interpolation.linear.apply(origY, destY, animTimer/WALK_TIME_PER_TILE);	
+			worldY = Interpolation.linear.apply(origY, destY, animTimer/WALK_TIME_PER_TILE);				
 			
 			if(animTimer > WALK_TIME_PER_TILE) {
 				// Amount of time animation takes which hasn't been completed.
@@ -92,6 +95,7 @@ public class Actor implements MapActor {
 				}
 			}
 		}
+				
 		if (currentState == ACTOR_STATE.REFACING) {
 			animTimer += delta;
 			if (animTimer > REFACE_TIME) {
@@ -99,6 +103,7 @@ public class Actor implements MapActor {
 				currentState = ACTOR_STATE.STANDING;
 			}
 		}
+		
 		// Movement request reset.
 		movementRequest = false;
 	}
@@ -139,6 +144,17 @@ public class Actor implements MapActor {
 		x = x + dir.getMoveX();
 		y = y + dir.getMoveY();
 		gameHandler.getMapScreen().getTiledModel().getTile(getX(), getY()).setActor(this); // Move into tile in model.
+		
+		/* If it is night time and moved into an alarm tile.
+		 * Trigger alarm, if not already been triggered. 
+		 */
+		if (gameHandler.getTime().isDay() == false &&
+				gameHandler.getMapScreen().getTiledModel().getTile(x, y).getAlarm() == true) {			
+			if (trigAlarm == false) {
+				trigAlarm = true;		
+				gameHandler.alarmTriggered();				
+			}
+		} 
 		
 		return true;
 	}	

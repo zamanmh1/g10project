@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -184,20 +185,31 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		// Smooth camera based on updated player position
 		oCamera.position.set(player.getWorldX() + 0.5f, player.getWorldY() + 0.5f, 0);
-
 		oCamera.update();
 
+		mapRenderer.getBatch().begin();
+		
 		mapRenderer.getBatch().setColor(game.getGameController().getTime().getTint());
 		mapRenderer.setView(oCamera);
-		mapRenderer.render();
-		// renders the map and sets the view of the camera to display the map
+		//mapRenderer.render();
+		TiledMapTileLayer levelLayer = model.getLayer("Tile Layer 1");
+		mapRenderer.renderTileLayer(levelLayer);
+		
+		
+		TiledMapTileLayer alarmLayer = model.getLayer("Tile Layer 2");
+		if (alarmLayer != null) {
+			if (game.getGameController().getTime().isDay() == true) {
+				mapRenderer.renderTileLayer(alarmLayer);
+			} else {
+				mapRenderer.getBatch().setColor(0.9f, 0.0f, 0.0f, 1.0f);
+				mapRenderer.renderTileLayer(alarmLayer);
+			}
+		}
 
 		// set HUD camera
 		game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
 		// hud.stage.draw();
 
-		mapRenderer.getBatch().begin();
-		// player.draw(mapRenderer.getBatch());
 		
 		/**
 		 * !!! Placed here means that the tint doesn't effect players and items.
@@ -221,8 +233,9 @@ public class MapScreen extends PauseMenu implements Screen {
 		mapRenderer.getBatch().end();
 		stage.act();
 		stage.draw();
+		
 		game.getGameController().getSpriteBatch().begin();
-
+		
 		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - roomTransition.getHeight() / 2);
 

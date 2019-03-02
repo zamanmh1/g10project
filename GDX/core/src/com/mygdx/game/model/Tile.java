@@ -53,7 +53,7 @@ public class Tile {
 		this.alarm = alarm;
 	}
 	
-	public boolean getAlaram() {
+	public boolean getAlarm() {
 		return alarm;
 	}
 }

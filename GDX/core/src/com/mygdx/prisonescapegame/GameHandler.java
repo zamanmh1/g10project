@@ -3,21 +3,28 @@ package com.mygdx.prisonescapegame;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
+import com.mygdx.game.entities.GuardChasingBehaviour;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.helpers.ItemHandler;
 import com.mygdx.game.helpers.MapHandler;
 import com.mygdx.game.helpers.NPCHandler;
+import com.mygdx.game.util.ActorAnimation;
 import com.mygdx.game.util.Time;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.mygdx.prisonescapegame.screens.MapScreen;
 import com.mygdx.prisonescapegame.screens.Splash;
 
@@ -44,6 +51,7 @@ public class GameHandler implements GameController {
 	private Music music;
 	private List<MapActor> actors;
 	private HashMap<Actor, ActorAction> actions;
+	private GuardChasingBehaviour guard;
 	
 	private String currentMapFile;
 	
@@ -61,6 +69,8 @@ public class GameHandler implements GameController {
 		music.setLooping(true);
 		music.setVolume(0.5f);
 		music.play();
+		
+		guard = null;
 	}
 	
 	@Override
@@ -118,7 +128,7 @@ public class GameHandler implements GameController {
 				currentMap.addItemToMap(i);
 				addActor(i);
 			}
-		}		
+		}
 		for (ActorAction action : NPCsHandler.getAllNPCs().values()) {
 			if (action.getAppearsIn().equals(map)) {
 				currentMap.addNPCToMap(action);
@@ -150,6 +160,10 @@ public class GameHandler implements GameController {
 	}
 	
 	public void update(float delta) {
+		if (guard != null) {
+			currentMap.addNPCToMap(guard);
+			addActor(guard.getActor(), guard);
+		}
 		for (MapActor a: actors) {
 			if(a instanceof Actor) {
 				Actor actor = (Actor) a;
@@ -183,5 +197,25 @@ public class GameHandler implements GameController {
 	
 	public String getCurrentMapFile() {
 		return this.currentMapFile;
+	}
+	
+	public void alarmTriggered() {
+		TextureAtlas atlas = game.getAssetManager().get("data/packed/textures.atlas", TextureAtlas.class);
+		
+		String guardSprite = "guard01_";
+		ActorAnimation animations = new ActorAnimation(
+				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_north"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_south"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_east"), PlayMode.LOOP_PINGPONG),
+				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_west"), PlayMode.LOOP_PINGPONG),
+				atlas.findRegion(guardSprite + "stand_north"),
+				atlas.findRegion(guardSprite + "stand_south"),
+				atlas.findRegion(guardSprite + "stand_east"),
+				atlas.findRegion(guardSprite + "stand_west")
+				);
+				
+		guard = new GuardChasingBehaviour ("alarmGuard", mapHandler.getCurrentMap(), new Actor(game.player.getX(), game.player.getY(), animations, this), game.player);
+		System.out.println("here");
+		//guard = guardBehaviour;
 	}
 }
