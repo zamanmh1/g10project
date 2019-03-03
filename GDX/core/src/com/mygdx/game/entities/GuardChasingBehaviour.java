@@ -148,8 +148,7 @@ public class GuardChasingBehaviour extends ActorAction {
 						Timer.schedule(new Task(){
 						    @Override
 						    public void run() {
-						    	// !!! Need to freeze player controls.
-						    	plyerCaught();
+						    	plyerCaught(); // !!! Need to freeze player controls.
 						    }
 						}, delay);					
 					}
@@ -163,7 +162,8 @@ public class GuardChasingBehaviour extends ActorAction {
 	
 	public void plyerCaught() {
     	controller.getAlarm().playerCaught();
-		chasing.teleport(3,1);
+    	chasing.changeFacing(DIRECTION.NORTH);
+    	controller.setMap("data/maps/cell.tmx", 3, 1);    	
 	}
 
 	@Override
