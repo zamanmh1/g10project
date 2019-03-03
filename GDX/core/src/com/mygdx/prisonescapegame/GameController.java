@@ -26,7 +26,14 @@ public interface GameController {
 	Actor getPlayer();
 		
 	Music getMusic();
-
+	
+	Music setMusic(String musicLoc);
+	
+	
+	void playMusic();
+	
+	void stopMusic();
+	
 	void addActor(MapActor a);
 	
 	void removeActor(MapActor a);

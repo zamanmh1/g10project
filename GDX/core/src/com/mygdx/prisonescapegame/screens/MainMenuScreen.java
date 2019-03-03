@@ -173,7 +173,7 @@ public class MainMenuScreen implements Screen {
 	}
 
 	private void playButton(int x) {
-
+		
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
@@ -248,6 +248,14 @@ public class MainMenuScreen implements Screen {
 				playPressed = false;
 				buttonActive = true;
 				game.setScreen(new MainGameScreen(game));
+				game.getGameController().stopMusic();
+				game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+				game.getGameController().playMusic();
+				if (volumeMuted == true) {
+					Music music = game.getGameController().getMusic();
+					music.pause();
+				}
+				
 			}
 		} else {
 			checkNewButtonMouseOver = false;

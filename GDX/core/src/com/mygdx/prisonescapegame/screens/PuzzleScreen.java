@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
-
 import java.util.Random;
 
 /**
@@ -96,8 +95,8 @@ public class PuzzleScreen implements Screen {
 		actualImage.setPosition(Gdx.graphics.getWidth() / 2 - actualImage.getWidth() / 2 - 433,
 				Gdx.graphics.getHeight() / 2 - actualImage.getHeight() / 2 - 130);
 		actualImage.draw(game.getGameController().getSpriteBatch());
-		font.draw(game.getGameController().getSpriteBatch(), "Click on any tile to be swapped by the empty tile", Gdx.graphics.getWidth() / 2 - 100,
-				Gdx.graphics.getHeight() / 2 + 200);
+		font.draw(game.getGameController().getSpriteBatch(), "Click on any tile to be swapped by the empty tile",
+				Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 + 200);
 		int xQuit = PrisonEscapeGame.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 600;
 
 		quitButton(xQuit);
@@ -152,11 +151,15 @@ public class PuzzleScreen implements Screen {
 			quitButtonActive.setPosition(x, QUIT_BUTTON_Y);
 			quitButtonActive.setSize(QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT);
 			quitButtonActive.draw(game.getGameController().getSpriteBatch());
+			Boolean muted = MainMenuScreen.getInstance(game).checkSoundMuted();
 
 			if (checkQuitButtonMouseOver == false) {
 				Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
-
-				getMouseOverSound.play(1f);
+				if (muted == true) {
+					getMouseOverSound.stop();
+				} else {
+					getMouseOverSound.play(1f);
+				}
 				checkQuitButtonMouseOver = true;
 
 			}
