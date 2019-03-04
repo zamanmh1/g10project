@@ -32,6 +32,7 @@ public class PuzzleScreen implements Screen {
 	private Sprite quitButtonInActive;
 	private boolean checkQuitButtonMouseOver;
 	private BitmapFont font;
+	private PuzzleTile currentSelected;
 	private static String [] arr = {"police", "logo", "badlogic"};
 	private static Random randomTheme;
 	private static String puzzleTheme;
@@ -80,6 +81,7 @@ public class PuzzleScreen implements Screen {
 	 */
 	private void swapWithEmpty(int x, int y) {
 		PuzzleTile temp = this.tiles[x][y];
+		currentSelected = this.tiles[x][y];
 		this.tiles[x][y] = this.empty;
 		this.empty = temp;
 
@@ -98,12 +100,19 @@ public class PuzzleScreen implements Screen {
 				Gdx.graphics.getHeight() / 2 - puzzleBackground.getHeight() / 2);
 		puzzleBackground.draw(game.getGameController().getSpriteBatch());
 
+		actualImage.setSize(486, 486);
 		actualImage.setPosition(Gdx.graphics.getWidth() / 2 - actualImage.getWidth() / 2 - 433,
 				Gdx.graphics.getHeight() / 2 - actualImage.getHeight() / 2 - 130);
+		
 		actualImage.draw(game.getGameController().getSpriteBatch());
-		font.draw(game.getGameController().getSpriteBatch(), "Click on any tile to be swapped by the empty tile",
-				Gdx.graphics.getWidth() / 2 - 100, Gdx.graphics.getHeight() / 2 + 200);
-		int xQuit = PrisonEscapeGame.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 600;
+		
+		font.draw(game.getGameController().getSpriteBatch(), "Click on any tile to select and drop",
+				Gdx.graphics.getWidth() / 2 - 20, Gdx.graphics.getHeight() / 2 + 200);
+		
+		font.draw(game.getGameController().getSpriteBatch(), "Selected tile",
+				Gdx.graphics.getWidth() / 2 + 475, Gdx.graphics.getHeight() / 2 + 80);
+		
+		int xQuit = PrisonEscapeGame.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 590;
 
 		quitButton(xQuit);
 
@@ -120,12 +129,12 @@ public class PuzzleScreen implements Screen {
 
 				this.game.getGameController().getSpriteBatch().draw(this.tiles[x][y].getPuzzleImage(), xLoc, yLoc, size,
 						size);
-
+				
 				if ((mouseX > xLoc) && (mouseX < xLoc + size) && (mouseY > yLoc) && (mouseY < yLoc + size)) {
 					if (Gdx.input.justTouched()) {
 
 						swapWithEmpty(x, y);
-
+						
 					}
 				}
 
@@ -138,15 +147,15 @@ public class PuzzleScreen implements Screen {
 		if (this.isPuzzleFinished) {
 			Stage stage = MapScreen.getStage();
 			stage.clear();
-			dispose();
 			this.game.setScreen(game.getGameController().getMapScreen());
 
 		}
 
+		currentSelected.getPuzzleImage().setSize(162,162);
+		currentSelected.getPuzzleImage().setPosition(Gdx.graphics.getWidth() / 2 + 480, Gdx.graphics.getHeight() / 2 - 130);
+		currentSelected.getPuzzleImage().draw(game.getGameController().getSpriteBatch());
 		this.game.getGameController().getSpriteBatch().end();
-		Stage stage = MapScreen.getStage();
-		stage.act();
-		stage.draw();
+		
 	}
 
 	private void quitButton(int x) {
