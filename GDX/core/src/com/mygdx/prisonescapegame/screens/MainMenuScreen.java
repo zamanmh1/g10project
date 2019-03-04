@@ -189,6 +189,9 @@ public class MainMenuScreen implements Screen {
 				}
 
 				if (Gdx.input.isTouched()) {
+					long timePassed = System.currentTimeMillis();
+					long twoSecondInMillis = 2000; // 2 seconds.
+					if (timePassed > twoSecondInMillis) {
 					Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
@@ -197,7 +200,7 @@ public class MainMenuScreen implements Screen {
 					Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 					playPressed = true;
 					buttonActive = false;
-					
+					}
 
 				}
 			}

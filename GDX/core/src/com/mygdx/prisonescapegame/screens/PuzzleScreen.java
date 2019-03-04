@@ -32,6 +32,9 @@ public class PuzzleScreen implements Screen {
 	private Sprite quitButtonInActive;
 	private boolean checkQuitButtonMouseOver;
 	private BitmapFont font;
+	private static String [] arr = {"police", "logo", "badlogic"};
+	private static Random randomTheme;
+	private static String puzzleTheme;
 
 	/**
 	 * Creates a 4 x 4 puzzle tile with one tile black. Creates PuzzleTile to get
@@ -43,12 +46,15 @@ public class PuzzleScreen implements Screen {
 	public PuzzleScreen(PrisonEscapeGame game) {
 
 		this.game = game;
+		randomTheme = new Random();
+		puzzleTheme = arr[randomTheme.nextInt(arr.length)];
 		puzzleBackground = new Sprite(new Texture(Gdx.files.internal("data/puzzles/puzzleBackground.png")));
 		actualImage = new Sprite(
-				new Texture(Gdx.files.internal("data/puzzles/" + PuzzleTile.getPuzzleTheme() + "/actual.png")));
+				new Texture(Gdx.files.internal("data/puzzles/" + getPuzzleTheme() + "/actual.png")));
 		quitButtonActive = new Sprite(new Texture("data/menuSprites/quit_active.png"));
 		quitButtonInActive = new Sprite(new Texture("data/menuSprites/quit_inactive.png"));
 		font = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
+		
 		this.tiles = new PuzzleTile[4][4];
 		for (int x = 1; x < 4; x++) {
 			for (int y = 1; y < 4; y++) {
@@ -179,6 +185,12 @@ public class PuzzleScreen implements Screen {
 
 		}
 
+	}
+	
+	public static String getPuzzleTheme() {
+		
+		return puzzleTheme;
+		
 	}
 
 	public void resize(int width, int height) {

@@ -19,9 +19,6 @@ public class PuzzleTile {
 	private int currentRow;
 	private int currentColumn;
 	private String blackTileLoc = "data/puzzles/black.png";
-	private static String [] arr = {"police", "logo", "badlogic"};
-	private static Random randomTheme = new Random(1);
-	private static String puzzleTheme = arr[randomTheme.nextInt(arr.length)];
 	private String puzzleLoc;
 	/**
 	 * Creates row of x and y and assigns texture to each position, puzzleImage is
@@ -35,7 +32,7 @@ public class PuzzleTile {
 	public PuzzleTile(int x, int y) {
 		this.finishRow = x;
 		this.finishCol = y;
-		this.puzzleLoc = "data/puzzles/" + puzzleTheme + "/" + x + y + ".png";
+		this.puzzleLoc = "data/puzzles/" + PuzzleScreen.getPuzzleTheme() + "/" + x + y + ".png";
 		this.puzzleImage = new Sprite(new Texture(puzzleLoc));
 	}
 
@@ -88,11 +85,6 @@ public class PuzzleTile {
 	
 	}
 	
-	public static String getPuzzleTheme() {
-		return puzzleTheme;
-		
-		
-	}
 			
 
 }
