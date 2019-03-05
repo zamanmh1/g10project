@@ -40,9 +40,7 @@ public class TiledModel {
 				} 
 				if (alarmLayer != null) {
 					if(alarmLayer.getCell(x,y) != null) {
-							if (alarmLayer.getCell(x, y).getTile().getProperties().containsKey("alarm")) {
-									tiles[x][y].setAlarm(true);
-							}
+							tiles[x][y].setAlarm(true);							
 					}
 				}
 			}
