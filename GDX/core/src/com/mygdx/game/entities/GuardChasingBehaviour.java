@@ -1,5 +1,6 @@
 package com.mygdx.game.entities;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.ai.btree.leaf.Wait;
@@ -37,44 +38,31 @@ public class GuardChasingBehaviour extends ActorAction {
 	}
 	
 	private void setSpawnLocation() {
-		int location = random.nextInt(7);		
-		int X = chasing.getX();
-		int Y = chasing.getY();
+		ArrayList<GridPoint2> positions = new ArrayList<GridPoint2>();
+		TiledModel model = getActor().gameHandler.getMapScreen().getTiledModel();	
 		
-		if (location == 0) {
-			Y += 1;
-		} else if (location == 1) {
-			X += 1;
-			Y += 1;
-		} else if (location == 2) {
-			X +=1;
-		} else if (location == 3) {
-			X +=1;
-			Y -=1;
-		} else if (location == 4) {
-			Y -=1;
-		} else if (location == 5) {
-			X -=1;
-			Y -=1;
-		} else if (location == 6) {
-			X -=1;
-		} else {
-			X -=1;
-			Y +=1;
-		}
+		int playerX = chasing.getX();
+		int playerY = chasing.getY();
 		
-		if (isValidLocation(X, Y)) {
-			getActor().teleport(X, Y);
-		}
+		for (int diffX = -1; diffX < 2; diffX++) {
+			for (int diffY = -1; diffY < 2; diffY++) {
+				int spawnX = playerX + diffX;
+				int spawnY = playerY + diffY;
+				Tile position = model.getTile(spawnX, spawnY);
+				if (isValidLocation(position) ) {
+					positions.add(new GridPoint2(spawnX, spawnY));
+				}
+			}
+		}		
+		
+		int randomPosition = random.nextInt(positions.size());
+		GridPoint2 selected = positions.get(randomPosition);
+		
+		getActor().teleport(selected.x, selected.y);
 	}
 	
-	private boolean isValidLocation(int x, int y) {
-		TiledModel model = super.getActor().gameHandler.getMapScreen().getTiledModel();
-		
-		Tile target = (model.getTile(x, y));
-		
-		if (target.getWalkable() == true &&
-				target.getActor() == null) {
+	private boolean isValidLocation(Tile target) {		
+		if (target.getWalkable() == true && target.getActor() == null) {
 			return true;
 		}
 		return false;
