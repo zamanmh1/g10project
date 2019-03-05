@@ -177,8 +177,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		// updates using time since last render call
 		if (!menuPressed) {
 			movementHandler.update(delta);
-			game.getGameController().update(delta);
-			//player.setFrozen(false);
+			game.getGameController().update(delta);			
 		}
 		inputHandler.addProcessor(movementHandler);
 		inputHandler.addProcessor(interactionHandler);
@@ -246,7 +245,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		roomTransition.draw(game.getGameController().getSpriteBatch());
 
 		if (menuKeyCheck() == true) {
-			player.setFrozen(true);
 			inputHandler.clear();
 			drawPauseMenu(game, tween);
 
@@ -312,10 +310,8 @@ public class MapScreen extends PauseMenu implements Screen {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (menuPressed == false) {
 				menuPressed = true;
-
 			} else if (menuPressed == true) {
 				menuPressed = false;
-
 			}
 		}
 		return menuPressed;
