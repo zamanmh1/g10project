@@ -127,35 +127,26 @@ public class GuardChasingBehaviour extends ActorAction {
 				MapActor interactingActor = target.getActor();
 				if(interactingActor instanceof Actor) {
 					Actor a = (Actor) interactingActor;
-					if (a.equals(chasing)) {	
-						
+					if (a.equals(chasing)) {							
 						// Ensures that refaced correctly.						
 						chasing.setFrozen(true);
 						chasing.setFrozen(false);
 						chasing.changeFacing(DIRECTION.getBehind(getActor().getFacing()));
 						chasing.setFrozen(true);
 						
-						float delay = 5;
+						long delay = 5;	
 						Timer.schedule(new Task(){
 						    @Override
 						    public void run() {
-						    	playerCaught();
+						    	controller.getAlarm().playerCaught();
 						    }
-						}, delay);					
+						}, delay);
 					}
 				}
 			}			
-			
 			currentWaitTime = calculateWaitTime();
 			timer = 0f;
 		}
-	}
-	
-	public void playerCaught() {
-    	controller.getAlarm().playerCaught();
-    	chasing.changeFacing(DIRECTION.NORTH);
-    	controller.setMap("data/maps/cell.tmx", 3, 1);    
-    	chasing.setFrozen(false);
 	}
 
 	@Override

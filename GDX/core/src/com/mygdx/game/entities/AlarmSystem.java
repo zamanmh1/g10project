@@ -34,10 +34,17 @@ public class AlarmSystem {
 			// !!! Start alarm sound?
 		} else {
 			if (playerCaught == true) {				
+				// Set time to next morning.
 				Calendar cal = controller.getTime().getCalendar();
 				Time time = Time.getTime(cal);
 				time = Time.setTime(cal, 7, 15);
 				controller.setTime(time);		
+				
+				// Move player to cell and unfreeze.
+				controller.setMap("data/maps/cell.tmx", 3, 1); 		    	 	   
+		    	controller.getPlayer().setFrozen(false);
+		    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
+		    	
 				// !!! Message to player saying caught?
 			}			
 			controller.removeActor(guard.getActor());
