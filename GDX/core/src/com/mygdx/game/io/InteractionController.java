@@ -9,6 +9,7 @@ import java.util.Calendar;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.entities.Actor;
+import com.mygdx.game.entities.Actor.ACTOR_STATE;
 import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.DIRECTION;
 import com.mygdx.game.entities.Item;
@@ -43,24 +44,21 @@ public class InteractionController extends InputAdapter {
 	private GameHandler gameHandler;
 	private Dialogue d = new Dialogue();
 	private DialogueUI dBox = new DialogueUI();
-	
-	
+
+
 	public InteractionController(Actor actor) {
 		this.actor = actor;
-		
+
 	}
-	
+
 	public void setItemHandler(GameHandler gameHandler) {
 		this.gameHandler = gameHandler;
 	}
-	
+
 	@Override
 	public boolean keyUp(int keycode) {
 		// E is use key for now.
 		// Triggered upon key release (only called once).
-		if (actor.getFrozen()) {
-			return false;
-		}
 		if (keycode == Keys.E) {			
 			Tile target = gameHandler.getMapScreen().getTiledModel().getTile(actor.getX() + actor.getFacing().getMoveX(), actor.getY() + actor.getFacing().getMoveY()); // If player facing actor to interact with.
 
@@ -82,17 +80,17 @@ public class InteractionController extends InputAdapter {
 					 */
 				}
 			}			
-		
+
 			// If actor in tile facing.
 			else if(target.getActor() != null) {
 				MapActor interactingActor = target.getActor();
-				
+
 				// If interacting with an Actor.
 				if(interactingActor instanceof Actor) {
 					Actor a = (Actor) interactingActor;
 					ActorAction action = gameHandler.getActions().get(a);
 					// Interact with Actor
-					if(a.getFrozen() == false) {	
+					if(a.getFrozen() != true) {	
 						if(d.hasDialogue(action.getActionFor()))
 						{
 							a.changeFacing(DIRECTION.getBehind(actor.getFacing()));		
@@ -103,8 +101,8 @@ public class InteractionController extends InputAdapter {
 						a.setFrozen(false);
 					}
 					return true;
-				
-				// If interacting with an item.
+
+					// If interacting with an item.
 				} else if (interactingActor instanceof Item) {
 					Item i = (Item) interactingActor;
 					// Interact with Item
@@ -112,10 +110,10 @@ public class InteractionController extends InputAdapter {
 						/**
 						 * !!! Need GUI to allow for user to enter the time that they want to change to.
 						 */
-//						Calendar cal = gameHandler.getTime().getCalendar();
-//						Time time = Time.getTime(cal);
-//						//time = time.setTime(cal, /*hour*/, /*minute*/);
-//						gameHandler.setTime(time);
+						//	Calendar cal = gameHandler.getTime().getCalendar();
+						//	Time time = Time.getTime(cal);
+						//	time = time.setTime(cal, /*hour*/, /*minute*/);
+						//	gameHandler.setTime(time);
 					} else {
 						gameHandler.getItemHandler().foundItem(i); // Set item as found.
 						gameHandler.getMapScreen().getTiledModel().getTile(i.getX(), i.getY()).setActor(null); // Remove from tile in model.
@@ -125,6 +123,7 @@ public class InteractionController extends InputAdapter {
 							dBox.showDialogue(MapScreen.getStage(), i.getName());
 							//System.out.println(d.getDialogue(i.getName()));
 						}
+
 						return true;
 					}
 				}

@@ -37,7 +37,8 @@ public class AlarmSystem {
 				Calendar cal = controller.getTime().getCalendar();
 				Time time = Time.getTime(cal);
 				time = Time.setTime(cal, 7, 15);
-				controller.setTime(time);					
+				controller.setTime(time);		
+				// !!! Message to player saying caught?
 			}			
 			controller.removeActor(guard.getActor());
 			controller.getMapScreen().removeNPCFromMap(guard);

@@ -79,11 +79,9 @@ public class GuardChasingBehaviour extends ActorAction {
 			int diffX = getActor().getX() - chasing.getX();
 			int diffY = getActor().getY() - chasing.getY();
 			
-			//int axis = random.nextInt(2);
 			DIRECTION moveDir = null;
 			
-			
-			if (diffX == 0 || diffY == 0) {
+			if (diffX == 0 || diffY == 0) { // If can only move one direction towards player.
 				if (diffX == 0) {
 					if (diffY < 0) {
 						moveDir = DIRECTION.NORTH;
@@ -97,8 +95,8 @@ public class GuardChasingBehaviour extends ActorAction {
 						moveDir = DIRECTION.WEST;
 					}
 				}				
-			} else {
-				boolean axisToMove = random.nextBoolean();				
+			} else { // If player location different in both direction.
+				boolean axisToMove = random.nextBoolean(); // Choose direction to move randomly.
 				if (axisToMove == true) {
 					if (diffY < 0) {
 						moveDir = DIRECTION.NORTH;
@@ -131,12 +129,17 @@ public class GuardChasingBehaviour extends ActorAction {
 					Actor a = (Actor) interactingActor;
 					if (a.equals(chasing)) {	
 						
-						float delay = 2;
-
+						// Ensures that refaced correctly.						
+						chasing.setFrozen(true);
+						chasing.setFrozen(false);
+						chasing.changeFacing(DIRECTION.getBehind(getActor().getFacing()));
+						chasing.setFrozen(true);
+						
+						float delay = 5;
 						Timer.schedule(new Task(){
 						    @Override
 						    public void run() {
-						    	playerCaught(); // !!! Need to freeze player controls.
+						    	playerCaught();
 						    }
 						}, delay);					
 					}
@@ -151,7 +154,8 @@ public class GuardChasingBehaviour extends ActorAction {
 	public void playerCaught() {
     	controller.getAlarm().playerCaught();
     	chasing.changeFacing(DIRECTION.NORTH);
-    	controller.setMap("data/maps/cell.tmx", 3, 1);    	
+    	controller.setMap("data/maps/cell.tmx", 3, 1);    
+    	chasing.setFrozen(false);
 	}
 
 	@Override

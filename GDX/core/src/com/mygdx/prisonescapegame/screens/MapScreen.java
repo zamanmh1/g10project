@@ -178,7 +178,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		if (!menuPressed) {
 			movementHandler.update(delta);
 			game.getGameController().update(delta);
-			player.setFrozen(false);
+			//player.setFrozen(false);
 		}
 		inputHandler.addProcessor(movementHandler);
 		inputHandler.addProcessor(interactionHandler);
