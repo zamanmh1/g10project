@@ -41,13 +41,13 @@ public class GuardChasingBehaviour extends ActorAction {
 		ArrayList<GridPoint2> positions = new ArrayList<GridPoint2>();
 		TiledModel model = getActor().gameHandler.getMapScreen().getTiledModel();	
 		
-		int playerX = chasing.getX();
-		int playerY = chasing.getY();
+		int playerSpottedX = getActor().getX();
+		int playerSpottedY = getActor().getY();
 		
 		for (int diffX = -1; diffX < 2; diffX++) {
 			for (int diffY = -1; diffY < 2; diffY++) {
-				int spawnX = playerX + diffX;
-				int spawnY = playerY + diffY;
+				int spawnX = playerSpottedX + diffX;
+				int spawnY = playerSpottedY + diffY;
 				Tile position = model.getTile(spawnX, spawnY);
 				if (isValidLocation(position) ) {
 					positions.add(new GridPoint2(spawnX, spawnY));
@@ -136,7 +136,7 @@ public class GuardChasingBehaviour extends ActorAction {
 						Timer.schedule(new Task(){
 						    @Override
 						    public void run() {
-						    	plyerCaught(); // !!! Need to freeze player controls.
+						    	playerCaught(); // !!! Need to freeze player controls.
 						    }
 						}, delay);					
 					}
@@ -148,7 +148,7 @@ public class GuardChasingBehaviour extends ActorAction {
 		}
 	}
 	
-	public void plyerCaught() {
+	public void playerCaught() {
     	controller.getAlarm().playerCaught();
     	chasing.changeFacing(DIRECTION.NORTH);
     	controller.setMap("data/maps/cell.tmx", 3, 1);    	
