@@ -70,9 +70,9 @@ public class InteractionController extends InputAdapter {
 					Teleporter teleporter = gameHandler.getMapHandler().getTeleporter(gameHandler.getMapHandler().getCurrentMap(), actor.getX(), actor.getY());
 
 					// Change showing map and player's location within it.
-					gameHandler.setMap(teleporter.getDestinationFile(), teleporter.getPlayerDestinationX(), teleporter.getPlayerDestinationY());
+					gameHandler.setMap(teleporter.getDestination().getFile(), teleporter.getDestination().getPlayerX(), teleporter.getDestination().getPlayerY());
 					// Change the direction that the player is facing.
-					actor.changeFacing(teleporter.getPlayerDestinationDirection());
+					actor.changeFacing(teleporter.getDestination().getPlayerDirection());
 				} else {
 					/**
 					 * Alarm active, building on lockdown.
