@@ -1,10 +1,7 @@
 package com.mygdx.prisonescapegame.screens;
 
-import java.util.Random;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
 
 /**
  * 
@@ -20,6 +17,7 @@ public class PuzzleTile {
 	private int currentColumn;
 	private String blackTileLoc = "data/puzzles/black.png";
 	private String puzzleLoc;
+
 	/**
 	 * Creates row of x and y and assigns texture to each position, puzzleImage is
 	 * the Sprite that is used.
@@ -27,8 +25,7 @@ public class PuzzleTile {
 	 * @param x position
 	 * @param y position
 	 */
-	
-	
+
 	public PuzzleTile(int x, int y) {
 		this.finishRow = x;
 		this.finishCol = y;
@@ -63,8 +60,6 @@ public class PuzzleTile {
 		return this.puzzleImage;
 	}
 
-	
-
 	/**
 	 * Texture with the black background
 	 * 
@@ -82,9 +77,7 @@ public class PuzzleTile {
 	 */
 	public boolean inCorrectPosition(int x, int y) {
 		return ((x == finishRow) && (y == finishCol));
-	
+
 	}
-	
-			
 
 }

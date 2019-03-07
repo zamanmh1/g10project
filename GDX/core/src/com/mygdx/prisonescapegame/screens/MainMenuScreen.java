@@ -78,6 +78,7 @@ public class MainMenuScreen implements Screen {
 	private Sprite newButtonInActive;
 	private boolean checkLoadButtonMouseOver;
 	private boolean checkNewButtonMouseOver;
+	private long time;
 
 	private MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
@@ -108,11 +109,13 @@ public class MainMenuScreen implements Screen {
 		buttonActive = true;
 		playPressed = false;
 		volumeMuted = false;
+		
 
 	}
 
 	@Override
 	public void show() {
+		time = System.currentTimeMillis();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Timeline.createSequence().beginSequence()
 
@@ -120,6 +123,10 @@ public class MainMenuScreen implements Screen {
 				.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(loadButtonInActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(loadButtonActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(newButtonInActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(newButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0))
@@ -173,7 +180,7 @@ public class MainMenuScreen implements Screen {
 	}
 
 	private void playButton(int x) {
-		
+
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
@@ -188,20 +195,24 @@ public class MainMenuScreen implements Screen {
 
 				}
 
-				if (Gdx.input.isTouched()) {
-					long timePassed = System.currentTimeMillis();
-					long twoSecondInMillis = 2000; // 2 seconds.
-					if (timePassed > twoSecondInMillis) {
-					Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					playPressed = true;
-					buttonActive = false;
-					}
+				if (System.currentTimeMillis() > time + 1000) {
+					if (Gdx.input.isTouched()) {
+						Timeline.createSequence().beginSequence()
+								.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.to(newButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(newButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(loadButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(loadButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1)).end()
+								.start(tween);
+						playPressed = true;
+						buttonActive = false;
 
+					}
 				}
 			}
 		} else {
@@ -258,7 +269,7 @@ public class MainMenuScreen implements Screen {
 					Music music = game.getGameController().getMusic();
 					music.pause();
 				}
-				
+
 			}
 		} else {
 			checkNewButtonMouseOver = false;
