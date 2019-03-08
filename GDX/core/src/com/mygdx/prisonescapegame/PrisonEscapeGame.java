@@ -65,6 +65,9 @@ public class PrisonEscapeGame extends Game {
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
 
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
+		game.setMusic("data/sounds/BackgroundSound.mp3");
+		game.playMusic();
+		
 	}
 
 	@Override

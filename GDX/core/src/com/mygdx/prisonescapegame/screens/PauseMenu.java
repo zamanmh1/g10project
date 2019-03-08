@@ -250,6 +250,9 @@ public class PauseMenu {
 					
 									((Game) Gdx.app.getApplicationListener())
 											.setScreen(MainMenuScreen.getInstance(game));
+									game.getGameController().stopMusic();
+									game.getGameController().setMusic("data/sounds/BackgroundSound.mp3");
+									game.getGameController().playMusic();
 							
 				}
 			}

@@ -3,7 +3,7 @@ package com.mygdx.prisonescapegame.screens;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -241,45 +241,17 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		}
 
-//		// Display of inventory
-		if (inventoryKeyCheck() == true) {
-//			inventoryBackground.setSize(inventoryBackground.getWidth(), PrisonEscapeGame.HEIGHT);
-//			inventoryBackground.draw(game.getGameController().getSpriteBatch());
-//
-//			// Row and column of inventory boxes
-//			for (int x = 0; x < 300; x += 170) {
-//				for (int y = 0; y < PrisonEscapeGame.HEIGHT; y += 125) {
-//					inventoryBox.setPosition(x, y);
-//					inventoryBox.draw(game.getGameController().getSpriteBatch());
-//
-//				}
-			}
+		if (Gdx.input.isKeyJustPressed(Keys.P)) {
+			((Game) Gdx.app.getApplicationListener())
+			.setScreen(new PuzzleScreen(game));
+		}
 
-//			// Text of Inventory
-//			fontBig.draw(game.getGameController().getSpriteBatch(), inventoryText, 70, PrisonEscapeGame.HEIGHT - 10);
-//			// Text of room names shifted to the right
-//			fontBig.draw(game.getGameController().getSpriteBatch(),
-//					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 400, PrisonEscapeGame.HEIGHT - 10);
-//		} else {
-//			// Text of room names
-//			fontBig.draw(game.getGameController().getSpriteBatch(),
-//					"Room: " + mapName.substring(10, mapName.lastIndexOf('.')), 40, PrisonEscapeGame.HEIGHT - 10);
-			
-			
-			// Time HUD Element
-//			Time time = game.getGameController().getTime();
-//			time = Time.getTime(time.getCalendar(), GameSettings.TIME_SCALE);
-//			game.getGameController().setTime(time);
-//			
-//			String hour = String.format("%02d", time.getHour());
-//			
-//			String minutes = String.format("%02d", time.getMin());			
-//			
-//			fontBig.draw(game.getGameController().getSpriteBatch(),
-//					"Time: " + hour + ":" + minutes, 40, PrisonEscapeGame.HEIGHT - 50);
-//		}
+
+		if (inventoryKeyCheck() == true) {
+		}
 		game.getGameController().getSpriteBatch().end();
 
+		
 	}
 
 	private boolean inventoryKeyCheck() {
