@@ -117,6 +117,7 @@ public class PauseMenu {
 	}
 
 	protected void resumeButtonMenu(PrisonEscapeGame game) {
+		game.getGameController().getPlayer().setFrozen(false);
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - remumeButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT
@@ -135,8 +136,7 @@ public class PauseMenu {
 
 				}
 
-				if (Gdx.input.isTouched()) {
-
+				if (Gdx.input.isTouched()) {					
 					menuPressed = false;
 
 				}
@@ -389,7 +389,7 @@ public class PauseMenu {
 	}
 
 	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween) {
-
+		game.getGameController().getPlayer().setFrozen(true);
 		optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
 		logo.setPosition(PrisonEscapeGame.WIDTH / 2 - logo.getWidth() / 2,

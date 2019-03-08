@@ -34,9 +34,9 @@ public class MapHandler {
 	
 	public Teleporter getTeleporter(String srcFile, int srcX, int srcY) {
 		for(Teleporter m: teleporters) {
-			if(srcFile.equals(m.getSourceFile())
-					&& srcX == m.getPlaySourceX()
-					&& srcY == m.getPlaySourceY()) {				
+			if(srcFile.equals(m.getSource().getFile())
+					&& srcX == m.getSource().getPlayX()
+					&& srcY == m.getSource().getPlayY()) {				
 				return m;
 			}
 		}
@@ -45,8 +45,8 @@ public class MapHandler {
 	
 	public void initialiseTeleporters(TiledModel model) {
 		for(Teleporter m: teleporters) {
-			if(m.getSourceFile().equals(currentMap)) {
-				model.setTeleporterTile(m.getTelSourceX(), m.getTelSourceY());
+			if(m.getSource().getFile().equals(currentMap)) {
+				model.setTeleporterTile(m.getSource().getTelX(), m.getSource().getTelY());
 			}
 		}
 	}
