@@ -88,7 +88,27 @@
  </tile>
  <tile id="80">
   <properties>
-   <property name="blocked" type="bool" value="false"/>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="102">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="103">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="118">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="119">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
 </tileset>
