@@ -34,9 +34,9 @@ public class PuzzleScreen implements Screen {
 	private static final int QUIT_BUTTON_WIDTH = 174;
 	private static final int QUIT_BUTTON_HEIGHT = 62;
 	private static final int QUIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
-	private static final int RETURN_BUTTON_WIDTH = 174;
+	private static final int RETURN_BUTTON_WIDTH = 305;
 	private static final int RETURN_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
-	private static final int RETURN_BUTTON_HEIGHT = 62;
+	private static final int RETURN_BUTTON_HEIGHT = 53;
 	private Sprite quitButtonActive;
 	private Sprite quitButtonInActive;
 	private Sprite returnButtonActive;
@@ -76,8 +76,8 @@ public class PuzzleScreen implements Screen {
 		actualImage = new Sprite(new Texture(Gdx.files.internal("data/puzzles/" + getPuzzleTheme() + "/actual.png")));
 		quitButtonActive = new Sprite(new Texture("data/menuSprites/quit_active.png"));
 		quitButtonInActive = new Sprite(new Texture("data/menuSprites/quit_inactive.png"));
-		returnButtonActive = new Sprite(new Texture("data/menuSprites/play_active.png"));
-		returnButtonInActive = new Sprite(new Texture("data/menuSprites/play_inactive.png"));
+		returnButtonActive = new Sprite(new Texture("data/menuSprites/return_active.png"));
+		returnButtonInActive = new Sprite(new Texture("data/menuSprites/return_inactive.png"));
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		fontPuzzleCompleteYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big.fnt"));
 		fontBigYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big.fnt"));
