@@ -16,10 +16,21 @@
 			"Psst. Hey, stupid, I'm in with some powerful people round here; You still owe us more favours.
 			In return for your continued loyalty, we will protect you.
 			Deliver this package to Trippie Maroon on the top floor."
-			
-			You obtained a small package
-			<state>1.1</state>
-			<objective>Deliver the package to Trippie Maroon</objective>
+			<choice>Yes
+				<dialogue>
+					"Cheers buddy"
+				
+					You obtained a small package
+
+				</dialogue>
+				<objective>Deliver Package</objective>
+				<state>1.1</state>
+			</choice>
+			<choice>No
+				<dialogue>"I'm gonna pretend I didn't hear that and ask you again..."
+				<state>1</state>
+				</dialogue>
+			</choice>
 		</dialogue>
 		<dialogue>
 			"Don't ask any questions you don't wanna know the answer to."

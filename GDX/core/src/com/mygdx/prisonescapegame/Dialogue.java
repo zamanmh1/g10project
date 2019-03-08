@@ -2,6 +2,7 @@ package com.mygdx.prisonescapegame;
 
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.utils.XmlReader.Element;
  * 
  * @author Sean Corcoran
  * 
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  * 
  */
@@ -27,6 +28,8 @@ public class Dialogue
 	private String xmlDoc = "data/story/amalgamation.xml";
 	private Element root;
 	private Element entityRoot;
+	private HashMap<String,String[]> choiceMap;
+	private boolean hasChoice;
 	
 	public Dialogue()
 	{ 
@@ -40,27 +43,45 @@ public class Dialogue
 	{
 		entityRoot = root.getChildByName(name); //new root xml node
 		
-		//System.out.println(entityRoot.getName());
-		
 		Iterator iterator_dialogue = entityRoot.getChildrenByName("dialogue").iterator(); 
 		
 		while(iterator_dialogue.hasNext())
 		{
+			hasChoice = false;
 			Element currElement = (Element) iterator_dialogue.next();
-			//System.out.println("Current State: " + currElement.get("currState") + " - Game State: " + GameSettings.getGameState());
 			if(currElement.hasAttribute("currState") == false || currElement.get("currState").equals(GameSettings.getGameState()))
 			{
 				String text = currElement.getText();
-				//System.out.println(text);
 				
-				if(currElement.hasChild("state"))
+				if(currElement.hasChild("state")) //Update state if exists
 				{
-					GameSettings.setGameState(currElement.getChildByName("state").getText());
-					//System.out.println("state is " + GameSettings.getGameState());
+					setState(currElement.getChildByName("state").getText());
 				}
-				if(currElement.hasChild("objective"))
+				if(currElement.hasChild("objective")) //Updates current objective
 				{
-					GameSettings.currentObjective = currElement.getChildByName("objective").getText();
+					setObjective(currElement.getChildByName("objective").getText());
+				}
+				if(currElement.hasChild("choice"))
+				{
+					hasChoice = true;
+					choiceMap = new HashMap<String,String[]>();
+					Iterator iterateChoices = currElement.getChildrenByName("choice").iterator();
+					while(iterateChoices.hasNext())
+					{
+						Element currChoice = (Element) iterateChoices.next();
+						String choice = currChoice.getText();
+						String choiceText = "";
+						String[] choiceData = new String[3];
+						if(currChoice.hasChild("dialogue"))
+						{
+							choiceText = currChoice.getChildByName("dialogue").getText();
+						}
+						choiceData[0] = choiceText;
+						choiceData[1] = checkObjectiveGet(currChoice);
+						choiceData[2] = checkStateGet(currChoice);
+						
+						choiceMap.put(choice, choiceData);
+					}
 				}
 				return text;
 			}
@@ -77,5 +98,57 @@ public class Dialogue
 		return false;
 	}
 	
+	public HashMap<String,String[]> getChoices()
+	{
+		return choiceMap;
+	}
 	
+	public boolean hasChoices()
+	{
+		return hasChoice; 
+	}
+	
+	public void setObjective(String objective)
+	{
+		GameSettings.currentObjective = objective;
+	}
+	
+	public void setState(String state)
+	{
+		GameSettings.setGameState(state);
+	}
+	
+	public void checkObjectiveSet(Element e)
+	{
+		if(e.hasChild("objective"))
+		{
+			setObjective(e.getChildByName("objective").getText());
+		}
+	}
+	
+	public void checkStateSet(Element e)
+	{
+		if(e.hasChild("state"))
+		{
+			setState(e.getChildByName("state").getText());
+		}
+	}
+	
+	public String checkObjectiveGet(Element e)
+	{
+		if(e.hasChild("objective"))
+		{
+			return e.getChildByName("objective").getText();
+		}
+		return "";
+	}
+	
+	public String checkStateGet(Element e)
+	{
+		if(e.hasChild("state"))
+		{
+			return e.getChildByName("state").getText();
+		}
+		return "";
+	}
 }

@@ -13,60 +13,80 @@ import com.mygdx.prisonescapegame.Dialogue;
  * 
  * @author Sean Corcoran
  * 
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  * 
  */
 
 public class DialogueUI extends ScreenAdapter
 {
-	private Skin skin;
+	private Skin skin = new Skin(Gdx.files.internal("data/story/skin/uiskin.json"));
 	private Dialogue d = new Dialogue();
 	public boolean beenCalled = false;
 	
-
-//	public Label getLabel(Stage s)
-//	{
-//		if(s.getActors().size != 0)
-//		{
-//			s.getActors().pop();
-//		}
-//		Label label;
-//		LabelStyle style;
-//		BitmapFont font = new BitmapFont();
-//		
-//		style = new LabelStyle();
-//		style.font = font;
-//		if(title != null)
-//		{
-//			label = new Label(text, style);
-//			return label;
-//		}
-//		return null;
-//	}
-	public void showDialogue(Stage s, String name)
+	public void showDialogue(final Stage s, final String name)
 	{
-		skin = new Skin(Gdx.files.internal("data/story/skin/uiskin.json"));
 		final String dText = d.getDialogue(name);
 		Dialog dialog = new Dialog(name, skin)
 		{
 			{
 				text(dText);
+				if(d.hasChoices())
+				{
+					for(String key : d.getChoices().keySet())
+					{
+						button(key, key); //key,key: one is btn text, other is passing the name to result
+					}
+				}
 				//button("OK");
 			}
-//			@Override
-//			protected void result(Object object)
-//			{
-//				
-//			}
+			@Override
+			protected void result(Object object)
+			{
+				if(!object.equals("E"))
+				{
+					showAlternateDialog(s, name, d.getChoices().get(object));
+					updateValues(object);
+				}
+			}
 		};
-		dialog.key(Keys.E, true);
-		//dialog.show(s);
+		dialog.key(Keys.E, "E");
 		dialog.setMovable(false);
 		dialog.setModal(false);
 		dialog.sizeBy(dialog.getPrefWidth(), dialog.getPrefHeight());
-		//dialog.pack();
 		s.addActor(dialog);
 	}
 	
+	public void showAlternateDialog(Stage s, String name, final String[] cText)
+	{
+		Dialog dialog = new Dialog(name, skin)
+		{
+			{
+				text(cText[0]);
+			}
+			@Override
+			protected void result(Object object)
+			{
+				hide();
+			}
+		};
+		dialog.key(Keys.E, true);
+		dialog.setMovable(false);
+		dialog.setModal(false);
+		dialog.sizeBy(dialog.getPrefWidth(), dialog.getPrefHeight());
+		s.addActor(dialog);
+	}
+	
+	public void updateValues(Object o)
+	{
+		String[] cData = d.getChoices().get(o);
+		if(!cData[1].isEmpty()) //If Objectives is not empty
+		{
+			d.setObjective(cData[1]);
+		}
+		if(!cData[2].isEmpty())//If State is not empty
+		{
+			d.setState(cData[2]);
+		}
+	}
 }
