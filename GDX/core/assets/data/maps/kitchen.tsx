@@ -1,67 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.2" name="kitchen" tilewidth="32" tileheight="32" tilecount="256" columns="16">
+<tileset version="1.2" tiledversion="1.2.0" name="kitchen" tilewidth="32" tileheight="32" tilecount="256" columns="16">
  <image source="kitchen.png" width="512" height="512"/>
- <tile id="9">
+ <tile id="0">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="11">
+ <tile id="2">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="24">
+ <tile id="4">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="25">
+ <tile id="5">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="27">
+ <tile id="6">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="43">
+ <tile id="8">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="56">
+ <tile id="10">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="57">
+ <tile id="18">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="58">
+ <tile id="20">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="72">
+ <tile id="21">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="73">
+ <tile id="22">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="74">
+ <tile id="26">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="75">
+ <tile id="32">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="33">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="34">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="40">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="41">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="42">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="51">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="52">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="55">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="59">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="64">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="65">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="66">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="67">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="68">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="71">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
@@ -71,32 +146,27 @@
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="88">
+ <tile id="82">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="89">
+ <tile id="85">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="90">
+ <tile id="86">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="91">
+ <tile id="87">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="93">
-  <properties>
-   <property name="blocked" type="bool" value="true"/>
-  </properties>
- </tile>
- <tile id="94">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
@@ -116,24 +186,24 @@
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="104">
+ <tile id="101">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="105">
+ <tile id="102">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
- <tile id="106">
+ <tile id="103">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="108">
   <properties>
-   <property name="blocked" type="bool" value="false"/>
+   <property name="blocked" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="109">
@@ -152,6 +222,66 @@
   </properties>
  </tile>
  <tile id="114">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="117">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="118">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="119">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="133">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="134">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="135">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="144">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="146">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="162">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="176">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="177">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="178">
   <properties>
    <property name="blocked" type="bool" value="true"/>
   </properties>

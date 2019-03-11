@@ -1,8 +1,8 @@
 source,telSourceX,telSourceY,playerSourceX,playerSourceY,destination,playerDestinationX,playerDestinationY,destFacing
 data/maps/cell.tmx,3,6,3,5,data/maps/cellblock.tmx,3,1,NORTH
 data/maps/cellblock.tmx,3,0,3,1,data/maps/cell.tmx,3,5,SOUTH
-data/maps/cellblock.tmx,4,6,3,6,data/maps/cellblockG.tmx,7,6,EAST
-data/maps/cellblock.tmx,4,7,3,7,data/maps/cellblockG.tmx,7,7,EAST
+data/maps/cellblock.tmx,4,6,3,6,data/maps/cellblockG.tmx,7,11,EAST
+data/maps/cellblock.tmx,4,7,3,7,data/maps/cellblockG.tmx,7,10,EAST
 data/maps/cellblockG.tmx,6,6,7,6,data/maps/cellblock.tmx,3,6,WEST
 data/maps/cellblockG.tmx,6,7,7,7,data/maps/cellblock.tmx,3,7,WEST
 data/maps/cellblockG.tmx,35,6,34,6,data/maps/foodhall.tmx,1,2,EAST
