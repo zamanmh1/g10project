@@ -248,7 +248,7 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-				
+				game.setScreen(MainMenuScreen.getInstance(game));
 									MapScreen.getStage().clear();
 									game.getGameController().stopMusic();
 									game.getGameController().setMusic("data/sounds/BackgroundSound.mp3");
