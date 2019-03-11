@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -228,7 +229,7 @@ public class PauseMenu {
 		}
 	}
 
-	protected void exitButtonMenu(TweenManager tween, final PrisonEscapeGame game) {
+	protected void exitButtonMenu(TweenManager tween, PrisonEscapeGame game) {
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - exitButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
@@ -247,9 +248,8 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-					
-									((Game) Gdx.app.getApplicationListener())
-											.setScreen(MainMenuScreen.getInstance(game));
+				
+									MapScreen.getStage().clear();
 									game.getGameController().stopMusic();
 									game.getGameController().setMusic("data/sounds/BackgroundSound.mp3");
 									game.getGameController().playMusic();
@@ -400,12 +400,13 @@ public class PauseMenu {
 		resumeButtonMenu(game);
 		helpButtonMenu(tween, game);
 		saveButtonMenu(game);
-		exitButtonMenu(tween, game);
+		
 		volumeButton(game);
 		if (helpPressed) {
 			helpScreenUI(game, tween);
 
 		}
+		exitButtonMenu(tween, game);
 
 	}
 
