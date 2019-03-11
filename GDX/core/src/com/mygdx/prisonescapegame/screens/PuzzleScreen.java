@@ -18,7 +18,7 @@ import aurelienribon.tweenengine.TweenManager;
 import java.util.Random;
 
 /**
- * 
+ * Represents the Puzzle Screen when completing mini-games
  * 
  * @author Shibu George
  *
@@ -117,7 +117,7 @@ public class PuzzleScreen implements Screen {
 	}
 
 	/**
-	 * Swaps the tile with the empty black tile
+	 * Swaps the tile with the empty black tile. Keeps track of current selected tile
 	 * 
 	 * @param x
 	 * @param y
@@ -129,6 +129,10 @@ public class PuzzleScreen implements Screen {
 		this.swapTile = temp;
 	}
 
+	/**
+	 * Shows the transitions of all the sprites
+	 * 
+	 */
 	@Override
 	public void show() {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
@@ -157,6 +161,11 @@ public class PuzzleScreen implements Screen {
 				.push(Tween.to(quitButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(quitButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1)).end().start(tween);
 	}
+	
+	/**
+	 * Rendering Puzzle Screen
+	 * 
+	 */
 
 	public void render(float delta) {
 
@@ -232,11 +241,6 @@ public class PuzzleScreen implements Screen {
 		}
 
 		if (this.isPuzzleFinished) {
-
-//			Tween.set(returnButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-//			Tween.set(returnButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-//			Tween.set(quitButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-//			Tween.set(quitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 			
 			for (int x = 1; x < 4; x++) {
 				for (int y = 1; y < 4; y++) {
@@ -298,11 +302,16 @@ public class PuzzleScreen implements Screen {
 
 	}
 
-	private void tryAgainButton(int xTryAgain) {
-		if (Gdx.input.getX() < xTryAgain + TRYAGAIN_BUTTON_WIDTH && Gdx.input.getX() > xTryAgain
+	/**
+	 * Try again button when the user does not finish the puzzle in less than 15 moves
+	 * 
+	 * @param x coordinate of the try again button
+	 */
+	private void tryAgainButton(int x) {
+		if (Gdx.input.getX() < x + TRYAGAIN_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < TRYAGAIN_BUTTON_Y + TRYAGAIN_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > TRYAGAIN_BUTTON_Y) {
-			tryAgainButtonActive.setPosition(xTryAgain, TRYAGAIN_BUTTON_Y);
+			tryAgainButtonActive.setPosition(x, TRYAGAIN_BUTTON_Y);
 			tryAgainButtonActive.setSize(TRYAGAIN_BUTTON_WIDTH, TRYAGAIN_BUTTON_HEIGHT);
 			tryAgainButtonActive.draw(game.getGameController().getSpriteBatch());
 			Boolean muted = MainMenuScreen.getInstance(game).checkSoundMuted();
@@ -328,7 +337,7 @@ public class PuzzleScreen implements Screen {
 			}
 		} else {
 			checkTryAgainButtonMouseOver = false;
-			tryAgainButtonInActive.setPosition(xTryAgain, TRYAGAIN_BUTTON_Y);
+			tryAgainButtonInActive.setPosition(x, TRYAGAIN_BUTTON_Y);
 			tryAgainButtonInActive.setSize(TRYAGAIN_BUTTON_WIDTH, TRYAGAIN_BUTTON_HEIGHT);
 			tryAgainButtonInActive.draw(game.getGameController().getSpriteBatch());
 
@@ -336,6 +345,11 @@ public class PuzzleScreen implements Screen {
 		
 	}
 
+	/**
+	 * Return button when the user completes the puzzle in less than 15 moves
+	 * 
+	 * @param x coordinate of the return button
+	 */
 	private void returnButton(int x) {
 		if (Gdx.input.getX() < x + RETURN_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RETURN_BUTTON_Y + RETURN_BUTTON_HEIGHT
@@ -376,6 +390,11 @@ public class PuzzleScreen implements Screen {
 
 	}
 
+	/**
+	 * Quit button whenever the user does not finish to complete the puzzle. Returns back to MapScreen.
+	 * 
+	 * @param x coordinate of the quit button
+	 */
 	private void quitButton(int x) {
 		if (Gdx.input.getX() < x + QUIT_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < QUIT_BUTTON_Y + QUIT_BUTTON_HEIGHT
@@ -414,6 +433,11 @@ public class PuzzleScreen implements Screen {
 
 	}
 
+	/**
+	 * Return the string folder name of the theme of puzzle 
+	 * 
+	 * @return String puzzle theme
+	 */
 	public static String getPuzzleTheme() {
 
 		return puzzleTheme;
