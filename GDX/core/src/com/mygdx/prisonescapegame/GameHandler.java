@@ -55,6 +55,9 @@ public class GameHandler implements GameController {
 	
 	private AlarmSystem alarm;
 	private boolean restart;
+	
+	private String currentObjective;
+	private String gameState;
 
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
@@ -68,6 +71,25 @@ public class GameHandler implements GameController {
 		
 		alarm = new AlarmSystem(this);
 		restart = false;
+		
+		currentObjective = "";
+		gameState = "1";
+	}
+	
+	public String getGameState() {
+		return this.gameState;
+	}
+	
+	public void setGameState(String newState) {
+		this.gameState = newState;
+	}
+	
+	public String getCurrentObjective() {
+		return this.currentObjective;
+	}
+	
+	public void setCurrentObjective(String newObjective) {
+		this.currentObjective = newObjective;
 	}
 
 	@Override

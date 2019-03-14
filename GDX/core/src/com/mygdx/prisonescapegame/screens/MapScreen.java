@@ -145,7 +145,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
 		// oCamera.setToOrtho(false, 11,16);
 		//hud = new Hud(game.getGameController().getSpriteBatch());
-		h = new HUD();
+		h = new HUD(game.getGameController());
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to

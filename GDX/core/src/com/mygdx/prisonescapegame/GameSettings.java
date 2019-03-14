@@ -31,18 +31,4 @@ public class GameSettings {
 	 * The hour that nighttime begins.
 	 */
 	public static final int HOUR_NIGHT_BEGINS = 22;
-	
-	public static String currentObjective = "";
-	private static String gameState = "1";
-
-	public static String getGameState()
-	{
-		return gameState;
-	}
-	
-	public static void setGameState(String newState)
-	{
-		gameState = newState;
-	}
-
 }

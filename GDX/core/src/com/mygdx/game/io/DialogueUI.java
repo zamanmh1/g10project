@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.prisonescapegame.Dialogue;
+import com.mygdx.prisonescapegame.GameHandler;
 
 /**
  * CLASS DESCRIPTION
@@ -21,8 +22,14 @@ import com.mygdx.prisonescapegame.Dialogue;
 public class DialogueUI extends ScreenAdapter
 {
 	private Skin skin = new Skin(Gdx.files.internal("data/story/skin/uiskin.json"));
-	private Dialogue d = new Dialogue();
+	private Dialogue d;
 	public boolean beenCalled = false;
+	private GameHandler gameHandler;
+	
+	public DialogueUI(GameHandler gameHandler) {
+		this.gameHandler = gameHandler;
+		d = new Dialogue(gameHandler);
+	}
 	
 	public void showDialogue(final Stage s, final String name)
 	{

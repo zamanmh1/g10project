@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.mygdx.game.entities.Item;
+import com.mygdx.prisonescapegame.GameController;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.screens.MapScreen;
 
@@ -24,10 +25,11 @@ public class HUD
 	private Table questTable;
 	private Label currObjective;
 	
+	private GameController controller;
 	
 	private int rowCounter = 0;
 	
-	public HUD()
+	public HUD(GameController controller)
 	{
 		areaName = new Label("map", skin);
 		timeHud = new Label("time", skin);
@@ -46,6 +48,8 @@ public class HUD
 		
 		inventory();
 		questTracker();
+		
+		this.controller = controller;
 		
 	}
 	
@@ -76,7 +80,7 @@ public class HUD
 			setItem(item);
 		}
 		
-		currObjective.setText(GameSettings.currentObjective);
+		currObjective.setText(controller.getCurrentObjective());
 	}
 	
 	//Set the visibility of the inventory table

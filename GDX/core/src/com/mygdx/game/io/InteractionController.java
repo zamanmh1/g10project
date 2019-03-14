@@ -42,17 +42,18 @@ import aurelienribon.tweenengine.TweenManager;
 public class InteractionController extends InputAdapter {
 	private Actor actor;
 	private GameHandler gameHandler;
-	private Dialogue d = new Dialogue();
-	private DialogueUI dBox = new DialogueUI();
+	private Dialogue d;
+	private DialogueUI dBox;
 
 
 	public InteractionController(Actor actor) {
-		this.actor = actor;
-
+		this.actor = actor;				
 	}
 
 	public void setItemHandler(GameHandler gameHandler) {
 		this.gameHandler = gameHandler;
+		dBox = new DialogueUI(gameHandler);
+		d = new Dialogue(gameHandler);
 	}
 
 	@Override
