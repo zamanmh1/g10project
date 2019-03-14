@@ -226,6 +226,9 @@ public class MapScreen extends PauseMenu implements Screen {
 		stage.act();
 		stage.draw();
 		
+		
+		
+		
 		game.getGameController().getSpriteBatch().begin();
 		
 		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
@@ -247,6 +250,8 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		if (inventoryKeyCheck() == true) {
 		}
+		
+		
 		game.getGameController().getSpriteBatch().end();
 
 		
