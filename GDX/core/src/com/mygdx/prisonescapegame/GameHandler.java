@@ -54,6 +54,7 @@ public class GameHandler implements GameController {
 	private HashMap<Actor, ActorAction> actions;
 	
 	private AlarmSystem alarm;
+	private boolean restart;
 
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
@@ -66,7 +67,7 @@ public class GameHandler implements GameController {
 		NPCsHandler = new NPCHandler(this);
 		
 		alarm = new AlarmSystem(this);
-
+		restart = false;
 	}
 
 	@Override
@@ -177,6 +178,10 @@ public class GameHandler implements GameController {
 	}
 
 	public void update(float delta) {
+		if (restart) {
+			game.restartGame();
+			restart = false;
+		}
 		for (MapActor a : actors) {
 			if (a instanceof Actor) {
 				Actor actor = (Actor) a;
@@ -213,5 +218,8 @@ public class GameHandler implements GameController {
 	public AlarmSystem getAlarm() {
 		return this.alarm;
 	}
-
+	
+	public void restartGame() {
+		restart = true;
+	}
 }

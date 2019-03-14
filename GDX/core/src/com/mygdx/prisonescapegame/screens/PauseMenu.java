@@ -4,9 +4,11 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.desktop.DesktopLauncher;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
@@ -248,11 +250,13 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-				game.setScreen(MainMenuScreen.getInstance(game));
-									MapScreen.getStage().clear();
-									game.getGameController().stopMusic();
-									game.getGameController().setMusic("data/sounds/BackgroundSound.mp3");
-									game.getGameController().playMusic();
+					game.callRestart();
+					game.setScreen(MainMenuScreen.getInstance(game));
+					
+					MapScreen.getStage().clear();
+					game.getGameController().stopMusic();
+					game.getGameController().setMusic("data/sounds/BackgroundSound.mp3");
+					game.getGameController().playMusic();
 							
 				}
 			}

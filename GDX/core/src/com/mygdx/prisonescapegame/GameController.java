@@ -53,5 +53,7 @@ public interface GameController {
 	void setTime(Time updatedTime);
 	
 	AlarmSystem getAlarm();
+	
+	void restartGame();
 
 }

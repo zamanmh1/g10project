@@ -43,7 +43,11 @@ public class PrisonEscapeGame extends Game {
 		assetManager.load("data/packed/textures.atlas", TextureAtlas.class);
 		assetManager.finishLoading();
 		
-		TextureAtlas atlas = getAssetManager().get("data/packed/textures.atlas", TextureAtlas.class);
+		setupGame();
+	}
+	
+	private void setupGame() {	
+		TextureAtlas atlas = getAssetManager().get("data/packed/textures.atlas", TextureAtlas.class);	
 		
 		// Stores player animations in new AnimationSet.
 		ActorAnimation animations = new ActorAnimation(
@@ -67,7 +71,21 @@ public class PrisonEscapeGame extends Game {
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
 		game.setMusic("data/sounds/BackgroundSound.mp3");
 		game.playMusic();
-		
+	}
+	
+	private void clearGame() {
+		game = null;
+		player = null;
+		time = null;
+	}
+	
+	public void restartGame() {
+		clearGame();
+		setupGame();
+	}
+	
+	public void callRestart() {
+		game.restartGame();
 	}
 
 	@Override
