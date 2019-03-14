@@ -32,17 +32,17 @@ public class GameSettings {
 	 */
 	public static final int HOUR_NIGHT_BEGINS = 22;
 	
+	/**
+	 * The current objective for the player.
+	 */
 	public static String currentObjective = "";
-	private static String gameState = "1";
-
-	public static String getGameState()
-	{
-		return gameState;
-	}
 	
-	public static void setGameState(String newState)
-	{
-		gameState = newState;
-	}
+	/**
+	 * The current state of the game.
+	 */
+	public static String gameState = "1";
+
+	public static String reported = "no";
+	public static int snitch = 0;
 
 }

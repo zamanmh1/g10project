@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader.Parameters;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -45,7 +47,7 @@ import aurelienribon.tweenengine.TweenManager;
 /**
  * CLASS DESCRIPTION
  * 
- * @author Sam Ward, Shibu George
+ * @author Sam Ward, Shibu George, Sean Corcoran
  * 
  * @version 0.2
  * @since 0.1
@@ -78,7 +80,7 @@ public class MapScreen extends PauseMenu implements Screen {
 	private String mapName;
 	private Sprite inventoryBox;
 	private Item foundItem;
-	private HUD h;
+	public static HUD h;
 
 	private static Stage stage;
 
@@ -109,6 +111,7 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		mapName = map;
 		tilemap = new TmxMapLoader().load(map);
+		
 
 		/**
 		 * If already a map being shown, try to dispose of it. However, if it is the
@@ -162,7 +165,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		// oCamera.setToOrtho(false, 11,16);
 		gamePort = new FitViewport(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT, oCamera);
 		//hud = new Hud(game.getGameController().getSpriteBatch());
-		h = new HUD();
+		h = new HUD(game);
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to

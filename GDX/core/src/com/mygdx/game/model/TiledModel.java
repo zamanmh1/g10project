@@ -29,6 +29,7 @@ public class TiledModel {
 		
 		TiledMapTileLayer levelLayer = getLayer("Tile Layer 1"); // Main layer of map.
 		TiledMapTileLayer alarmLayer = getLayer("Tile Layer 2"); // Alarm layer of map.
+		TiledMapTileLayer transparentLayer = getLayer("Tile Layer 3"); //Random Item layer
 		
 		width = levelLayer.getWidth(); // Finds the width of the map.
 		height = levelLayer.getHeight(); // Finds the height of the map.
@@ -43,6 +44,12 @@ public class TiledModel {
 				if(levelLayer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
 					tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property "blocked".
 				} 
+
+//				Need to find a way of rendering this layer
+//				if(transparentLayer.getCell(x,y).getTile().getProperties().containsKey("blocked"))
+//				{
+//					tiles[x][y].setWalkable(false);
+//				}
 				if (alarmLayer != null) {
 					if(alarmLayer.getCell(x,y) != null) {
 							tiles[x][y].setAlarm(true);	// If tile is in the alarm layer, set alarm property to true.				
