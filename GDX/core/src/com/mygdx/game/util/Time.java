@@ -119,6 +119,18 @@ public class Time {
     public static Time getTime(Calendar cal) {
         return getTime(cal, 1);
     }
+    
+    /**
+     * Returns the current time as a string that can be used.
+     * 
+     * @return Time in string format hh:mm.
+     */
+    public String toString() {	
+		String hour = String.format("%02d", getHour());
+		String minutes = String.format("%02d", getMin());
+		
+		return hour + ":" + minutes;
+    }
 
     /**
      * Provides a colour tint to be used over the map depending on the time of day that it is.

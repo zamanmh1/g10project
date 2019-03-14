@@ -54,8 +54,6 @@ public class GameHandler implements GameController {
 	private HashMap<Actor, ActorAction> actions;
 	
 	private AlarmSystem alarm;
-	
-	private String currentMapFile;
 
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
@@ -188,7 +186,8 @@ public class GameHandler implements GameController {
 				actor.update(delta);
 			}
 		}
-		alarm.update();
+		alarm.update();		
+		setTime(Time.getTime(getTime().getCalendar(), GameSettings.TIME_SCALE));
 	}
 
 	public ItemHandler getItemHandler() {
@@ -209,10 +208,6 @@ public class GameHandler implements GameController {
 
 	public HashMap<Actor, ActorAction> getActions() {
 		return this.actions;
-	}
-
-	public String getCurrentMapFile() {
-		return this.currentMapFile;
 	}
 	
 	public AlarmSystem getAlarm() {

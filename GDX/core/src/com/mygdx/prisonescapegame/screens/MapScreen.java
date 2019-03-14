@@ -222,7 +222,10 @@ public class MapScreen extends PauseMenu implements Screen {
 		}
 
 		mapRenderer.getBatch().end();
-		h.update(mapName.substring(10, mapName.lastIndexOf('.')), foundItem, getTime());
+		
+		Time time = game.getGameController().getTime();
+		h.update(mapName.substring(10, mapName.lastIndexOf('.')), foundItem, time.toString());
+		h.setTimeImage(time.getHour());
 		stage.act();
 		stage.draw();
 		
@@ -327,20 +330,4 @@ public class MapScreen extends PauseMenu implements Screen {
 	public static Stage getStage() {
 		return stage;
 	}
-	
-	public String getTime()
-	{
-		Time time = game.getGameController().getTime();
-		time = Time.getTime(time.getCalendar(), GameSettings.TIME_SCALE);
-		game.getGameController().setTime(time);
-		
-		String hour = String.format("%02d", time.getHour());
-		
-		String minutes = String.format("%02d", time.getMin());
-		
-		h.setTimeImage(time.getHour());
-		
-		return hour + ":" + minutes;
-	}
-
 }
