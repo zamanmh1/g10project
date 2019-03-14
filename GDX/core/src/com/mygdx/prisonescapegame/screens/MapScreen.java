@@ -183,9 +183,17 @@ public class MapScreen extends PauseMenu implements Screen {
 		mapRenderer.getBatch().setColor(game.getGameController().getTime().getTint());
 		mapRenderer.setView(oCamera);
 		//mapRenderer.render();
-		TiledMapTileLayer levelLayer = model.getLayer("Tile Layer 1");
-		mapRenderer.renderTileLayer(levelLayer);
 		
+		ArrayList<TiledMapTileLayer> collisionLayers = new ArrayList<TiledMapTileLayer>();
+		collisionLayers.add(model.getLayer("Tile Layer 1"));
+		collisionLayers.add(model.getLayer("Tile Layer 3"));
+		collisionLayers.add(model.getLayer("Tile Layer 4"));
+		
+		for (TiledMapTileLayer layer : collisionLayers) {
+			if (layer != null) {
+				mapRenderer.renderTileLayer(layer);
+			}
+		}		
 		
 		TiledMapTileLayer alarmLayer = model.getLayer("Tile Layer 2");
 		if (alarmLayer != null) {
