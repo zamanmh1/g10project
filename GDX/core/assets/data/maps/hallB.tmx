@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="left-up" width="5" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="left-up" width="8" height="5" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
  <tileset firstgid="1" source="FullSpriteSheet.tsx"/>
- <layer id="1" name="Tile Layer 1" width="5" height="8">
+ <layer id="2" name="Tile Layer 1" width="8" height="5">
   <data encoding="csv">
-104,104,104,104,104,
-104,387,324,104,104,
-104,271,324,104,104,
-104,387,324,104,104,
-104,387,324,104,104,
-104,387,392,292,104,
-104,387,322,324,104,
-104,104,104,104,104
+2684354664,2684354664,2684354664,2684354664,2684354664,2684354664,2684354664,2684354664,
+2684354664,2684354947,2684354947,2684354947,2684354947,2684354831,2684354947,2684354664,
+2684354664,2684354882,2684354952,2684354884,2684354884,2684354884,2684354884,2684354664,
+2684354664,2684354884,2684354852,2684354664,2684354664,2684354664,2684354664,2684354664,
+2684354664,2684354664,2684354664,2684354664,2684354664,2684354664,2684354664,2684354664
 </data>
  </layer>
 </map>
