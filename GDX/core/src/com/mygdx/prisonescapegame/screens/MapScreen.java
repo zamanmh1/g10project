@@ -187,7 +187,10 @@ public class MapScreen extends PauseMenu implements Screen {
 		mapRenderer.setView(oCamera);
 		//mapRenderer.render();
 		TiledMapTileLayer levelLayer = model.getLayer("Tile Layer 1");
+		TiledMapTileLayer itemLayer = model.getLayer("Tile Layer 3");
 		mapRenderer.renderTileLayer(levelLayer);
+		mapRenderer.renderTileLayer(itemLayer); //Renders the tiles with transparency in a separate layer
+		
 		
 		
 		TiledMapTileLayer alarmLayer = model.getLayer("Tile Layer 2");
