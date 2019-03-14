@@ -73,19 +73,15 @@ public class PrisonEscapeGame extends Game {
 		game.playMusic();
 	}
 	
-	private void clearGame() {
+	private void discardGame() {
 		game = null;
 		player = null;
 		time = null;
 	}
 	
 	public void restartGame() {
-		clearGame();
+		discardGame();
 		setupGame();
-	}
-	
-	public void callRestart() {
-		game.restartGame();
 	}
 
 	@Override

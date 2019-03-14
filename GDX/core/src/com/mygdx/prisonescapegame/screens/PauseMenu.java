@@ -250,7 +250,7 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-					game.callRestart();
+					game.getGameController().restartGame();
 					menuPressed = false;
 					game.getGameController().stopMusic();
 					Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);

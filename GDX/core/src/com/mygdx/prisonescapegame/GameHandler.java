@@ -54,7 +54,7 @@ public class GameHandler implements GameController {
 	private HashMap<Actor, ActorAction> actions;
 	
 	private AlarmSystem alarm;
-	private boolean restart;
+	private boolean restarting;
 	
 	private String currentObjective;
 	private String gameState;
@@ -70,7 +70,7 @@ public class GameHandler implements GameController {
 		NPCsHandler = new NPCHandler(this);
 		
 		alarm = new AlarmSystem(this);
-		restart = false;
+		restarting = false;
 		
 		currentObjective = "";
 		gameState = "1";
@@ -200,9 +200,9 @@ public class GameHandler implements GameController {
 	}
 
 	public void update(float delta) {
-		if (restart) {
+		if (restarting) {
 			game.restartGame();
-			restart = false;
+			restarting = false;
 		}
 		for (MapActor a : actors) {
 			if (a instanceof Actor) {
@@ -242,6 +242,6 @@ public class GameHandler implements GameController {
 	}
 	
 	public void restartGame() {
-		restart = true;
+		restarting = true;
 	}
 }
