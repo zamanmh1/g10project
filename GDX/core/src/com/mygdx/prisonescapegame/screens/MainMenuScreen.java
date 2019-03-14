@@ -28,10 +28,10 @@ public class MainMenuScreen implements Screen {
 
 	private static final int PLAY_BUTTON_WIDTH = 174;
 	private static final int PLAY_BUTTON_HEIGHT = 52;
-	private static final int PLAY_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 200;
+	private static final int PLAY_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 100;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 200;
+	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 100;
 	private static final int HELP_BUTTON_WIDTH = 174;
 	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2;
 	private static final int HELP_BUTTON_HEIGHT = 52;
@@ -43,7 +43,7 @@ public class MainMenuScreen implements Screen {
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private static final int NEWGAME_BUTTON_WIDTH = 427;
 	private static final int NEWGAME_BUTTON_HEIGHT = 54;
-	private static final int NEWGAME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 100;
+	private static final int NEWGAME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2;
 	private static final int LOADGAME_BUTTON_WIDTH = 427;
 	private static final int LOADGAME_BUTTON_HEIGHT = 54;
 	private static final int LOADGAME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 100;

@@ -31,12 +31,15 @@ public class PuzzleScreen implements Screen {
 	private boolean isPuzzleFinished;
 	private Sprite puzzleBackground;
 	private Sprite actualImage;
-	private static final int QUIT_BUTTON_WIDTH = 174;
-	private static final int QUIT_BUTTON_HEIGHT = 62;
+	private static final int QUIT_BUTTON_WIDTH = 96;
+	private static final int QUIT_BUTTON_HEIGHT = 33;
 	private static final int QUIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
-	private static final int RETURN_BUTTON_WIDTH = 305;
+	private static final int RETURN_BUTTON_WIDTH = 174;
 	private static final int RETURN_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
-	private static final int RETURN_BUTTON_HEIGHT = 53;
+	private static final int RETURN_BUTTON_HEIGHT = 33;
+	private static final int TRYAGAIN_BUTTON_WIDTH = 230;
+	private static final int TRYAGAIN_BUTTON_HEIGHT = 33;
+	private static final int TRYAGAIN_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
 	private Sprite quitButtonActive;
 	private Sprite quitButtonInActive;
 	private Sprite returnButtonActive;
@@ -52,6 +55,12 @@ public class PuzzleScreen implements Screen {
 	private BitmapFont fontPuzzleCompleteYellow;
 	private boolean checkReturnButtonMouseOver;
 	private boolean buttonReturnActive;
+	private Sprite tryAgainButtonActive;
+	private Sprite tryAgainButtonInActive;
+	private boolean buttonTryAgainActive;
+	private BitmapFont fontPuzzleCompleteBlack;
+	private boolean checkTryAgainButtonMouseOver;
+	
 	private static String[] arr = { "puzzle1", "puzzle2", "puzzle3", "puzzle4" };
 	private static Random randomTheme;
 	private static String puzzleTheme;
@@ -70,6 +79,7 @@ public class PuzzleScreen implements Screen {
 		tween = new TweenManager();
 		buttonQuitActive = true;
 		buttonReturnActive = false;
+		buttonTryAgainActive = false;
 		moveCounter = 0;
 		puzzleTheme = arr[randomTheme.nextInt(arr.length)];
 		puzzleBackground = new Sprite(new Texture(Gdx.files.internal("data/puzzles/puzzleBackground.png")));
@@ -78,10 +88,14 @@ public class PuzzleScreen implements Screen {
 		quitButtonInActive = new Sprite(new Texture("data/menuSprites/quit_inactive.png"));
 		returnButtonActive = new Sprite(new Texture("data/menuSprites/return_active.png"));
 		returnButtonInActive = new Sprite(new Texture("data/menuSprites/return_inactive.png"));
+		tryAgainButtonActive = new Sprite(new Texture("data/menuSprites/tryagain_active.png"));
+		tryAgainButtonInActive = new Sprite(new Texture("data/menuSprites/tryagain_inactive.png"));
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		fontPuzzleCompleteYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big.fnt"));
+		fontPuzzleCompleteBlack = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big-black.fnt"));
 		fontBigYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big.fnt"));
 		fontBigBlack = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big-black.fnt"));
+		
 
 		this.tiles = new PuzzleTile[4][4];
 		for (int x = 1; x < 4; x++) {
@@ -126,11 +140,14 @@ public class PuzzleScreen implements Screen {
 				.push(Tween.set(fontYellow, BitmapAccessor.ALPHA).target(0))
 				.push(Tween.set(actualImage, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(fontPuzzleCompleteYellow, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(fontPuzzleCompleteBlack, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(currentSelected.getPuzzleImage(), SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(quitButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(quitButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(returnButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(returnButtonActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(tryAgainButtonInActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(tryAgainButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.from(puzzleBackground, SpriteAccessor.ALPHA, 0.2f).target(0))
 				.push(Tween.to(fontBigYellow, BitmapAccessor.ALPHA, 0.2f).target(1))
 				.push(Tween.to(fontBigBlack, BitmapAccessor.ALPHA, 0.2f).target(1))
@@ -151,20 +168,23 @@ public class PuzzleScreen implements Screen {
 				Gdx.graphics.getHeight() / 2 - puzzleBackground.getHeight() / 2);
 		puzzleBackground.draw(game.getGameController().getSpriteBatch());
 
-		actualImage.setSize(486, 486);
+		actualImage.setSize(351, 351);
 		actualImage.setPosition(Gdx.graphics.getWidth() / 2 - actualImage.getWidth() / 2 - 433,
-				Gdx.graphics.getHeight() / 2 - actualImage.getHeight() / 2 - 130);
+				Gdx.graphics.getHeight() / 2 - actualImage.getHeight() / 2 - 145);
 
 		actualImage.draw(game.getGameController().getSpriteBatch());
 
-		fontBigBlack.draw(game.getGameController().getSpriteBatch(), "Total Moves: \n           " + moveCounter,
-				Gdx.graphics.getWidth() / 2 - 550, Gdx.graphics.getHeight() / 2 + 350);
+		fontBigBlack.draw(game.getGameController().getSpriteBatch(), "Total Moves: " + moveCounter,
+				Gdx.graphics.getWidth() / 2 - 550, Gdx.graphics.getHeight() / 2 + 300);
+		
+		fontBigBlack.draw(game.getGameController().getSpriteBatch(), "Goal: 15 moves",
+				Gdx.graphics.getWidth() / 2 - 550, Gdx.graphics.getHeight() / 2 + 180);
 
 		fontBigYellow.draw(game.getGameController().getSpriteBatch(), "Solve puzzle to continue...",
 				Gdx.graphics.getWidth() / 2 - 20, Gdx.graphics.getHeight() / 2 + 320);
 
 		fontBigBlack.draw(game.getGameController().getSpriteBatch(), "Actual Image", Gdx.graphics.getWidth() / 2 - 550,
-				Gdx.graphics.getHeight() / 2 + 150);
+				Gdx.graphics.getHeight() / 2 + 75);
 
 		fontYellow.draw(game.getGameController().getSpriteBatch(), "Click on any tile to select and drop",
 				Gdx.graphics.getWidth() / 2 - 20, Gdx.graphics.getHeight() / 2 + 200);
@@ -213,34 +233,62 @@ public class PuzzleScreen implements Screen {
 
 		if (this.isPuzzleFinished) {
 
-			buttonQuitActive = false;
-			buttonReturnActive = true;
-
+//			Tween.set(returnButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
+//			Tween.set(returnButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+//			Tween.set(quitButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
+//			Tween.set(quitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+			
 			for (int x = 1; x < 4; x++) {
 				for (int y = 1; y < 4; y++) {
 					Tween.to(this.tiles[x][y].getPuzzleImage(), SpriteAccessor.ALPHA, 0.2f).target(0).start(tween);
 				}
 			}
-
-			fontPuzzleCompleteYellow
-					.draw(game.getGameController().getSpriteBatch(),
-							"          Congratulations! \n \nYou have completed the puzzle \n \n          Total moves: "
-									+ moveCounter,
-							Gdx.graphics.getWidth() / 2 - 40, Gdx.graphics.getHeight() / 2 + 200);
-
 			Timeline.createSequence().beginSequence().push(Tween.to(fontYellow, BitmapAccessor.ALPHA, 0.2f).target(0))
-					.push(Tween.to(fontBigYellow, BitmapAccessor.ALPHA, 0.2f).target(0))
-					.push(Tween.to(fontBigBlack, BitmapAccessor.ALPHA, 0.2f).target(0))
-					.push(Tween.to(quitButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(0))
-					.push(Tween.to(quitButtonActive, SpriteAccessor.ALPHA, 0.2f).target(0))
-					.push(Tween.to(fontPuzzleCompleteYellow, BitmapAccessor.ALPHA, 0.2f).target(1))
-					.push(Tween.to(returnButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-					.push(Tween.to(returnButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1)).end().start(tween);
+			.push(Tween.to(fontBigYellow, BitmapAccessor.ALPHA, 0.2f).target(0))
+			.push(Tween.to(fontBigBlack, BitmapAccessor.ALPHA, 0.2f).target(0))
+			.push(Tween.to(quitButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(0))
+			.push(Tween.to(quitButtonActive, SpriteAccessor.ALPHA, 0.2f).target(0))
+			.push(Tween.to(fontPuzzleCompleteBlack, BitmapAccessor.ALPHA, 0.2f).target(1))
+			.push(Tween.to(fontPuzzleCompleteYellow, BitmapAccessor.ALPHA, 0.2f).target(1))
+			.end().start(tween);
+			fontPuzzleCompleteBlack.draw(game.getGameController().getSpriteBatch(), "Total Moves: " + moveCounter,
+					Gdx.graphics.getWidth() / 2 - 550, Gdx.graphics.getHeight() / 2 + 200);
+			if (moveCounter < 16) {
+				
+				fontPuzzleCompleteYellow
+				.draw(game.getGameController().getSpriteBatch(),
+						"          Congratulations! \n \nYou have completed the puzzle",
+						Gdx.graphics.getWidth() / 2 - 40, Gdx.graphics.getHeight() / 2 + 200);
+				buttonQuitActive = false;
+				buttonReturnActive = true;
+				Tween.to(returnButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+				Tween.to(returnButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+				
+				
+			}else {
+				fontPuzzleCompleteYellow
+				.draw(game.getGameController().getSpriteBatch(),
+						"                      Oh no! \n \nYou have taken more than 15 moves",
+						Gdx.graphics.getWidth() / 2 - 40, Gdx.graphics.getHeight() / 2 + 200);
+				buttonReturnActive = false;
+				buttonQuitActive = true;
+				buttonTryAgainActive = true;
+				Tween.to(tryAgainButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+				Tween.to(tryAgainButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+				Tween.to(quitButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+				Tween.to(quitButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+			}
+			
+
+			
 
 		}
 
 		int xReturn = PrisonEscapeGame.WIDTH / 2 - RETURN_BUTTON_WIDTH / 2 + 200;
 		returnButton(xReturn);
+		
+		int xTryAgain = PrisonEscapeGame.WIDTH / 2 - TRYAGAIN_BUTTON_WIDTH / 2 + 100;
+		tryAgainButton(xTryAgain);
 
 		currentSelected.getPuzzleImage().setSize(162, 162);
 		currentSelected.getPuzzleImage().setPosition(Gdx.graphics.getWidth() / 2 + 480,
@@ -248,6 +296,44 @@ public class PuzzleScreen implements Screen {
 		currentSelected.getPuzzleImage().draw(game.getGameController().getSpriteBatch());
 		this.game.getGameController().getSpriteBatch().end();
 
+	}
+
+	private void tryAgainButton(int xTryAgain) {
+		if (Gdx.input.getX() < xTryAgain + TRYAGAIN_BUTTON_WIDTH && Gdx.input.getX() > xTryAgain
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < TRYAGAIN_BUTTON_Y + TRYAGAIN_BUTTON_HEIGHT
+				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > TRYAGAIN_BUTTON_Y) {
+			tryAgainButtonActive.setPosition(xTryAgain, TRYAGAIN_BUTTON_Y);
+			tryAgainButtonActive.setSize(TRYAGAIN_BUTTON_WIDTH, TRYAGAIN_BUTTON_HEIGHT);
+			tryAgainButtonActive.draw(game.getGameController().getSpriteBatch());
+			Boolean muted = MainMenuScreen.getInstance(game).checkSoundMuted();
+
+			if (buttonTryAgainActive) {
+
+				if (checkTryAgainButtonMouseOver == false) {
+					Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
+					if (muted == true) {
+						getMouseOverSound.stop();
+					} else {
+						getMouseOverSound.play(1f);
+					}
+					checkTryAgainButtonMouseOver = true;
+
+				}
+
+				if (Gdx.input.isTouched()) {
+					this.game.setScreen(new PuzzleScreen(game));
+
+				}
+
+			}
+		} else {
+			checkTryAgainButtonMouseOver = false;
+			tryAgainButtonInActive.setPosition(xTryAgain, TRYAGAIN_BUTTON_Y);
+			tryAgainButtonInActive.setSize(TRYAGAIN_BUTTON_WIDTH, TRYAGAIN_BUTTON_HEIGHT);
+			tryAgainButtonInActive.draw(game.getGameController().getSpriteBatch());
+
+		}
+		
 	}
 
 	private void returnButton(int x) {

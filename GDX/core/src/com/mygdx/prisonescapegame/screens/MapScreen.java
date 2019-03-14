@@ -17,17 +17,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader.Parameters;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.Item;
@@ -37,7 +32,6 @@ import com.mygdx.game.io.PlayerMovementController;
 import com.mygdx.game.model.TiledModel;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.game.util.Time;
-import com.mygdx.prisonescape.scenes.Hud;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
@@ -58,8 +52,6 @@ public class MapScreen extends PauseMenu implements Screen {
 	private TiledMap tilemap;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera oCamera;
-	private Viewport gamePort; // Hud
-	private Hud hud;
 	private Actor player;
 
 	private ArrayList<Item> items; // Items to be drawn on each rendered frame
@@ -70,15 +62,11 @@ public class MapScreen extends PauseMenu implements Screen {
 	private InteractionController interactionHandler;
 
 	private TiledModel model;
-	private Sprite inventoryBackground;
 	private TweenManager tween;
 	private PrisonEscapeGame game;
 	private Sprite roomTransition;
 	private boolean inventoryPressed;
-	private String inventoryText;
-	private BitmapFont fontBig;
 	private String mapName;
-	private Sprite inventoryBox;
 	private Item foundItem;
 	public static HUD h;
 
@@ -95,10 +83,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		movementHandler = new PlayerMovementController(player);
 		interactionHandler = new InteractionController(player);
 		inputHandler = new InputMultiplexer();
-		inventoryBackground = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/inventory_background.jpg")));
-		inventoryBox = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/inventory_box.png")));
-		fontBig = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-big.fnt"));
-		inventoryText = "Inventory";
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
 
@@ -163,7 +147,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		// Orthogonal (top-down) renderer for the map
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
 		// oCamera.setToOrtho(false, 11,16);
-		gamePort = new FitViewport(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT, oCamera);
 		//hud = new Hud(game.getGameController().getSpriteBatch());
 		h = new HUD(game);
 
