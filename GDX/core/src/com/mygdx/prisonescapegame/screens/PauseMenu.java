@@ -82,6 +82,7 @@ public class PauseMenu {
 	private Sprite saveButtonMenuActive;
 	private Sprite saveButtonMenuInActive;
 	private boolean checkSaveButtonMouseOver;
+	private Sprite roomTransition;
 
 	public PauseMenu() {
 
@@ -114,6 +115,7 @@ public class PauseMenu {
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
 		menuPressed = false;
+		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 
 	}
 
@@ -248,11 +250,10 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-				game.setScreen(MainMenuScreen.getInstance(game));
-									MapScreen.getStage().clear();
-									game.getGameController().stopMusic();
-									game.getGameController().setMusic("data/sounds/BackgroundSound.mp3");
-									game.getGameController().playMusic();
+					game.getGameController().restartGame();
+					menuPressed = false;
+					game.getGameController().stopMusic();
+					Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
 							
 				}
 			}

@@ -148,7 +148,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
 		// oCamera.setToOrtho(false, 11,16);
 		//hud = new Hud(game.getGameController().getSpriteBatch());
-		h = new HUD(game);
+		h = new HUD(game.getGameController());
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to
@@ -186,13 +186,17 @@ public class MapScreen extends PauseMenu implements Screen {
 		mapRenderer.getBatch().setColor(game.getGameController().getTime().getTint());
 		mapRenderer.setView(oCamera);
 		//mapRenderer.render();
-		TiledMapTileLayer levelLayer = model.getLayer("Tile Layer 1");
-		TiledMapTileLayer itemLayer = model.getLayer("Tile Layer 3");
-		mapRenderer.renderTileLayer(levelLayer);
-		if(itemLayer != null) {
-		mapRenderer.renderTileLayer(itemLayer); //Renders the tiles with transparency in a separate layer
-		}
 		
+		ArrayList<TiledMapTileLayer> collisionLayers = new ArrayList<TiledMapTileLayer>();
+		collisionLayers.add(model.getLayer("Tile Layer 1"));
+		collisionLayers.add(model.getLayer("Tile Layer 3"));
+		collisionLayers.add(model.getLayer("Tile Layer 4"));
+		
+		for (TiledMapTileLayer layer : collisionLayers) {
+			if (layer != null) {
+				mapRenderer.renderTileLayer(layer);
+			}
+		}		
 		
 		TiledMapTileLayer alarmLayer = model.getLayer("Tile Layer 2");
 		if (alarmLayer != null) {
@@ -229,7 +233,10 @@ public class MapScreen extends PauseMenu implements Screen {
 		}
 
 		mapRenderer.getBatch().end();
-		h.update(mapName.substring(10, mapName.lastIndexOf('.')), foundItem, getTime());
+		
+		Time time = game.getGameController().getTime();
+		h.update(mapName.substring(10, mapName.lastIndexOf('.')), foundItem, time.toString());
+		h.setTimeImage(time.getHour());
 		stage.act();
 		stage.draw();
 		
@@ -294,6 +301,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		}
 		return menuPressed;
 	}
+	
 
 	@Override
 	public void resize(int width, int height) {
@@ -344,20 +352,4 @@ public class MapScreen extends PauseMenu implements Screen {
 	public static Stage getStage() {
 		return stage;
 	}
-	
-	public String getTime()
-	{
-		Time time = game.getGameController().getTime();
-		time = Time.getTime(time.getCalendar(), GameSettings.TIME_SCALE);
-		game.getGameController().setTime(time);
-		
-		String hour = String.format("%02d", time.getHour());
-		
-		String minutes = String.format("%02d", time.getMin());
-		
-		h.setTimeImage(time.getHour());
-		
-		return hour + ":" + minutes;
-	}
-
 }

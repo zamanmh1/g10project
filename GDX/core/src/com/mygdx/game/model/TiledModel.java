@@ -1,5 +1,7 @@
 package com.mygdx.game.model;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
@@ -26,29 +28,35 @@ public class TiledModel {
 	 */
 	public TiledModel(TiledMap tilemap) {
 		this.map = tilemap;
-
-		TiledMapTileLayer levelLayer = getLayer("Tile Layer 1"); // Main layer of map.
+		
+		//TiledMapTileLayer levelLayer = getLayer("Tile Layer 1"); // Main layer of map.
 		TiledMapTileLayer alarmLayer = getLayer("Tile Layer 2"); // Alarm layer of map.
-		TiledMapTileLayer itemLayer = getLayer("Tile Layer 3"); // Random Item layer
-
-		width = levelLayer.getWidth(); // Finds the width of the map.
-		height = levelLayer.getHeight(); // Finds the height of the map.
-
+		//TiledMapTileLayer tableLayer = getLayer("Tile Layer 3"); // Label representing tables within map.
+		//TiledMapTileLayer detailLayer = getLayer("Tile Layer 4"); // Layer containing small details.
+		
+		ArrayList<TiledMapTileLayer> collisionLayers = new ArrayList<TiledMapTileLayer>();
+		collisionLayers.add(getLayer("Tile Layer 1"));
+		collisionLayers.add(getLayer("Tile Layer 3"));
+		collisionLayers.add(getLayer("Tile Layer 4"));
+		
+		width = collisionLayers.get(0).getWidth(); // Finds the width of the map.
+		height = collisionLayers.get(0).getHeight(); // Finds the height of the map.
+		
 		tiles = new Tile[width][height]; // Constructs the array of tiles based on the maps width and height.
 
 		// Creates model of given TiledMap by iterating over TiledMap.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				tiles[x][y] = new Tile();
-				if (levelLayer.getCell(x, y).getTile().getProperties().containsKey("blocked")) {
-					tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property
-													// "blocked".
-				}
-				if (itemLayer != null) {
-					// Renders sprites with transparency in a separate layer and allows them to have
-					// collision
-					if (itemLayer.getCell(x, y).getTile().getProperties().containsKey("blocked")) {
-						tiles[x][y].setWalkable(false);
+
+				for (TiledMapTileLayer layer : collisionLayers) {
+					if (layer != null) {
+						if(layer.getCell(x,y) != null) {
+							if(layer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
+								tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property "blocked".
+							}			
+						}
+
 					}
 				}
 				if (alarmLayer != null) {

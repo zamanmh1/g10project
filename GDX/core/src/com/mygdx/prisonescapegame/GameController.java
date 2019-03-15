@@ -53,5 +53,15 @@ public interface GameController {
 	void setTime(Time updatedTime);
 	
 	AlarmSystem getAlarm();
+	
+	void restartGame();
+	
+	String getGameState();
+	
+	String getCurrentObjective();
+	
+	void setGameState(String newState);
+	
+	void setCurrentObjective(String newObjective);
 
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.util.Time;
+import com.mygdx.prisonescapegame.GameController;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.prisonescapegame.screens.MapScreen;
@@ -40,11 +41,10 @@ public class HUD
 	
 	private Table questTable;
 	private Label currObjective;
-	
 	private Window sleepWin;
 	private Slider sleepSlide;
 	private Label sliderValueLabel;
-	
+	private GameController controller;
 	private int rowCounter = 0;
 	
 	/**
@@ -58,9 +58,11 @@ public class HUD
 	 * @param g	of type <code>PrisonEscapeGame</code> is taken as a parameter to help in setting the time for the game in the 
 	 * Sleeping UI
 	 */
-	public HUD(PrisonEscapeGame g)
+	
+	public HUD(GameController controller)
+
 	{
-		game = g;
+		
 		areaName = new Label("map", skin);
 		timeHud = new Label("time", skin);
 		timeImage = new Image(moon);
@@ -79,6 +81,11 @@ public class HUD
 		inventory();
 		questTracker();
 		sleepUI();
+
+		
+		this.controller = controller;
+		
+
 	}
 	
 	private void inventory()
@@ -117,8 +124,9 @@ public class HUD
 			setItem(item);
 		}
 		
+
 		//Sets the value of the current objective HUD element
-		currObjective.setText(GameSettings.currentObjective);
+		currObjective.setText(controller.getCurrentObjective());
 		
 		//Sets and formats the value of the time selected from the slider in the Sleeping HUD window
 		String sliderValue = "";
@@ -131,6 +139,9 @@ public class HUD
 			sliderValue = ((int) sleepSlide.getValue() + ":00");
 		}
 		sliderValueLabel.setText(sliderValue);
+
+		currObjective.setText(controller.getCurrentObjective());
+
 	}
 	
 	//Set the visibility of the inventory table

@@ -54,8 +54,10 @@ public class GameHandler implements GameController {
 	private HashMap<Actor, ActorAction> actions;
 	
 	private AlarmSystem alarm;
+	private boolean restarting;
 	
-	private String currentMapFile;
+	private String currentObjective;
+	private String gameState;
 
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
@@ -68,7 +70,26 @@ public class GameHandler implements GameController {
 		NPCsHandler = new NPCHandler(this);
 		
 		alarm = new AlarmSystem(this);
-
+		restarting = false;
+		
+		currentObjective = "";
+		gameState = "1";
+	}
+	
+	public String getGameState() {
+		return this.gameState;
+	}
+	
+	public void setGameState(String newState) {
+		this.gameState = newState;
+	}
+	
+	public String getCurrentObjective() {
+		return this.currentObjective;
+	}
+	
+	public void setCurrentObjective(String newObjective) {
+		this.currentObjective = newObjective;
 	}
 
 	@Override
@@ -179,6 +200,10 @@ public class GameHandler implements GameController {
 	}
 
 	public void update(float delta) {
+		if (restarting) {
+			game.restartGame();
+			restarting = false;
+		}
 		for (MapActor a : actors) {
 			if (a instanceof Actor) {
 				Actor actor = (Actor) a;
@@ -188,7 +213,8 @@ public class GameHandler implements GameController {
 				actor.update(delta);
 			}
 		}
-		alarm.update();
+		alarm.update();		
+		setTime(Time.getTime(getTime().getCalendar(), GameSettings.TIME_SCALE));
 	}
 
 	public ItemHandler getItemHandler() {
@@ -210,13 +236,12 @@ public class GameHandler implements GameController {
 	public HashMap<Actor, ActorAction> getActions() {
 		return this.actions;
 	}
-
-	public String getCurrentMapFile() {
-		return this.currentMapFile;
-	}
 	
 	public AlarmSystem getAlarm() {
 		return this.alarm;
 	}
-
+	
+	public void restartGame() {
+		restarting = true;
+	}
 }

@@ -35,11 +35,16 @@ public class Dialogue
 	private Element entityRoot;
 	private HashMap<String,String[]> choiceMap;
 	private boolean hasChoice;
+	private GameHandler controller;
 	
-	public Dialogue()
+	public Dialogue(GameHandler controller)
 	{ 
 		xReader = new XmlReader();
 		root = xReader.parse(Gdx.files.internal(xmlDoc));
+
+		//entityRoot = root.getChildByName("entity");
+		this.controller = controller;
+
 	}
 	
 	/**
@@ -65,7 +70,7 @@ public class Dialogue
 		{
 			hasChoice = false;
 			Element currElement = (Element) iterator_dialogue.next();
-			if(currElement.hasAttribute("currState") == false || currElement.get("currState").equals(GameSettings.gameState))
+			if(currElement.hasAttribute("currState") == false || currElement.get("currState").equals(controller.getGameState()));
 			{
 				String text = currElement.getText();
 
@@ -131,12 +136,30 @@ public class Dialogue
 	
 	public void setObjective(String objective)
 	{
-		GameSettings.currentObjective = objective;
+		controller.setCurrentObjective(objective);
 	}
 	
 	public void setState(String state)
 	{
-		GameSettings.gameState = state;
+
+		controller.setGameState(state);
+	}
+	
+	public void checkObjectiveSet(Element e)
+	{
+		if(e.hasChild("objective"))
+		{
+			setObjective(e.getChildByName("objective").getText());
+		}
+	}
+	
+	public void checkStateSet(Element e)
+	{
+		if(e.hasChild("state"))
+		{
+			setState(e.getChildByName("state").getText());
+		}
+
 	}
 		
 	private String checkObjectiveGet(Element e)

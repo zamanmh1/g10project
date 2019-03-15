@@ -43,7 +43,11 @@ public class PrisonEscapeGame extends Game {
 		assetManager.load("data/packed/textures.atlas", TextureAtlas.class);
 		assetManager.finishLoading();
 		
-		TextureAtlas atlas = getAssetManager().get("data/packed/textures.atlas", TextureAtlas.class);
+		setupGame();
+	}
+	
+	private void setupGame() {	
+		TextureAtlas atlas = getAssetManager().get("data/packed/textures.atlas", TextureAtlas.class);	
 		
 		// Stores player animations in new AnimationSet.
 		ActorAnimation animations = new ActorAnimation(
@@ -61,13 +65,23 @@ public class PrisonEscapeGame extends Game {
 		this.player = new Actor(1, 2, animations, game);
 		
 		// !!! Need to set game time and scale.
-		Calendar cal = new GregorianCalendar(1995, 12, 24, 7, 0);
+		Calendar cal = new GregorianCalendar(1995, 12, 24, 22, 0);
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
 
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
 		game.setMusic("data/sounds/BackgroundSound.mp3");
 		game.playMusic();
-		
+	}
+	
+	private void discardGame() {
+		game = null;
+		player = null;
+		time = null;
+	}
+	
+	public void restartGame() {
+		discardGame();
+		setupGame();
 	}
 
 	@Override
