@@ -189,8 +189,9 @@ public class MapScreen extends PauseMenu implements Screen {
 		TiledMapTileLayer levelLayer = model.getLayer("Tile Layer 1");
 		TiledMapTileLayer itemLayer = model.getLayer("Tile Layer 3");
 		mapRenderer.renderTileLayer(levelLayer);
+		if(itemLayer != null) {
 		mapRenderer.renderTileLayer(itemLayer); //Renders the tiles with transparency in a separate layer
-		
+		}
 		
 		
 		TiledMapTileLayer alarmLayer = model.getLayer("Tile Layer 2");
@@ -232,6 +233,9 @@ public class MapScreen extends PauseMenu implements Screen {
 		stage.act();
 		stage.draw();
 		
+		
+		
+		
 		game.getGameController().getSpriteBatch().begin();
 		
 		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
@@ -252,6 +256,13 @@ public class MapScreen extends PauseMenu implements Screen {
 
 
 		if (inventoryKeyCheck() == true) {
+		}
+		
+		if (game.getGameController().getMapScreen().mapName == "data/maps/outside.tmx") {
+			game.getGameController().stopMusic();
+			game.getGameController().setMusic("data/sounds/Outdoor.mp3");
+			game.getGameController().playMusic();
+			
 		}
 		game.getGameController().getSpriteBatch().end();
 

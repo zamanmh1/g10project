@@ -1,2 +1,4 @@
 NPC Name,Sprite Prefix,Map Appears In,Spawn X,Spawn Y,Move Limit North,Move Limit South,Move Limit East,Move Limit West,Minimum Move Interval,Maxmimum Move Interval,Random Seed
-MobMember,guard01_,data/maps/cell.tmx,3,3,1,1,1,1,1,1,3
+TrippieMaroon,npc01_,data/maps/cellblock.tmx,3,3,2,2,1,1,1,1,3
+MobMember,guard01_,data/maps/cellblockG.tmx,7,9,0,0,0,0,0,1,3
+Rainbow,npc03_,data/maps/cellblockG.tmx,31,13,1,1,1,1,1,1,3
