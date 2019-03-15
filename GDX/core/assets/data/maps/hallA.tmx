@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="left-up" width="14" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
  <tileset firstgid="1" source="FullSpriteSheet.tsx"/>
- <tileset firstgid="1025" source="../../../../../../14_03/g10project-master/GDX/core/assets/data/maps/FullSpriteSheet.tsx"/>
  <layer id="1" name="Tile Layer 1" width="14" height="26">
   <data encoding="csv">
 104,104,104,104,104,104,104,104,104,104,104,104,104,104,
@@ -82,7 +81,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,2147484942,0,0,0,0,0,
+0,0,0,0,0,0,0,0,2147483918,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,
