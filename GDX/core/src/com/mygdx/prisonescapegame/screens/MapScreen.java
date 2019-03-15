@@ -33,6 +33,7 @@ import com.mygdx.game.model.TiledModel;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.GameManager;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
@@ -68,8 +69,13 @@ public class MapScreen extends PauseMenu implements Screen {
 	private boolean inventoryPressed;
 	private String mapName;
 	private Item foundItem;
+<<<<<<< Upstream, based on origin/dev
 	private boolean fullMapPressed;
 	public static HUD h;
+=======
+	private HUD h;
+	private GameHandler gameHandler;
+>>>>>>> 4e76e4a Save/Load state
 
 	private static Stage stage;
 
@@ -86,7 +92,11 @@ public class MapScreen extends PauseMenu implements Screen {
 		inputHandler = new InputMultiplexer();
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
+<<<<<<< Upstream, based on origin/dev
 		fullMapPressed = false;
+=======
+		
+>>>>>>> 4e76e4a Save/Load state
 
 	}
 
@@ -96,6 +106,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
 
 		mapName = map;
+		this.gameHandler = gameHandler;
 		tilemap = new TmxMapLoader().load(map);
 		
 
@@ -252,7 +263,8 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		if (menuKeyCheck() == true) {
 			inputHandler.clear();
-			drawPauseMenu(game, tween);
+			drawPauseMenu(game, tween, gameHandler);
+			
 
 		}
 
@@ -260,6 +272,7 @@ public class MapScreen extends PauseMenu implements Screen {
 //			((Game) Gdx.app.getApplicationListener())
 //			.setScreen(new PuzzleScreen(game));
 //		}
+<<<<<<< Upstream, based on origin/dev
 
 
 		if (inventoryKeyCheck() == true) {
@@ -276,6 +289,9 @@ public class MapScreen extends PauseMenu implements Screen {
 			game.getGameController().playMusic();
 			
 		}
+=======
+		
+>>>>>>> 4e76e4a Save/Load state
 		game.getGameController().getSpriteBatch().end();
 
 		
@@ -317,7 +333,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		// 0);
 		// Test stuff; setToOrtho method above achieves the effect much better and
 		// cleaner.
-
 	}
 
 	@Override

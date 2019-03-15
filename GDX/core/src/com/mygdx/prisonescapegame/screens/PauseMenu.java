@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.GameManager;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -114,7 +116,11 @@ public class PauseMenu {
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
 		menuPressed = false;
+<<<<<<< Upstream, based on origin/dev
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
+=======
+		
+>>>>>>> 4e76e4a Save/Load state
 
 	}
 	
@@ -158,12 +164,16 @@ public class PauseMenu {
 
 	}
 
+<<<<<<< Upstream, based on origin/dev
 	/**
 	 * Represents the position and area where the same button is drawn
 	 * 
 	 * @param game
 	 */
 	protected void saveButtonMenu(PrisonEscapeGame game) {
+=======
+	protected void saveButtonMenu(PrisonEscapeGame game, GameHandler gh) {
+>>>>>>> 4e76e4a Save/Load state
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < SAVE_BUTTON_Y + SAVE_BUTTON_HEIGHT
@@ -183,6 +193,8 @@ public class PauseMenu {
 				}
 
 				if (Gdx.input.isTouched()) {
+					GameManager.getInstance().prepareSave(gh);
+					game.setScreen(MainMenuScreen.getInstance(game));
 
 				}
 
@@ -194,6 +206,7 @@ public class PauseMenu {
 			saveButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
+		
 	}
 
 	/**
@@ -438,6 +451,7 @@ public class PauseMenu {
 
 	}
 
+<<<<<<< Upstream, based on origin/dev
 	/**
 	 * Calls all the methods to draw the Pause Menu
 	 * 
@@ -446,6 +460,10 @@ public class PauseMenu {
 	 */
 	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween) {
 		game.getGameController().getPlayer().setFrozen(true);
+=======
+	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween, GameHandler gh) {
+
+>>>>>>> 4e76e4a Save/Load state
 		optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
 		logo.setPosition(PrisonEscapeGame.WIDTH / 2 - logo.getWidth() / 2,
@@ -455,8 +473,13 @@ public class PauseMenu {
 		logo.draw(game.getGameController().getSpriteBatch());
 		resumeButtonMenu(game);
 		helpButtonMenu(tween, game);
+<<<<<<< Upstream, based on origin/dev
 		saveButtonMenu(game);
 
+=======
+		saveButtonMenu(game, gh);
+		exitButtonMenu(tween, game);
+>>>>>>> 4e76e4a Save/Load state
 		volumeButton(game);
 		if (helpPressed) {
 			helpScreenUI(game, tween);
