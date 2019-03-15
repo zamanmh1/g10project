@@ -284,7 +284,7 @@ public class HUD
 	
 	private void sleepClicked(float slept)
 	{
-		Calendar cal = game.getGameController().getTime().getCalendar();
+		Calendar cal = controller.getTime().getCalendar();
 		Time.setTime(cal, (int) slept, 0);
 	}
 	

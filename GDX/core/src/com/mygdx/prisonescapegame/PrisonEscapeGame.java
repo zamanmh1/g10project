@@ -65,7 +65,7 @@ public class PrisonEscapeGame extends Game {
 		this.player = new Actor(1, 2, animations, game);
 		
 		// !!! Need to set game time and scale.
-		Calendar cal = new GregorianCalendar(1995, 12, 24, 22, 0);
+		Calendar cal = new GregorianCalendar(1995, 12, 24, 21, 40);
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
 
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());

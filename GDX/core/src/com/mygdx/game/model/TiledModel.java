@@ -61,6 +61,9 @@ public class TiledModel {
 				}
 				if (alarmLayer != null) {
 					if (alarmLayer.getCell(x, y) != null) {
+						if(alarmLayer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
+							tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property "blocked".
+						}	
 						tiles[x][y].setAlarm(true); // If tile is in the alarm layer, set alarm property to true.
 					}
 				}
