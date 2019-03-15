@@ -36,6 +36,7 @@ import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.game.util.Time;
 import com.mygdx.prisonescape.scenes.Hud;
 import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.GameManager;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
@@ -78,6 +79,7 @@ public class MapScreen extends PauseMenu implements Screen {
 	private Sprite inventoryBox;
 	private Item foundItem;
 	private HUD h;
+	private GameHandler gameHandler;
 
 	private static Stage stage;
 
@@ -98,6 +100,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		inventoryText = "Inventory";
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
+		
 
 	}
 
@@ -107,6 +110,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
 
 		mapName = map;
+		this.gameHandler = gameHandler;
 		tilemap = new TmxMapLoader().load(map);
 
 		/**
@@ -237,7 +241,8 @@ public class MapScreen extends PauseMenu implements Screen {
 		if (menuKeyCheck() == true) {
 			player.setFrozen(true);
 			inputHandler.clear();
-			drawPauseMenu(game, tween);
+			drawPauseMenu(game, tween, gameHandler);
+			
 
 		}
 
@@ -278,6 +283,7 @@ public class MapScreen extends PauseMenu implements Screen {
 //			fontBig.draw(game.getGameController().getSpriteBatch(),
 //					"Time: " + hour + ":" + minutes, 40, PrisonEscapeGame.HEIGHT - 50);
 //		}
+		
 		game.getGameController().getSpriteBatch().end();
 
 	}
@@ -319,7 +325,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		// 0);
 		// Test stuff; setToOrtho method above achieves the effect much better and
 		// cleaner.
-
 	}
 
 	@Override

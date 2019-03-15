@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.GameManager;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -113,6 +115,7 @@ public class PauseMenu {
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
 		menuPressed = false;
+		
 
 	}
 
@@ -151,7 +154,7 @@ public class PauseMenu {
 
 	}
 
-	protected void saveButtonMenu(PrisonEscapeGame game) {
+	protected void saveButtonMenu(PrisonEscapeGame game, GameHandler gh) {
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < SAVE_BUTTON_Y + SAVE_BUTTON_HEIGHT
@@ -171,6 +174,8 @@ public class PauseMenu {
 				}
 
 				if (Gdx.input.isTouched()) {
+					GameManager.getInstance().prepareSave(gh);
+					game.setScreen(MainMenuScreen.getInstance(game));
 
 				}
 
@@ -182,6 +187,7 @@ public class PauseMenu {
 			saveButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
+		
 	}
 
 	protected void helpButtonMenu(TweenManager tween, PrisonEscapeGame game) {
@@ -385,7 +391,7 @@ public class PauseMenu {
 
 	}
 
-	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween) {
+	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween, GameHandler gh) {
 
 		optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
@@ -396,7 +402,7 @@ public class PauseMenu {
 		logo.draw(game.getGameController().getSpriteBatch());
 		resumeButtonMenu(game);
 		helpButtonMenu(tween, game);
-		saveButtonMenu(game);
+		saveButtonMenu(game, gh);
 		exitButtonMenu(tween, game);
 		volumeButton(game);
 		if (helpPressed) {

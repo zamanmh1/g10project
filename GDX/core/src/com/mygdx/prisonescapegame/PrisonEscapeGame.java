@@ -4,6 +4,7 @@ import com.mygdx.game.entities.Actor;
 import com.mygdx.game.util.ActorAnimation;
 import com.mygdx.game.util.Time;
 
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Calendar;
@@ -36,6 +37,8 @@ public class PrisonEscapeGame extends Game {
 	protected Actor player;
 	protected Time time;
 	
+	
+	
 	@Override
 	public void create() {
 		// Store texture atlas containing player textures and animations in an AssetManager.
@@ -65,6 +68,11 @@ public class PrisonEscapeGame extends Game {
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
 
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
+		
+		//gameState = GameState.getInstance();
+
+		//System.out.println("Starting with the following game state: " + gameState.toJson());
+		
 	}
 
 	@Override

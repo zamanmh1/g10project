@@ -10,7 +10,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.helpers.MapHandler;
+
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.GameManager;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
 /**
@@ -28,11 +32,14 @@ public class MainGameScreen implements Screen {
 	private PrisonEscapeGame game;
 	private Sprite loading;
 	private TweenManager tween;
+
+
 	
 	public MainGameScreen (PrisonEscapeGame game) {
 		this.game = game;
 		tween = new TweenManager();
 		loading = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loading.png")));
+	
 	}
 
 	@Override
@@ -41,6 +48,7 @@ public class MainGameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	
 		game.getGameController().getSpriteBatch().begin();
+		
 		
 		loading.setPosition(Gdx.graphics.getWidth()/2 - loading.getWidth()/2, 
 				Gdx.graphics.getHeight()/2 - loading.getHeight()/2);
@@ -51,6 +59,8 @@ public class MainGameScreen implements Screen {
 		game.getGameController().getSpriteBatch().end();
 
 		tween.update(delta);
+		
+
 	}
 
 	@Override

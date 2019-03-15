@@ -1,6 +1,7 @@
 package com.mygdx.prisonescapegame;
 
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
+
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.Item;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.prisonescapegame.screens.MapScreen;
 import com.mygdx.prisonescapegame.screens.Splash;
+
 
 /**
  * CLASS DESCRIPTION
@@ -45,7 +47,7 @@ public class GameHandler implements GameController {
 	private List<MapActor> actors;
 	private HashMap<Actor, ActorAction> actions;
 	
-	private String currentMapFile;
+//	private String currentMapFile;
 	
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;	
@@ -181,7 +183,14 @@ public class GameHandler implements GameController {
 		return this.actions;
 	}
 	
-	public String getCurrentMapFile() {
-		return this.currentMapFile;
+//	public String getCurrentMapFile() {
+//		return this.currentMapFile;
+//	}
+	
+	public List<MapActor> getActors(){
+		return this.actors;
 	}
+		
 }
+
+

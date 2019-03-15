@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
@@ -79,6 +80,7 @@ public class MainMenuScreen implements Screen {
 	private boolean checkLoadButtonMouseOver;
 	private boolean checkNewButtonMouseOver;
 
+
 	private MainMenuScreen(PrisonEscapeGame game) {
 		this.game = game;
 
@@ -108,6 +110,8 @@ public class MainMenuScreen implements Screen {
 		buttonActive = true;
 		playPressed = false;
 		volumeMuted = false;
+		
+		
 
 	}
 
