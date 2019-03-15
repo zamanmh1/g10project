@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
- * 
+ * Represents the individual puzzle tile in the PuzzleScreen
  * 
  * @author Shibu George
  *
@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class PuzzleTile {
 	private Sprite puzzleImage;
 	private int finishRow;
-	private int finishCol;
+	private int finishColumn;
 	private int currentRow;
 	private int currentColumn;
 	private String blackTileLoc = "data/puzzles/black.png";
@@ -28,27 +28,9 @@ public class PuzzleTile {
 
 	public PuzzleTile(int x, int y) {
 		this.finishRow = x;
-		this.finishCol = y;
+		this.finishColumn = y;
 		this.puzzleLoc = "data/puzzles/" + PuzzleScreen.getPuzzleTheme() + "/" + x + y + ".png";
 		this.puzzleImage = new Sprite(new Texture(puzzleLoc));
-	}
-
-	/**
-	 * Returns the current row
-	 * 
-	 * @return currentRow
-	 */
-	public int getRow() {
-		return this.currentRow;
-	}
-
-	/**
-	 * Returns the current column
-	 * 
-	 * @return currentColum
-	 */
-	public int getColumn() {
-		return this.currentColumn;
 	}
 
 	/**
@@ -69,14 +51,14 @@ public class PuzzleTile {
 	}
 
 	/**
-	 * Checks if its in the right position
+	 * Checks if each puzzle tile are in the right position
 	 * 
-	 * @param x
-	 * @param y
+	 * @param x coordinate 
+	 * @param y coordinate
 	 * @return boolean true or false
 	 */
 	public boolean inCorrectPosition(int x, int y) {
-		return ((x == finishRow) && (y == finishCol));
+		return ((x == finishRow) && (y == finishColumn));
 
 	}
 

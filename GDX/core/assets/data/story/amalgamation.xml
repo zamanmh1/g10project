@@ -21,7 +21,6 @@
 					"Cheers buddy"
 				
 					You obtained a small package
-
 				</dialogue>
 				<objective>Deliver Package</objective>
 				<state>1.1</state>
@@ -231,5 +230,42 @@
 		</dialogue>
 	</Moon>
 	
-	
+	<Warden>
+		<dialogue currState="1h">
+			"So have you done it?"
+			<choice>yes
+				<dialogue>
+					"Thanks very much, I knew something was going on. I have many eyes and ears and you're one of them now."
+				</dialogue>
+			</choice>
+			<choice>no
+				<dialogue>
+					"Alright then. Just know, I reward people who provide me information."
+				</dialogue>
+			</choice>
+		</dialogue>
+		<dialogue currState="1">
+			Would you like to hand in the mission?
+			<choice>no
+				<dialogue>
+					The warden stares at you expectantly
+				</dialogue>
+			</choice>
+			<choice>yes
+				<dialogue>
+					"Oh you've done the thing?"
+				</dialogue>
+				<state>1h</state>
+			</choice>
+		</dialogue>
+		<dialogue>
+			"Get out of here unless you want people to know you're a snitch"
+		</dialogue>
+		<dialogue>
+			"Thanks for the info. The culprit will be... dealt with."
+		</dialogue>
+		<dialogue>
+			"I won't push you for it, but I hope you'll strongly reconsider next time... Now get out!"
+		</dialogue>
+	</Warden>
 </speech>

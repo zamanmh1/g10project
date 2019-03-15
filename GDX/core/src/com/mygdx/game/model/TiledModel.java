@@ -14,11 +14,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
  */
 
 public class TiledModel {
-	
+
 	private int width, height; // The width and height of the map in tiles.
 	private Tile[][] tiles; // A 2d array of tiles.
 	private TiledMap map; // The map that the model represents.
-	
+
 	/**
 	 * Constructs a new TiledModel based upon a given TiledMap.
 	 * 
@@ -26,32 +26,40 @@ public class TiledModel {
 	 */
 	public TiledModel(TiledMap tilemap) {
 		this.map = tilemap;
-		
+
 		TiledMapTileLayer levelLayer = getLayer("Tile Layer 1"); // Main layer of map.
 		TiledMapTileLayer alarmLayer = getLayer("Tile Layer 2"); // Alarm layer of map.
-		
+		TiledMapTileLayer itemLayer = getLayer("Tile Layer 3"); // Random Item layer
+
 		width = levelLayer.getWidth(); // Finds the width of the map.
 		height = levelLayer.getHeight(); // Finds the height of the map.
-		
+
 		tiles = new Tile[width][height]; // Constructs the array of tiles based on the maps width and height.
-				
 
 		// Creates model of given TiledMap by iterating over TiledMap.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				tiles[x][y] = new Tile();
-				if(levelLayer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
-					tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property "blocked".
-				} 
+				if (levelLayer.getCell(x, y).getTile().getProperties().containsKey("blocked")) {
+					tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property
+													// "blocked".
+				}
+				if (itemLayer != null) {
+					// Renders sprites with transparency in a separate layer and allows them to have
+					// collision
+					if (itemLayer.getCell(x, y).getTile().getProperties().containsKey("blocked")) {
+						tiles[x][y].setWalkable(false);
+					}
+				}
 				if (alarmLayer != null) {
-					if(alarmLayer.getCell(x,y) != null) {
-							tiles[x][y].setAlarm(true);	// If tile is in the alarm layer, set alarm property to true.				
+					if (alarmLayer.getCell(x, y) != null) {
+						tiles[x][y].setAlarm(true); // If tile is in the alarm layer, set alarm property to true.
 					}
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Provides the Tile at a given location.
 	 * 
@@ -63,18 +71,18 @@ public class TiledModel {
 	public Tile getTile(int x, int y) {
 		return tiles[x][y];
 	}
-	
+
 	/**
 	 * Sets the tile at the given coordinates.
 	 * 
 	 * @param tile The Tile to set to.
-	 * @param x The x-coordinate to set the tile at.
-	 * @param y The y-coordinate to set the tile at.
+	 * @param x    The x-coordinate to set the tile at.
+	 * @param y    The y-coordinate to set the tile at.
 	 */
 	public void setTile(Tile tile, int x, int y) {
 		tiles[x][y] = tile;
 	}
-	
+
 	/**
 	 * Sets the given tile to become a teleporter tile.
 	 * 
@@ -84,7 +92,7 @@ public class TiledModel {
 	public void setTeleporterTile(int x, int y) {
 		tiles[x][y].setTeleporter();
 	}
-	
+
 	/**
 	 * Provides the width of the model.
 	 * 
@@ -93,7 +101,7 @@ public class TiledModel {
 	public int getWidth() {
 		return width;
 	}
-	
+
 	/**
 	 * Provides the height of the model.
 	 * 
@@ -101,8 +109,8 @@ public class TiledModel {
 	 */
 	public int getHeight() {
 		return height;
-	}		
-	
+	}
+
 	/**
 	 * Provides a TiledMapTileLayer when given the name of a tile layer.
 	 * 

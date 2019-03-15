@@ -14,11 +14,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader.Parameters;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.entities.Actor;
@@ -39,7 +41,7 @@ import aurelienribon.tweenengine.TweenManager;
 /**
  * CLASS DESCRIPTION
  * 
- * @author Sam Ward, Shibu George
+ * @author Sam Ward, Shibu George, Sean Corcoran
  * 
  * @version 0.2
  * @since 0.1
@@ -66,7 +68,7 @@ public class MapScreen extends PauseMenu implements Screen {
 	private boolean inventoryPressed;
 	private String mapName;
 	private Item foundItem;
-	private HUD h;
+	public static HUD h;
 
 	private static Stage stage;
 
@@ -93,6 +95,7 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		mapName = map;
 		tilemap = new TmxMapLoader().load(map);
+		
 
 		/**
 		 * If already a map being shown, try to dispose of it. However, if it is the
@@ -145,7 +148,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
 		// oCamera.setToOrtho(false, 11,16);
 		//hud = new Hud(game.getGameController().getSpriteBatch());
-		h = new HUD();
+		h = new HUD(game);
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to
@@ -184,7 +187,11 @@ public class MapScreen extends PauseMenu implements Screen {
 		mapRenderer.setView(oCamera);
 		//mapRenderer.render();
 		TiledMapTileLayer levelLayer = model.getLayer("Tile Layer 1");
+		TiledMapTileLayer itemLayer = model.getLayer("Tile Layer 3");
 		mapRenderer.renderTileLayer(levelLayer);
+		if(itemLayer != null) {
+		mapRenderer.renderTileLayer(itemLayer); //Renders the tiles with transparency in a separate layer
+		}
 		
 		
 		TiledMapTileLayer alarmLayer = model.getLayer("Tile Layer 2");
@@ -226,6 +233,9 @@ public class MapScreen extends PauseMenu implements Screen {
 		stage.act();
 		stage.draw();
 		
+		
+		
+		
 		game.getGameController().getSpriteBatch().begin();
 		
 		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
@@ -246,6 +256,13 @@ public class MapScreen extends PauseMenu implements Screen {
 
 
 		if (inventoryKeyCheck() == true) {
+		}
+		
+		if (game.getGameController().getMapScreen().mapName == "data/maps/outside.tmx") {
+			game.getGameController().stopMusic();
+			game.getGameController().setMusic("data/sounds/Outdoor.mp3");
+			game.getGameController().playMusic();
+			
 		}
 		game.getGameController().getSpriteBatch().end();
 

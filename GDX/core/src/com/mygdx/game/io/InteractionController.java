@@ -114,6 +114,10 @@ public class InteractionController extends InputAdapter {
 						//	Time time = Time.getTime(cal);
 						//	time = time.setTime(cal, /*hour*/, /*minute*/);
 						//	gameHandler.setTime(time);
+						if(MapScreen.h.sleepIsVisible() != true)
+						{
+							MapScreen.h.showSleepUI();
+						}
 					} else {
 						gameHandler.getItemHandler().foundItem(i); // Set item as found.
 						gameHandler.getMapScreen().getTiledModel().getTile(i.getX(), i.getY()).setActor(null); // Remove from tile in model.

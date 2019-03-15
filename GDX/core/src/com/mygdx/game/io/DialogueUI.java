@@ -9,11 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.prisonescapegame.Dialogue;
 
 /**
- * CLASS DESCRIPTION
+ * DialogueUI creates the dialogue boxes used to display the text the <code>Dialogue</code> class provides.
  * 
  * @author Sean Corcoran
  * 
- * @version 0.2
+ * @version 0.3
  * @since 0.1
  * 
  */
@@ -38,7 +38,6 @@ public class DialogueUI extends ScreenAdapter
 						button(key, key); //key,key: one is btn text, other is passing the name to result
 					}
 				}
-				//button("OK");
 			}
 			@Override
 			protected void result(Object object)
@@ -57,7 +56,7 @@ public class DialogueUI extends ScreenAdapter
 		s.addActor(dialog);
 	}
 	
-	public void showAlternateDialog(Stage s, String name, final String[] cText)
+	private void showAlternateDialog(Stage s, String name, final String[] cText)
 	{
 		Dialog dialog = new Dialog(name, skin)
 		{
@@ -77,7 +76,7 @@ public class DialogueUI extends ScreenAdapter
 		s.addActor(dialog);
 	}
 	
-	public void updateValues(Object o)
+	private void updateValues(Object o)
 	{
 		String[] cData = d.getChoices().get(o);
 		if(!cData[1].isEmpty()) //If Objectives is not empty
