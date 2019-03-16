@@ -68,6 +68,7 @@ public class MapScreen extends PauseMenu implements Screen {
 	private boolean inventoryPressed;
 	private String mapName;
 	private Item foundItem;
+	private boolean fullMapPressed;
 	public static HUD h;
 
 	private static Stage stage;
@@ -85,6 +86,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		inputHandler = new InputMultiplexer();
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
+		fullMapPressed = false;
 
 	}
 
@@ -241,8 +243,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		stage.draw();
 		
 		
-		
-		
 		game.getGameController().getSpriteBatch().begin();
 		
 		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
@@ -265,6 +265,11 @@ public class MapScreen extends PauseMenu implements Screen {
 		if (inventoryKeyCheck() == true) {
 		}
 		
+		if (Gdx.input.isKeyJustPressed(Keys.M)) {
+			
+			game.setScreen(new FullMapScreen(game));
+		
+	}
 		if (game.getGameController().getMapScreen().mapName == "data/maps/outside.tmx") {
 			game.getGameController().stopMusic();
 			game.getGameController().setMusic("data/sounds/Outdoor.mp3");
