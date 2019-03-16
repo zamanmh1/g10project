@@ -1,14 +1,14 @@
 package com.mygdx.prisonescapegame;
 
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlReader.Element;
+import com.mygdx.game.entities.Item;
 
 /**
  * Dialogue parses and formats all data within a given XML document to select the appropriate dialogue to be displayed.
@@ -20,31 +20,28 @@ import com.badlogic.gdx.utils.XmlReader.Element;
  * 
  * @author Sean Corcoran
  * 
- * @version 0.3
+ * @version 0.5
  * @since 0.1
  * 
  */
 
-
-
 public class Dialogue 
 {
 	private XmlReader xReader;
-	private String xmlDoc = "data/story/amalgamation.xml";
+	private String xmlLoc = "data/story/chapter";
 	private Element root;
 	private Element entityRoot;
 	private HashMap<String,String[]> choiceMap;
 	private boolean hasChoice;
 	private GameHandler controller;
+	private boolean hasPuzzle;
 	
 	public Dialogue(GameHandler controller)
 	{ 
-		xReader = new XmlReader();
-		root = xReader.parse(Gdx.files.internal(xmlDoc));
-
-		//entityRoot = root.getChildByName("entity");
 		this.controller = controller;
-
+		xReader = new XmlReader();
+		//file will be named ../chapter[x].xml
+		root = xReader.parse(Gdx.files.internal(xmlLoc + getChapter() + ".xml"));
 	}
 	
 	/**
@@ -52,7 +49,7 @@ public class Dialogue
 	 * used to set the new root node. It checks each <code>dialogue</code> child node from the root.
 	 * <p>
 	 * <code>dialogue</code> nodes can be selectively chosen depending on the current state of the game by using
-	 * the attribute <code>currState</code> which can be checked against <code>GameSettings.gameState</code> in order
+	 * the attribute <code>currState</code> which can be checked against the game state in <code>GameHandler</code> in order
 	 * to have dynamic dialogue according to the state of the game.
 	 * <p>
 	 * When checking for dialogue, game values can be updated when the correct node is selected such as the game state and 
@@ -69,11 +66,12 @@ public class Dialogue
 		while(iterator_dialogue.hasNext())
 		{
 			hasChoice = false;
+			hasPuzzle = false;
 			Element currElement = (Element) iterator_dialogue.next();
-			if(currElement.hasAttribute("currState") == false || currElement.get("currState").equals(controller.getGameState()));
+			if(currElement.hasAttribute("currState") == false || currElement.get("currState").equals(controller.getGameState()))
 			{
 				String text = currElement.getText();
-
+				
 				if(currElement.hasChild("state")) //Update state if exists
 				{
 					setState(currElement.getChildByName("state").getText());
@@ -92,14 +90,28 @@ public class Dialogue
 						Element currChoice = (Element) iterateChoices.next();
 						String choice = currChoice.getText();
 						String choiceText = "";
-						String[] choiceData = new String[3];
+						String[] choiceData = new String[4];
 						if(currChoice.hasChild("dialogue"))
 						{
 							choiceText = currChoice.getChildByName("dialogue").getText();
 						}
+						if(currChoice.hasChild("item"))
+						{							
+							String[] newItem = currChoice.getChildByName("item").getText().split(",");
+							spawnItem(newItem);
+							if(newItem[1].equals("remove"))
+							{
+								removeItem(newItem[0]);
+							}
+						}
+						if(currChoice.hasChild("puzzle"))
+						{
+							hasPuzzle = true;
+						}
 						choiceData[0] = choiceText;
 						choiceData[1] = checkObjectiveGet(currChoice);
 						choiceData[2] = checkStateGet(currChoice);
+						choiceData[3] = checkPuzzleGet(currChoice);
 
 						choiceMap.put(choice, choiceData);
 					}
@@ -121,8 +133,7 @@ public class Dialogue
 	
 	/**
 	 * getChoices() returns a Hash Map using the choice names as keys (yes, no etc) and the values being an array of strings.
-	 * This array contains the dialogue itself as well as the state and objective to update to should it contain them.
-	 * 
+	 * This array contains the dialogue itself as well as the state and objective to update to, should it contain them.
 	 */
 	public HashMap<String,String[]> getChoices()
 	{
@@ -159,7 +170,6 @@ public class Dialogue
 		{
 			setState(e.getChildByName("state").getText());
 		}
-
 	}
 		
 	private String checkObjectiveGet(Element e)
@@ -178,6 +188,58 @@ public class Dialogue
 			return e.getChildByName("state").getText();
 		}
 		return "";
+	}
+	
+	private String checkPuzzleGet(Element e)
+	{
+		if(e.hasChild("puzzle"))
+		{
+			return e.getChildByName("puzzle").getText();
+		}
+		return "";
+	}
+	public boolean hasPuzzle()
+	{
+		return hasPuzzle;
+	}
+	
+	private void spawnItem(String[] newItem)
+	{
+		if(!controller.getItemHandler().itemExists(newItem[0]))
+		{
+			Item i = new Item(new Sprite(new Texture(Gdx.files.internal(newItem[1]))), newItem[0], newItem[2], newItem[3], Integer.parseInt(newItem[4]), Integer.parseInt(newItem[5]));
+			controller.getItemHandler().addItem(i.getName(), i);
+			//controller.getMapScreen().addItemToMap(i);
+			//Adds the item sprite to the map, but doesn't seem to make it an interactable actor.
+		}
+	}
+	
+	private void removeItem(String name)
+	{
+		controller.getItemHandler().removeItem(name);
+		//Item i = controller.getItemHandler().getAllItems().get(name);
+		//controller.getMapScreen().removeItemFromMap(i);
+		//Removes the item from the map render, still has collision
+	}
+	
+	private String getChapter()
+	{
+		//State follows a standard. e.g. 1.2(b) -> chapter.state(path)
+		char state = controller.getGameState().charAt(0);
+		String chapter = null;
+		switch(state)
+		{
+		case '1':
+			chapter = "1";
+			break;
+		case '2':
+			chapter = "2";
+			break;
+		case '3':
+			chapter = "3";
+			break;
+		}
+		return chapter;
 	}
 	
 }

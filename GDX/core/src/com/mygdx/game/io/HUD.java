@@ -215,7 +215,7 @@ public class HUD
 		
 	}
 	
-	private void sleepUI()
+	public void sleepUI()
 	{
 		sleepWin = new Window("Sleep until?", skin);
 		sleepSlide = new Slider(0, 23, 1f, false, skin);
@@ -231,8 +231,8 @@ public class HUD
 		sliderValueLabel = new Label("00:00", skin);
 		sliderValueLabel.setPosition(300, 200);
 		
-		Button setTime = new Button(skin);
-		Button cancel = new Button(skin);
+		final Button setTime = new Button(skin);
+		final Button cancel = new Button(skin);
 		Label setLabel = new Label("Sleep", skin);
 		Label cancelLabel = new Label("Cancel", skin);
 		
@@ -253,6 +253,7 @@ public class HUD
 				setTimeImage((int) sleepSlide.getValue());
 				sleepSlide.setValue(0);
 				sleepWin.setVisible(false);
+				sleepWin.remove();
 			}
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
@@ -267,6 +268,7 @@ public class HUD
 			{
 				sleepSlide.setValue(0);
 				sleepWin.setVisible(false);
+				sleepWin.remove();
 			}
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) 
@@ -303,6 +305,5 @@ public class HUD
 	public boolean sleepIsVisible()
 	{
 		return sleepWin.isVisible();
-	}
-		
+	}	
 }

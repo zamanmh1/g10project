@@ -11,6 +11,7 @@ package com.mygdx.prisonescapegame;
  */
 
 public class GameSettings {
+	
 	/**
 	 * The current time scale in the game.
 	 * TIME_SCALE = gameTime / realWorldTime
@@ -31,5 +32,5 @@ public class GameSettings {
 	 * The hour that nighttime begins.
 	 */
 	public static final int HOUR_NIGHT_BEGINS = 22;
-
+	
 }

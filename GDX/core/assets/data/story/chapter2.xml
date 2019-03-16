@@ -1,0 +1,157 @@
+<!-- daytime !-->
+<speech>
+  <mobBoss>
+    <dialogue currstate="2">
+      "Finally I've been waiting for you.
+
+      I need your skills to escape."
+      <choice>What do you need me to do?
+        <dialogue>
+          "Firstly we need to be able to move freely around here.
+          there's a guy around here called the Gambler,
+          he owes me a favour so he'll teach you how to pick the locks in here."
+        </dialogue>
+        <state>2.1</state>
+      </choice>
+      <choice>Why me?
+        <dialogue>
+          "Just remember who you work for. If you ever forget, you'll see just how hard life can be."
+          now find the Gambler, he'll teach you what you need to know."
+        </dialogue>
+        <state>2.1</state>
+      </choice>
+    </mobBoss>
+
+    <!-- TO BE DONE ALL IN NIGHT TIME, MISSION 1 !-->
+    <!-- Link up with gambler, do what you need to do for him and get him to teach you on how to pick locks !-->
+    <TheGambler>
+      <dialogue currstate="2.1">
+        "I wonder why someone like you would be helping that evil man escape.
+        I'm not sure if I can trust you kid. Rainbow's a good judge of character,
+        If he vouches for you, then we'll talk.
+        <state>2.2</state>
+        <objective>Find Rainbow</objective>
+      </dialogue>
+
+      <dialogue currstate="2.5">
+        "I got word from Rainbow, he says you're alrght kid.
+        dunno how, but that boys always been good at picking the bad apples out the bunch.
+
+        I guess I could teach you a thing or two about picking locks"
+        <choice>Teach me
+          <puzzle>2.6</puzzle>
+          <objective>Speak to the Gambler</objective>
+        </choice>
+      </dialogue>
+      <!--puzzle take you to 2.6-->
+      <dialogue currstate="2.6">
+        You're a fast learner, you picked that up quick.
+        Though you won't be breaking into any high tech vaults with this,
+        but getting around these old prison doors should be a breeze now."
+        <choice>Why dont you like the boss?
+          <dialogue>
+            "You really don't remember?
+            Damn... they must have done a number on you,
+            It's a lot to explain. Mostly rumors, but before you do anything drastic come back and we'll talk"
+          </dialogue>
+          <state>3</state> <!--end of chapter 2-->
+          <objective>Speak to the Gambler again</objective>
+        </choice>
+      </dialogue>
+    </TheGambler>
+
+    <Rainbow>
+      <!-- Minigame with rainbow which allows player to do minigames in free time !-->
+      <!-- Nothing to do with main mission !-->
+      <dialogue currState="2.2">
+        "I'll tell you what, I'll put in a good word to gambler if you help me with something."
+        I heard you were good at computers on the outside?
+
+        Trippie likes to send his girls emails on the lirbrary computers,
+        need you to hack into Trippie's account and send his girlfriend a little message for me."
+        <choice>Whats the message?
+          <dialogue>
+            "Tell her that he's been seeing someone else on the inside.
+            And that things are over... Yeah that should teach him not to mess with me again.
+
+            You help me, I'll help you."
+          </dialogue>
+          <state>2.3</state>
+          <objective>Hack Trippie</objective>
+          <!-- hacking puzzle takes you to state 2.4-->
+        </choice>
+      </dialogue>
+      <dialogue currState="2.3">
+        "You done that thing for me yet?"
+        <choice>I don't know how to hack
+          <dialogue>
+            "I heard you were good with these things though... Hm."
+
+            Trippie pulls out a phone and hands it to you.
+
+            "Here, try with this, I'm sure it'll come back to you."
+          </dialogue>
+          <puzzle>2.3</puzzle>
+        </choice>
+      </dialogue>
+      <dialogue currState="2.4">
+        You managed to do it? I knew you could.
+
+        I can't wait to see that son of a bitch moping around for the next
+        2 weeks.
+
+        Anyway, I said I'll put in a good word, you've done enough for me.
+        <state>2.5</state>
+        <objective>Speak to the Gambler</objective>
+      </dialogue>
+    </Rainbow>
+
+    <Computer>
+      <dialogue currState="2.3">
+        You log onto the computer.
+        Everything seems so familiar to you, but you don't know why.
+
+        Let's do the job.
+        <choice>Hack
+          <puzzle>2.3.1</puzzle>
+          <objective>Hack Trippie[1/3]</objective>
+        </choice>
+      </dialogue>
+      <dialogue currState="2.3.1">
+        You've made it into Trippie's emails. You rummage around and find
+        the site he uses for these messages.
+        <choice>Keep Going
+          <puzzle>2.3.2</puzzle>
+          <objective>Hack Trippie[2/3]</objective>
+        </choice>
+      </dialogue>
+      <dialogue currState="2.3.2">
+        You've pwned both the email and his site account now.
+        Time to send the final message.
+        <!--Have a choice here to ruin Trippie or not?-->
+        <choice>Send Heartless Message
+          <dialogue>
+            You craft a cold and cruel message to break up with this poor girl.
+
+            You feel a little guilty, but maybe she shouldn't be with Trippie anyway.
+            Your inner monologue makes you feel a bit better about yourself.
+          </dialogue>
+          <state>2.4</state>
+          <objective>Speak to Rainbow</objective>
+        </choice>
+        <choice>Let her down gently
+          <dialogue>
+            You put some effort into trying to be as gentle as possible with this.
+
+            You suddenly realise that you're really invested in this fictional breakup
+            and that you've also wrote 5 pages. Maybe it's time to click send.
+          </dialogue>
+          <state>2.4</state>
+          <objective>Speak to Rainbow</objective>
+        </choice>
+      </dialogue>
+    </Computer>
+
+    <!--ADD MISC NPC DIALOGUE HERE-->
+
+  </speech>

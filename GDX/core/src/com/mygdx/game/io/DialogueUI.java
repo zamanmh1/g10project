@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.prisonescapegame.Dialogue;
 import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.screens.PuzzleScreen;
 
 /**
  * DialogueUI creates the dialogue boxes used to display the text the <code>Dialogue</code> class provides.
@@ -23,7 +24,7 @@ public class DialogueUI extends ScreenAdapter
 {
 	private Skin skin = new Skin(Gdx.files.internal("data/story/skin/uiskin.json"));
 	private Dialogue d;
-	public boolean beenCalled = false;
+	private boolean beenCalled = false;
 	private GameHandler gameHandler;
 	
 	public DialogueUI(GameHandler gameHandler) {
@@ -33,6 +34,7 @@ public class DialogueUI extends ScreenAdapter
 	
 	public void showDialogue(final Stage s, final String name)
 	{
+		beenCalled = true;
 		final String dText = d.getDialogue(name);
 		Dialog dialog = new Dialog(name, skin)
 		{
@@ -54,8 +56,19 @@ public class DialogueUI extends ScreenAdapter
 					showAlternateDialog(s, name, d.getChoices().get(object));
 					updateValues(object);
 				}
+				if(object.equals("E"))
+				{
+					hide();
+					beenCalled = false;
+				}
+				if(d.hasPuzzle() && object.equals("puzzle")) //Relies on button name being "puzzle"
+				{
+					gameHandler.getGame().setScreen(new PuzzleScreen(gameHandler.getGame(), d.getChoices().get(object)[3]));
+					updateValues(object);
+				}
 			}
 		};
+		dialog.setName("dialog");
 		dialog.key(Keys.E, "E");
 		dialog.setMovable(false);
 		dialog.setModal(false);
@@ -65,7 +78,8 @@ public class DialogueUI extends ScreenAdapter
 	
 	private void showAlternateDialog(Stage s, String name, final String[] cText)
 	{
-		Dialog dialog = new Dialog(name, skin)
+		beenCalled = true;
+		Dialog altDialog = new Dialog(name, skin)
 		{
 			{
 				text(cText[0]);
@@ -73,14 +87,18 @@ public class DialogueUI extends ScreenAdapter
 			@Override
 			protected void result(Object object)
 			{
-				hide();
+				if(object.equals(true))
+				{
+					hide();
+					beenCalled = false;
+				}
 			}
 		};
-		dialog.key(Keys.E, true);
-		dialog.setMovable(false);
-		dialog.setModal(false);
-		dialog.sizeBy(dialog.getPrefWidth(), dialog.getPrefHeight());
-		s.addActor(dialog);
+		altDialog.key(Keys.E, true);
+		altDialog.setMovable(false);
+		altDialog.setModal(false);
+		altDialog.sizeBy(altDialog.getPrefWidth(), altDialog.getPrefHeight());
+		s.addActor(altDialog);
 	}
 	
 	private void updateValues(Object o)
@@ -94,5 +112,15 @@ public class DialogueUI extends ScreenAdapter
 		{
 			d.setState(cData[2]);
 		}
+	}
+	
+	public boolean beenCalled()
+	{
+		return beenCalled;
+	}
+	
+	public void hideAll(Stage s)
+	{
+		s.getRoot().findActor("dialog").remove();
 	}
 }

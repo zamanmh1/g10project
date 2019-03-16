@@ -39,6 +39,7 @@ public class Item implements MapActor {
 		KEY,
 		WEAPON,
 		SLEEP,
+		INTERACT,
 		;
 	}
 	

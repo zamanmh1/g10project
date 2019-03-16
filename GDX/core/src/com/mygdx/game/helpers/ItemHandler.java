@@ -56,4 +56,19 @@ public class ItemHandler {
 		}
 		return null;
 	}
+	
+	public void addItem(String name, Item item)
+	{
+		items.put(name, item);
+	}
+	
+	public void removeItem(String name)
+	{
+		items.remove(name);
+	}
+	
+	public boolean itemExists(String name)
+	{
+		return items.containsKey(name);
+	}
 }

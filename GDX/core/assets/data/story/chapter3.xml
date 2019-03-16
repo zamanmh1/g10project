@@ -1,0 +1,200 @@
+<speech>
+  <!--States:
+      x. = Current Chapter
+      x.y = Current Chapter.Current State
+      x.yz = Current Chapter.Current State(Current Path)
+      e.g. 3.4b = Chapter 3, state 4, Mob Boss Path
+      a = Gambler(Snitch), b = Mob Boss, c = Gambler(Hacking)-->
+  <mobBoss>
+    <dialogue currState="3">
+      "Did you manage to learn how to pick a lock from him?"
+      <choice>yes
+        <dialogue>
+          "Good! Now we can carry on with this escape. Let me think for a minute and talk to me again"
+        </dialogue>
+        <state>3.1</state>
+      </choice>
+      <choice>no
+        <dialogue>
+          "What? What have you been doing this whole time?"
+        </dialogue>
+      </choice>
+    </dialogue>
+    <dialogue currState="3.1">
+      "We need some bolt cutters. Last ones we had broke into a bunch of pieces, but before we got
+      caught, we hid them around. Now's the time to get them again.
+
+      I know where all the pieces are, but I get watched like a hawk, so you'll have to get them for me."
+      <choice>Left Handle
+        <dialogue>
+          "One of the handles can be found in the infirmary, we stashed it near one of the bins."
+        </dialogue>
+      </choice>
+      <choice>Right Handle
+        <dialogue>
+          "Another handle can be found in the basement."
+        </dialogue>
+      </choice>
+      <choice>Cutters
+        <dialogue>
+          "The cutters can be found outside somewhere. It's a big world outside of here, so you'll have to look."
+        </dialogue>
+      </choice>
+    </dialogue>
+    <dialogue currState="3.2">
+      "Great you've got all the parts. Now we need a distraction to get out of here. Trippie had some ideas,
+      I need you to go speak to him to find out what he has in mind.
+
+      I've also heard the Gambler was looking for you, but we haven't got time for this now,
+      we need to get this done as soon as we can."
+      <objective>Find a distraction</objective>
+    </dialogue>
+    <dialogue currState="3.4b">
+      "You did it! We're out!" <!--Update this with better dialogue-->
+      <choice>What now?
+        <dialogue>
+          "Now we live our lives."
+        </dialogue>
+        <!--Ending Tag, calls the ending-->
+      </choice>
+    </dialogue>
+    <dialogue currState="3.4c">
+      "You did it! We're out!"
+      <choice>Kill him.
+        <dialogue>
+          Dying noises
+        </dialogue>
+        <!--Ending Tag-->
+      </choice>
+      <choice>Do Nothing.
+        <dialogue>
+          "Let's get out of here, quickly, they'll be on us soon."
+        </dialogue>
+        <!--Ending Tag-->
+      </choice>
+    </dialogue>
+    <dialogue currState="3.4a">
+      "OI! What's going on here? What did you do? This was a flawless plan."
+      <choice>You fucked me over first.
+        <dialogue>
+          "What? What do you mean?"
+        </dialogue>
+        <objective>Speak to the Warden</objective>
+        <state>3.4.1a</state>
+      </choice>
+    </dialogue>
+  </mobBoss>
+  <TrippieMaroon>
+    <dialogue currState="3.2">
+      "Long time no see! Boss told me the plan, here's my idea. When it's night time, sneak into the Warden's
+      office and use what you know, and hack into his PC. He has full control over the entire security system,
+      open all the doors and we've got a riot on our hands. Some of the goons in here will make sure of that."
+      <choice>Sounds good.
+        <dialogue>
+          "Great. We'll be waiting."
+        </dialogue>
+        <objective>Hack into the Warden's PC</objective>
+        <state>3.3b</state>
+      </choice>
+    </dialogue>
+  </TrippieMaroon>
+  <warden>
+    <dialogue currState="3.3a">
+      "What brings you here?"
+      <choice>Tell him what you know.
+        <dialogue>
+          "I knew he was trouble, but we could never get enough on him to book him.
+
+          Alright, I'm gonna open the doors up and we'll catch him in the act red handed.
+          Carry on with what you would be doing in this plan so it seems normal."
+        </dialogue>
+        <objective>Escape and group up with the mob</objective>
+        <state>3.4a</state>
+      </choice>
+      <choice>Say nothing.
+        <dialogue>
+          "Are you just gonna stand there?"
+        </dialogue>
+      </choice>
+    </dialogue>
+    <dialogue currState="3.4a">
+      "You should say your final words to this one here. He's not gonna be around for much longer."
+    </dialogue>
+    <dialogue currState="3.4.1a">
+      "This one's going away for a long time. I'm writing a referral to have your sentence pardoned.
+
+      I had a note on my desk left by someone saying the mob had your family? I reported it to the police.
+      They're safe now, you'll be able to see them soon. Thanks for all you've done."
+    </dialogue>
+    <!--Ending Tag-->
+  </warden>
+  <TheGambler>
+    <dialogue currState="3.2">
+      "Good, I was looking for you. You know me, I hear all sorts of information with this hobby of mine.
+
+      I thought you definitely needed to hear this so here goes..."
+      <choice>This doesn't sound good...
+        <dialogue>
+          "It ain't. The mob's got your family. They're keeping them as collateral in case you don't come through for them.
+
+          I'm sorry you had to find out this way, but I'm a family man myself, I can't let this go by unheard."
+        </dialogue>
+      </choice>
+      <objective>Speak to the Gambler again</objective>
+      <state>3.2a</state>
+    </dialogue>
+    <dialogue currState="3.2a">
+      "I wanna help you. Tell me what the mob has you doing."
+      <choice>Tell him.
+        <dialogue>
+          "OK. I know what we can do. Rainbow taught you how to hack, but as much as I don't like it
+          family comes first. Snitch. Go to the warden -- He's here during the day --  and tell him
+          exactly what you just told me.
+
+          If you're really against it though, I have another idea. Hold on, let me grab something."
+        </dialogue>
+        <state>3.2.1a</state>
+      </choice>
+    </dialogue>
+    <dialogue currState="3.2.1a">
+      "Alright, I've got this piece of paper here. Rainbow gave it to me. From what I can gather, you need to
+      get onto the Warden's PC -- He isn't here during the night so that's prime time for you -- and hack the
+      security, open up all the doors and that's an instant riot for you right there."
+      <choice>Then what?
+        <dialogue>
+          "Well that's it. You can escape, no doubt the boss will be running too. That's where you can make your move
+          and take him out there and then for what he's done."
+        </dialogue>
+        <objective>Make your choice. Hack or Snitch</objective>
+        <state>3.3a</state>
+      </choice>
+    </dialogue>
+  </TheGambler>
+  <PrisonGuard>
+  </PrisonGuard>
+  <computer>
+    <dialogue currState="3.3a">
+      "You access the computer."
+      <choice>hack
+        <dialogue>
+          "You hack the security and open all the doors."
+        </dialogue>
+        <!--Have a puzzle tag to start a puzzle from here.-->
+        <state>3.4c</state>
+      </choice>
+    </dialogue>
+    <dialogue currState="3.3b">
+      "You access the computer."
+      <choice>hack
+        <dialogue>
+          "You hack the security and open all the doors."
+        </dialogue>
+        <!--Have a puzzle tag to start a puzzle from here.-->
+        <state>3.4b</state>
+      </choice>
+    </dialogue>
+  </computer>
+
+<!--ADD MISC NPC DIALOGUE BELOW HERE-->
+
+</speech>

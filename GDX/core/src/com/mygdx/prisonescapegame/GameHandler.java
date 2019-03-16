@@ -57,7 +57,7 @@ public class GameHandler implements GameController {
 	private boolean restarting;
 	
 	private String currentObjective;
-	private String gameState;
+	private String gameState = "1";
 
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
@@ -73,11 +73,11 @@ public class GameHandler implements GameController {
 		restarting = false;
 		
 		currentObjective = "";
-		gameState = "1";
+		//gameState = "1";
 	}
 	
 	public String getGameState() {
-		return this.gameState;
+		return gameState;
 	}
 	
 	public void setGameState(String newState) {

@@ -118,7 +118,6 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		items = new ArrayList<Item>(); // Resets items in map
 		npcs = new ArrayList<ActorAction>();
-
 	}
 
 	// Needed for rendering items in map
@@ -234,11 +233,12 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		mapRenderer.getBatch().end();
 		
+		stage.act();
+		stage.draw();
 		Time time = game.getGameController().getTime();
 		h.update(mapName.substring(10, mapName.lastIndexOf('.')), foundItem, time.toString());
 		h.setTimeImage(time.getHour());
-		stage.act();
-		stage.draw();
+
 		
 		
 		
@@ -256,10 +256,10 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		}
 
-		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			((Game) Gdx.app.getApplicationListener())
-			.setScreen(new PuzzleScreen(game));
-		}
+//		if (Gdx.input.isKeyJustPressed(Keys.P)) {
+//			((Game) Gdx.app.getApplicationListener())
+//			.setScreen(new PuzzleScreen(game));
+//		}
 
 
 		if (inventoryKeyCheck() == true) {

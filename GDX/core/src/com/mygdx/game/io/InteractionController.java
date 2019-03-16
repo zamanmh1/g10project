@@ -117,13 +117,21 @@ public class InteractionController extends InputAdapter {
 						//	gameHandler.setTime(time);
 						if(MapScreen.h.sleepIsVisible() != true)
 						{
+							MapScreen.h.sleepUI();
 							MapScreen.h.showSleepUI();
+							
+						}
+					} else if (i.getType() == Item.ITEM_TYPE.INTERACT)
+					{
+						if(d.hasDialogue(i.getName()) && dBox.beenCalled() == false)
+						{
+							dBox.showDialogue(MapScreen.getStage(), i.getName());
 						}
 					} else {
 						gameHandler.getItemHandler().foundItem(i); // Set item as found.
 						gameHandler.getMapScreen().getTiledModel().getTile(i.getX(), i.getY()).setActor(null); // Remove from tile in model.
 						gameHandler.removeActor(i); // Remove from list of actors.
-						if(d.hasDialogue(i.getName())) //Null pointer safety in case dialogue doesn't exist
+						if(d.hasDialogue(i.getName()) && dBox.beenCalled() == false) //Null pointer safety in case dialogue doesn't exist
 						{
 							dBox.showDialogue(MapScreen.getStage(), i.getName());
 							//System.out.println(d.getDialogue(i.getName()));

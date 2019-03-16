@@ -64,6 +64,7 @@ public class PuzzleScreen implements Screen {
 	private static String[] arr = { "puzzle1", "puzzle2", "puzzle3", "puzzle4" };
 	private static Random randomTheme;
 	private static String puzzleTheme;
+	private String state;
 
 	/**
 	 * Creates a 4 x 4 puzzle tile with one tile black. Creates PuzzleTile to get
@@ -72,8 +73,8 @@ public class PuzzleScreen implements Screen {
 	 * 
 	 * @param game
 	 */
-	public PuzzleScreen(PrisonEscapeGame game) {
-
+	public PuzzleScreen(PrisonEscapeGame game, String state) {
+		this.state = state;
 		this.game = game;
 		randomTheme = new Random();
 		tween = new TweenManager();
@@ -330,7 +331,7 @@ public class PuzzleScreen implements Screen {
 				}
 
 				if (Gdx.input.isTouched()) {
-					this.game.setScreen(new PuzzleScreen(game));
+					this.game.setScreen(new PuzzleScreen(game, state));
 
 				}
 
@@ -374,9 +375,9 @@ public class PuzzleScreen implements Screen {
 
 				if (Gdx.input.isTouched()) {
 					Stage stage = MapScreen.getStage();
+					game.getGameController().setGameState(state);
 					stage.clear();
 					this.game.setScreen(game.getGameController().getMapScreen());
-
 				}
 
 			}

@@ -1,0 +1,149 @@
+<speech>
+  <TrippieMaroon>
+    <dialogue currState = "1.7">
+        "Well done... Looks like we're going to get along just fine..."
+
+        Trippie seems to trust you more.
+        <state>1.8</state>
+    </dialogue>
+
+    <dialogue currState = "1.8">
+      "I'll need your help again, hide this knife for me.
+        Put it in the library, the foodhall; hell! Put it in your cell just get this thing out of here quick!
+        Meet me after it's done."
+
+      You acquired a knife from Trippie.
+      <choice>Your Cell
+        <dialogue>
+          "Yeah, just shove it anywhere. You got a desk? The back of that is good."
+        </dialogue>
+        <item>Book2,data/itemSprites/newbook.png,data/maps/cell.tmx,INTERACT,5,5</item> <!--Change-->
+      </choice>
+
+      <choice>The Library
+        <dialogue>
+          "There's plenty of bins in the Library, shove it one of them, they'll never know."
+        </dialogue>
+        <item>Book2,data/itemSprites/newbook.png,data/maps/library.tmx,INTERACT,5,5</item>
+      </choice>
+
+      <choice>The Foodhall
+        <dialogue>
+          "Probably makes the most sense, but of course the knives have some serious eyes on them.
+          The old hag in there can usually be bought with some cigs but if you don't get caught you'll be alright."
+        </dialogue>
+        <item>Book2,data/itemSprites/newbook.png,data/maps/foodhall.tmx,INTERACT,5,5</item>
+      </choice>
+    </dialogue>
+      <!--"We'll need a yes/no input from the player so that they can make a decision"!-->
+
+      <!-- When mission has been successful, comes back to trippy!-->
+    <dialogue currState = "1.8b">
+      "I just got news, boss is in maximum security, we need to break him out and you're the man for the job."
+      <choice>Sure
+        <dialogue>
+          "We'll we need to get you in...Just follow my lead...
+
+          GUARDS! GUARDS!
+
+          Get this man away from me, he's got a knife on him!"
+        </dialogue>
+        <state>1.8c</state>
+      </choice>
+      <choice>No
+        <dialogue>
+          "Well that's too bad. Shouldn't have brought that knife with you then...
+
+          GUARDS! GUARDS!
+
+          Get this man away from me, he's got a knife on him!"
+        </dialogue>
+        <state>1.8c</state>
+      </choice>
+    </dialogue>
+    <!-- we need a prompt here for them to accept the job !-->
+    <!-- Irrespective of them choosing y/n he'll be set up and put into max security !-->
+    <!-- if the player chooses yes !-->
+
+    <!-- guards escort  player into max sec
+    chapter one ends, now onto chapter 2, states from one again !-->
+  </TrippieMaroon>
+<!--if player says no-->
+
+    <!-- once you get the knife from the player, there should be some options as to where he can hide the knife !-->
+    <!-- could be the cell, caffetera or library  !-->
+
+  <noteUnderDoor>
+    <dialogue currState = "1.8b">
+      Meet me in the outdoor area, bring the knife
+
+      -Trippie
+    </dialogue>
+  </noteUnderDoor>
+
+  <Testing>
+    <dialogue currState="1.5a">
+			"You've hid the knife in the cell?"
+			<choice>yes
+				<dialogue>"Good."</dialogue>
+				<item>Book2,remove</item>
+				<objective>Check if item is removed</objective>
+			</choice>
+		</dialogue>
+		<dialogue currState="1.4a">
+			"You said you were gonna hide it in your cell. Put it behind your drawers."
+		</dialogue>
+		<dialogue currState="1.2">
+			"Good job."
+			<objective>Puzzle Completed</objective>
+			<state>1</state>
+		</dialogue>
+		<dialogue currState="1.1">
+			"Go deliver that to Trippie. He's usually knocking around the top floor"
+		</dialogue>
+		<dialogue currState="1">
+			"Psst. Hey, stupid, I'm in with some powerful people round here; You still owe us more favours.
+			In return for your continued loyalty, we will protect you.
+			Deliver this package to Trippie Maroon on the top floor."
+			<choice>Yes
+				<dialogue>
+					"Cheers buddy"
+
+					You obtained a small package
+				</dialogue>
+				<objective>Deliver Package</objective>
+				<state>1.1</state>
+			</choice>
+			<choice>No
+				<dialogue>"I'm gonna pretend I didn't hear that and ask you again..."
+				<state>1</state>
+				</dialogue>
+			</choice>
+			<choice>cell
+				<dialogue>
+					"In your cell? A good spot is usally sticking it to the back of your drawers."
+				</dialogue>
+				<!--String name, Sprite sprite, String appearsIn, String type, int x, int y-->
+				<item>Book2,data/itemSprites/newbook.png,data/maps/cell.tmx,INTERACT,5,2</item>
+				<state>1.4a</state>
+				<objective>hide knife</objective>
+			</choice>
+      <choice>puzzle
+        <puzzle>1.1a</puzzle>
+        <objective>Puzzle Complete</objective>
+      </choice>
+		</dialogue>
+		<dialogue>
+			"Don't ask any questions you don't wanna know the answer to."
+		</dialogue>
+  </Testing>
+
+  <Book2>
+    <dialogue>
+      This was a spawned in item.
+    </dialogue>
+  </Book2>
+
+  <!--ADD MISC NPC DIALOGUE BELOW HERE-->
+
+</speech>
