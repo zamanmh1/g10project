@@ -69,13 +69,10 @@ public class MapScreen extends PauseMenu implements Screen {
 	private boolean inventoryPressed;
 	private String mapName;
 	private Item foundItem;
-<<<<<<< Upstream, based on origin/dev
 	private boolean fullMapPressed;
 	public static HUD h;
-=======
-	private HUD h;
 	private GameHandler gameHandler;
->>>>>>> 4e76e4a Save/Load state
+
 
 	private static Stage stage;
 
@@ -92,11 +89,10 @@ public class MapScreen extends PauseMenu implements Screen {
 		inputHandler = new InputMultiplexer();
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
-<<<<<<< Upstream, based on origin/dev
 		fullMapPressed = false;
-=======
+
 		
->>>>>>> 4e76e4a Save/Load state
+
 
 	}
 
@@ -272,7 +268,6 @@ public class MapScreen extends PauseMenu implements Screen {
 //			((Game) Gdx.app.getApplicationListener())
 //			.setScreen(new PuzzleScreen(game));
 //		}
-<<<<<<< Upstream, based on origin/dev
 
 
 		if (inventoryKeyCheck() == true) {
@@ -289,9 +284,9 @@ public class MapScreen extends PauseMenu implements Screen {
 			game.getGameController().playMusic();
 			
 		}
-=======
+
 		
->>>>>>> 4e76e4a Save/Load state
+
 		game.getGameController().getSpriteBatch().end();
 
 		

@@ -112,10 +112,7 @@ public class MainMenuScreen implements Screen {
 		playPressed = false;
 		volumeMuted = false;
 		
-<<<<<<< Upstream, based on origin/dev
-=======
-		
->>>>>>> 4e76e4a Save/Load state
+
 
 	}
 

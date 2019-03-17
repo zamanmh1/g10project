@@ -14,7 +14,8 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 /**
- * Represents the Pause Menu screen when the user presses esc button while game play
+ * Represents the Pause Menu screen when the user presses esc button while game
+ * play
  * 
  * @author Shibu George
  *
@@ -116,14 +117,10 @@ public class PauseMenu {
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
 		menuPressed = false;
-<<<<<<< Upstream, based on origin/dev
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
-=======
-		
->>>>>>> 4e76e4a Save/Load state
 
 	}
-	
+
 	/**
 	 * Represents the position and area where the resume button is drawn
 	 * 
@@ -164,16 +161,13 @@ public class PauseMenu {
 
 	}
 
-<<<<<<< Upstream, based on origin/dev
 	/**
 	 * Represents the position and area where the same button is drawn
 	 * 
 	 * @param game
 	 */
-	protected void saveButtonMenu(PrisonEscapeGame game) {
-=======
+
 	protected void saveButtonMenu(PrisonEscapeGame game, GameHandler gh) {
->>>>>>> 4e76e4a Save/Load state
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < SAVE_BUTTON_Y + SAVE_BUTTON_HEIGHT
@@ -206,7 +200,7 @@ public class PauseMenu {
 			saveButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-		
+
 	}
 
 	/**
@@ -309,30 +303,30 @@ public class PauseMenu {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x, game, tween);
-		
+
 		// Drawing wasd keyboard sprite with text
-		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press W,S,A,D for movement" , PrisonEscapeGame.WIDTH / 2 - 400,
-				PrisonEscapeGame.HEIGHT / 2 + 100);
+		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press W,S,A,D for movement",
+				PrisonEscapeGame.WIDTH / 2 - 400, PrisonEscapeGame.HEIGHT / 2 + 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 230;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
 		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
-		
+
 		// Drawing e keyboard sprite with text
-		fontSmall.draw(game.getGameController().getSpriteBatch(),"Press E for interactions \n and going through doors", PrisonEscapeGame.WIDTH / 2 - 400,
-				PrisonEscapeGame.HEIGHT / 2 - 100);
+		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press E for interactions \n and going through doors",
+				PrisonEscapeGame.WIDTH / 2 - 400, PrisonEscapeGame.HEIGHT / 2 - 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 200;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
 		eKeyboard.draw(game.getGameController().getSpriteBatch());
-		
+
 		// Drawing i keyboard sprite with text
-		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press I for inventory", PrisonEscapeGame.WIDTH / 2 + 100,
-				PrisonEscapeGame.HEIGHT / 2 - 100);
+		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press I for inventory",
+				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 - 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 250;
 
@@ -341,8 +335,8 @@ public class PauseMenu {
 		iKeyboard.draw(game.getGameController().getSpriteBatch());
 
 		// Drawing esc keyboard sprite with text
-		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press ESC for pause menu", PrisonEscapeGame.WIDTH / 2 + 100,
-				PrisonEscapeGame.HEIGHT / 2 + 100);
+		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press ESC for pause menu",
+				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 250;
 
@@ -451,19 +445,8 @@ public class PauseMenu {
 
 	}
 
-<<<<<<< Upstream, based on origin/dev
-	/**
-	 * Calls all the methods to draw the Pause Menu
-	 * 
-	 * @param game
-	 * @param tween
-	 */
-	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween) {
-		game.getGameController().getPlayer().setFrozen(true);
-=======
 	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween, GameHandler gh) {
 
->>>>>>> 4e76e4a Save/Load state
 		optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
 		logo.setPosition(PrisonEscapeGame.WIDTH / 2 - logo.getWidth() / 2,
@@ -473,13 +456,10 @@ public class PauseMenu {
 		logo.draw(game.getGameController().getSpriteBatch());
 		resumeButtonMenu(game);
 		helpButtonMenu(tween, game);
-<<<<<<< Upstream, based on origin/dev
-		saveButtonMenu(game);
 
-=======
 		saveButtonMenu(game, gh);
 		exitButtonMenu(tween, game);
->>>>>>> 4e76e4a Save/Load state
+
 		volumeButton(game);
 		if (helpPressed) {
 			helpScreenUI(game, tween);
