@@ -24,14 +24,14 @@ import aurelienribon.tweenengine.TweenManager;
  */
 public class FullMapScreen implements Screen {
 
-	private static final int TOPFLOOR_BUTTON_WIDTH = 174;
-	private static final int TOPFLOOR_BUTTON_HEIGHT = 52;
+	private static final int TOPFLOOR_BUTTON_WIDTH = 355;
+	private static final int TOPFLOOR_BUTTON_HEIGHT = 46;
 	private static final int TOPFLOOR_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 250;
-	private static final int BOTTOMFLOOR_BUTTON_WIDTH = 174;
-	private static final int BOTTOMFLOOR_BUTTON_HEIGHT = 52;
+	private static final int BOTTOMFLOOR_BUTTON_WIDTH = 497;
+	private static final int BOTTOMFLOOR_BUTTON_HEIGHT = 46;
 	private static final int BOTTOMFLOOR_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
-	private static final int BASEMENTFLOOR_BUTTON_WIDTH = 174;
-	private static final int BASEMENTFLOOR_BUTTON_HEIGHT = 52;
+	private static final int BASEMENTFLOOR_BUTTON_WIDTH = 348;
+	private static final int BASEMENTFLOOR_BUTTON_HEIGHT = 46;
 	private static final int BASEMENTFLOOR_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 350;
 	private PrisonEscapeGame game;
 	private Sprite bottomFloor;
@@ -67,12 +67,12 @@ public class FullMapScreen implements Screen {
 		basementFloor = new Sprite(new Texture(Gdx.files.internal("data/maps/mapImage/basement.png")));
 		blackBackground = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
-		topFloorButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/play_active.png")));
-		topFloorButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/play_inactive.png")));
-		bottomFloorButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/quit_active.png")));
-		bottomFloorButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/quit_inactive.png")));
-		basementFloorButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_active.png")));
-		basementFloorButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_inactive.png")));
+		topFloorButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/top_active.png")));
+		topFloorButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/top_inactive.png")));
+		bottomFloorButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/bottom_active.png")));
+		bottomFloorButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/bottom_inactive.png")));
+		basementFloorButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/basement_active.png")));
+		basementFloorButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/basement_inactive.png")));
 		topActive = true;
 		bottomActive = false;
 		basementActive = false;
@@ -170,7 +170,8 @@ public class FullMapScreen implements Screen {
 		x = PrisonEscapeGame.WIDTH / 2 - BASEMENTFLOOR_BUTTON_WIDTH / 2 + 400;
 
 		basementFloorButton(x);
-
+			
+		
 		//When M pressed, returns to the MapScreen
 		if (Gdx.input.isKeyJustPressed(Keys.M)) {
 			Stage stage = MapScreen.getStage();
@@ -190,7 +191,7 @@ public class FullMapScreen implements Screen {
 		if (Gdx.input.getX() < x + TOPFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < TOPFLOOR_BUTTON_Y + TOPFLOOR_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > TOPFLOOR_BUTTON_Y) {
-
+			
 			topFloorButtonActive.setPosition(x, TOPFLOOR_BUTTON_Y);
 			topFloorButtonActive.setSize(TOPFLOOR_BUTTON_WIDTH, TOPFLOOR_BUTTON_HEIGHT);
 			topFloorButtonActive.draw(game.getGameController().getSpriteBatch());
@@ -236,7 +237,7 @@ public class FullMapScreen implements Screen {
 		if (Gdx.input.getX() < x + BOTTOMFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BOTTOMFLOOR_BUTTON_Y + BOTTOMFLOOR_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BOTTOMFLOOR_BUTTON_Y) {
-
+			
 			bottomFloorButtonActive.setPosition(x, BOTTOMFLOOR_BUTTON_Y);
 			bottomFloorButtonActive.setSize(BOTTOMFLOOR_BUTTON_WIDTH, BOTTOMFLOOR_BUTTON_HEIGHT);
 			bottomFloorButtonActive.draw(game.getGameController().getSpriteBatch());
@@ -280,7 +281,7 @@ public class FullMapScreen implements Screen {
 		if (Gdx.input.getX() < x + BASEMENTFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BASEMENTFLOOR_BUTTON_Y + BASEMENTFLOOR_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BASEMENTFLOOR_BUTTON_Y) {
-
+			
 			basementFloorButtonActive.setPosition(x, BASEMENTFLOOR_BUTTON_Y);
 			basementFloorButtonActive.setSize(BASEMENTFLOOR_BUTTON_WIDTH, BASEMENTFLOOR_BUTTON_HEIGHT);
 			basementFloorButtonActive.draw(game.getGameController().getSpriteBatch());
@@ -315,7 +316,7 @@ public class FullMapScreen implements Screen {
 		}
 
 	}
-
+	
 	/**
 	 * Returns what floor is active
 	 * 
