@@ -62,13 +62,12 @@ public class MapScreen extends PauseMenu implements Screen {
 	private InteractionController interactionHandler;
 
 	private TiledModel model;
-	private TweenManager tween;
+	private static TweenManager tween;
 	private PrisonEscapeGame game;
-	private Sprite roomTransition;
+	private static Sprite roomTransition;
 	private boolean inventoryPressed;
 	private String mapName;
 	private Item foundItem;
-	private boolean fullMapPressed;
 	public static HUD h;
 
 	private static Stage stage;
@@ -86,7 +85,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		inputHandler = new InputMultiplexer();
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
-		fullMapPressed = false;
 
 	}
 
@@ -256,10 +254,10 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		}
 
-//		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-//			((Game) Gdx.app.getApplicationListener())
-//			.setScreen(new PuzzleScreen(game));
-//		}
+		if (Gdx.input.isKeyJustPressed(Keys.P)) {
+			((Game) Gdx.app.getApplicationListener())
+			.setScreen(new EndScreen(game));
+		}
 
 
 		if (inventoryKeyCheck() == true) {
@@ -267,7 +265,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		
 		if (Gdx.input.isKeyJustPressed(Keys.M)) {
 			
-			game.setScreen(new FullMapScreen(game));
+			game.setScreen(FullMapScreen.getInstance(game));
 		
 	}
 		if (game.getGameController().getMapScreen().mapName == "data/maps/outside.tmx") {
@@ -307,7 +305,16 @@ public class MapScreen extends PauseMenu implements Screen {
 		return menuPressed;
 	}
 	
-
+	/**
+	 * Setting Map Screen to black for smoother transition to exit and come back
+	 * 
+	 */
+	public static void setBlackScren() {
+		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(roomTransition, SpriteAccessor.ALPHA,0f).target(1).start(tween);
+		
+	}
+	
 	@Override
 	public void resize(int width, int height) {
 		// oCamera.viewportHeight = height;
@@ -357,4 +364,6 @@ public class MapScreen extends PauseMenu implements Screen {
 	public static Stage getStage() {
 		return stage;
 	}
+
+	
 }

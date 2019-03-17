@@ -269,10 +269,11 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-					game.getGameController().restartGame();
+					MapScreen.setBlackScren();
 					menuPressed = false;
+					game.getGameController().restartGame();
 					game.getGameController().stopMusic();
-					Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
+					
 
 				}
 			}

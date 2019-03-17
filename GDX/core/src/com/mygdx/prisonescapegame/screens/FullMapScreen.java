@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.game.tween.BitmapAccessor;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Timeline;
@@ -33,6 +32,7 @@ public class FullMapScreen implements Screen {
 	private static final int BASEMENTFLOOR_BUTTON_WIDTH = 348;
 	private static final int BASEMENTFLOOR_BUTTON_HEIGHT = 46;
 	private static final int BASEMENTFLOOR_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 350;
+	private static FullMapScreen fullMapInstance;
 	private PrisonEscapeGame game;
 	private Sprite bottomFloor;
 	private Sprite blackBackground;
@@ -58,7 +58,7 @@ public class FullMapScreen implements Screen {
 	 * 
 	 * @param game
 	 */
-	public FullMapScreen(PrisonEscapeGame game) {
+	private FullMapScreen(PrisonEscapeGame game) {
 
 		this.game = game;
 		tween = new TweenManager();
@@ -80,29 +80,31 @@ public class FullMapScreen implements Screen {
 	}
 
 	/**
-	 * Setting up the transitions 
+	 * Setting up the transitions
 	 * 
 	 */
 	@Override
 	public void show() {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
-		Tween.set(topFloor, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.to(topFloor, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
-		Tween.set(bottomFloor, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.set(basementFloor, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.set(topFloorButtonActive, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.to(topFloorButtonActive, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
-		Tween.set(topFloorButtonInActive, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.to(topFloorButtonInActive, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
-		Tween.set(bottomFloorButtonActive, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.to(bottomFloorButtonActive, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
-		Tween.set(bottomFloorButtonInActive, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.to(bottomFloorButtonInActive, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
-		Tween.set(basementFloorButtonActive, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.to(basementFloorButtonActive, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
-		Tween.set(basementFloorButtonInActive, BitmapAccessor.ALPHA).target(0).start(tween);
-		Tween.to(basementFloorButtonInActive, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(topFloor, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(topFloor, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(bottomFloor, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(bottomFloor, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(basementFloor, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(basementFloor, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(topFloorButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(topFloorButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(topFloorButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(topFloorButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(bottomFloorButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(bottomFloorButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(bottomFloorButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(bottomFloorButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(basementFloorButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(basementFloorButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(basementFloorButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(basementFloorButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
 
 	}
 
@@ -114,8 +116,8 @@ public class FullMapScreen implements Screen {
 	public void render(float delta) {
 		tween.update(delta);
 		this.game.getGameController().getSpriteBatch().begin();
-	
-		//Back background in the back
+
+		// Back background in the back
 		blackBackground.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
 		blackBackground.setPosition(Gdx.graphics.getWidth() / 2 - blackBackground.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 - blackBackground.getHeight() / 2);
@@ -139,7 +141,7 @@ public class FullMapScreen implements Screen {
 
 			bottomFloor.draw(game.getGameController().getSpriteBatch());
 		}
-		
+
 		// if the basement floor is active then draw the basement floor
 		if (basementActive) {
 			basementFloor.setPosition(PrisonEscapeGame.WIDTH - basementFloor.getWidth() / 2 - mouseX,
@@ -147,18 +149,18 @@ public class FullMapScreen implements Screen {
 
 			basementFloor.draw(game.getGameController().getSpriteBatch());
 		}
-		
-		//Displaying some fonts for usability
+
+		// Displaying some fonts for usability
 		fontYellow.draw(game.getGameController().getSpriteBatch(), "Choose a floor to view the map",
 				Gdx.graphics.getWidth() / 2 + 200, Gdx.graphics.getHeight() / 2 - 170);
-		
-		fontYellow.draw(game.getGameController().getSpriteBatch(), getFloor(),
-				Gdx.graphics.getWidth() / 2 - 600, Gdx.graphics.getHeight() / 2 + 350);
-		
+
+		fontYellow.draw(game.getGameController().getSpriteBatch(), getFloor(), Gdx.graphics.getWidth() / 2 - 600,
+				Gdx.graphics.getHeight() / 2 + 350);
+
 		fontYellow.draw(game.getGameController().getSpriteBatch(), "Press M to return",
 				Gdx.graphics.getWidth() / 2 + 400, Gdx.graphics.getHeight() / 2 + 350);
-		
-		//x is the position of the button
+
+		// x is the position of the button
 		int x = PrisonEscapeGame.WIDTH / 2 - TOPFLOOR_BUTTON_WIDTH / 2 + 400;
 
 		topFloorButton(x);
@@ -170,9 +172,8 @@ public class FullMapScreen implements Screen {
 		x = PrisonEscapeGame.WIDTH / 2 - BASEMENTFLOOR_BUTTON_WIDTH / 2 + 400;
 
 		basementFloorButton(x);
-			
-		
-		//When M pressed, returns to the MapScreen
+
+		// When M pressed, returns to the MapScreen
 		if (Gdx.input.isKeyJustPressed(Keys.M)) {
 			Stage stage = MapScreen.getStage();
 			stage.clear();
@@ -191,7 +192,7 @@ public class FullMapScreen implements Screen {
 		if (Gdx.input.getX() < x + TOPFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < TOPFLOOR_BUTTON_Y + TOPFLOOR_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > TOPFLOOR_BUTTON_Y) {
-			
+
 			topFloorButtonActive.setPosition(x, TOPFLOOR_BUTTON_Y);
 			topFloorButtonActive.setSize(TOPFLOOR_BUTTON_WIDTH, TOPFLOOR_BUTTON_HEIGHT);
 			topFloorButtonActive.draw(game.getGameController().getSpriteBatch());
@@ -209,7 +210,8 @@ public class FullMapScreen implements Screen {
 			}
 
 			if (Gdx.input.isTouched()) {
-				Timeline.createSequence().beginSequence().push(Tween.set(bottomFloor, SpriteAccessor.ALPHA).target(0))
+				Timeline.createSequence().beginSequence()
+						.push(Tween.set(bottomFloor, SpriteAccessor.ALPHA).target(0))
 						.push(Tween.set(basementFloor, SpriteAccessor.ALPHA).target(0))
 						.push(Tween.to(topFloor, SpriteAccessor.ALPHA, 0.2f).target(1)).end().start(tween);
 				topActive = true;
@@ -237,7 +239,7 @@ public class FullMapScreen implements Screen {
 		if (Gdx.input.getX() < x + BOTTOMFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BOTTOMFLOOR_BUTTON_Y + BOTTOMFLOOR_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BOTTOMFLOOR_BUTTON_Y) {
-			
+
 			bottomFloorButtonActive.setPosition(x, BOTTOMFLOOR_BUTTON_Y);
 			bottomFloorButtonActive.setSize(BOTTOMFLOOR_BUTTON_WIDTH, BOTTOMFLOOR_BUTTON_HEIGHT);
 			bottomFloorButtonActive.draw(game.getGameController().getSpriteBatch());
@@ -255,7 +257,8 @@ public class FullMapScreen implements Screen {
 			}
 
 			if (Gdx.input.isTouched()) {
-				Timeline.createSequence().beginSequence().push(Tween.set(topFloor, SpriteAccessor.ALPHA).target(0))
+				Timeline.createSequence().beginSequence()
+						.push(Tween.set(topFloor, SpriteAccessor.ALPHA).target(0))
 						.push(Tween.set(basementFloor, SpriteAccessor.ALPHA).target(0))
 						.push(Tween.to(bottomFloor, SpriteAccessor.ALPHA, 0.2f).target(1)).end().start(tween);
 				bottomActive = true;
@@ -281,7 +284,7 @@ public class FullMapScreen implements Screen {
 		if (Gdx.input.getX() < x + BASEMENTFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BASEMENTFLOOR_BUTTON_Y + BASEMENTFLOOR_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BASEMENTFLOOR_BUTTON_Y) {
-			
+
 			basementFloorButtonActive.setPosition(x, BASEMENTFLOOR_BUTTON_Y);
 			basementFloorButtonActive.setSize(BASEMENTFLOOR_BUTTON_WIDTH, BASEMENTFLOOR_BUTTON_HEIGHT);
 			basementFloorButtonActive.draw(game.getGameController().getSpriteBatch());
@@ -301,6 +304,7 @@ public class FullMapScreen implements Screen {
 			if (Gdx.input.isTouched()) {
 				Timeline.createSequence().beginSequence().push(Tween.set(topFloor, SpriteAccessor.ALPHA).target(0))
 						.push(Tween.set(bottomFloor, SpriteAccessor.ALPHA).target(0))
+						.push(Tween.set(topFloor, SpriteAccessor.ALPHA).target(0))
 						.push(Tween.to(basementFloor, SpriteAccessor.ALPHA, 0.2f).target(1)).end().start(tween);
 				bottomActive = false;
 				topActive = false;
@@ -316,7 +320,7 @@ public class FullMapScreen implements Screen {
 		}
 
 	}
-	
+
 	/**
 	 * Returns what floor is active
 	 * 
@@ -325,14 +329,20 @@ public class FullMapScreen implements Screen {
 	private String getFloor() {
 		if (topActive) {
 			return "Top Floor";
-		}else if (bottomActive) {
+		} else if (bottomActive) {
 			return "Bottom Floor";
-		}else if (basementActive) {
+		} else if (basementActive) {
 			return "Basement Floor";
 		}
 		return "";
-		
-			
+
+	}
+
+	public static FullMapScreen getInstance(PrisonEscapeGame game) {
+		if (fullMapInstance == null) {
+			fullMapInstance = new FullMapScreen(game);
+		}
+		return fullMapInstance;
 	}
 
 	public void resize(int width, int height) {
