@@ -2,6 +2,8 @@
 
 Guards:
 	guard01 -> 
+Dinner-Lady:
+	dinnerlady ->
 Prisoners:
 	npc01 -> casual white bald
 	npc02 -> orange jumpsuit black bald

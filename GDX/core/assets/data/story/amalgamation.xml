@@ -16,10 +16,20 @@
 			"Psst. Hey, stupid, I'm in with some powerful people round here; You still owe us more favours.
 			In return for your continued loyalty, we will protect you.
 			Deliver this package to Trippie Maroon on the top floor."
-			
-			You obtained a small package
-			<state>1.1</state>
-			<objective>Deliver the package to Trippie Maroon</objective>
+			<choice>Yes
+				<dialogue>
+					"Cheers buddy"
+				
+					You obtained a small package
+				</dialogue>
+				<objective>Deliver Package</objective>
+				<state>1.1</state>
+			</choice>
+			<choice>No
+				<dialogue>"I'm gonna pretend I didn't hear that and ask you again..."
+				<state>1</state>
+				</dialogue>
+			</choice>
 		</dialogue>
 		<dialogue>
 			"Don't ask any questions you don't wanna know the answer to."
@@ -220,4 +230,42 @@
 		</dialogue>
 	</Moon>
 	
+	<Warden>
+		<dialogue currState="1h">
+			"So have you done it?"
+			<choice>yes
+				<dialogue>
+					"Thanks very much, I knew something was going on. I have many eyes and ears and you're one of them now."
+				</dialogue>
+			</choice>
+			<choice>no
+				<dialogue>
+					"Alright then. Just know, I reward people who provide me information."
+				</dialogue>
+			</choice>
+		</dialogue>
+		<dialogue currState="1">
+			Would you like to hand in the mission?
+			<choice>no
+				<dialogue>
+					The warden stares at you expectantly
+				</dialogue>
+			</choice>
+			<choice>yes
+				<dialogue>
+					"Oh you've done the thing?"
+				</dialogue>
+				<state>1h</state>
+			</choice>
+		</dialogue>
+		<dialogue>
+			"Get out of here unless you want people to know you're a snitch"
+		</dialogue>
+		<dialogue>
+			"Thanks for the info. The culprit will be... dealt with."
+		</dialogue>
+		<dialogue>
+			"I won't push you for it, but I hope you'll strongly reconsider next time... Now get out!"
+		</dialogue>
+	</Warden>
 </speech>

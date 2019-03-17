@@ -1,27 +1,34 @@
+
 package com.mygdx.prisonescapegame;
 
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
-
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
+import com.mygdx.game.entities.AlarmSystem;
+import com.mygdx.game.entities.GuardChasingBehaviour;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.helpers.ItemHandler;
 import com.mygdx.game.helpers.MapHandler;
 import com.mygdx.game.helpers.NPCHandler;
+import com.mygdx.game.util.ActorAnimation;
 import com.mygdx.game.util.Time;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.mygdx.prisonescapegame.screens.MapScreen;
 import com.mygdx.prisonescapegame.screens.Splash;
-
 
 /**
  * CLASS DESCRIPTION
@@ -34,24 +41,28 @@ import com.mygdx.prisonescapegame.screens.Splash;
  */
 
 public class GameHandler implements GameController {
-	
+
 	private final PrisonEscapeGame game;
 	private MapScreen currentMap;
 
 	private MapHandler mapHandler;
 	private ItemHandler itemHandler;
 	private NPCHandler NPCsHandler;
-	
+
 	private SpriteBatch batch;
 	private Music music;
 	private List<MapActor> actors;
 	private HashMap<Actor, ActorAction> actions;
 	
-//	private String currentMapFile;
+	private AlarmSystem alarm;
+	private boolean restarting;
 	
+	private String currentObjective;
+	private String gameState;
+
 	public GameHandler(PrisonEscapeGame game) {
-		this.game = game;	
-		
+		this.game = game;
+
 		batch = new SpriteBatch();
 		game.setScreen(new Splash(game));
 
@@ -59,12 +70,29 @@ public class GameHandler implements GameController {
 		itemHandler = new ItemHandler();
 		NPCsHandler = new NPCHandler(this);
 		
-		music = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/BackgroundSound.mp3"));
-		music.setLooping(true);
-		music.setVolume(0.5f);
-		music.play();
+		alarm = new AlarmSystem(this);
+		restarting = false;
+		
+		currentObjective = "";
+		gameState = "1";
 	}
 	
+	public String getGameState() {
+		return this.gameState;
+	}
+	
+	public void setGameState(String newState) {
+		this.gameState = newState;
+	}
+	
+	public String getCurrentObjective() {
+		return this.currentObjective;
+	}
+	
+	public void setCurrentObjective(String newObjective) {
+		this.currentObjective = newObjective;
+	}
+
 	@Override
 	public SpriteBatch getSpriteBatch() {
 		return batch;
@@ -74,12 +102,12 @@ public class GameHandler implements GameController {
 	public Actor getPlayer() {
 		return game.player;
 	}
-	
+
 	@Override
 	public Time getTime() {
 		return game.time;
 	}
-	
+
 	@Override
 	public void setTime(Time updatedTime) {
 		game.time = updatedTime;
@@ -88,8 +116,27 @@ public class GameHandler implements GameController {
 	@Override
 	public Music getMusic() {
 		return this.music;
+
+	}
+
+	@Override
+	public Music setMusic(String musicLoc) {
+		return this.music = Gdx.audio.newMusic(Gdx.files.internal(musicLoc));
 	}
 	
+	@Override
+	public void playMusic() {
+
+		music.setLooping(true);
+		music.setVolume(0.5f);
+		music.play();
+	}
+
+	@Override
+	public void stopMusic() {
+		music.stop();
+		
+	}
 	@Override
 	public void setMap(String map, int x, int y) {
 		// In initial call, player actor won't be in the map.
@@ -98,99 +145,104 @@ public class GameHandler implements GameController {
 		try {
 			actors.remove(getPlayer());
 			getMapScreen().getTiledModel().getTile(getPlayer().getX(), getPlayer().getY()).setActor(null);
-		} catch  (NullPointerException e) {	
+		} catch (NullPointerException e) {
 			currentMap = new MapScreen(getPlayer(), this.game);
 		}
 
 		actors = new ArrayList<MapActor>();
 		actions = new HashMap<Actor, ActorAction>();
-		
+
 		actors.add(getPlayer());
-		
+
 		currentMap.setMap(map, this);
 		getMapScreen().getTiledModel().getTile(x, y).setActor(getPlayer());
-		
+
 		mapHandler.setCurrentMap(map);
 		mapHandler.initialiseTeleporters(getMapScreen().getTiledModel());
-		
+
 		getPlayer().teleport(x, y);
-		
+
 		for (Item i : itemHandler.getAllItems().values()) {
 			if (i.getAppearsIn().equals(map)) {
 				currentMap.addItemToMap(i);
 				addActor(i);
 			}
-		}		
+		}
 		for (ActorAction action : NPCsHandler.getAllNPCs().values()) {
 			if (action.getAppearsIn().equals(map)) {
 				currentMap.addNPCToMap(action);
 				addActor(action.getActor(), action);
 			}
 		}
-	}	
-	
+	}
+
 	public void addActor(MapActor a) {
-		currentMap.getTiledModel().getTile(a.getX(), a.getY()).setActor(a); // Add actor to tile in model (tile becomes unwalkable).
+		currentMap.getTiledModel().getTile(a.getX(), a.getY()).setActor(a); // Add actor to tile in model (tile becomes
+																			// unwalkable).
 		actors.add(a); // Update list of actors in action.
 	}
-	
+
 	public void addActor(Actor a, ActorAction action) {
 		addActor(a);
 		actions.put(a, action);
 	}
-	
+
 	public void removeActor(MapActor a) {
-		currentMap.getTiledModel().getTile(a.getX(), a.getY()).setActor(null); // Set tile in model to null (empty, can be walked in).
+		currentMap.getTiledModel().getTile(a.getX(), a.getY()).setActor(null); // Set tile in model to null (empty, can
+																				// be walked in).
 		actors.remove(a); // Remove actor from list of current actors.
-		
+
 		if (a instanceof Item) {
 			currentMap.removeItemFromMap((Item) a); // Remove from being rendered in map if item object.
 		}
-		if(actions.containsKey(a)) {
+		if (actions.containsKey(a)) {
 			actions.remove(a);
 		}
 	}
-	
+
 	public void update(float delta) {
-		for (MapActor a: actors) {
-			if(a instanceof Actor) {
+		if (restarting) {
+			game.restartGame();
+			restarting = false;
+		}
+		for (MapActor a : actors) {
+			if (a instanceof Actor) {
 				Actor actor = (Actor) a;
-				if(actions.containsKey(actor)) {
+				if (actions.containsKey(actor)) {
 					actions.get(actor).update(delta);
 				}
 				actor.update(delta);
 			}
 		}
+		alarm.update();		
+		setTime(Time.getTime(getTime().getCalendar(), GameSettings.TIME_SCALE));
 	}
-	
+
 	public ItemHandler getItemHandler() {
 		return this.itemHandler;
 	}
-	
+
 	public MapHandler getMapHandler() {
 		return this.mapHandler;
 	}
-	
+
 	public MapScreen getMapScreen() {
 		return this.currentMap;
 	}
-	
+
 	public PrisonEscapeGame getGame() {
 		return this.game;
 	}
-	
-	public HashMap<Actor, ActorAction> getActions(){
+
+	public HashMap<Actor, ActorAction> getActions() {
 		return this.actions;
 	}
 	
-//	public String getCurrentMapFile() {
-//		return this.currentMapFile;
-//	}
-	
-	public List<MapActor> getActors(){
-		return this.actors;
+	public AlarmSystem getAlarm() {
+		return this.alarm;
 	}
-		
+	
+	public void restartGame() {
+		restarting = true;
+	}
 }
-
-

@@ -8,8 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
-import com.mygdx.prisonescapegame.GameHandler;
-import com.mygdx.prisonescapegame.GameManager;
+import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -83,6 +82,7 @@ public class PauseMenu {
 	private Sprite saveButtonMenuActive;
 	private Sprite saveButtonMenuInActive;
 	private boolean checkSaveButtonMouseOver;
+	private Sprite roomTransition;
 
 	public PauseMenu() {
 
@@ -120,6 +120,7 @@ public class PauseMenu {
 	}
 
 	protected void resumeButtonMenu(PrisonEscapeGame game) {
+		game.getGameController().getPlayer().setFrozen(false);
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - remumeButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT
@@ -138,8 +139,7 @@ public class PauseMenu {
 
 				}
 
-				if (Gdx.input.isTouched()) {
-
+				if (Gdx.input.isTouched()) {					
 					menuPressed = false;
 
 				}
@@ -154,7 +154,7 @@ public class PauseMenu {
 
 	}
 
-	protected void saveButtonMenu(PrisonEscapeGame game, GameHandler gh) {
+	protected void saveButtonMenu(PrisonEscapeGame game) {
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < SAVE_BUTTON_Y + SAVE_BUTTON_HEIGHT
@@ -174,8 +174,6 @@ public class PauseMenu {
 				}
 
 				if (Gdx.input.isTouched()) {
-					GameManager.getInstance().prepareSave(gh);
-					game.setScreen(MainMenuScreen.getInstance(game));
 
 				}
 
@@ -187,7 +185,6 @@ public class PauseMenu {
 			saveButtonMenuInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
-		
 	}
 
 	protected void helpButtonMenu(TweenManager tween, PrisonEscapeGame game) {
@@ -234,7 +231,7 @@ public class PauseMenu {
 		}
 	}
 
-	protected void exitButtonMenu(TweenManager tween, final PrisonEscapeGame game) {
+	protected void exitButtonMenu(TweenManager tween, PrisonEscapeGame game) {
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - exitButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
@@ -253,9 +250,10 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-					
-									((Game) Gdx.app.getApplicationListener())
-											.setScreen(MainMenuScreen.getInstance(game));
+					game.getGameController().restartGame();
+					menuPressed = false;
+					game.getGameController().stopMusic();
+					Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
 							
 				}
 			}
@@ -391,8 +389,8 @@ public class PauseMenu {
 
 	}
 
-	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween, GameHandler gh) {
-
+	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween) {
+		game.getGameController().getPlayer().setFrozen(true);
 		optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
 		logo.setPosition(PrisonEscapeGame.WIDTH / 2 - logo.getWidth() / 2,
@@ -403,12 +401,13 @@ public class PauseMenu {
 		resumeButtonMenu(game);
 		helpButtonMenu(tween, game);
 		saveButtonMenu(game, gh);
-		exitButtonMenu(tween, game);
+		
 		volumeButton(game);
 		if (helpPressed) {
 			helpScreenUI(game, tween);
 
 		}
+		exitButtonMenu(tween, game);
 
 	}
 

@@ -68,11 +68,19 @@ public class PrisonEscapeGame extends Game {
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
 
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
-		
-		//gameState = GameState.getInstance();
-
-		//System.out.println("Starting with the following game state: " + gameState.toJson());
-		
+		game.setMusic("data/sounds/BackgroundSound.mp3");
+		game.playMusic();
+	}
+	
+	private void discardGame() {
+		game = null;
+		player = null;
+		time = null;
+	}
+	
+	public void restartGame() {
+		discardGame();
+		setupGame();
 	}
 
 	@Override

@@ -22,7 +22,7 @@ import com.badlogic.gdx.math.Interpolation;
 public class Actor implements MapActor {
 	
 	//private MapScreen currentMap;
-	private GameController gameHandler;
+	protected GameController gameHandler;
 	private int x, y; // Coordinates in model.
 	private DIRECTION facing;
 	
@@ -41,11 +41,10 @@ public class Actor implements MapActor {
 	
 	private ActorAnimation animations;
 	
-	private boolean isFrozen = false;
+	private boolean isFrozen;
 	
 	public Actor(int x, int y, ActorAnimation animations, GameController gameHandler)
 	{
-		//this.currentMap = new MapScreen(this, game);
 		this.gameHandler = gameHandler;
 		this.x = x;
 		this.y = y;
@@ -54,6 +53,7 @@ public class Actor implements MapActor {
 		this.animations = animations;
 		this.currentState = ACTOR_STATE.STANDING;
 		this.facing = DIRECTION.SOUTH;
+		this.isFrozen = false;
 	}
 	
 	public enum ACTOR_STATE {
@@ -63,17 +63,17 @@ public class Actor implements MapActor {
 		;
 	}	
 	
-	public void update(float delta) {
+	public void update(float delta) {		
 		if (currentState == ACTOR_STATE.WALKING) {
 			// Update for given time.
 			animTimer += delta;		
 			walkTimer += delta;
-			
+
 			// Move smoothly between origin and destination.
 			// Can change Interpolation for different movement styles.
 			worldX = Interpolation.linear.apply(origX, destX, animTimer/WALK_TIME_PER_TILE);
-			worldY = Interpolation.linear.apply(origY, destY, animTimer/WALK_TIME_PER_TILE);	
-			
+			worldY = Interpolation.linear.apply(origY, destY, animTimer/WALK_TIME_PER_TILE);				
+
 			if(animTimer > WALK_TIME_PER_TILE) {
 				// Amount of time animation takes which hasn't been completed.
 				float leftOverTime = animTimer - WALK_TIME_PER_TILE;
@@ -99,23 +99,24 @@ public class Actor implements MapActor {
 				currentState = ACTOR_STATE.STANDING;
 			}
 		}
+
 		// Movement request reset.
-		movementRequest = false;
+		movementRequest = false;	
 	}
 	
 	public boolean getFrozen() {
 		return this.isFrozen;
 	}
 	
-	public void setFrozen(boolean isFrozen) {
-		this.isFrozen = isFrozen;
+	public void setFrozen(boolean freeze) {
+		this.isFrozen = freeze;
 	}
 	
 	public boolean move(DIRECTION dir) {
-		// If already moving, submit movement request.
-		if(isFrozen) {
+		if (isFrozen) {
 			return false;
 		}
+		// If already moving, submit movement request.
 		if(currentState == ACTOR_STATE.WALKING) {
 			if (facing == dir) {
 				movementRequest = true;
@@ -144,7 +145,7 @@ public class Actor implements MapActor {
 	}	
 	
 	public boolean changeFacing(DIRECTION dir) {
-		if(isFrozen) {
+		if (isFrozen) {
 			return false;
 		}
 		if (currentState != ACTOR_STATE.STANDING) {
@@ -185,15 +186,6 @@ public class Actor implements MapActor {
 		this.destY = 0;
 		
 	}
-	
-	/*public void setMap(String maps, GameHandler gameHandler, int x, int y) {
-		game.getGameController().getMapScreen().setMap(maps, gameHandler, x, y);
-		this.teleport(x, y);
-	}*/
-
-	/*public MapScreen getCurrentMap() {
-		return currentMap;
-	}*/
 	
 	public int getX() {
 		return x;

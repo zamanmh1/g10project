@@ -7,7 +7,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
@@ -29,10 +28,10 @@ public class MainMenuScreen implements Screen {
 
 	private static final int PLAY_BUTTON_WIDTH = 174;
 	private static final int PLAY_BUTTON_HEIGHT = 52;
-	private static final int PLAY_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 200;
+	private static final int PLAY_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 100;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 200;
+	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 100;
 	private static final int HELP_BUTTON_WIDTH = 174;
 	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2;
 	private static final int HELP_BUTTON_HEIGHT = 52;
@@ -44,7 +43,7 @@ public class MainMenuScreen implements Screen {
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private static final int NEWGAME_BUTTON_WIDTH = 427;
 	private static final int NEWGAME_BUTTON_HEIGHT = 54;
-	private static final int NEWGAME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 100;
+	private static final int NEWGAME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2;
 	private static final int LOADGAME_BUTTON_WIDTH = 427;
 	private static final int LOADGAME_BUTTON_HEIGHT = 54;
 	private static final int LOADGAME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 100;
@@ -79,6 +78,7 @@ public class MainMenuScreen implements Screen {
 	private Sprite newButtonInActive;
 	private boolean checkLoadButtonMouseOver;
 	private boolean checkNewButtonMouseOver;
+	private long time;
 
 
 	private MainMenuScreen(PrisonEscapeGame game) {
@@ -110,13 +110,12 @@ public class MainMenuScreen implements Screen {
 		buttonActive = true;
 		playPressed = false;
 		volumeMuted = false;
-		
-		
 
 	}
 
 	@Override
 	public void show() {
+		time = System.currentTimeMillis();
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Timeline.createSequence().beginSequence()
 
@@ -124,6 +123,10 @@ public class MainMenuScreen implements Screen {
 				.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(loadButtonInActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(loadButtonActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(newButtonInActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(newButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0))
@@ -192,17 +195,24 @@ public class MainMenuScreen implements Screen {
 
 				}
 
-				if (Gdx.input.isTouched()) {
-					Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
-					playPressed = true;
-					buttonActive = false;
-					
+				if (System.currentTimeMillis() > time + 1000) {
+					if (Gdx.input.isTouched()) {
+						Timeline.createSequence().beginSequence()
+								.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(playButtonInActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0))
+								.push(Tween.to(newButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(newButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(loadButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(loadButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1)).end()
+								.start(tween);
+						playPressed = true;
+						buttonActive = false;
 
+					}
 				}
 			}
 		} else {
@@ -252,6 +262,14 @@ public class MainMenuScreen implements Screen {
 				playPressed = false;
 				buttonActive = true;
 				game.setScreen(new MainGameScreen(game));
+				game.getGameController().stopMusic();
+				game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+				game.getGameController().playMusic();
+				if (volumeMuted == true) {
+					Music music = game.getGameController().getMusic();
+					music.pause();
+				}
+
 			}
 		} else {
 			checkNewButtonMouseOver = false;

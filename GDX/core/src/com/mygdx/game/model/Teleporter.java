@@ -3,73 +3,45 @@ package com.mygdx.game.model;
 import com.mygdx.game.entities.DIRECTION;
 
 /**
- * CLASS DESCRIPTION
+ * Stores the information required to be able to move between rooms within the map.
  * 
  * @author Sam Ward
  * 
- * @version 0.2
+ * @version 1.0
  * @since 0.2
  * 
  */
 
-public class Teleporter {
+public class Teleporter {	
 	
-	private String srcFile;
-	private int telSrcX;
-	private int telSrcY;
-	private int playSrcX;
-	private int playSrcY;
-	private String destFile;
-	private int playDestX;
-	private int playDestY;
-	private DIRECTION facing;
+	private TeleporterSource source; // The teleporter source.
+	private TeleporterDestination destination; // The teleporter destination.
 	
+	/**
+	 * Constructs a new Teleporter object.
+	 */
 	public Teleporter(String srcFile, int srcX, int srcY, int playSrcX, int playSrcY,
 			String destFile, int playDestX, int playDestY, String dir) {
-		this.srcFile = srcFile;
-		this.telSrcX = srcX;
-		this.telSrcY = srcY;
-		this.playSrcX = playSrcX;
-		this.playSrcY = playSrcY;
-		this.destFile = destFile;
-		this.playDestX = playDestX;
-		this.playDestY = playDestY;
-		this.facing = DIRECTION.valueOf(dir);
+		source = new TeleporterSource(srcFile, srcX, srcY, playSrcX, playSrcY);
+		destination = new TeleporterDestination(destFile, playDestX, playDestY, DIRECTION.valueOf(dir));
+	}
+	
+	/**
+	 * Provides the teleporter source object.
+	 * 
+	 * @return Teleporter source.
+	 */
+	public TeleporterSource getSource() {
+		return this.source;
+	}
+	
+	/**
+	 * Provides the teleporter destination object.
+	 * 
+	 * @return Teleporter destination.
+	 */
+	public TeleporterDestination getDestination() {
+		return this.destination;
 	}
 
-	public int getTelSourceX() {
-		return telSrcX;
-	}
-	
-	public int getTelSourceY() {
-		return telSrcY;
-	}
-
-	public String getSourceFile() {
-		return srcFile;
-	}
-	
-	public int getPlaySourceX() {
-		return playSrcX;
-	}
-	
-	public int getPlaySourceY() {
-		return playSrcY;
-	}
-
-	public int getPlayerDestinationX() {
-		return playDestX;
-	}
-	
-	public int getPlayerDestinationY() {
-		return playDestY;
-	}
-
-	public String getDestinationFile() {
-		return destFile;
-	}
-	
-	public DIRECTION getPlayerDestinationDirection() {
-		return this.facing;
-	}
 }

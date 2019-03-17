@@ -3,6 +3,7 @@ package com.mygdx.game.io;
 import com.badlogic.gdx.Input.Keys;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.DIRECTION;
+import com.mygdx.game.entities.Actor.ACTOR_STATE;
 import com.badlogic.gdx.InputAdapter;
 
 /**
@@ -63,9 +64,6 @@ public class PlayerMovementController extends InputAdapter {
 	// Calls method releaseDirection to finish movement in certain direction.
 	@Override
 	public boolean keyUp(int keycode) {
-		if (player.getFrozen()) {
-			return false;
-		}
 		if (keycode == Keys.W) {
 			releaseDirection(DIRECTION.NORTH);
 		}
