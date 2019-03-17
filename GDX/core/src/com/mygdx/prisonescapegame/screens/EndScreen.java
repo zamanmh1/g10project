@@ -110,7 +110,7 @@ public class EndScreen implements Screen{
 		backgroundSprite.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 		
-		credit_y = credit_y + 30*delta;
+		credit_y = credit_y + 40*delta;
 		theEndSprite.setPosition(PrisonEscapeGame.WIDTH/2 + 125, credit_y + 40);
 		theEndSprite.draw(game.getGameController().getSpriteBatch());
 		
@@ -151,11 +151,15 @@ public class EndScreen implements Screen{
 			exitButtonActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 			exitButtonActive.draw(game.getGameController().getSpriteBatch());
+			Boolean muted = MainMenuScreen.getInstance(game).checkSoundMuted();
 			if (buttonActive) {
 				if (checkExitButtonMouseOver == false) {
 					Sound getMouseOverSound = MainMenuScreen.getInstance(game).mouseOverSound();
-
-					getMouseOverSound.play(1f);
+					if (muted == true) {
+						getMouseOverSound.stop();
+					} else {
+						getMouseOverSound.play(1f);
+					}
 
 					checkExitButtonMouseOver = true;
 

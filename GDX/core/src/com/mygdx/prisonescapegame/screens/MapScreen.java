@@ -268,11 +268,10 @@ public class MapScreen extends PauseMenu implements Screen {
 			game.setScreen(FullMapScreen.getInstance(game));
 		
 	}
-		if (game.getGameController().getMapScreen().mapName == "data/maps/outside.tmx") {
+		if (checkIfOutside() == true) {
 			game.getGameController().stopMusic();
 			game.getGameController().setMusic("data/sounds/Outdoor.mp3");
 			game.getGameController().playMusic();
-			
 		}
 		game.getGameController().getSpriteBatch().end();
 
@@ -325,6 +324,13 @@ public class MapScreen extends PauseMenu implements Screen {
 		// Test stuff; setToOrtho method above achieves the effect much better and
 		// cleaner.
 
+	}
+	
+	public boolean checkIfOutside() {
+		if (mapName == "data/maps/outside.tmx") {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
