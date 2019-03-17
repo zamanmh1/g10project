@@ -24,12 +24,12 @@ import aurelienribon.tweenengine.TweenManager;
 public class EndScreen implements Screen{
 	
 	
-	private static final int RETURN_BUTTON_WIDTH = 174;
-	private static final int RETURN_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2;
-	private static final int RETURN_BUTTON_HEIGHT = 33;
-	private static final int EXIT_BUTTON_WIDTH = 174;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2;
-	private static final int EXIT_BUTTON_HEIGHT = 52;
+	private static final int RETURN_BUTTON_WIDTH = 643;
+	private static final int RETURN_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 50;
+	private static final int RETURN_BUTTON_HEIGHT = 46;
+	private static final int EXIT_BUTTON_WIDTH = 301;
+	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 120;
+	private static final int EXIT_BUTTON_HEIGHT = 46;
 	private BitmapFont fontYellow;
 	private TweenManager tween;
 	private PrisonEscapeGame game;
@@ -56,6 +56,7 @@ public class EndScreen implements Screen{
 	private Sprite exitButtonActive;
 	private Sprite exitButtonInActive;
 	private boolean checkExitButtonMouseOver;
+	private Sprite theEndSprite2;
 
 	/**
 	 * Constructs a new EndScreen with sprites and font for credits
@@ -67,11 +68,12 @@ public class EndScreen implements Screen{
 		this.game = game;
 		tween = new TweenManager();
 		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/background.png")));
-		theEndSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/play_inactive.png")));
-		returnButtonActive = new Sprite(new Texture("data/menuSprites/return_active.png"));
-		returnButtonInActive = new Sprite(new Texture("data/menuSprites/return_inactive.png"));
-		exitButtonActive = new Sprite(new Texture("data/menuSprites/exit_active.png"));
-		exitButtonInActive = new Sprite(new Texture("data/menuSprites/exit_inactive.png"));
+		theEndSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/the_end.png")));
+		theEndSprite2 = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/the_end.png")));
+		returnButtonActive = new Sprite(new Texture("data/menuSprites/return_to_main_menu_active.png"));
+		returnButtonInActive = new Sprite(new Texture("data/menuSprites/return_to_main_menu_inactive.png"));
+		exitButtonActive = new Sprite(new Texture("data/menuSprites/exitgame_active.png"));
+		exitButtonInActive = new Sprite(new Texture("data/menuSprites/exitgame_inactive.png"));
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		buttonActive = false;
 		
@@ -88,6 +90,7 @@ public class EndScreen implements Screen{
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(theEndSprite, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(theEndSprite, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(theEndSprite2, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.set(returnButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.set(returnButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
@@ -111,8 +114,12 @@ public class EndScreen implements Screen{
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 		
 		credit_y = credit_y + 40*delta;
-		theEndSprite.setPosition(PrisonEscapeGame.WIDTH/2 + 125, credit_y + 40);
+		theEndSprite.setScale(0.5f);
+		theEndSprite.setPosition(PrisonEscapeGame.WIDTH/2 - 160, credit_y + 40);
 		theEndSprite.draw(game.getGameController().getSpriteBatch());
+		
+		theEndSprite2.setPosition(PrisonEscapeGame.WIDTH/2 - 160, PrisonEscapeGame.HEIGHT / 2 + 30);
+		theEndSprite2.draw(game.getGameController().getSpriteBatch());
 		
 		for (int i = 0; i< credits_strs.length; i++) {
 			GlyphLayout layout = new GlyphLayout();
@@ -123,16 +130,17 @@ public class EndScreen implements Screen{
 		}
 		if (credit_y > PrisonEscapeGame.HEIGHT + 380) {
 			buttonActive = true;
+			Tween.to(theEndSprite2, SpriteAccessor.ALPHA,0.2f).target(1).start(tween);
 			Tween.to(returnButtonActive, SpriteAccessor.ALPHA,0.2f).target(1).start(tween);
 			Tween.to(returnButtonInActive, SpriteAccessor.ALPHA,0.2f).target(1).start(tween);
 			Tween.to(exitButtonActive, SpriteAccessor.ALPHA,0.2f).target(1).start(tween);
 			Tween.to(exitButtonInActive, SpriteAccessor.ALPHA,0.2f).target(1).start(tween);
 		}
 		
-		int xReturn = PrisonEscapeGame.WIDTH / 2 - RETURN_BUTTON_WIDTH / 2 + 100;
+		int xReturn = PrisonEscapeGame.WIDTH / 2 - RETURN_BUTTON_WIDTH / 2 + 200;
 		returnButton(xReturn);
 		
-		int xExit = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 400;
+		int xExit = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 200;
 		exitButton(xExit);
 		
 		this.game.getGameController().getSpriteBatch().end();
