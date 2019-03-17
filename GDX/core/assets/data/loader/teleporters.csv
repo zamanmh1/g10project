@@ -23,10 +23,14 @@ data/maps/secretTunnel.tmx,0,11,1,11,data/maps/mainoffice.tmx,18,12,WEST
 data/maps/mainoffice.tmx,19,12,18,12,data/maps/secretTunnel.tmx,1,11,EAST
 data/maps/infirmary.tmx,5,11,5,10,data/maps/prisonGuardCentre.tmx,8,1,NORTH
 data/maps/infirmary.tmx,6,11,6,10,data/maps/prisonGuardCentre.tmx,9,1,NORTH
+data/maps/cellblockG.tmx,16,1,16,2,data/maps/maxsec.tmx,14,33,SOUTH
 data/maps/cellblockG.tmx,17,1,17,2,data/maps/maxsec.tmx,15,33,SOUTH
 data/maps/cellblockG.tmx,18,1,18,2,data/maps/maxsec.tmx,16,33,SOUTH
+data/maps/cellblockG.tmx,19,1,19,2,data/maps/maxsec.tmx,17,33,SOUTH
+data/maps/maxsec.tmx,14,34,14,33,data/maps/cellblockG.tmx,16,2,NORTH
 data/maps/maxsec.tmx,15,34,15,33,data/maps/cellblockG.tmx,17,2,NORTH
 data/maps/maxsec.tmx,16,34,16,33,data/maps/cellblockG.tmx,18,2,NORTH
+data/maps/maxsec.tmx,17,34,17,33,data/maps/cellblockG.tmx,19,2,NORTH
 data/maps/cellblockG.tmx,35,11,34,11,data/maps/hallA.tmx,1,12,EAST
 data/maps/cellblockG.tmx,35,10,34,10,data/maps/hallA.tmx,1,11,EAST
 data/maps/hallA.tmx,0,12,1,12,data/maps/cellblockG.tmx,34,11,WEST
