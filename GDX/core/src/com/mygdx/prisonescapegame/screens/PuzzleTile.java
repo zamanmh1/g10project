@@ -1,5 +1,6 @@
 package com.mygdx.prisonescapegame.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -13,10 +14,7 @@ public class PuzzleTile {
 	private Sprite puzzleImage;
 	private int finishRow;
 	private int finishColumn;
-	private int currentRow;
-	private int currentColumn;
 	private String blackTileLoc = "data/puzzles/black.png";
-	private String puzzleLoc;
 
 	/**
 	 * Creates row of x and y and assigns texture to each position, puzzleImage is
@@ -29,8 +27,6 @@ public class PuzzleTile {
 	public PuzzleTile(int x, int y) {
 		this.finishRow = x;
 		this.finishColumn = y;
-		this.puzzleLoc = "data/puzzles/" + PuzzleScreen.getPuzzleTheme() + "/" + x + y + ".png";
-		this.puzzleImage = new Sprite(new Texture(puzzleLoc));
 	}
 
 	/**
@@ -41,13 +37,24 @@ public class PuzzleTile {
 	public Sprite getPuzzleImage() {
 		return this.puzzleImage;
 	}
+	
+	/**
+	 * Returns the new puzzle image texture set to each position 
+	 * 
+	 * @param Location of the texture
+	 * @return puzzleImage
+	 */
+	public Sprite setPuzzleImage(String puzzleLoc) {
+		return puzzleImage = new Sprite(new Texture(Gdx.files.internal(puzzleLoc)));
+		
+	}
 
 	/**
 	 * Texture with the black background
 	 * 
 	 */
 	public void clearTexture() {
-		this.puzzleImage = new Sprite(new Texture(this.blackTileLoc));
+		this.puzzleImage = new Sprite(new Texture(Gdx.files.internal(this.blackTileLoc)));
 	}
 
 	/**

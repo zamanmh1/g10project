@@ -63,7 +63,7 @@ public class PuzzleScreen implements Screen {
 	
 	private static String[] arr = { "puzzle1", "puzzle2", "puzzle3", "puzzle4" };
 	private static Random randomTheme;
-	private static String puzzleTheme;
+	private String puzzleTheme;
 	private String state;
 
 	/**
@@ -103,7 +103,8 @@ public class PuzzleScreen implements Screen {
 			for (int y = 1; y < 4; y++) {
 
 				this.tiles[x][y] = new PuzzleTile(x, y);
-
+				this.tiles[x][y].setPuzzleImage("data/puzzles/" + getPuzzleTheme() + "/" + x + y + ".png");
+				
 			}
 		}
 
@@ -439,7 +440,7 @@ public class PuzzleScreen implements Screen {
 	 * 
 	 * @return String puzzle theme
 	 */
-	public static String getPuzzleTheme() {
+	public String getPuzzleTheme() {
 
 		return puzzleTheme;
 
