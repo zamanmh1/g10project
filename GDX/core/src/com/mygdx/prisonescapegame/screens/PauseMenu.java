@@ -269,7 +269,7 @@ public class PauseMenu {
 
 				}
 				if (Gdx.input.isTouched()) {
-					MapScreen.setBlackScren();
+					MapScreen.setBlackScreen();
 					menuPressed = false;
 					game.getGameController().restartGame();
 					game.getGameController().stopMusic();

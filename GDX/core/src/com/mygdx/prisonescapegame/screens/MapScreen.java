@@ -309,7 +309,7 @@ public class MapScreen extends PauseMenu implements Screen {
 	 * Setting Map Screen to black for smoother transition to exit and come back
 	 * 
 	 */
-	public static void setBlackScren() {
+	public static void setBlackScreen() {
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(roomTransition, SpriteAccessor.ALPHA,0f).target(1).start(tween);
 		
