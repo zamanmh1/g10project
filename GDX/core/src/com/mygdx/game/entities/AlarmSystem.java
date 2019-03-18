@@ -33,6 +33,12 @@ public class AlarmSystem {
 			alarmStarted = System.currentTimeMillis();			
 			// !!! Start alarm sound?
 		} else {
+			controller.removeActor(guard.getActor());
+			controller.getMapScreen().removeNPCFromMap(guard);
+			guard = null;
+			playerSpottedLoc = null;
+			alarmStarted = 0L;	
+			
 			if (playerCaught == true) {				
 				// Set time to next morning.
 				Calendar cal = controller.getTime().getCalendar();
@@ -46,13 +52,8 @@ public class AlarmSystem {
 		    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
 		    	
 				// !!! Message to player saying caught?
-			}			
-			controller.removeActor(guard.getActor());
-			controller.getMapScreen().removeNPCFromMap(guard);
-			guard = null;
-			playerSpottedLoc = null;
+			} 
 			playerCaught = false;
-			alarmStarted = 0L;					
 			// !!! End alarm sound?
 		}
 	}

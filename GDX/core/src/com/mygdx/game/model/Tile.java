@@ -26,6 +26,7 @@ public class Tile {
 		actor = null;
 		walkable = true;
 		teleporter = false;
+		alarm = false;
 	}
 	
 	/**
