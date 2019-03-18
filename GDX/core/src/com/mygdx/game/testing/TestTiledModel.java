@@ -10,7 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.mygdx.game.model.TiledModel;
 
-public class TestTiledModel {
+public class TestTiledModel extends GameTest{
 
 	private TiledModel model;
 	private TiledMap tilemap;

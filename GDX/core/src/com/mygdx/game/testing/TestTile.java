@@ -6,6 +6,7 @@ import java.io.File;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,7 +19,7 @@ import com.mygdx.game.model.Tile;
 import com.mygdx.game.model.TiledModel;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
-public class TestTile {
+public class TestTile extends GameTest{
 
 	private Tile tile;
 	
@@ -34,6 +35,7 @@ public class TestTile {
 		assertFalse(tile.getTeleporter());
 		assertFalse(tile.getAlarm());
 	}
+	
 	
 	@Test
 	public void testTile_ContainsActor() {
