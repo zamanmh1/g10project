@@ -79,7 +79,6 @@ public class PauseMenu {
 	private Sprite saveButtonMenuActive;
 	private Sprite saveButtonMenuInActive;
 	private boolean checkSaveButtonMouseOver;
-	private Sprite roomTransition;
 	private Sprite mKeyboard;
 
 	/**
@@ -114,7 +113,7 @@ public class PauseMenu {
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
 		menuPressed = false;
-		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
+		//roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 
 	}
 	

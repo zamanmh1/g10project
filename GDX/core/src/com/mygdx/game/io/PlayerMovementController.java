@@ -3,7 +3,6 @@ package com.mygdx.game.io;
 import com.badlogic.gdx.Input.Keys;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.DIRECTION;
-import com.mygdx.game.entities.Actor.ACTOR_STATE;
 import com.badlogic.gdx.InputAdapter;
 
 /**

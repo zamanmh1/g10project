@@ -3,9 +3,7 @@ package com.mygdx.game.entities;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.badlogic.gdx.ai.btree.leaf.Wait;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.mygdx.game.entities.Actor.ACTOR_STATE;

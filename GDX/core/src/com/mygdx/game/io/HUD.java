@@ -11,7 +11,6 @@ import com.mygdx.game.entities.Item;
 import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.GameController;
 import com.mygdx.prisonescapegame.GameSettings;
-import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.prisonescapegame.screens.MapScreen;
 
 /**
@@ -28,7 +27,6 @@ import com.mygdx.prisonescapegame.screens.MapScreen;
 
 public class HUD
 {
-	private PrisonEscapeGame game;
 	private Stage stage = MapScreen.getStage();
 	private Skin skin = new Skin(Gdx.files.internal("data/story/skin/uiskin.json"));
 	private Texture sun = new Texture(Gdx.files.internal("data/sprites/sun.png"));

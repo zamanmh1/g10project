@@ -1,8 +1,6 @@
 package com.mygdx.game.helpers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.mygdx.game.io.MapReader;
 import com.mygdx.game.model.Teleporter;
 import com.mygdx.game.model.TiledModel;

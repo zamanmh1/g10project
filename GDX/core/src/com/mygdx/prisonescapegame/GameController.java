@@ -1,12 +1,9 @@
 package com.mygdx.prisonescapegame;
 
-import java.util.Calendar;
-
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.AlarmSystem;
-import com.mygdx.game.entities.GuardChasingBehaviour;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.screens.MapScreen;

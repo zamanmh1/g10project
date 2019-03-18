@@ -52,10 +52,10 @@ public class PrisonEscapeGame extends Game {
 		
 		// Stores player animations in new AnimationSet.
 		ActorAnimation animations = new ActorAnimation(
-				new Animation(0.3f/2f, atlas.findRegions("player01_walk_north"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions("player01_walk_south"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions("player01_walk_east"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions("player01_walk_west"), PlayMode.LOOP_PINGPONG),
+				new Animation<Object>(0.3f/2f, atlas.findRegions("player01_walk_north"), PlayMode.LOOP_PINGPONG),
+				new Animation<Object>(0.3f/2f, atlas.findRegions("player01_walk_south"), PlayMode.LOOP_PINGPONG),
+				new Animation<Object>(0.3f/2f, atlas.findRegions("player01_walk_east"), PlayMode.LOOP_PINGPONG),
+				new Animation<Object>(0.3f/2f, atlas.findRegions("player01_walk_west"), PlayMode.LOOP_PINGPONG),
 				atlas.findRegion("player01_stand_north"),
 				atlas.findRegion("player01_stand_south"),
 				atlas.findRegion("player01_stand_east"),

@@ -2,10 +2,7 @@ package com.mygdx.game.entities;
 
 import com.mygdx.game.util.ActorAnimation;
 import com.mygdx.prisonescapegame.GameController;
-import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.GameSettings;
-import com.mygdx.prisonescapegame.PrisonEscapeGame;
-import com.mygdx.prisonescapegame.screens.MapScreen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 

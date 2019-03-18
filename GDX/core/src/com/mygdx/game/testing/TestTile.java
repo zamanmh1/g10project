@@ -2,21 +2,12 @@ package com.mygdx.game.testing;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.mygdx.game.entities.Item;
-import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.model.Tile;
-import com.mygdx.game.model.TiledModel;
-import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
 public class TestTile {
 

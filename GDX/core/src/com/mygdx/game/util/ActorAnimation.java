@@ -19,20 +19,20 @@ import com.mygdx.game.entities.DIRECTION;
 
 public class ActorAnimation {
 	
-	private Map<DIRECTION, Animation> walking;
+	private Map<DIRECTION, Animation<?>> walking;
 	private Map<DIRECTION, TextureRegion> standing;
 	
-	public ActorAnimation(Animation walkNorth,
-			Animation walkSouth, 
-			Animation walkEast, 
-			Animation walkWest, 
+	public ActorAnimation(Animation<?> walkNorth,
+			Animation<?> walkSouth, 
+			Animation<?> walkEast, 
+			Animation<?> walkWest, 
 			TextureRegion standNorth, 
 			TextureRegion standSouth, 
 			TextureRegion standEast, 
 			TextureRegion standWest) {
 		
 		// Stores animations for walking in each direction.
-		walking = new HashMap<DIRECTION, Animation>();
+		walking = new HashMap<DIRECTION, Animation<?>>();
 		walking.put(DIRECTION.NORTH, walkNorth);
 		walking.put(DIRECTION.SOUTH, walkSouth);
 		walking.put(DIRECTION.EAST, walkEast);
@@ -46,7 +46,7 @@ public class ActorAnimation {
 		standing.put(DIRECTION.WEST, standWest);
 	}
 	
-	public Animation getWalking(DIRECTION dir) {
+	public Animation<?> getWalking(DIRECTION dir) {
 		return walking.get(dir);
 	}
 	

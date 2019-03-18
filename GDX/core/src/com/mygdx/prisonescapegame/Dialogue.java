@@ -61,7 +61,7 @@ public class Dialogue
 	public String getDialogue(String name)
 	{
 		entityRoot = root.getChildByName(name); //new root xml node
-		Iterator iterator_dialogue = entityRoot.getChildrenByName("dialogue").iterator(); 
+		Iterator<Element> iterator_dialogue = entityRoot.getChildrenByName("dialogue").iterator(); 
 
 		while(iterator_dialogue.hasNext())
 		{
@@ -84,7 +84,7 @@ public class Dialogue
 				{
 					hasChoice = true;
 					choiceMap = new HashMap<String,String[]>();
-					Iterator iterateChoices = currElement.getChildrenByName("choice").iterator();
+					Iterator<Element> iterateChoices = currElement.getChildrenByName("choice").iterator();
 					while(iterateChoices.hasNext())
 					{
 						Element currChoice = (Element) iterateChoices.next();

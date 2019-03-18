@@ -69,10 +69,10 @@ public class AlarmSystem {
 		TextureAtlas atlas = controller.getGame().getAssetManager().get("data/packed/textures.atlas", TextureAtlas.class);
 		String guardSprite = "guard01_";
 		ActorAnimation animations = new ActorAnimation(
-				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_north"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_south"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_east"), PlayMode.LOOP_PINGPONG),
-				new Animation(0.3f/2f, atlas.findRegions(guardSprite + "walk_west"), PlayMode.LOOP_PINGPONG),
+				new Animation<Object>(0.3f/2f, atlas.findRegions(guardSprite + "walk_north"), PlayMode.LOOP_PINGPONG),
+				new Animation<Object>(0.3f/2f, atlas.findRegions(guardSprite + "walk_south"), PlayMode.LOOP_PINGPONG),
+				new Animation<Object>(0.3f/2f, atlas.findRegions(guardSprite + "walk_east"), PlayMode.LOOP_PINGPONG),
+				new Animation<Object>(0.3f/2f, atlas.findRegions(guardSprite + "walk_west"), PlayMode.LOOP_PINGPONG),
 				atlas.findRegion(guardSprite + "stand_north"),
 				atlas.findRegion(guardSprite + "stand_south"),
 				atlas.findRegion(guardSprite + "stand_east"),

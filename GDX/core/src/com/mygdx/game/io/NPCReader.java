@@ -7,11 +7,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.mygdx.game.entities.Actor;
@@ -52,10 +49,10 @@ public class NPCReader {
 				String[] readItem = line.split(splitBy);
 
 				ActorAnimation animations = new ActorAnimation(
-						new Animation(0.3f/2f, atlas.findRegions(readItem[1] + "walk_north"), PlayMode.LOOP_PINGPONG),
-						new Animation(0.3f/2f, atlas.findRegions(readItem[1] + "walk_south"), PlayMode.LOOP_PINGPONG),
-						new Animation(0.3f/2f, atlas.findRegions(readItem[1] + "walk_east"), PlayMode.LOOP_PINGPONG),
-						new Animation(0.3f/2f, atlas.findRegions(readItem[1] + "walk_west"), PlayMode.LOOP_PINGPONG),
+						new Animation<Object>(0.3f/2f, atlas.findRegions(readItem[1] + "walk_north"), PlayMode.LOOP_PINGPONG),
+						new Animation<Object>(0.3f/2f, atlas.findRegions(readItem[1] + "walk_south"), PlayMode.LOOP_PINGPONG),
+						new Animation<Object>(0.3f/2f, atlas.findRegions(readItem[1] + "walk_east"), PlayMode.LOOP_PINGPONG),
+						new Animation<Object>(0.3f/2f, atlas.findRegions(readItem[1] + "walk_west"), PlayMode.LOOP_PINGPONG),
 						atlas.findRegion(readItem[1] + "stand_north"),
 						atlas.findRegion(readItem[1] + "stand_south"),
 						atlas.findRegion(readItem[1] + "stand_east"),

@@ -1,33 +1,17 @@
 package com.mygdx.game.io;
 
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-
-import java.util.Calendar;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.game.entities.Actor;
-import com.mygdx.game.entities.Actor.ACTOR_STATE;
 import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.DIRECTION;
 import com.mygdx.game.entities.Item;
-import com.mygdx.game.entities.Item.ITEM_TYPE;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.model.Teleporter;
 import com.mygdx.game.model.Tile;
-import com.mygdx.game.tween.SpriteAccessor;
-import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.Dialogue;
 import com.mygdx.prisonescapegame.GameHandler;
 import com.mygdx.prisonescapegame.screens.MapScreen;
-import com.mygdx.prisonescapegame.screens.MainMenuScreen;
-
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.TweenManager;
 
 /**
  * CLASS DESCRIPTION

@@ -4,28 +4,19 @@ import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.ActorAction;
 import com.mygdx.game.entities.AlarmSystem;
-import com.mygdx.game.entities.GuardChasingBehaviour;
 import com.mygdx.game.entities.Item;
 import com.mygdx.game.entities.MapActor;
 import com.mygdx.game.helpers.ItemHandler;
 import com.mygdx.game.helpers.MapHandler;
 import com.mygdx.game.helpers.NPCHandler;
-import com.mygdx.game.util.ActorAnimation;
 import com.mygdx.game.util.Time;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.mygdx.prisonescapegame.screens.MapScreen;
 import com.mygdx.prisonescapegame.screens.Splash;
 
