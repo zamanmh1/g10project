@@ -41,7 +41,7 @@ import prisonescape.game.util.Time;
  * 
  */
 
-public class ActiveGame extends Pause implements Screen {
+public class ActiveGame implements Screen {
 	private TiledMap tilemap;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera oCamera;
@@ -62,11 +62,12 @@ public class ActiveGame extends Pause implements Screen {
 	private String mapName;
 	private Item foundItem;
 	public static HUD h;
+	private Pause pauseMenu;
 
 	private static Stage stage;
 
 	public ActiveGame(Actor player, PrisonEscapeGame game) {
-
+		pauseMenu = new Pause();
 		this.player = player;
 		this.game = game;
 		tween = new TweenManager();
@@ -148,17 +149,17 @@ public class ActiveGame extends Pause implements Screen {
 
 		Gdx.input.setInputProcessor(inputHandler);
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
-		Tween.set(logo, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(logo, SpriteAccessor.ALPHA, 1.0f).target(1).start(tween);
-		Tween.set(optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
-		Tween.to(optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
+		Tween.set(pauseMenu.logo, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(pauseMenu.logo, SpriteAccessor.ALPHA, 1.0f).target(1).start(tween);
+		Tween.set(pauseMenu.optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
+		Tween.to(pauseMenu.optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
 
 	}
 
 	@Override
 	public void render(float delta) {
 		// updates using time since last render call
-		if (!menuPressed) {
+		if (!pauseMenu.menuPressed) {
 			movementHandler.update(delta);
 			game.getGameController().update(delta);			
 		}
@@ -243,7 +244,7 @@ public class ActiveGame extends Pause implements Screen {
 
 		if (menuKeyCheck() == true) {
 			inputHandler.clear();
-			drawPauseMenu(game, tween);
+			pauseMenu.drawPauseMenu(game, tween);
 
 		}
 
@@ -288,13 +289,13 @@ public class ActiveGame extends Pause implements Screen {
 
 	private boolean menuKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			if (menuPressed == false) {
-				menuPressed = true;
-			} else if (menuPressed == true) {
-				menuPressed = false;
+			if (pauseMenu.menuPressed == false) {
+				pauseMenu.menuPressed = true;
+			} else if (pauseMenu.menuPressed == true) {
+				pauseMenu.menuPressed = false;
 			}
 		}
-		return menuPressed;
+		return pauseMenu.menuPressed;
 	}
 	
 	/**
@@ -344,11 +345,11 @@ public class ActiveGame extends Pause implements Screen {
 		tilemap.dispose();
 		mapRenderer.dispose();
 		player.getSprite().getTexture().dispose();
-		exitButtonMenuInActive.getTexture().dispose();
-		exitButtonMenuActive.getTexture().dispose();
-		resumeButtonMenuActive.getTexture().dispose();
-		optionBackground.getTexture().dispose();
-		remumeButtonMenuInActive.getTexture().dispose();
+		pauseMenu.exitButtonMenuInActive.getTexture().dispose();
+		pauseMenu.exitButtonMenuActive.getTexture().dispose();
+		pauseMenu.resumeButtonMenuActive.getTexture().dispose();
+		pauseMenu.optionBackground.getTexture().dispose();
+		pauseMenu.remumeButtonMenuInActive.getTexture().dispose();
 
 	}
 
