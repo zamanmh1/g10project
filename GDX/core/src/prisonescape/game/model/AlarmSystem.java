@@ -2,8 +2,6 @@ package prisonescape.game.model;
 
 import java.util.Calendar;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.GridPoint2;
@@ -27,21 +25,20 @@ public class AlarmSystem {
 	private GridPoint2 playerSpottedLoc;
 	
 	private boolean playerCaught;
-	private Sound alarmSound;
 	
 	public AlarmSystem(GameHandler controller) {
 		this.alarmStarted = 0L;
 		this.controller = controller;
 		this.guard = null;
-		alarmSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/Alarm.ogg"));
+		
 	}
 	
 	public void setAlarm(boolean alarm) {
 		if (alarm == true) {
 			alarmStarted = System.currentTimeMillis();			
 			// !!! Start alarm sound?
-			alarmSound.play(1f);
-			alarmSound.loop();
+			controller.playAlarmSound();
+			
 		} else {
 			controller.removeActor(guard.getActor());
 			controller.getMapScreen().removeNPCFromMap(guard);
@@ -65,7 +62,7 @@ public class AlarmSystem {
 			} 
 			playerCaught = false;
 			// !!! End alarm sound?
-			alarmSound.stop();
+			controller.stopAlarmSound();
 		}
 	}
 	

@@ -29,10 +29,13 @@ public interface GameController {
 	
 	Music setMusic(String musicLoc);
 	
-	
 	void playMusic();
 	
 	void stopMusic();
+	
+	void playAlarmSound();
+	
+	void stopAlarmSound();
 	
 	void addActor(MapActor a);
 	
