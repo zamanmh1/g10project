@@ -33,7 +33,6 @@ import com.mygdx.game.model.TiledModel;
 import com.mygdx.game.tween.SpriteAccessor;
 import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.GameHandler;
-import com.mygdx.prisonescapegame.GameManager;
 import com.mygdx.prisonescapegame.GameSettings;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
@@ -71,8 +70,6 @@ public class MapScreen extends PauseMenu implements Screen {
 	private Item foundItem;
 	private boolean fullMapPressed;
 	public static HUD h;
-	private GameHandler gameHandler;
-
 
 	private static Stage stage;
 
@@ -91,9 +88,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		inventoryPressed = false;
 		fullMapPressed = false;
 
-		
-
-
 	}
 
 	public void setMap(String map, GameHandler gameHandler) {
@@ -102,7 +96,6 @@ public class MapScreen extends PauseMenu implements Screen {
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
 
 		mapName = map;
-		this.gameHandler = gameHandler;
 		tilemap = new TmxMapLoader().load(map);
 		
 
@@ -259,8 +252,7 @@ public class MapScreen extends PauseMenu implements Screen {
 
 		if (menuKeyCheck() == true) {
 			inputHandler.clear();
-			drawPauseMenu(game, tween, gameHandler);
-			
+			drawPauseMenu(game, tween);
 
 		}
 
@@ -284,9 +276,6 @@ public class MapScreen extends PauseMenu implements Screen {
 			game.getGameController().playMusic();
 			
 		}
-
-		
-
 		game.getGameController().getSpriteBatch().end();
 
 		
@@ -328,6 +317,7 @@ public class MapScreen extends PauseMenu implements Screen {
 		// 0);
 		// Test stuff; setToOrtho method above achieves the effect much better and
 		// cleaner.
+
 	}
 
 	@Override

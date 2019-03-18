@@ -4,7 +4,6 @@ import com.mygdx.game.entities.Actor;
 import com.mygdx.game.util.ActorAnimation;
 import com.mygdx.game.util.Time;
 
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Calendar;
@@ -36,8 +35,6 @@ public class PrisonEscapeGame extends Game {
 	private GameController game;
 	protected Actor player;
 	protected Time time;
-	
-	
 	
 	@Override
 	public void create() {
@@ -72,7 +69,6 @@ public class PrisonEscapeGame extends Game {
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
 
 		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
-
 		game.setMusic("data/sounds/BackgroundSound.mp3");
 		game.playMusic();
 	}
@@ -86,7 +82,6 @@ public class PrisonEscapeGame extends Game {
 	public void restartGame() {
 		discardGame();
 		setupGame();
-
 	}
 
 	@Override

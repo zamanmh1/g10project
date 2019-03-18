@@ -111,7 +111,6 @@ public class MainMenuScreen implements Screen {
 		buttonActive = true;
 		playPressed = false;
 		volumeMuted = false;
-		
 
 
 	}
