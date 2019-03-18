@@ -5,67 +5,62 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.entities.Actor;
 import com.mygdx.game.entities.AlarmSystem;
 import com.mygdx.game.entities.DIRECTION;
 import com.mygdx.game.entities.MapActor;
-import com.mygdx.game.entities.Actor.ACTOR_STATE;
+import com.mygdx.game.io.PlayerMovementController;
 import com.mygdx.game.util.Time;
 import com.mygdx.prisonescapegame.GameController;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import com.mygdx.prisonescapegame.screens.MapScreen;
 
-public class TestActor {
+public class TestPlayerMovementController {
 	
 	private GameController controller;
 	private Actor actor;
+	private PlayerMovementController move;
 	
 	@Before
 	public void setUp() {
 		controller = new TestGC();
 		actor = new Actor(1, 1, null, controller);
+		move = new PlayerMovementController(actor);
 	}
 
 	@Test
-	public void testActor_ChangeFacing_FaceEast() {		
-		actor.changeFacing(DIRECTION.EAST);
+	public void testMovementController_ChangeDirection() {	
+		assertEquals(actor.getFacing(), DIRECTION.SOUTH);
+		
+		move.keyUp(Keys.W);
+		
+		assertEquals(actor.getFacing(), DIRECTION.NORTH);
+		
+	}
+	
+	@Test
+	public void testMovementController_ChangeDirection_Frozen() {
+		actor.setFrozen(true);
+		
+		assertEquals(actor.getFacing(), DIRECTION.SOUTH);
+		
+		move.keyUp(Keys.W);
+		
+		assertEquals(actor.getFacing(), DIRECTION.SOUTH);
+		
+	}
+	
+	@Test
+	public void testMovementController_ChangeDirection_NotStanding() {
+		// Actor state must be standing before next move.
+		// While changing facing direction, state equals refacing.
+		actor.changeFacing(DIRECTION.EAST);		
+		move.keyUp(Keys.W);
 		
 		assertEquals(actor.getFacing(), DIRECTION.EAST);
-	}
-	
-	@Test
-	public void testActor_ChangeFacing_ActorState() {		
-		actor.changeFacing(DIRECTION.EAST);
-		
-		assertEquals(actor.getState(), ACTOR_STATE.REFACING);
-	}
-	
-	@Test
-	public void testActor_ChangeFacing_Frozen() {		
-		actor.setFrozen(true);
-		actor.changeFacing(DIRECTION.EAST);
-		
-		assertTrue(actor.getFrozen());
-		assertEquals(actor.getFacing(), DIRECTION.SOUTH);
-		assertEquals(actor.getState(), ACTOR_STATE.STANDING);
-	}
-	
-	@Test
-	public void testActor_InitialisedState () {
-		assertEquals(actor.getX(), 1);
-		assertEquals(actor.getY(), 1);
-		assertEquals(actor.getState(), ACTOR_STATE.STANDING);
-		assertEquals(actor.getFacing(), DIRECTION.SOUTH);
-		assertFalse(actor.getFrozen());
-	}
-	
-	@Test
-	public void testActor_TeleportToPosition() {
-		actor.teleport(3, 6);
-		assertEquals(actor.getX(), 3);
-		assertEquals(actor.getY(), 6);
 	}
 	
 	private class TestGC implements GameController {
@@ -143,5 +138,4 @@ public class TestActor {
 		public void setCurrentObjective(String newObjective) {			
 		}		
 	}
-
 }

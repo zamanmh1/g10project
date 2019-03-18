@@ -6,7 +6,6 @@ import java.io.File;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,7 +18,7 @@ import com.mygdx.game.model.Tile;
 import com.mygdx.game.model.TiledModel;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
-public class TestTile extends GameTest{
+public class TestTile {
 
 	private Tile tile;
 	
@@ -36,14 +35,14 @@ public class TestTile extends GameTest{
 		assertFalse(tile.getAlarm());
 	}
 	
-	
 	@Test
 	public void testTile_ContainsActor() {
-		Sprite s = new Sprite(new Texture(Gdx.files.internal("data/itemSprites/sleep.png")));
-		Item actor = new Item(s, "sleepItem", "assets/data/maps/cell.tmx", "SLEEP", 2, 1);
-		tile.setActor(actor);
-		
+		Item actor = new Item(new Sprite(), "sleepItem", "assets/data/maps/cell.tmx", "SLEEP", 2, 1);
+		tile.setActor(actor);		
 		assertNotNull(tile.getActor());
+		
+		tile.setActor(null);
+		assertNull(tile.getActor());
 	}
 	
 	@Test
