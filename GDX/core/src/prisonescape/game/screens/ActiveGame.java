@@ -80,10 +80,12 @@ public class ActiveGame implements Screen {
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
 		
+		
 		Boolean muted = MainMenu.getInstance(game).checkSoundMuted();
 		if (muted == true) {
 			game.getGameController().stopMusic();
 		}
+		
 	}
 
 	public void setMap(String map, GameHandler gameHandler) {
@@ -205,11 +207,13 @@ public class ActiveGame implements Screen {
 			if (game.getGameController().getTime().isDay() == true) {
 				mapRenderer.renderTileLayer(alarmLayer);
 			} else {
+			
+				
 				mapRenderer.getBatch().setColor(0.9f, 0.0f, 0.0f, 1.0f);
 				mapRenderer.renderTileLayer(alarmLayer);
 			}
 		}
-
+		
 		// set HUD camera
 		//game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
 		// hud.stage.draw();
@@ -329,7 +333,7 @@ public class ActiveGame implements Screen {
 		// cleaner.
 
 	}
-	
+
 	public boolean checkIfOutside() {
 		if (mapName == "data/maps/outside.tmx") {
 			return true;
