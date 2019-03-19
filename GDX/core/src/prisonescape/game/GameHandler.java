@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import prisonescape.game.PrisonEscapeGame;
@@ -49,6 +50,7 @@ public class GameHandler implements GameController {
 	
 	private String currentObjective;
 	private String gameState = "1";
+	private Sound alarmSound;
 
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
@@ -62,7 +64,7 @@ public class GameHandler implements GameController {
 		
 		alarm = new AlarmSystem(this);
 		restarting = false;
-		
+		alarmSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/Alarm.ogg"));
 		currentObjective = "";
 		//gameState = "1";
 	}
@@ -127,6 +129,17 @@ public class GameHandler implements GameController {
 		music.stop();
 		
 	}
+	
+	@Override
+	public void playAlarmSound() {
+		//alarmSound.play(1f);
+		alarmSound.loop(1f);
+	}
+	@Override
+	public void stopAlarmSound() {
+		alarmSound.stop();
+	}
+
 	@Override
 	public void setMap(String map, int x, int y) {
 		// In initial call, player actor won't be in the map.
@@ -235,4 +248,6 @@ public class GameHandler implements GameController {
 	public void restartGame() {
 		restarting = true;
 	}
+
+	
 }

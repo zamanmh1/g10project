@@ -2,8 +2,6 @@ package prisonescape.game.model;
 
 import java.util.Calendar;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.GridPoint2;
@@ -27,46 +25,49 @@ public class AlarmSystem {
 	private GridPoint2 playerSpottedLoc;
 	
 	private boolean playerCaught;
-	private Sound alarmSound;
 	
 	public AlarmSystem(GameHandler controller) {
 		this.alarmStarted = 0L;
 		this.controller = controller;
 		this.guard = null;
-		alarmSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/Alarm.ogg"));
+		
 	}
 	
 	public void setAlarm(boolean alarm) {
 		if (alarm == true) {
 			alarmStarted = System.currentTimeMillis();			
 			// !!! Start alarm sound?
-			alarmSound.play(1f);
-			alarmSound.loop();
-		} else {
-			controller.removeActor(guard.getActor());
-			controller.getMapScreen().removeNPCFromMap(guard);
-			guard = null;
-			playerSpottedLoc = null;
-			alarmStarted = 0L;	
+			controller.playAlarmSound();
 			
-			if (playerCaught == true) {				
-				// Set time to next morning.
-				Calendar cal = controller.getTime().getCalendar();
-				Time time = Time.getTime(cal);
-				time = Time.setTime(cal, 7, 15);
-				controller.setTime(time);		
-				
-				// Move player to cell and unfreeze.
-				controller.setMap("data/maps/cell.tmx", 3, 1); 		    	 	   
-		    	controller.getPlayer().setFrozen(false);
-		    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
-		    	
-				// !!! Message to player saying caught?
-			} 
-			playerCaught = false;
-			// !!! End alarm sound?
-			alarmSound.stop();
+		} else {
+			resetAlarm();
 		}
+	}
+	
+	private void resetAlarm() {
+		controller.removeActor(guard.getActor());
+		controller.getMapScreen().removeNPCFromMap(guard);
+		guard = null;
+		
+		if (playerCaught == true) {				
+			// Set time to next morning.
+			Calendar cal = controller.getTime().getCalendar();
+			Time time = Time.getTime(cal);
+			time = Time.setTime(cal, 7, 15);
+			controller.setTime(time);		
+			
+			// Move player to cell and unfreeze.
+			controller.setMap("data/maps/cell.tmx", 3, 1); 		    	 	   
+	    	controller.getPlayer().setFrozen(false);
+	    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
+	    	
+			// !!! Message to player saying caught?
+		} 
+		playerCaught = false;
+		playerSpottedLoc = null;
+		alarmStarted = 0L;	
+		// !!! End alarm sound?
+		controller.stopAlarmSound();
 	}
 	
 	private void spawnGuard() {
@@ -95,10 +96,10 @@ public class AlarmSystem {
 	public void update() {
 		if (getAlarm()) {			
 			long timePassed = System.currentTimeMillis() - alarmStarted;
-			
+
 			if (timePassed > guardSpawnTime && guard == null) {
 				spawnGuard();
-			} else if (timePassed > guardLookTime || playerCaught == true) {
+			} else if (timePassed > guardLookTime || (guard != null && playerCaught == true)) {
 				setAlarm(false);
 			}
 		} else if (getAlarm() == false){

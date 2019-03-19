@@ -421,6 +421,7 @@ public class Pause {
 
 		Music music = game.getGameController().getMusic();
 		Sound getMouseOverSound = MainMenu.getInstance(game).mouseOverSound();
+	
 
 		if (muted) {
 
@@ -428,6 +429,9 @@ public class Pause {
 			volumeButtonMuted.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonMuted.draw(game.getGameController().getSpriteBatch());
 			music.pause();
+			if (game.getGameController().getAlarm().getAlarm()) {
+				game.getGameController().stopAlarmSound();
+			}
 			getMouseOverSound.stop();
 		} else {
 
@@ -435,6 +439,11 @@ public class Pause {
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
 			music.play();
+			if (game.getGameController().getAlarm().getAlarm()) {
+				game.getGameController().stopAlarmSound();
+				game.getGameController().playAlarmSound();
+			}
+			
 		}
 
 	}
