@@ -18,43 +18,87 @@ import prisonescape.game.model.actors.Actor.ACTOR_STATE;
 import prisonescape.game.screens.ActiveGame;
 import prisonescape.game.util.Time;
 
+/**
+ * A class which tests an Actor object under controlled circumstances.
+ * 
+ * @author Sam Ward
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ */
+
 public class TestActor {
 
-	private GameController controller;
+	/**
+	 * The actor that tests will be performed on.
+	 */
 	private Actor actor;
 
+	/**
+	 * Sets up an actor to be tested.
+	 * 
+	 * @throws Exception Catches any exception caused by setup.
+	 */
 	@Before
-	public void setUp() {
-		controller = new TestGC();
-		actor = new Actor(1, 1, null, controller);
+	public void setUp() throws Exception {
+		// Actor initialised with position and non-operational GameController.
+		// Null parameter as no animations are required.
+		actor = new Actor(1, 1, null, new TestGC());
 	}
 
+	/**
+	 * This test checks that an actor can change to face the required correctly.
+	 */
 	@Test
 	public void testActor_ChangeFacing_FaceEast() {
+		// Assert that initial direction facing is south.
+		assertEquals(actor.getFacing(), DIRECTION.SOUTH);
+		
+		// Change direction facing to east.
 		actor.changeFacing(DIRECTION.EAST);
 
+		// Assert that direction now facing is east.
 		assertEquals(actor.getFacing(), DIRECTION.EAST);
 	}
 
+	/**
+	 * This test checks that when an actor is changing direction that its actor
+	 * state is updated to reflect this.
+	 */
 	@Test
 	public void testActor_ChangeFacing_ActorState() {
+		// Change direction facing to east.
 		actor.changeFacing(DIRECTION.EAST);
 
+		// Assert that actor state is refacing.
 		assertEquals(actor.getState(), ACTOR_STATE.REFACING);
 	}
 
+	/**
+	 * This test checks that an actor cannot change direction facing while 
+	 * in being frozen.
+	 */
 	@Test
 	public void testActor_ChangeFacing_Frozen() {
+		// Sets actor to frozen and attempts to change direction facing.
 		actor.setFrozen(true);
 		actor.changeFacing(DIRECTION.EAST);
 
+		// Assert that actor is frozen.
 		assertTrue(actor.getFrozen());
+		// Assert that actor still facing direction from when initialised.
 		assertEquals(actor.getFacing(), DIRECTION.SOUTH);
+		// Assert that actor state is still standing.
 		assertEquals(actor.getState(), ACTOR_STATE.STANDING);
 	}
 
+	/**
+	 * This test checks the initialised state of an actor.
+	 */
 	@Test
 	public void testActor_InitialisedState() {
+		// Asserts that the state of an actor is as expected after initialisation.
 		assertEquals(actor.getX(), 1);
 		assertEquals(actor.getY(), 1);
 		assertEquals(actor.getState(), ACTOR_STATE.STANDING);
@@ -62,13 +106,28 @@ public class TestActor {
 		assertFalse(actor.getFrozen());
 	}
 
+	/**
+	 * This test checks that an actor can teleport to a new position.
+	 */
 	@Test
 	public void testActor_TeleportToPosition() {
+		// Teleports the actor.
 		actor.teleport(3, 6);
+		
+		// Assert that the actor's location matches the location teleported to.
 		assertEquals(actor.getX(), 3);
 		assertEquals(actor.getY(), 6);
 	}
 
+	/**
+	 * A non-operational version of a GameController that allows for tests to run which require a game
+	 * controller but don't use any of its methods.
+	 * 
+	 * @author Sam Ward
+	 * 
+	 * @version 1.0
+	 * @since 1.0
+	 */
 	private class TestGC implements GameController {
 		/**
 		 * Auto-generated methods.

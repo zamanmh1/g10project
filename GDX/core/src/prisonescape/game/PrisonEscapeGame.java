@@ -1,14 +1,10 @@
 package prisonescape.game;
 
 import prisonescape.game.model.actors.Actor;
-import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.ActorAnimation;
-import prisonescape.game.util.Time;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
@@ -17,26 +13,39 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 /**
- * CLASS DESCRIPTION
+ * This class holds the logic for Prison Breakout.
  * 
  * @author Sam Ward
  * 
- * @version 0.2
+ * @version 1.0
  * @since 0.1
  * 
  */
 
 public class PrisonEscapeGame extends Game {
-	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH =(int) screenSize.getWidth();
 	public static final int HEIGHT = (int) screenSize.getHeight();
 	
-	private AssetManager assetManager;
+	/**
+	 * An asset manager to store the sprites associated with actor models.
+	 */
+	private AssetManager assetManager;	
 	
-	private GameController game;
+	/**
+	 * A controller to manage the execution of the game.
+	 */
+	private GameController controller;
+	
+	/**
+	 * The actor of the player playing the game.
+	 */
 	protected Actor player;
-	protected Time time;
 	
+	/**
+	 * Creates and runs the application.
+	 */
 	@Override
 	public void create() {
 		// Store texture atlas containing player textures and animations in an AssetManager.
@@ -44,13 +53,26 @@ public class PrisonEscapeGame extends Game {
 		assetManager.load("data/packed/textures.atlas", TextureAtlas.class);
 		assetManager.finishLoading();
 		
+		// Perform initial setup of game.
 		setupGame();
 	}
+
+	/**
+	 * Used to render the application.
+	 */
+	@Override
+	public void render() {
+		super.render();		
+	}
 	
+	/**
+	 * Creates the starting state for a new Prison Breakout game.
+	 */
 	private void setupGame() {	
+		// Finds the texture atlas containing the player's actor textures.
 		TextureAtlas atlas = getAssetManager().get("data/packed/textures.atlas", TextureAtlas.class);	
 		
-		// Stores player animations in new AnimationSet.
+		// Stores player's actor animations in new AnimationSet.
 		ActorAnimation animations = new ActorAnimation(
 				new Animation<Object>(0.3f/2f, atlas.findRegions("player01_walk_north"), PlayMode.LOOP_PINGPONG),
 				new Animation<Object>(0.3f/2f, atlas.findRegions("player01_walk_south"), PlayMode.LOOP_PINGPONG),
@@ -62,45 +84,47 @@ public class PrisonEscapeGame extends Game {
 				atlas.findRegion("player01_stand_west")
 		);
 		
-		this.game = new GameHandler(this);
-		this.player = new Actor(1, 2, animations, game);
-		
-		// !!! Need to set game time and scale.
-		Calendar cal = new GregorianCalendar(1995, 12, 24, 7, 0);
-		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
-
-		game.setMap("data/maps/cell.tmx", player.getX(), player.getY());
-		
-		game.setMusic("data/sounds/BackgroundSound.mp3");
-		game.playMusic();
-		
-		Boolean muted = MainMenu.getInstance(this).checkSoundMuted();
-		if (muted == true) {
-			game.stopMusic();
-		}
-		
+		// Creates a new controller for this game.
+		this.controller = new GameHandler(this);
+		// Creates a new actor for the player to play as in this game.
+		this.player = new Actor(1, 2, animations, controller);
+		// Sets the map to the starting map and sets player location within it. 
+		controller.setMap("data/maps/cell.tmx", player.getX(), player.getY());
+		// Sets music to the game background music and plays it.
+		controller.setMusic("data/sounds/BackgroundSound.mp3");
+		controller.playMusic();		
 	}
 	
+	/**
+	 * Discards the current game and its associated state.
+	 */
 	private void discardGame() {
-		game = null;
+		controller = null;
 		player = null;
-		time = null;
 	}
 	
+	/**
+	 * Discards the current game and restarts with a fresh, new game.
+	 */
 	public void restartGame() {
 		discardGame();
 		setupGame();
 	}
-
-	@Override
-	public void render() {
-		super.render();		
-	}
 	
+	/**
+	 * Retrieve the current controller of the game.
+	 * 
+	 * @return GameController
+	 */
 	public GameController getGameController() {
-		return game;
+		return controller;
 	}
 	
+	/**
+	 * Retrieve the AssetManager of the game.
+	 * 
+	 * @return AssetManager
+	 */
 	public AssetManager getAssetManager() {
 		return assetManager;
 	}

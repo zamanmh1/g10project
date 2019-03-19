@@ -52,7 +52,7 @@ public class InteractionController extends InputAdapter {
 			// If tile facing is a teleporter tile.
 
 			if (target.getTeleporter() == true) {
-				if (gameHandler.getAlarm().getAlarm() == false) {
+				if (gameHandler.getAlarm().alarmTriggered() == false) {
 					// Find the teleporter.
 					Teleporter teleporter = gameHandler.getMapHandler().getTeleporter(gameHandler.getMapHandler().getCurrentMap(), actor.getX(), actor.getY());
 

@@ -1,7 +1,7 @@
 package prisonescape.game;
 
 /**
- * CLASS DESCRIPTION
+ * This class contains global settings for the game.
  * 
  * @author Sam Ward
  * 

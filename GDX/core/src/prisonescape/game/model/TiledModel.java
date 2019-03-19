@@ -1,7 +1,5 @@
 package prisonescape.game.model;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
@@ -27,44 +25,49 @@ public class TiledModel {
 	 * @param tilemap The TiledMap to model.
 	 */
 	public TiledModel(TiledMap tilemap) {
-		this.map = tilemap;
+		this.map = tilemap;		
 		
-		//TiledMapTileLayer levelLayer = getLayer("Tile Layer 1"); // Main layer of map.
 		TiledMapTileLayer alarmLayer = getLayer("Tile Layer 2"); // Alarm layer of map.
-		//TiledMapTileLayer tableLayer = getLayer("Tile Layer 3"); // Label representing tables within map.
-		//TiledMapTileLayer detailLayer = getLayer("Tile Layer 4"); // Layer containing small details.
-		
-		ArrayList<TiledMapTileLayer> collisionLayers = new ArrayList<TiledMapTileLayer>();
-		collisionLayers.add(getLayer("Tile Layer 1"));
-		collisionLayers.add(getLayer("Tile Layer 3"));
-		collisionLayers.add(getLayer("Tile Layer 4"));
-		
-		width = collisionLayers.get(0).getWidth(); // Finds the width of the map.
-		height = collisionLayers.get(0).getHeight(); // Finds the height of the map.
+	
+		// Array loading all layers of the map.
+		TiledMapTileLayer[] collisionLayers = new TiledMapTileLayer[4];
+		collisionLayers[0] = getLayer("Tile Layer 1"); // Main layer of map.
+		collisionLayers[1] = alarmLayer;
+		collisionLayers[2] = getLayer("Tile Layer 3"); // Layer representing tables within map.
+		collisionLayers[3] = getLayer("Tile Layer 4"); // Layer containing small details.
+				
+		width = collisionLayers[0].getWidth(); // Finds the width of the map.
+		height = collisionLayers[0].getHeight(); // Finds the height of the map.
 		
 		tiles = new Tile[width][height]; // Constructs the array of tiles based on the maps width and height.
 
-		// Creates model of given TiledMap by iterating over TiledMap.
+		// Creates model of given TiledMap creating 2D array of Tiles the size of the main layer.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
+				// Initialise tile in each location.
 				tiles[x][y] = new Tile();
 
+				// For all of the layers in the map.
 				for (TiledMapTileLayer layer : collisionLayers) {
+					// If the layer exists.
 					if (layer != null) {
+						// And that tile exists in this layer.
 						if(layer.getCell(x,y) != null) {
+							// And contains the blocked property.
 							if(layer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
-								tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property "blocked".
+								// Then create collision for this tile.
+								tiles[x][y].setWalkable(false);
 							}			
 						}
 
 					}
 				}
+				// Checks that map has an alarm layer. 
 				if (alarmLayer != null) {
+					// Checks that tile exists in alarm layer.
 					if (alarmLayer.getCell(x, y) != null) {
-						if(alarmLayer.getCell(x,y).getTile().getProperties().containsKey("blocked")) {
-							tiles[x][y].setWalkable(false); // Create collision for any cells in TiledMap with property "blocked".
-						}	
-						tiles[x][y].setAlarm(true); // If tile is in the alarm layer, set alarm property to true.
+						// If tile is in the alarm layer, set alarm property to true.
+						tiles[x][y].setAlarm(true);
 					}
 				}
 			}

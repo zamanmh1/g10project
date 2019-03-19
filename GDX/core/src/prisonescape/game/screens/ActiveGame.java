@@ -79,7 +79,11 @@ public class ActiveGame implements Screen {
 		inputHandler = new InputMultiplexer();
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
-
+		
+		Boolean muted = MainMenu.getInstance(game).checkSoundMuted();
+		if (muted == true) {
+			game.getGameController().stopMusic();
+		}
 	}
 
 	public void setMap(String map, GameHandler gameHandler) {
@@ -180,12 +184,14 @@ public class ActiveGame implements Screen {
 		mapRenderer.setView(oCamera);
 		//mapRenderer.render();
 		
-		ArrayList<TiledMapTileLayer> collisionLayers = new ArrayList<TiledMapTileLayer>();
-		collisionLayers.add(model.getLayer("Tile Layer 1"));
-		collisionLayers.add(model.getLayer("Tile Layer 3"));
-		collisionLayers.add(model.getLayer("Tile Layer 4"));
+		// Array containing all map layers other than the alarm layer.
+		TiledMapTileLayer[] mapLayers = new TiledMapTileLayer[3];
+		mapLayers[0] = model.getLayer("Tile Layer 1"); // Main layer of map.
+		mapLayers[1] = model.getLayer("Tile Layer 3"); // Layer representing tables within map.
+		mapLayers[2] = model.getLayer("Tile Layer 4"); // Layer containing small details.
 		
-		for (TiledMapTileLayer layer : collisionLayers) {
+		
+		for (TiledMapTileLayer layer : mapLayers) {
 			if (layer != null) {
 				mapRenderer.renderTileLayer(layer);
 			}

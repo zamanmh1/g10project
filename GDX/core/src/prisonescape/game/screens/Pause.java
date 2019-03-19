@@ -430,7 +430,7 @@ public class Pause {
 			volumeButtonMuted.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonMuted.draw(game.getGameController().getSpriteBatch());
 			music.pause();
-			if (game.getGameController().getAlarm().getAlarm()) {
+			if (game.getGameController().getAlarm().alarmTriggered()) {
 				game.getGameController().stopAlarmSound();
 			}
 			getMouseOverSound.stop();
@@ -440,7 +440,7 @@ public class Pause {
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
 			music.play();
-			if (game.getGameController().getAlarm().getAlarm()) {
+			if (game.getGameController().getAlarm().alarmTriggered()) {
 				game.getGameController().stopAlarmSound();
 				game.getGameController().playAlarmSound();
 			}

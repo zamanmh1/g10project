@@ -1,6 +1,8 @@
 package prisonescape.game;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import com.badlogic.gdx.Gdx;
@@ -51,6 +53,7 @@ public class GameHandler implements GameController {
 	private String currentObjective;
 	private String gameState = "1";
 	private Sound alarmSound;
+	private Time time;
 
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
@@ -66,7 +69,9 @@ public class GameHandler implements GameController {
 		restarting = false;
 		alarmSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/Alarm.ogg"));
 		currentObjective = "";
-		//gameState = "1";
+		
+		Calendar cal = new GregorianCalendar(1995, 12, 24, 7, 0);
+		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
 	}
 	
 	public String getGameState() {
@@ -97,12 +102,12 @@ public class GameHandler implements GameController {
 
 	@Override
 	public Time getTime() {
-		return game.time;
+		return this.time;
 	}
 
 	@Override
 	public void setTime(Time updatedTime) {
-		game.time = updatedTime;
+		this.time = updatedTime;
 	}
 
 	@Override

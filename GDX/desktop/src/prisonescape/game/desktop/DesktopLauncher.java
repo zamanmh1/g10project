@@ -10,29 +10,28 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import prisonescape.game.PrisonEscapeGame;
 
 /**
- * CLASS DESCRIPTION
+ * This class launches the desktop version of Prison Breakout.
  * 
  * @author Sam Ward
  * 
- * @version 0.1
+ * @version 1.0
  * @since 0.1
  * 
  */
 
 public class DesktopLauncher 
 {
-	public static void main (String[] arg) 
+	public static void main (String[] args) 
 	{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-
-		config.width = (int) screenSize.getWidth(); //528
-		config.height = (int) screenSize.getHeight(); //768
-
+		config.width = (int) screenSize.getWidth();
+		config.height = (int) screenSize.getHeight();
 		config.fullscreen = true;
-		config.title = "Prison Breakout";
+		config.title = "Prison Breakout!";
 		config.foregroundFPS = 60;
+		
 		new LwjglApplication(new PrisonEscapeGame(), config);
 	}
 }
