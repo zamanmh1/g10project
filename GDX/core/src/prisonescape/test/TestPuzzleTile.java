@@ -1,11 +1,11 @@
-package com.mygdx.game.testing;
+package prisonescape.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mygdx.prisonescapegame.screens.PuzzleTile;
+import prisonescape.game.screens.components.PuzzleTile;
 
 public class TestPuzzleTile extends GameTest{
 
