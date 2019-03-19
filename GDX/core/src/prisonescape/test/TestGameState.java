@@ -1,4 +1,4 @@
-package com.mygdx.game.testing;
+package prisonescape.test;
 
 import static org.junit.Assert.*;
 
