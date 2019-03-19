@@ -2,6 +2,8 @@
 
 Guards:
 	guard01 -> 
+	guardgun ->
+	warden ->
 Dinner-Lady:
 	dinnerlady ->
 Prisoners:
@@ -13,6 +15,10 @@ Prisoners:
 	npc06 -> orange jumpsuit white blonde hair
 	npc07 -> orange jumpsuit white bald
 	npc08 -> orange jumpsuit white brown hair
+	gambler ->
+	mobboss ->
+	rainbow ->
+	trippie ->
 
 // Players //
 
