@@ -1,17 +1,18 @@
 package prisonescape.game.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import prisonescape.game.GameManager;
-import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 import prisonescape.game.PrisonEscapeGame;
 import prisonescape.game.tween.SpriteAccessor;
@@ -32,7 +33,6 @@ public class Pause {
 	private static final int RESUME_BUTTON_WIDTH = 305;
 	private static final int RESUME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 50;
 	private static final int RESUME_BUTTON_HEIGHT = 53;
-	protected Sprite gameSaved;
 	protected Sprite resumeButtonMenuActive;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
@@ -110,7 +110,6 @@ public class Pause {
 		iKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/i.png")));
 		escKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/esc.png")));
 		mKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/m.png")));
-		gameSaved = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/game_saved.png")));
 		logo = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/logo.png")));
 		helpPressed = false;
 		fontSmall = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
@@ -192,12 +191,13 @@ public class Pause {
 				}
 
 				if (Gdx.input.isTouched()) {
-					gameSaved.setPosition(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
-					gameSaved.setSize(478,75);
-					gameSaved.draw(game.getGameController().getSpriteBatch());
-					
-
-					
+					Dialog dialog = new Dialog("Save Game", new Skin(Gdx.files.internal("data/story/skin/uiskin.json")), "dialog");
+					menuPressed = false;
+					Stage stage = ActiveGame.getStage();
+					dialog.text("Game has been saved!");
+					dialog.button("OK", true); //sends "true" as the result
+					dialog.key(Keys.ENTER, true); //sends "true" when the ENTER key is pressed
+					dialog.show(stage);
 					gm.saveData(game);
 					
 
