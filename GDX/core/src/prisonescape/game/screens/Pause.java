@@ -286,6 +286,9 @@ public class Pause {
 
 				}
 				if (Gdx.input.isTouched()) {
+					if (game.getGameController().getAlarm().alarmTriggered()) {
+						game.getGameController().stopAlarmSound();
+					}
 					ActiveGame.setBlackScreen();
 					menuPressed = false;
 					game.getGameController().restartGame();
