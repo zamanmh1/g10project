@@ -11,6 +11,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 import prisonescape.game.PrisonEscapeGame;
 import prisonescape.game.tween.SpriteAccessor;
+import prisonescape.game.util.Time;
 
 /**
  * Represents the Pause Menu screen when the user presses esc button while game play
@@ -144,8 +145,8 @@ public class Pause {
 				}
 
 				if (Gdx.input.isTouched()) {
-					menuPressed = false;
-
+					Time.updateLastTime();
+					menuPressed = false;					
 				}
 			}
 		} else {

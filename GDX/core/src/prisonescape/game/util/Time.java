@@ -145,4 +145,13 @@ public class Time {
 
         return new Color(b, b, b, 1.0f);
     }
+    
+    /**
+     * Updates the last time called to the current time. 
+     * 
+     * Can be used to reset the amount that would be added when getTime(Calendar cal, int scale) is called.
+     */
+    public static void updateLastTime() {
+    	lastTime = System.currentTimeMillis();
+    }
 }

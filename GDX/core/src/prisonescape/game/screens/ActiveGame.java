@@ -292,6 +292,7 @@ public class ActiveGame implements Screen {
 			if (pauseMenu.menuPressed == false) {
 				pauseMenu.menuPressed = true;
 			} else if (pauseMenu.menuPressed == true) {
+				Time.updateLastTime();
 				pauseMenu.menuPressed = false;
 			}
 		}
