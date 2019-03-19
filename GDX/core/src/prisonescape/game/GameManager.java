@@ -13,7 +13,7 @@ import prisonescape.game.util.Time;
 public class GameManager {
 	private GameController controller;
 	private ObjectMap<String, Object> values = new ObjectMap<String, Object>();
-	private FileHandle fileHandle = Gdx.files.local("data/bin/GameData.json");
+	private FileHandle fileHandle = Gdx.files.local("data/bin/GameData.bin");
 	
 	public GameManager(GameController controller) {
 		this.controller = controller;
