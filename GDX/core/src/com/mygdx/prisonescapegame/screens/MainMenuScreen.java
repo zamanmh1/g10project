@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.prisonescapegame.GameManager;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 
 import aurelienribon.tweenengine.Timeline;
@@ -282,6 +283,7 @@ public class MainMenuScreen implements Screen {
 	}
 
 	private void loadGameButton(int loadGameX) {
+		GameManager gm = new GameManager(game.getGameController());
 		if (Gdx.input.getX() < loadGameX + LOADGAME_BUTTON_WIDTH && Gdx.input.getX() > loadGameX
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < LOADGAME_BUTTON_Y + LOADGAME_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > LOADGAME_BUTTON_Y) {
@@ -300,6 +302,8 @@ public class MainMenuScreen implements Screen {
 			}
 
 			if (Gdx.input.isTouched()) {
+				gm.loadData();
+				
 
 			}
 		} else {

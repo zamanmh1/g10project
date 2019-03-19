@@ -7,33 +7,30 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 
 public class GameManager {
-	private static GameManager instance = new GameManager();
-	private GameHandler gameHandler;
+	private GameController controller;
 	private Json json = new Json();
 	private ObjectMap<String, Object> values = new ObjectMap<String, Object>();
 	private FileHandle fileHandle = Gdx.files.local("data/bin/GameData.json");
-	private GameManager() {
+	
+	public GameManager(GameController controller) {
+		this.controller = controller;
 	};
 	
-	public void saveData() {
+	public void saveData(PrisonEscapeGame game) {
+		setProperty("state", controller.getGameState());
+		setProperty("currentObjective", controller.getGameState());
 
-		setProperty("state", gameHandler.getGameState());
-		setProperty("currentObjective", gameHandler.getGameState());
-
-		if (gameHandler != null) {
+		if (controller != null) {
 			fileHandle.writeString(json.prettyPrint(values.get("state")), false);
+			fileHandle.writeString(json.prettyPrint(" "), true);
 			fileHandle.writeString(json.prettyPrint(values.get("currentObjective")), true);
 		}
 	}
 
 	public void loadData() {
-		gameHandler = json.fromJson(GameHandler.class, fileHandle.readString());
-		gameHandler.setGameState(getProperty("state", GameHandler.class).toString());
-		gameHandler.setGameState(getProperty("currentObjective", GameHandler.class).toString());
-	}
-
-	public static GameManager getInstance() {
-		return instance;
+		//controller = json.fromJson(GameHandler.class, fileHandle.readString());
+		controller.setGameState(getProperty("state", String.class));
+		controller.setGameState(getProperty("currentObjective", String.class));
 	}
 
 	public void setProperty(String key, Object object) {

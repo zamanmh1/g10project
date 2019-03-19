@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.tween.SpriteAccessor;
+import com.mygdx.prisonescapegame.GameHandler;
+import com.mygdx.prisonescapegame.GameManager;
 import com.mygdx.prisonescapegame.PrisonEscapeGame;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -164,6 +166,7 @@ public class PauseMenu {
 	 * @param game
 	 */
 	protected void saveButtonMenu(PrisonEscapeGame game) {
+		GameManager gm = new GameManager(game.getGameController());
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < SAVE_BUTTON_Y + SAVE_BUTTON_HEIGHT
@@ -183,6 +186,8 @@ public class PauseMenu {
 				}
 
 				if (Gdx.input.isTouched()) {
+					gm.saveData(game);
+					
 
 				}
 
