@@ -40,30 +40,34 @@ public class AlarmSystem {
 			controller.playAlarmSound();
 			
 		} else {
-			controller.removeActor(guard.getActor());
-			controller.getMapScreen().removeNPCFromMap(guard);
-			guard = null;
-			playerSpottedLoc = null;
-			alarmStarted = 0L;	
-			
-			if (playerCaught == true) {				
-				// Set time to next morning.
-				Calendar cal = controller.getTime().getCalendar();
-				Time time = Time.getTime(cal);
-				time = Time.setTime(cal, 7, 15);
-				controller.setTime(time);		
-				
-				// Move player to cell and unfreeze.
-				controller.setMap("data/maps/cell.tmx", 3, 1); 		    	 	   
-		    	controller.getPlayer().setFrozen(false);
-		    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
-		    	
-				// !!! Message to player saying caught?
-			} 
-			playerCaught = false;
-			// !!! End alarm sound?
-			controller.stopAlarmSound();
+			resetAlarm();
 		}
+	}
+	
+	private void resetAlarm() {
+		controller.removeActor(guard.getActor());
+		controller.getMapScreen().removeNPCFromMap(guard);
+		guard = null;
+		
+		if (playerCaught == true) {				
+			// Set time to next morning.
+			Calendar cal = controller.getTime().getCalendar();
+			Time time = Time.getTime(cal);
+			time = Time.setTime(cal, 7, 15);
+			controller.setTime(time);		
+			
+			// Move player to cell and unfreeze.
+			controller.setMap("data/maps/cell.tmx", 3, 1); 		    	 	   
+	    	controller.getPlayer().setFrozen(false);
+	    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
+	    	
+			// !!! Message to player saying caught?
+		} 
+		playerCaught = false;
+		playerSpottedLoc = null;
+		alarmStarted = 0L;	
+		// !!! End alarm sound?
+		controller.stopAlarmSound();
 	}
 	
 	private void spawnGuard() {
@@ -92,10 +96,10 @@ public class AlarmSystem {
 	public void update() {
 		if (getAlarm()) {			
 			long timePassed = System.currentTimeMillis() - alarmStarted;
-			
+
 			if (timePassed > guardSpawnTime && guard == null) {
 				spawnGuard();
-			} else if (timePassed > guardLookTime || playerCaught == true) {
+			} else if (timePassed > guardLookTime || (guard != null && playerCaught == true)) {
 				setAlarm(false);
 			}
 		} else if (getAlarm() == false){
