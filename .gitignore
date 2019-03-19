@@ -60,3 +60,4 @@ hs_err_pid*
 /.metadata/
 /.recommenders/
 .DS_Store
+GDX/core/assets/data/bin/*
