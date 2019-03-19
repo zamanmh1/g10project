@@ -80,12 +80,16 @@ public class InteractionController extends InputAdapter {
 					if(a.getFrozen() != true) {	
 						if(d.hasDialogue(action.getActionFor()))
 						{
+							// Force NPC to face actor, freeze both actors and display dialogue.
 							a.changeFacing(DIRECTION.getBehind(actor.getFacing()));		
 							a.setFrozen(true);
 							dBox.showDialogue(ActiveGame.getStage(), action.getActionFor());
+							actor.setFrozen(true);
 						}
 					} else {
+						// Unfreeze both actors when seen dialogue.
 						a.setFrozen(false);
+						actor.setFrozen(false);
 					}
 					return true;
 
