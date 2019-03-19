@@ -8,6 +8,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+
+
+import prisonescape.game.GameManager;
+
+
+
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -80,7 +86,9 @@ public class MainMenu implements Screen {
 	private boolean checkNewButtonMouseOver;
 	private long time;
 
+
 	private MainMenu(PrisonEscapeGame game) {
+
 		this.game = game;
 
 		tween = new TweenManager();
@@ -109,7 +117,7 @@ public class MainMenu implements Screen {
 		buttonActive = true;
 		playPressed = false;
 		volumeMuted = false;
-		
+
 
 	}
 
@@ -280,6 +288,7 @@ public class MainMenu implements Screen {
 	}
 
 	private void loadGameButton(int loadGameX) {
+		GameManager gm = new GameManager(game.getGameController());
 		if (Gdx.input.getX() < loadGameX + LOADGAME_BUTTON_WIDTH && Gdx.input.getX() > loadGameX
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < LOADGAME_BUTTON_Y + LOADGAME_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > LOADGAME_BUTTON_Y) {
@@ -298,6 +307,11 @@ public class MainMenu implements Screen {
 			}
 
 			if (Gdx.input.isTouched()) {
+				game.getGameController().stopMusic();
+				game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+				game.getGameController().playMusic();
+				gm.loadData();
+				
 
 			}
 		} else {
