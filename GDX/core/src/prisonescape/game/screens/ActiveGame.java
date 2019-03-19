@@ -153,7 +153,10 @@ public class ActiveGame implements Screen {
 		Tween.to(pauseMenu.logo, SpriteAccessor.ALPHA, 1.0f).target(1).start(tween);
 		Tween.set(pauseMenu.optionBackground, SpriteAccessor.ALPHA).target(0f).start(tween);
 		Tween.to(pauseMenu.optionBackground, SpriteAccessor.ALPHA, 1.0f).target(0.9f).start(tween);
-
+		//Tween.registerAccessor(Sprite.class, new SpriteAccessor());
+//
+//		Tween.set(pauseMenu.gameSaved, SpriteAccessor.ALPHA).target(0).start(tween);
+//		Tween.to(pauseMenu.gameSaved, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, .5f).start(tween);
 	}
 
 	@Override
@@ -363,6 +366,10 @@ public class ActiveGame implements Screen {
 
 	public static Stage getStage() {
 		return stage;
+	}
+	
+	public String getMapName() {
+		return mapName;
 	}
 
 	

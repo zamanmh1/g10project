@@ -1,20 +1,17 @@
 package prisonescape.game.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-<<<<<<< HEAD:GDX/core/src/com/mygdx/prisonescapegame/screens/PauseMenu.java
-import com.mygdx.game.tween.SpriteAccessor;
-import com.mygdx.prisonescapegame.GameHandler;
-import com.mygdx.prisonescapegame.GameManager;
-import com.mygdx.prisonescapegame.PrisonEscapeGame;
-=======
 
->>>>>>> dev:GDX/core/src/prisonescape/game/screens/Pause.java
+import prisonescape.game.GameManager;
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 import prisonescape.game.PrisonEscapeGame;
 import prisonescape.game.tween.SpriteAccessor;
@@ -34,6 +31,7 @@ public class Pause {
 	private static final int RESUME_BUTTON_WIDTH = 305;
 	private static final int RESUME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 50;
 	private static final int RESUME_BUTTON_HEIGHT = 53;
+	protected Sprite gameSaved;
 	protected Sprite resumeButtonMenuActive;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
@@ -111,6 +109,7 @@ public class Pause {
 		iKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/i.png")));
 		escKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/esc.png")));
 		mKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/m.png")));
+		gameSaved = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/game_saved.png")));
 		logo = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/logo.png")));
 		helpPressed = false;
 		fontSmall = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
@@ -169,8 +168,9 @@ public class Pause {
 	 * Represents the position and area where the same button is drawn
 	 * 
 	 * @param game
+	 * @param tween2 
 	 */
-	protected void saveButtonMenu(PrisonEscapeGame game) {
+	protected void saveButtonMenu(PrisonEscapeGame game, TweenManager tween2) {
 		GameManager gm = new GameManager(game.getGameController());
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -191,6 +191,12 @@ public class Pause {
 				}
 
 				if (Gdx.input.isTouched()) {
+					gameSaved.setPosition(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
+					gameSaved.setSize(478,75);
+					gameSaved.draw(game.getGameController().getSpriteBatch());
+					
+
+					
 					gm.saveData(game);
 					
 
@@ -475,7 +481,7 @@ public class Pause {
 		logo.draw(game.getGameController().getSpriteBatch());
 		resumeButtonMenu(game);
 		helpButtonMenu(tween, game);
-		saveButtonMenu(game);
+		saveButtonMenu(game, tween);
 
 		volumeButton(game);
 		if (helpPressed) {

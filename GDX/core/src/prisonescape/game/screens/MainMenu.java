@@ -307,6 +307,9 @@ public class MainMenu implements Screen {
 			}
 
 			if (Gdx.input.isTouched()) {
+				game.getGameController().stopMusic();
+				game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+				game.getGameController().playMusic();
 				gm.loadData();
 				
 

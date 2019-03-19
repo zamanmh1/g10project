@@ -40,7 +40,7 @@ public class Credits implements Screen{
 			"Samuel Ward", 
 			"Sean Corcoran",
 			"Shibu George",
-			"Mohammed Zaman",
+			"(Mohammed) Hamza Zaman",
 			"Adam Collins",
 			"Kevinjeet Singh",
 			"Maxwell Trimnell",

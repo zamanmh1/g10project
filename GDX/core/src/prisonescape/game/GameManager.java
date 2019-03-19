@@ -1,14 +1,17 @@
 package prisonescape.game;
 
+import java.util.Calendar;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Base64Coder;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
+
+import prisonescape.game.screens.Loading;
+import prisonescape.game.util.Time;
 
 public class GameManager {
 	private GameController controller;
-	private Json json = new Json();
 	private ObjectMap<String, Object> values = new ObjectMap<String, Object>();
 	private FileHandle fileHandle = Gdx.files.local("data/bin/GameData.json");
 	
@@ -17,20 +20,46 @@ public class GameManager {
 	};
 	
 	public void saveData(PrisonEscapeGame game) {
+		
+		setProperty("map", controller.getMapScreen().getMapName());
 		setProperty("state", controller.getGameState());
-		setProperty("currentObjective", controller.getGameState());
-
+		setProperty("currentObjective", controller.getCurrentObjective());
+		setProperty("playerX", controller.getPlayer().getX());
+		setProperty("playerY", controller.getPlayer().getY());
+		setProperty("time-hour", controller.getTime().getHour());
+		setProperty("time-min", controller.getTime().getMin());
+		System.out.println(controller.getMapScreen().getMapName());
 		if (controller != null) {
-			fileHandle.writeString(json.prettyPrint(values.get("state")), false);
-			fileHandle.writeString(json.prettyPrint(" "), true);
-			fileHandle.writeString(json.prettyPrint(values.get("currentObjective")), true);
+			fileHandle.writeString("Map," + values.get("map") + "," +"\n", false);
+			
+			fileHandle.writeString("State," + values.get("state") + "," +"\n", true);
+			fileHandle.writeString("currentObjective," + values.get("currentObjective") + "," +"\n", true);
+			
+			fileHandle.writeString("X," + values.get("playerX") + "," +"\n", true);
+			
+			fileHandle.writeString("Y," + values.get("playerY") + "," +"\n", true);
+			fileHandle.writeString("Hour," + values.get("time-hour") + "," +"\n", true);
+			fileHandle.writeString("Minute," + values.get("time-min") + "," +"\n", true);
 		}
 	}
 
 	public void loadData() {
-		//controller = json.fromJson(GameHandler.class, fileHandle.readString());
-		controller.setGameState(getProperty("state", String.class));
-		controller.setGameState(getProperty("currentObjective", String.class));
+		 fileHandle.readString();
+		 String[] data =fileHandle.readString().split(",");
+		 String map = data[1];
+		 int x = Integer.parseInt(data[7]);
+		 int y = Integer.parseInt(data[9]);
+		 String state = data[3];
+		 String currentObjective = data[5];
+		 int hour = Integer.parseInt(data[11]);
+		 int minute = Integer.parseInt(data[13]);
+		 ((Game) Gdx.app.getApplicationListener()).setScreen(new Loading(controller.getGame()));
+		 controller.setMap(map, x, y);
+		controller.setGameState(state);
+		controller.setCurrentObjective(currentObjective);
+		Calendar cal = controller.getTime().getCalendar();
+		Time.setTime(cal, hour, minute);
+
 	}
 
 	public void setProperty(String key, Object object) {
