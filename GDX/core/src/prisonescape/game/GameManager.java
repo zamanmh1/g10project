@@ -1,7 +1,6 @@
 package prisonescape.game;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -15,15 +14,15 @@ import prisonescape.game.util.Time;
 public class GameManager {
 	private GameController controller;
 	private ObjectMap<String, Object> values = new ObjectMap<String, Object>();
-	Date currentDate = new Date();
-	private FileHandle fileHandle = Gdx.files.local("data/bin/" + currentDate.toString());
+	
+	private FileHandle fileHandle; 
 	
 	public GameManager(GameController controller) {
 		this.controller = controller;
-	};
+		fileHandle = Gdx.files.local("data/bin/" + System.currentTimeMillis());
+	}
 	
 	public void saveData(PrisonEscapeGame game) {
-		
 		setProperty("map", controller.getMapScreen().getMapName());
 		setProperty("state", controller.getGameState());
 		setProperty("currentObjective", controller.getCurrentObjective());
@@ -31,7 +30,6 @@ public class GameManager {
 		setProperty("playerY", controller.getPlayer().getY());
 		setProperty("time-hour", controller.getTime().getHour());
 		setProperty("time-min", controller.getTime().getMin());
-		System.out.println(controller.getMapScreen().getMapName());
 		if (controller != null) {
 			fileHandle.writeString("Map," + values.get("map") + "," +"\n", false);
 			
