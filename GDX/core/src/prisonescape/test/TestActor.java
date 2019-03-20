@@ -231,6 +231,18 @@ public class TestActor {
 		public void stopAlarmSound() {
 
 		}
+
+		@Override
+		public void playAlarmBeep() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void stopAlarmBeep() {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 }
