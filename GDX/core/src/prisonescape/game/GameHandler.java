@@ -73,6 +73,8 @@ public class GameHandler implements GameController {
 		
 		Calendar cal = new GregorianCalendar(1995, 12, 24, 7, 0);
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
+		
+		
 	}
 	
 	public String getGameState() {
@@ -253,12 +255,18 @@ public class GameHandler implements GameController {
 	
 	public void restartGame() {
 		restarting = true;
+		
+	}
+	
+	public boolean checkRestart() {
+		return restarting;
 	}
 
 	@Override
 	public void playAlarmBeep() {
 
-		alarm_beep.loop(0.5f);
+		alarm_beep.play();
+		
 
 	}
 	

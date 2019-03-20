@@ -286,6 +286,7 @@ public class Pause {
 
 				}
 				if (Gdx.input.isTouched()) {
+					
 					if (game.getGameController().getAlarm().alarmTriggered()) {
 						game.getGameController().stopAlarmSound();
 					}
@@ -293,7 +294,9 @@ public class Pause {
 					menuPressed = false;
 					game.getGameController().restartGame();
 					game.getGameController().stopMusic();
-					
+					if (!game.getGameController().getTime().isDay()) {
+						game.getGameController().stopAlarmBeep();
+					}
 
 				}
 			}
@@ -449,10 +452,7 @@ public class Pause {
 			volumeButtonMuted.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonMuted.draw(game.getGameController().getSpriteBatch());
 			music.pause();
-			game.getGameController().stopAlarmBeep();
-			if (game.getGameController().getAlarm().alarmTriggered()) {
-				game.getGameController().stopAlarmSound();
-			}
+
 			getMouseOverSound.stop();
 		} else {
 
@@ -460,15 +460,7 @@ public class Pause {
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
 			music.play();
-			if (!game.getGameController().getTime().isDay()) {
-				game.getGameController().playAlarmBeep();
-			}
-			if (game.getGameController().getAlarm().alarmTriggered()) {
-				game.getGameController().stopAlarmBeep();
-				game.getGameController().stopAlarmSound();
-				game.getGameController().playAlarmSound();
-				
-			}
+			
 			
 		}
 

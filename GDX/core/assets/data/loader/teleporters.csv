@@ -43,8 +43,8 @@ data/maps/foodhall.tmx,8,15,8,14,data/maps/hallA.tmx,7,1,NORTH
 data/maps/foodhall.tmx,9,15,9,14,data/maps/hallA.tmx,8,1,NORTH
 data/maps/hallA.tmx,5,17,6,17,data/maps/closettoBasement.tmx,5,3,WEST
 data/maps/closettoBasement.tmx,6,3,5,3,data/maps/hallA.tmx,6,17,EAST
-data/maps/closettoBasement.tmx,2,3,3,3,data/maps/basement.tmx,4,7,EAST
-data/maps/basement.tmx,3,7,4,7,data/maps/basement.tmx,4,1,EAST
+data/maps/closettoBasement.tmx,2,3,3,3,data/maps/basement.tmx,6,1,WEST
+data/maps/basement.tmx,3,7,4,7,data/maps/basement.tmx,6,1,WEST
 data/maps/basement.tmx,7,1,6,1,data/maps/closettoBasement.tmx,3,3,EAST
 data/maps/hallA.tmx,13,11,12,11,data/maps/fightcellblock.tmx,1,12,EAST
 data/maps/hallA.tmx,13,10,12,10,data/maps/fightcellblock.tmx,1,11,EAST

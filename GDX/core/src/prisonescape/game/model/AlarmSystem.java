@@ -190,16 +190,16 @@ public class AlarmSystem {
 			// Find player coordinates.
 			int playerX = controller.getPlayer().getX();
 			int playerY = controller.getPlayer().getY();
-			Boolean muted = MainMenu.getInstance(controller.getGame()).checkSoundMuted();
-			if (!controller.getTime().isDay()) {
-				
-				if (muted == true) {
-					controller.stopAlarmBeep();
-				} else {
+			
+			Time t = controller.getTime();
+			
+			
+			if ((t.getHour() == GameSettings.HOUR_DAY_BEGINS) || (t.getHour() == GameSettings.HOUR_NIGHT_BEGINS)) {
+				if (t.getMin() == 0) {
 					controller.playAlarmBeep();
 				}
-
 			}
+			
 			// If it is night time and player moved into an alarm tile then trigger alarm.
 			if (!controller.getTime().isDay()
 					&& controller.getMapScreen().getTiledModel().getTile(playerX, playerY).getAlarm()) {

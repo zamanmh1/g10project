@@ -1,17 +1,16 @@
 NPC Name,Sprite Prefix,Map Appears In,Spawn X,Spawn Y,Move Limit North,Move Limit South,Move Limit East,Move Limit West,Minimum Move Interval,Maxmimum Move Interval,Random Seed
 TrippieMaroon,trippie_,data/maps/cellblock.tmx,3,3,1,0,2,2,1,3,3
 mobMember,guard01_,data/maps/cellblockG.tmx,7,8,0,0,0,0,100,100,3
-Testing,guard01_,data/maps/cell.tmx,3,3,0,0,0,0,0,1,3
+Testing,guard01_,data/maps/cell.tmx,3,3,0,0,0,0,100,100,3
 Rainbow,rainbow_,data/maps/cellblockG.tmx,31,15,2,7,4,3,1,4,3
-Rat,guard01_,data/maps/basement.tmx,5,4,0,0,0,0,100,100,3
-DinnerLady,dinnerlady_,data/maps/foodhall.tmx,9,5,0,0,0,1,1,1,3
-Gambler,gambler_,data/maps/janitor.tmx,4,3,0,0,0,0,0,0,3
-MobBoss,mobboss_,data/maps/maxsec.tmx,28,18,0,0,0,1,1,5,3
-Warden,warden_,data/maps/mainoffice.tmx,2,2,0,0,1,0,5,5,3
-Guard,guard01_,data/maps/mainoffice.tmx,2,7,0,0,0,0,0,0,3
-Warden,warden_,data/maps/prisonGuardCentre.tmx,2,2,0,0,0,0,0,0,3
-ArmedGuard1,guardgun_,data/maps/prisonGuardCentre.tmx,1,6,0,0,0,0,0,0,3
-ArmedGuard2,guardgun_,data/maps/prisonGuardCentre.tmx,1,3,0,0,0,0,0,0,3
+Rat,rat_,data/maps/basement.tmx,5,4,0,0,0,0,100,100,3
+DinnerLady,dinnerlady_,data/maps/foodhall.tmx,9,5,0,0,0,1,100,100,3
+Gambler,gambler_,data/maps/janitor.tmx,4,3,0,0,0,0,100,100,3
+MobBoss,mobboss_,data/maps/maxsec.tmx,28,18,0,0,0,1,100,100,3
+Warden,warden_,data/maps/mainoffice.tmx,2,2,0,0,1,0,100,100,3
+Guard,guard01_,data/maps/mainoffice.tmx,2,9,4,3,2,1,3,4,3
+ArmedGuard1,guardgun_,data/maps/prisonGuardCentre.tmx,1,6,0,0,0,0,100,100,3
+ArmedGuard2,guardgun_,data/maps/prisonGuardCentre.tmx,1,3,0,0,0,0,100,100,3
 Topless1,npc05_,data/maps/outside.tmx,7,7,2,1,1,2,2,4,3
 Topless2,npc05_,data/maps/outside.tmx,14,14,3,2,0,3,1,4,3
 Topless3,npc05_,data/maps/outside.tmx,7,16,3,2,0,3,1,4,3
