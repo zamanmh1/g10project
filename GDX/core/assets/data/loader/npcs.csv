@@ -18,7 +18,7 @@ Topless3,npc05_,data/maps/outside.tmx,7,16,3,2,0,3,1,4,3
 Topless3,npc05_,data/maps/outside.tmx,15,19,3,2,0,3,1,4,3
 Topless4,npc05_,data/maps/outside.tmx,10,10,0,0,3,5,2,4,3
 Topless5,npc05_,data/maps/outside.tmx,12,12,2,2,2,2,1,4,3
-OutsideGuard,guard02_,data/maps/outside.tmx,8,13,2,2,2,2,1,4,3
+OutsideGuard,guard01_,data/maps/outside.tmx,8,13,2,2,2,2,1,4,3
 MaxPrisoner1,npc06_,data/maps/maxsec.tmx,8,3,2,0,1,2,2,5,3
 MaxPrisoner2,npc03_,data/maps/maxsec.tmx,2,12,1,0,2,0,1,3,3
 LibraryPrisoner,npc01_,data/maps/maxsec.tmx,9,5,2,3,0,3,2,4,3
