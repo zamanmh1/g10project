@@ -99,10 +99,10 @@ public class Pause {
 		resumeButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/resume_active.png")));
 		exitButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_active.png")));
 		exitButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_inactive.png")));
-		helpButtonMenuActive = new Sprite(new Texture("data/menuSprites/help_active.png"));
-		helpButtonMenuInActive = new Sprite(new Texture("data/menuSprites/help_inactive.png"));
-		saveButtonMenuActive = new Sprite(new Texture("data/menuSprites/save_active.png"));
-		saveButtonMenuInActive = new Sprite(new Texture("data/menuSprites/save_inactive.png"));
+		helpButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/help_active.png")));
+		helpButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/help_inactive.png")));
+		saveButtonMenuActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/save_active.png")));
+		saveButtonMenuInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/save_inactive.png")));
 		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back_active.png")));
 		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back.png")));
 		wasdKeyboard = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/wasd.png")));
@@ -286,6 +286,7 @@ public class Pause {
 
 				}
 				if (Gdx.input.isTouched()) {
+					
 					if (game.getGameController().getAlarm().alarmTriggered()) {
 						game.getGameController().stopAlarmSound();
 					}
@@ -293,7 +294,9 @@ public class Pause {
 					menuPressed = false;
 					game.getGameController().restartGame();
 					game.getGameController().stopMusic();
-					
+					if (!game.getGameController().getTime().isDay()) {
+						game.getGameController().stopAlarmBeep();
+					}
 
 				}
 			}
@@ -449,9 +452,7 @@ public class Pause {
 			volumeButtonMuted.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonMuted.draw(game.getGameController().getSpriteBatch());
 			music.pause();
-			if (game.getGameController().getAlarm().alarmTriggered()) {
-				game.getGameController().stopAlarmSound();
-			}
+
 			getMouseOverSound.stop();
 		} else {
 
@@ -459,10 +460,7 @@ public class Pause {
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
 			music.play();
-			if (game.getGameController().getAlarm().alarmTriggered()) {
-				game.getGameController().stopAlarmSound();
-				game.getGameController().playAlarmSound();
-			}
+			
 			
 		}
 

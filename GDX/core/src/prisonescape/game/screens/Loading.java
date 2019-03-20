@@ -35,6 +35,7 @@ public class Loading implements Screen {
 		tween = new TweenManager();
 
 		loading = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loading.png")));
+		
 	}
 
 	@Override

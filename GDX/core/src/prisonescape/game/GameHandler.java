@@ -54,6 +54,7 @@ public class GameHandler implements GameController {
 	private String gameState = "1";
 	private Sound alarmSound;
 	private Time time;
+	private Sound alarm_beep;
 
 	public GameHandler(PrisonEscapeGame game) {
 		this.game = game;
@@ -64,7 +65,7 @@ public class GameHandler implements GameController {
 		mapHandler = new MapHandler();
 		itemHandler = new ItemHandler();
 		NPCsHandler = new NPCHandler(this);
-		
+		alarm_beep = Gdx.audio.newSound(Gdx.files.internal("data/sounds/Alarm_beep.ogg"));
 		alarm = new AlarmSystem(this);
 		restarting = false;
 		alarmSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/Alarm.ogg"));
@@ -72,6 +73,8 @@ public class GameHandler implements GameController {
 		
 		Calendar cal = new GregorianCalendar(1995, 12, 24, 7, 0);
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);
+		
+		
 	}
 	
 	public String getGameState() {
@@ -252,6 +255,26 @@ public class GameHandler implements GameController {
 	
 	public void restartGame() {
 		restarting = true;
+		
+	}
+	
+	public boolean checkRestart() {
+		return restarting;
+	}
+
+	@Override
+	public void playAlarmBeep() {
+
+		alarm_beep.play();
+		
+
+	}
+	
+	@Override
+	public void stopAlarmBeep() {
+
+		alarm_beep.stop();
+
 	}
 
 	

@@ -65,4 +65,8 @@ public interface GameController {
 	
 	void setCurrentObjective(String newObjective);
 
+	void playAlarmBeep();
+
+	void stopAlarmBeep();
+
 }
