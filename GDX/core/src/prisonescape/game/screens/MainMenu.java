@@ -1,14 +1,24 @@
 package prisonescape.game.screens;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
-
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import prisonescape.game.GameManager;
 
@@ -17,6 +27,7 @@ import prisonescape.game.GameManager;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
+import net.dermetfan.gdx.scenes.scene2d.ui.FileChooser;
 import prisonescape.game.PrisonEscapeGame;
 import prisonescape.game.tween.SpriteAccessor;
 
@@ -85,11 +96,14 @@ public class MainMenu implements Screen {
 	private boolean checkLoadButtonMouseOver;
 	private boolean checkNewButtonMouseOver;
 	private long time;
+	
+	private Stage stage;
 
 
 	private MainMenu(PrisonEscapeGame game) {
 
 		this.game = game;
+		stage = new Stage();
 
 		tween = new TweenManager();
 		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/play_active.png")));
@@ -117,6 +131,8 @@ public class MainMenu implements Screen {
 		buttonActive = true;
 		playPressed = false;
 		volumeMuted = false;
+		
+		Gdx.input.setInputProcessor(stage);
 
 
 	}
@@ -184,6 +200,9 @@ public class MainMenu implements Screen {
 
 		}
 		game.getGameController().getSpriteBatch().end();
+		
+		stage.act();
+		stage.draw();
 
 	}
 
@@ -288,7 +307,7 @@ public class MainMenu implements Screen {
 	}
 
 	private void loadGameButton(int loadGameX) {
-		GameManager gm = new GameManager(game.getGameController());
+		final GameManager gm = new GameManager(game.getGameController());
 		if (Gdx.input.getX() < loadGameX + LOADGAME_BUTTON_WIDTH && Gdx.input.getX() > loadGameX
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < LOADGAME_BUTTON_Y + LOADGAME_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > LOADGAME_BUTTON_Y) {
@@ -307,10 +326,59 @@ public class MainMenu implements Screen {
 			}
 
 			if (Gdx.input.isTouched()) {
+				Dialog dialog = new Dialog("Load Game",new Skin(Gdx.files.internal("data/story/skin/uiskin.json")), "dialog")
+				{
+					private File[] listOfFiles;
+					private int i;
+					{
+						File folder = new File("data/bin");
+						listOfFiles = folder.listFiles();
+						for (i = 0; i < listOfFiles.length; i++) {
+							text(listOfFiles[i].getName() + "\n");
+							button("Load", listOfFiles[i].getName());
+							
+						}
+						
+						
+					}
+					@Override
+					protected void result(Object object)
+					{
+						if(object.equals(listOfFiles[i].getName()))
+						{
+							gm.loadData(Gdx.files.local(listOfFiles[i].getName()));
+						}
+					}
+				
+				};
+				dialog.key(Keys.ENTER, true);
+				dialog.setSize(dialog.getPrefWidth(), dialog.getPrefHeight());
+				stage.addActor(dialog);
+
+//				Dialog dialog = new Dialog("Save Game", new Skin(Gdx.files.internal("data/story/skin/uiskin.json")), "dialog");
+//				File folder = new File("data/bin");
+//				File[] listOfFiles = folder.listFiles();
+//				for (int i = 0; i < listOfFiles.length; i++) {
+//					dialog.text(listOfFiles[i].getName() + "\n");
+//					System.out.println(listOfFiles[i].getName());
+//					dialog.button("Load", "load");
+//					
+//				}
+//				
+//				
+//				dialog.show(stage);
+				
 				game.getGameController().stopMusic();
 				game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
 				game.getGameController().playMusic();
-				gm.loadData();
+				
+				/*
+				FileHandle[] files = Gdx.files.local("data/bin/").list();
+				for (FileHandle f: files) {
+					System.out.println(f);
+				}
+				*/
+				//
 				
 
 			}
