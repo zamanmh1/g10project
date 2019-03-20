@@ -5,7 +5,7 @@ package prisonescape.game.model.actors;
  * 
  * @author Sam Ward
  * 
- * @version 0.2
+ * @version 1.0
  * @since 0.2
  * 
  */
@@ -13,12 +13,35 @@ package prisonescape.game.model.actors;
 public interface MapActor {
 		
 	/**
-	 * The methods which MapActor objects must implement.
+	 * The methods which MapActor objects must implement, so that it can
+	 * be handled accordingly.
 	 */
 	
-	// Any item which wants to occupy a tile within map must implement.
+	/**
+	 * The MapActor's X-Coordinate within the map.
+	 * 
+	 * @return X-Coordinate.
+	 */
 	int getX();
+	
+	/**
+	 * The MapActor's Y-Coordinate within the map.
+	 * 
+	 * @return Y-Coordinate.
+	 */
 	int getY();	
+	
+	/**
+	 * The MapActor's X-Coordinate within the world (scaled by the game's tile size).
+	 * 
+	 * @return X-Coordinate scaled by tile size.
+	 */
 	float getWorldX();
+
+	/**
+	 * The MapActor's Y-Coordinate within the world (scaled by the game's tile size).
+	 * 
+	 * @return Y-Coordinate scaled by tile size.
+	 */
 	float getWorldY();
 }

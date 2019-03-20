@@ -3,11 +3,12 @@ package prisonescape.game.util;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 /**
- * CLASS DESCRIPTION
+ * This class is used to pack all textures from the assets/data/unpacked folder
+ * into the assets/data/packed folder, outputting both an .atlas and .png file.
  * 
  * @author Sam Ward
  * 
- * @version 0.2
+ * @version 1.0
  * @since 0.2
  * 
  */

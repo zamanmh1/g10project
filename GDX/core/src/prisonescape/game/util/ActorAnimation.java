@@ -9,20 +9,41 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import prisonescape.game.model.actors.DIRECTION;
 
 /**
- * CLASS DESCRIPTION
+ * This class holds provides the logic for the way that Actors are
+ * viewed within the game.
  * 
  * @author Sam Ward
  * 
- * @version 0.2
+ * @version 1.0
  * @since 0.2
  * 
  */
 
 public class ActorAnimation {
 	
+	/**
+	 * Holds the animation for walking in each direction.
+	 */
 	private Map<DIRECTION, Animation<?>> walking;
+	
+	/**
+	 * Holds the texture for standing in each direction.
+	 */
 	private Map<DIRECTION, TextureRegion> standing;
 	
+	/**
+	 * Creates a new collection of textures and animations for an
+	 * individual actor.
+	 * 
+	 * @param walkNorth Animation for walking north.
+	 * @param walkSouth Animation for walking south.
+	 * @param walkEast Animation for walking east.
+	 * @param walkWest Animation for walking west.
+	 * @param standNorth Animation for standing facing north.
+	 * @param standSouth Animation for standing facing south.
+	 * @param standEast Animation for standing facing east.
+	 * @param standWest Animation for standing facing west.
+	 */
 	public ActorAnimation(Animation<?> walkNorth,
 			Animation<?> walkSouth, 
 			Animation<?> walkEast, 
@@ -31,15 +52,13 @@ public class ActorAnimation {
 			TextureRegion standSouth, 
 			TextureRegion standEast, 
 			TextureRegion standWest) {
-		
-		// Stores animations for walking in each direction.
+
 		walking = new HashMap<DIRECTION, Animation<?>>();
 		walking.put(DIRECTION.NORTH, walkNorth);
 		walking.put(DIRECTION.SOUTH, walkSouth);
 		walking.put(DIRECTION.EAST, walkEast);
 		walking.put(DIRECTION.WEST, walkWest);
 		
-		// Stores texture for standing while facing each direction.
 		standing = new HashMap<DIRECTION, TextureRegion>();
 		standing.put(DIRECTION.NORTH, standNorth);
 		standing.put(DIRECTION.SOUTH, standSouth);
@@ -47,10 +66,24 @@ public class ActorAnimation {
 		standing.put(DIRECTION.WEST, standWest);
 	}
 	
+	/**
+	 * Retrieves an animation for walking in a given direction.
+	 * 
+	 * @param dir The direction walking in.
+	 * 
+	 * @return The animations for this direction.
+	 */
 	public Animation<?> getWalking(DIRECTION dir) {
 		return walking.get(dir);
 	}
 	
+	/**
+	 * Retrieves a texture for when an actor is standing facing a given direction.
+	 * 
+	 * @param dir The direction facing.
+	 * 
+	 * @return The texture for facing this direction.
+	 */
 	public TextureRegion getStanding(DIRECTION dir) {
 		return standing.get(dir);
 	}
