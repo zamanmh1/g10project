@@ -1,6 +1,7 @@
 package prisonescape.game;
 
 import java.util.Calendar;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -14,14 +15,15 @@ import prisonescape.game.util.Time;
 public class GameManager {
 	private GameController controller;
 	private ObjectMap<String, Object> values = new ObjectMap<String, Object>();
-	private FileHandle fileHandle = Gdx.files.local("data/bin/GameData.bin");
-
+	
+	private FileHandle fileHandle; 
+	
 	public GameManager(GameController controller) {
 		this.controller = controller;
-	};
-
+		fileHandle = Gdx.files.local("data/bin/" + System.currentTimeMillis());
+	}
+	
 	public void saveData(PrisonEscapeGame game) {
-
 		setProperty("map", controller.getMapScreen().getMapName());
 		setProperty("state", controller.getGameState());
 		setProperty("currentObjective", controller.getCurrentObjective());
@@ -29,7 +31,6 @@ public class GameManager {
 		setProperty("playerY", controller.getPlayer().getY());
 		setProperty("time-hour", controller.getTime().getHour());
 		setProperty("time-min", controller.getTime().getMin());
-		System.out.println(controller.getMapScreen().getMapName());
 		if (controller != null) {
 			fileHandle.writeString("Map," + values.get("map") + "," + "\n", false);
 
@@ -44,18 +45,18 @@ public class GameManager {
 		}
 	}
 
-	public void loadData() {
-		fileHandle.readString();
-		String[] data = fileHandle.readString().split(",");
-		String map = data[1];
-		int x = Integer.parseInt(data[7]);
-		int y = Integer.parseInt(data[9]);
-		String state = data[3];
-		String currentObjective = data[5];
-		int hour = Integer.parseInt(data[11]);
-		int minute = Integer.parseInt(data[13]);
-		((Game) Gdx.app.getApplicationListener()).setScreen(new Loading(controller.getGame()));
-		controller.setMap(map, x, y);
+	public void loadData(FileHandle file) {
+		 file.readString();
+		 String[] data =file.readString().split(",");
+		 String map = data[1];
+		 int x = Integer.parseInt(data[7]);
+		 int y = Integer.parseInt(data[9]);
+		 String state = data[3];
+		 String currentObjective = data[5];
+		 int hour = Integer.parseInt(data[11]);
+		 int minute = Integer.parseInt(data[13]);
+		 ((Game) Gdx.app.getApplicationListener()).setScreen(new Loading(controller.getGame()));
+		 controller.setMap(map, x, y);
 		controller.setGameState(state);
 		controller.setCurrentObjective(currentObjective);
 		Calendar cal = controller.getTime().getCalendar();
@@ -86,6 +87,10 @@ public class GameManager {
 		}
 		property = (T) values.get(key);
 		return property;
+	}
+	
+	public FileHandle getFileHandle() {
+		return this.fileHandle;
 	}
 
 }

@@ -1,23 +1,28 @@
 package prisonescape.game.screens;
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
-
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import prisonescape.game.GameManager;
-
-
 
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.tween.BitmapAccessor;
 import prisonescape.game.tween.SpriteAccessor;
 
 /**
@@ -78,18 +83,26 @@ public class MainMenu implements Screen {
 	private boolean checkBackButtonMouseOver;
 	private boolean buttonActive;
 	private boolean playPressed;
-	private Sprite loadButtonActive;
-	private Sprite newButtonActive;
-	private Sprite loadButtonInActive;
-	private Sprite newButtonInActive;
+	private Sprite loadGameActive;
+	private Sprite newGameActive;
+	private Sprite loadGameInActive;
+	private Sprite newGameInActive;
 	private boolean checkLoadButtonMouseOver;
 	private boolean checkNewButtonMouseOver;
 	private long time;
 
+	private Stage stage;
+	private BitmapFont fontYellow;
+	private boolean loadPressed;
+	private Sprite loadButtonInActive;
+	private Sprite loadButtonActive;
+	private Sprite deleteButtonInActive;
+	private Sprite deleteButtonActive;
 
 	private MainMenu(PrisonEscapeGame game) {
 
 		this.game = game;
+		stage = new Stage();
 
 		tween = new TweenManager();
 		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/play_active.png")));
@@ -101,12 +114,17 @@ public class MainMenu implements Screen {
 		helpButtonInActive = new Sprite(new Texture("data/menuSprites/help_inactive.png"));
 		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back_active.png")));
 		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back.png")));
-		loadButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/load_active.png")));
-		loadButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/load_inactive.png")));
-		newButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/new_active.png")));
-		newButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/new_inactive.png")));
+		loadGameActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/load_active.png")));
+		loadGameInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/load_inactive.png")));
+		newGameActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/new_active.png")));
+		newGameInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/new_inactive.png")));
 		volumeButtonFull = new Sprite(new Texture("data/menuSprites/Volume-full.png"));
 		volumeButtonMute = new Sprite(new Texture("data/menuSprites/Volume-off.png"));
+		loadButtonInActive = new Sprite(new Texture("data/menuSprites/loadButton_inactive.png"));
+		loadButtonActive = new Sprite(new Texture("data/menuSprites/loadButton_active.png"));
+		deleteButtonInActive = new Sprite(new Texture("data/menuSprites/deleteButton_inactive.png"));
+		deleteButtonActive = new Sprite(new Texture("data/menuSprites/deleteButton_active.png"));
+		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		mouseOverSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/MouseOver.ogg"));
 		checkPlayButtonMouseOver = false;
 		checkExitButtonMouseOver = false;
@@ -118,6 +136,7 @@ public class MainMenu implements Screen {
 		playPressed = false;
 		volumeMuted = false;
 
+		Gdx.input.setInputProcessor(stage);
 
 	}
 
@@ -131,10 +150,10 @@ public class MainMenu implements Screen {
 				.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(helpButtonActive, SpriteAccessor.ALPHA).target(0))
-				.push(Tween.set(loadButtonInActive, SpriteAccessor.ALPHA).target(0))
-				.push(Tween.set(loadButtonActive, SpriteAccessor.ALPHA).target(0))
-				.push(Tween.set(newButtonInActive, SpriteAccessor.ALPHA).target(0))
-				.push(Tween.set(newButtonActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(loadGameInActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(loadGameActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(newGameInActive, SpriteAccessor.ALPHA).target(0))
+				.push(Tween.set(newGameActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0))
@@ -183,7 +202,15 @@ public class MainMenu implements Screen {
 			playOptions();
 
 		}
+		if (loadPressed) {
+			buttonActive = false;
+			playPressed = false;
+			loadOptions();
+		}
 		game.getGameController().getSpriteBatch().end();
+
+		stage.act();
+		stage.draw();
 
 	}
 
@@ -203,7 +230,7 @@ public class MainMenu implements Screen {
 
 				}
 
-				if (System.currentTimeMillis() > time + 1000) {
+				if (System.currentTimeMillis() > time + 1500) {
 					if (Gdx.input.isTouched()) {
 						Timeline.createSequence().beginSequence()
 								.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
@@ -212,10 +239,10 @@ public class MainMenu implements Screen {
 								.push(Tween.set(helpButtonInActive, SpriteAccessor.ALPHA).target(0))
 								.push(Tween.set(exitButtonActive, SpriteAccessor.ALPHA).target(0))
 								.push(Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0))
-								.push(Tween.to(newButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-								.push(Tween.to(newButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-								.push(Tween.to(loadButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-								.push(Tween.to(loadButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1)).end()
+								.push(Tween.to(newGameInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(newGameActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(loadGameInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+								.push(Tween.to(loadGameActive, SpriteAccessor.ALPHA, 0.2f).target(1)).end()
 								.start(tween);
 						playPressed = true;
 						buttonActive = false;
@@ -253,74 +280,168 @@ public class MainMenu implements Screen {
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < NEWGAME_BUTTON_Y + NEWGAME_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > NEWGAME_BUTTON_Y) {
 
-			newButtonActive.setPosition(newGameX, NEWGAME_BUTTON_Y);
-			newButtonActive.setSize(NEWGAME_BUTTON_WIDTH, NEWGAME_BUTTON_HEIGHT);
-			newButtonActive.draw(game.getGameController().getSpriteBatch());
+			newGameActive.setPosition(newGameX, NEWGAME_BUTTON_Y);
+			newGameActive.setSize(NEWGAME_BUTTON_WIDTH, NEWGAME_BUTTON_HEIGHT);
+			newGameActive.draw(game.getGameController().getSpriteBatch());
+			if (playPressed) {
+				if (checkNewButtonMouseOver == false) {
+					Sound getMouseOverSound = MainMenu.getInstance(game).mouseOverSound();
 
-			if (checkNewButtonMouseOver == false) {
-				Sound getMouseOverSound = MainMenu.getInstance(game).mouseOverSound();
+					getMouseOverSound.play(1f);
 
-				getMouseOverSound.play(1f);
+					checkNewButtonMouseOver = true;
 
-				checkNewButtonMouseOver = true;
-
-			}
-
-			if (Gdx.input.isTouched()) {
-				playPressed = false;
-				buttonActive = true;
-				game.setScreen(new Loading(game));
-				game.getGameController().stopMusic();
-				game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
-				game.getGameController().playMusic();
-				if (volumeMuted == true) {
-					Music music = game.getGameController().getMusic();
-					music.pause();
 				}
 
+				if (Gdx.input.isTouched()) {
+					playPressed = false;
+					buttonActive = true;
+					game.setScreen(new Loading(game));
+					game.getGameController().stopMusic();
+					game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+					game.getGameController().playMusic();
+					if (volumeMuted == true) {
+						Music music = game.getGameController().getMusic();
+						music.pause();
+					}
+				}
 			}
 		} else {
 			checkNewButtonMouseOver = false;
-			newButtonInActive.setPosition(newGameX, NEWGAME_BUTTON_Y);
-			newButtonInActive.setSize(NEWGAME_BUTTON_WIDTH, NEWGAME_BUTTON_HEIGHT);
-			newButtonInActive.draw(game.getGameController().getSpriteBatch());
+			newGameInActive.setPosition(newGameX, NEWGAME_BUTTON_Y);
+			newGameInActive.setSize(NEWGAME_BUTTON_WIDTH, NEWGAME_BUTTON_HEIGHT);
+			newGameInActive.draw(game.getGameController().getSpriteBatch());
 		}
 	}
 
 	private void loadGameButton(int loadGameX) {
-		GameManager gm = new GameManager(game.getGameController());
+
 		if (Gdx.input.getX() < loadGameX + LOADGAME_BUTTON_WIDTH && Gdx.input.getX() > loadGameX
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < LOADGAME_BUTTON_Y + LOADGAME_BUTTON_HEIGHT
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > LOADGAME_BUTTON_Y) {
 
-			loadButtonActive.setPosition(loadGameX, LOADGAME_BUTTON_Y);
-			loadButtonActive.setSize(LOADGAME_BUTTON_WIDTH, LOADGAME_BUTTON_HEIGHT);
-			loadButtonActive.draw(game.getGameController().getSpriteBatch());
+			loadGameActive.setPosition(loadGameX, LOADGAME_BUTTON_Y);
+			loadGameActive.setSize(LOADGAME_BUTTON_WIDTH, LOADGAME_BUTTON_HEIGHT);
+			loadGameActive.draw(game.getGameController().getSpriteBatch());
+			if (playPressed) {
+				if (checkLoadButtonMouseOver == false) {
+					Sound getMouseOverSound = MainMenu.getInstance(game).mouseOverSound();
 
-			if (checkLoadButtonMouseOver == false) {
-				Sound getMouseOverSound = MainMenu.getInstance(game).mouseOverSound();
+					getMouseOverSound.play(1f);
 
-				getMouseOverSound.play(1f);
+					checkLoadButtonMouseOver = true;
 
-				checkLoadButtonMouseOver = true;
+				}
 
-			}
+				if (Gdx.input.isTouched()) {
+					loadPressed = true;
+					Tween.registerAccessor(BitmapFont.class, new BitmapAccessor());
+					Timeline.createSequence().beginSequence()
+							.push(Tween.set(newGameInActive, SpriteAccessor.ALPHA).target(0))
+							.push(Tween.set(newGameActive, SpriteAccessor.ALPHA).target(0))
+							.push(Tween.set(loadGameInActive, SpriteAccessor.ALPHA).target(0))
+							.push(Tween.set(loadGameActive, SpriteAccessor.ALPHA).target(0))
+							.push(Tween.to(fontYellow, SpriteAccessor.ALPHA, 0.2f).target(1)).end().start(tween);
 
-			if (Gdx.input.isTouched()) {
-				game.getGameController().stopMusic();
-				game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
-				game.getGameController().playMusic();
-				gm.loadData();
-				
+				}
 
 			}
 		} else {
 			checkLoadButtonMouseOver = false;
-			loadButtonInActive.setPosition(loadGameX, LOADGAME_BUTTON_Y);
-			loadButtonInActive.setSize(LOADGAME_BUTTON_WIDTH, LOADGAME_BUTTON_HEIGHT);
-			loadButtonInActive.draw(game.getGameController().getSpriteBatch());
+			loadGameInActive.setPosition(loadGameX, LOADGAME_BUTTON_Y);
+			loadGameInActive.setSize(LOADGAME_BUTTON_WIDTH, LOADGAME_BUTTON_HEIGHT);
+			loadGameInActive.draw(game.getGameController().getSpriteBatch());
 
 		}
+	}
+
+	private void loadOptions() {
+		final GameManager gm = new GameManager(game.getGameController());
+
+		int backX = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
+
+		backButton(backX);
+
+		fontYellow.draw(game.getGameController().getSpriteBatch(), "Choose a date to load",
+				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + 300);
+
+		File folder = new File("data/bin");
+		File[] listOfFiles = folder.listFiles();
+
+		if (listOfFiles.length == 0) {
+			fontYellow.draw(game.getGameController().getSpriteBatch(),
+					"You have no games saved! \n Please go back and start a new game", PrisonEscapeGame.WIDTH / 2 + 100,
+					PrisonEscapeGame.HEIGHT / 2);
+		} else {
+			for (int i = 0; i < listOfFiles.length; i++) {
+
+				if (listOfFiles[i].getName().matches("[0-9]+") && listOfFiles[i].getName().length() > 12) {
+
+					DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+					long milliSeconds = Long.parseLong(listOfFiles[i].getName());
+					Date date = new Date(milliSeconds);
+
+					fontYellow.draw(game.getGameController().getSpriteBatch(), formatter.format(date) + "\n",
+							PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + i * 40);
+
+					if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 400 + 100
+							&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 400
+							&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40 + 20
+							&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20) {
+
+						loadButtonActive.setSize(100, 40);
+						loadButtonActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 400,
+								PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+						loadButtonActive.draw(game.getGameController().getSpriteBatch());
+
+						if (Gdx.input.isTouched()) {
+							gm.loadData(Gdx.files.local("data/bin/" + listOfFiles[i].getName()));
+							loadPressed = false;
+							playPressed = false;
+							buttonActive = true;
+							Boolean muted = MainMenu.getInstance(game).checkSoundMuted();
+							if (muted == true) {
+								game.getGameController().stopMusic();
+								game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+								
+							} else {
+								game.getGameController().stopMusic();
+								game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+								game.getGameController().playMusic();
+							}
+
+						}
+					} else {
+						loadButtonInActive.setSize(100, 40);
+						loadButtonInActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 400,
+								PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+						loadButtonInActive.draw(game.getGameController().getSpriteBatch());
+					}
+
+					if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 500 + 100
+							&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 500
+							&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40 + 20
+							&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20) {
+
+						deleteButtonActive.setSize(100, 40);
+						deleteButtonActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 500,
+								PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+						deleteButtonActive.draw(game.getGameController().getSpriteBatch());
+
+						if (Gdx.input.isTouched()) {
+							Gdx.files.local("data/bin/" + listOfFiles[i].getName()).delete();
+
+						}
+					} else {
+						deleteButtonInActive.setSize(100, 40);
+						deleteButtonInActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 500,
+								PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+						deleteButtonInActive.draw(game.getGameController().getSpriteBatch());
+					}
+				}
+			}
+		}
+
 	}
 
 	private void backButton(int backX) {
@@ -343,6 +464,7 @@ public class MainMenu implements Screen {
 
 			if (Gdx.input.isTouched()) {
 				show();
+				loadPressed = false;
 				playPressed = false;
 				buttonActive = true;
 
