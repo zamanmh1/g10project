@@ -153,5 +153,232 @@
     </Computer>
 
     <!--ADD MISC NPC DIALOGUE HERE-->
+	
+	<Barry> 
+		<dialogue>
+		Do I look good today? My wife is visiting
+		<choice> You look great! Hope she is good
+			<dialogue>
+				Thank you! I'll tell her I made a friend on the inside
+			</dialogue>
+		</choice>
+		<choice> I won't lie, she may leave you
+			<dialogue>
+				Wow you are a jerk... you really think that?
+				</dialogue>
+		</choice>
+		<choice> Re-comb over that hair maybe
+			<dialogue>
+			Oh will do! I once tried buying a wig of the dinner lady you know.
+			</dialogue>
+		</choice>
+		</dialogue>
+	</Barry>
+	
+	
+	<CrazedPrisoner>
+		<dialogue>
+		I keep seeing things... scary things.
+		</dialogue>
+	</CrazedPrisoner>
+	
+	<LoonyPrisoner>
+		<dialogue>
+		I need to stop eating soap
+		</dialogue>
+	</LoonyPrisoner>
+	
+	<Chatty>
+		<dialogue>
+		Hows the prison life?
+		<choice> Not bad
+			<dialogue>
+				I like the fight block, I go to place bets sometimes
+			</dialogue>
+			
+		</choice>
+		<choice> Awful
+			<dialogue>
+				Yeah, the mob is pretty bad... nothing compared to the guards though
+			</dialogue>
+		</choice>
+		<choice> Fun!
+			<dialogue>
+				You are the first person to say that, you are joking right?
+			</dialogue>
+		</choice>
+		</dialogue>
+	</Chatty>
+	
+	<OldMan>
+		<dialogue>
+		I never got to see my grandkids learn to shoot a gun...
+		</dialogue>
+	</OldMan>
+	
+	<MikeTheKidnapper>
+		<dialogue>
+		I love it here, last time I got out I kidnapped an old lady to get back in.
+		</dialogue>
+	</MikeTheKidnapper>
+	
+	<MarvintheParanoidPrisoner>
+		<dialogue>
+		What's the answer to life?
+		<choice>Naps
+			<dialogue>
+			That's great until it's all you do
+			</dialogue>
+		</choice>
+		<choice>Clubing
+			<dialogue>
+			I haven't done that in years
+			</dialogue>
+		</choice>
+		</dialogue>
+	</MarvintheParanoidPrisoner>
+	
+	<Raul>
+		<dialogue>
+		I really don't like your face
+		</dialogue>
+	</Raul>
+	
+	<Butch>
+		<dialogue>
+		Howdey partner!
+		<choice>What's happening?
+			<dialogue>
+				Just shootin' the shit
+			</dialogue>
+			
+		</choice>
+		<choice>I'm hungry
+			<dialogue>
+				Grab some grub from the dinner lady then!
+			</dialogue>
+		</choice>
+		<dialogue>
+	</Butch>
+	
+	<Smile>
+		<dialogue>
+		You heard? There is a snitch about.
+		I don't like snitches.
+		Not... one... bit. 
+		</dialogue>
+	</Smile>
+	
+	<Smelly>
+		<dialogue>
+		I'm gonna go outside
+		</dialogue>
+	</Smelly>
+	
+	<LilDurk>
+		<dialogue>
+		Follow my souncloud when I get out
+		</dialogue>
+	</LilDurk>
+	
+	<Fitz>
+		<dialogue>
+		I hate the feds, but I hate snitches more 
+		</dialogue>
+	</Fitz>
+	
+	<Jack>
+		<dialogue>
+		I'm getting the facetat tomorrow!
+		
+		I will look so hard.
+		</dialogue>
+	</Jack>
+	
+	<DiceBoy>
+		<dialogue>
+		Just wanna role some dice man
+		</dialogue>
+	</DiceBoy>
+	
+	<LaughingMan>
+		<dialogue>
+		Let's put a smile on that face 
+		</dialogue>
+	</LaughingMan>
+	
+	<Mani>
+		<dialogue>
+		Leave me be man
+		</dialogue>
+	</Mani>
+	
+	<Nitsara>
+		<dialogue>
+		I have a great book on car's
+		</dialogue>
+	</Nitsara>
+	
+	<Notsara>
+		<dialogue>
+		You been the library? Awful, no Shakespeare
+		</dialogue>
+	</Notsara>
+	
+	<rat>
+		<dialogue>
+		Squeak squeak... hey
+		<choice>Jesus, it's alive?
+			<dialogue>
+				Squeak squeak...
+
+				It IT! Why do you have to be so rude about this? My name is Remmy, thanks for asking.
+			</dialogue>
+			
+		</choice>
+		<choice> Hey buddy?
+			<dialogue>
+				Squeak Squeak...
+				
+				Me? Oh im just chilling, see I was dead but now I'm alive and well thanks to the doctors.
+			</dialogue>
+		</choice>
+		<choice>Nope, not today
+			<dialogue>
+				Hey, I used to work in a famous French kitchen, please respect me at least a little.
+			</dialogue>
+			
+		</choice>
+		</dialogue>
+	</rat>
+	
+	<Mike>
+		<dialogue>
+		It was rigged I swear! I'll win the final round
+		</dialogue>
+	</Mike>
+	
+	<Johnny>
+		<dialogue>
+		I lied, my Nan fights better...
+		</dialogue>
+	</Johnny>
+	
+	<Peter>
+		<dialogue>
+		Johnny wiped the floor with him, but I say Mike might come back.
+		<choice>Peter
+			<dialogue>
+				Okay man safe bet, lets see.
+			</dialogue>
+			
+		</choice>
+		<choice>Johnny 
+			<dialogue>
+				Ah, I like your style.
+			</dialogue>
+		</choice>
+		</dialogue>
+	</Peter>
 
   </speech>

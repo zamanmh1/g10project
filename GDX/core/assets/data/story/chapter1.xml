@@ -145,5 +145,228 @@
   </Book2>
 
   <!--ADD MISC NPC DIALOGUE BELOW HERE-->
+  
+  	<Barry> 
+		<dialogue>
+		Do I look good today? My wife is visiting
+		<choice> You look great! Hope she is good
+			<dialogue>
+				Thank you! I'll tell her I made a friend on the inside
+			</dialogue>
+		</choice>
+		<choice> I won't lie, she may leave you
+			<dialogue>
+				Wow you are a jerk... you really think that?
+				</dialogue>
+		</choice>
+		<choice> Re-comb over that hair maybe
+			<dialogue>
+			Oh will do! I once tried buying a wig of the dinner lady you know.
+			</dialogue>
+		</choice>
+		</dialogue>
+	</Barry>
+	
+	
+	<CrazedPrisoner>
+		<dialogue>
+		The rat... the rat talks... TALKS!
+		</dialogue>
+	</CrazedPrisoner>
+	
+	<LoonyPrisoner>
+		<dialogue>
+		I need to stop eating soap
+		</dialogue>
+	</LoonyPrisoner>
+	
+	<Chatty>
+		<dialogue>
+		Hows the prison life?
+		<choice> Not bad
+			<dialogue>
+				I like the fight block, I go to place bets sometimes
+			</dialogue>
+			
+		</choice>
+		<choice> Awful
+			<dialogue>
+				Yeah, the mob is pretty bad... nothing compared to the guards though
+			</dialogue>
+		</choice>
+		<choice> Fun!
+			<dialogue>
+				You are the first person to say that, you are joking right?
+			</dialogue>
+		</choice>
+		</dialogue>
+	</Chatty>
+	
+	<OldMan>
+		<dialogue>
+		I've been here for 40 years now
+		</dialogue>
+	</OldMan>
+	
+	<MikeTheKidnapper>
+		<dialogue>
+		I love it here, last time I got out I kidnapped an old lady to get back in.
+		</dialogue>
+	</MikeTheKidnapper>
+	
+	<MarvintheParanoidPrisoner>
+		<dialogue>
+		What's the answer to life?
+		<choice>42
+			<dialogue>
+			nerd
+			</dialogue>
+		</choice>
+		<choice>Alcohol and cigarettes?
+			<dialogue>
+			Hmm... how did you know?
+		</dialogue>
+		</choice>
+		</dialogue>
+	</MarvintheParanoidPrisoner>
+	
+	<Raul>
+		<dialogue>
+		I don't like your face
+		</dialogue>
+	</Raul>
+	
+	<Butch>
+		<dialogue>
+		Howdey partner!
+		<choice>Mornin'
+			<dialogue>
+				Well, I wont keep ya
+			</dialogue>
+			
+		</choice>
+		<choice>Good day sir!
+			<dialogue>
+				Good day to you too young buck
+			</dialogue>
+		</choice>
+		<dialogue>
+	</Butch>
+	
+	<Smile>
+		<dialogue>
+		I can't wait to cut some thing...
+		</dialogue>
+	</Smile>
+	
+	<Smelly>
+		<dialogue>
+		I miss the fresh air
+		</dialogue>
+	</Smelly>
+	
+	<LilDurk>
+		<dialogue>
+		The names Durk... Lil Durk
+		</dialogue>
+	</LilDurk>
+	
+	<Fitz>
+		<dialogue>
+		I hate the feds, but I hate snitches more 
+		</dialogue>
+	</Fitz>
+	
+	<Jack>
+		<dialogue>
+		Recon I should get a face tat? Think it would look cool
+		</dialogue>
+	</Jack>
+	
+	<DiceBoy>
+		<dialogue>
+		Just wanna role some dice man
+		</dialogue>
+	</DiceBoy>
+	
+	<LaughingMan>
+		<dialogue>
+		Let's put a smile on that face 
+		</dialogue>
+	</LaughingMan>
+	
+	<Mani>
+		<dialogue>
+		Leave me be man
+		</dialogue>
+	</Mani>
+	
+	<Nitsara>
+		<dialogue>
+		You been the library? It's fantastic
+		</dialogue>
+	</Nitsara>
+	
+	<Notsara>
+		<dialogue>
+		You been the library? Awful, no Shakespeare
+		</dialogue>
+	</Notsara>
+	
+	<rat>
+		<dialogue>
+		Squeak squeak... hey
+		<choice>Jesus, it's alive?
+			<dialogue>
+				Squeak squeak...
+
+				It IT! Why do you have to be so rude about this? My name is Remmy, thanks for asking.
+			</dialogue>
+			
+		</choice>
+		<choice> Hey buddy?
+			<dialogue>
+				Squeak Squeak...
+				
+				Me? Oh im just chilling, see I was dead but now I'm alive and well thanks to the doctors.
+			</dialogue>
+		</choice>
+		<choice>Nope, not today
+			<dialogue>
+				Hey, I used to work in a famous French kitchen, please respect me at least a little.
+			</dialogue>
+			
+		</choice>
+		</dialogue>
+	</rat>
+	
+	<Mike>
+		<dialogue>
+		I will wipe the floor with that puta!
+		</dialogue>
+	</Mike>
+	
+	<Johnny>
+		<dialogue>
+		This man thinks he us McGreggor but he fights like my nan!
+		</dialogue>
+	</Johnny>
+	
+	<Peter>
+		<dialogue>
+		Hello Sir! Round 2, who's your money on?
+		<choice>Mike
+			<dialogue>
+				Hmm risky, come back later and see
+			</dialogue>
+			
+		</choice>
+		<choice>Johnny
+			<dialogue>
+				He talks a lot, but has a mean punch
+			</dialogue>
+		</choice>
+		</dialogue>
+	</Peter>	
 
 </speech>
