@@ -2,6 +2,7 @@ package prisonescape.game.screens;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -367,7 +368,7 @@ public class MainMenu implements Screen {
 
 		File folder = new File("data/bin");
 		File[] listOfFiles = folder.listFiles();
-
+		int correctFiles = 0;
 		if (listOfFiles.length == 0) {
 			fontYellow.draw(game.getGameController().getSpriteBatch(),
 					"You have no games saved! \n Please go back and start a new game", PrisonEscapeGame.WIDTH / 2 + 100,
@@ -377,71 +378,94 @@ public class MainMenu implements Screen {
 
 				if (listOfFiles[i].getName().matches("[0-9]+") && listOfFiles[i].getName().length() > 12) {
 
-					DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-					long milliSeconds = Long.parseLong(listOfFiles[i].getName());
-					Date date = new Date(milliSeconds);
+					if (isVaildTimeStamp(listOfFiles[i].getName())) {
 
-					fontYellow.draw(game.getGameController().getSpriteBatch(), formatter.format(date) + "\n",
-							PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + i * 40);
+						correctFiles++;
+						DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+						long milliSeconds = Long.parseLong(listOfFiles[i].getName());
+						Date date = new Date(milliSeconds);
 
-					if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 400 + 100
-							&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 400
-							&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40 + 20
-							&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20) {
+						fontYellow.draw(game.getGameController().getSpriteBatch(), formatter.format(date) + "\n",
+								PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + i * 40);
 
-						loadButtonActive.setSize(100, 40);
-						loadButtonActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 400,
-								PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
-						loadButtonActive.draw(game.getGameController().getSpriteBatch());
+						if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 400 + 100
+								&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 400
+								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40
+										+ 20
+								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PrisonEscapeGame.HEIGHT / 2 + i * 40
+										- 20) {
 
-						if (Gdx.input.isTouched()) {
-							gm.loadData(Gdx.files.local("data/bin/" + listOfFiles[i].getName()));
-							loadPressed = false;
-							playPressed = false;
-							buttonActive = true;
-							Boolean muted = MainMenu.getInstance(game).checkSoundMuted();
-							if (muted == true) {
-								game.getGameController().stopMusic();
-								game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
-								
-							} else {
-								game.getGameController().stopMusic();
-								game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
-								game.getGameController().playMusic();
+							loadButtonActive.setSize(100, 40);
+							loadButtonActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 400,
+									PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+							loadButtonActive.draw(game.getGameController().getSpriteBatch());
+
+							if (Gdx.input.isTouched()) {
+								gm.loadData(Gdx.files.local("data/bin/" + listOfFiles[i].getName()));
+								loadPressed = false;
+								playPressed = false;
+								buttonActive = true;
+								Boolean muted = MainMenu.getInstance(game).checkSoundMuted();
+								if (muted == true) {
+									game.getGameController().stopMusic();
+									game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+
+								} else {
+									game.getGameController().stopMusic();
+									game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
+									game.getGameController().playMusic();
+								}
+
 							}
-
+						} else {
+							loadButtonInActive.setSize(100, 40);
+							loadButtonInActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 400,
+									PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+							loadButtonInActive.draw(game.getGameController().getSpriteBatch());
 						}
-					} else {
-						loadButtonInActive.setSize(100, 40);
-						loadButtonInActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 400,
-								PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
-						loadButtonInActive.draw(game.getGameController().getSpriteBatch());
+
+						if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 500 + 100
+								&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 500
+								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40
+										+ 20
+								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PrisonEscapeGame.HEIGHT / 2 + i * 40
+										- 20) {
+
+							deleteButtonActive.setSize(100, 40);
+							deleteButtonActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 500,
+									PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+							deleteButtonActive.draw(game.getGameController().getSpriteBatch());
+
+							if (Gdx.input.isTouched()) {
+								Gdx.files.local("data/bin/" + listOfFiles[i].getName()).delete();
+
+							}
+						} else {
+							deleteButtonInActive.setSize(100, 40);
+							deleteButtonInActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 500,
+									PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+							deleteButtonInActive.draw(game.getGameController().getSpriteBatch());
+						}
 					}
-
-					if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 500 + 100
-							&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 500
-							&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40 + 20
-							&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20) {
-
-						deleteButtonActive.setSize(100, 40);
-						deleteButtonActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 500,
-								PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
-						deleteButtonActive.draw(game.getGameController().getSpriteBatch());
-
-						if (Gdx.input.isTouched()) {
-							Gdx.files.local("data/bin/" + listOfFiles[i].getName()).delete();
-
-						}
-					} else {
-						deleteButtonInActive.setSize(100, 40);
-						deleteButtonInActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 500,
-								PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
-						deleteButtonInActive.draw(game.getGameController().getSpriteBatch());
+				} else {
+					if (correctFiles == 0) {
+						fontYellow.draw(game.getGameController().getSpriteBatch(),
+								"You have no games saved! \n Please go back and start a new game",
+								PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2);
 					}
 				}
 			}
 		}
 
+	}
+
+	private boolean isVaildTimeStamp(String timeStamp) {
+
+		Date expiry = new Date(Long.parseLong(timeStamp));
+		if (expiry.getTime() < System.currentTimeMillis()) {
+			return true;
+		}
+		return false;
 	}
 
 	private void backButton(int backX) {
