@@ -1,5 +1,9 @@
 package prisonescape.game.screens;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
@@ -191,10 +195,12 @@ public class Pause {
 				}
 
 				if (Gdx.input.isTouched()) {
-					Dialog dialog = new Dialog("Save Game", new Skin(Gdx.files.internal("data/story/skin/uiskin.json")), "dialog");
+					Dialog dialog = new Dialog("", new Skin(Gdx.files.internal("data/story/skin/uiskin.json")), "dialog");
 					menuPressed = false;
 					Stage stage = ActiveGame.getStage();
-					dialog.text("Game has been saved!");
+					DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+					Date date = new Date(System.currentTimeMillis() - 1);
+					dialog.text("Game has been saved! \n File called: " + formatter.format(date));
 					dialog.button("OK", true); //sends "true" as the result
 					dialog.key(Keys.ENTER, true); //sends "true" when the ENTER key is pressed
 					dialog.show(stage);
