@@ -235,7 +235,8 @@ public class Help implements Screen {
 	}
 
 	/**
-	 * Represents the position and area where the volume button is drawn
+	 * Represents the position and area where the volume button is drawn.
+	 * Checks whether the volume is muted or not
 	 * 
 	 * @param x coordinate of the button
 	 */

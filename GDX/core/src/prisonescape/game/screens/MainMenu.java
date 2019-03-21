@@ -2,7 +2,6 @@ package prisonescape.game.screens;
 
 import java.io.File;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,7 +26,7 @@ import prisonescape.game.tween.BitmapAccessor;
 import prisonescape.game.tween.SpriteAccessor;
 
 /**
- * CLASS DESCRIPTION
+ * Represents the Main Menu Screen once the user has loaded the screen.
  * 
  * @author Sam Ward, Shibu George
  * 
@@ -91,8 +90,7 @@ public class MainMenu implements Screen {
 	private boolean checkLoadButtonMouseOver;
 	private boolean checkNewButtonMouseOver;
 	private long time;
-
-	private Stage stage;
+	
 	private BitmapFont fontYellow;
 	private boolean loadPressed;
 	private Sprite loadButtonInActive;
@@ -100,10 +98,14 @@ public class MainMenu implements Screen {
 	private Sprite deleteButtonInActive;
 	private Sprite deleteButtonActive;
 
+	/**
+	 * Constructs the screen with sprites and music.
+	 * 
+	 * @param game
+	 */
 	private MainMenu(PrisonEscapeGame game) {
 
 		this.game = game;
-		stage = new Stage();
 
 		tween = new TweenManager();
 		playButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/play_active.png")));
@@ -111,20 +113,20 @@ public class MainMenu implements Screen {
 		exitButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_active.png")));
 		exitButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/exit_inactive.png")));
 		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/background.png")));
-		helpButtonActive = new Sprite(new Texture("data/menuSprites/help_active.png"));
-		helpButtonInActive = new Sprite(new Texture("data/menuSprites/help_inactive.png"));
+		helpButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/help_active.png")));
+		helpButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/help_inactive.png")));
 		backButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back_active.png")));
 		backButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/back.png")));
 		loadGameActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/load_active.png")));
 		loadGameInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/load_inactive.png")));
 		newGameActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/new_active.png")));
 		newGameInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/new_inactive.png")));
-		volumeButtonFull = new Sprite(new Texture("data/menuSprites/Volume-full.png"));
-		volumeButtonMute = new Sprite(new Texture("data/menuSprites/Volume-off.png"));
-		loadButtonInActive = new Sprite(new Texture("data/menuSprites/loadButton_inactive.png"));
-		loadButtonActive = new Sprite(new Texture("data/menuSprites/loadButton_active.png"));
-		deleteButtonInActive = new Sprite(new Texture("data/menuSprites/deleteButton_inactive.png"));
-		deleteButtonActive = new Sprite(new Texture("data/menuSprites/deleteButton_active.png"));
+		volumeButtonFull = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/Volume-full.png")));
+		volumeButtonMute = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/Volume-off.png")));
+		loadButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loadButton_inactive.png")));
+		loadButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loadButton_active.png")));
+		deleteButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/deleteButton_inactive.png")));
+		deleteButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/deleteButton_active.png")));
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		mouseOverSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/MouseOver.ogg"));
 		checkPlayButtonMouseOver = false;
@@ -137,10 +139,13 @@ public class MainMenu implements Screen {
 		playPressed = false;
 		volumeMuted = false;
 
-		Gdx.input.setInputProcessor(stage);
-
 	}
 
+	/**
+	 * 
+	 * Represents the transition of the buttons in MainMenu
+	 * 
+	 */
 	@Override
 	public void show() {
 		time = System.currentTimeMillis();
@@ -160,17 +165,23 @@ public class MainMenu implements Screen {
 				.push(Tween.set(volumeButtonFull, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.set(volumeButtonMute, SpriteAccessor.ALPHA).target(0))
 				.push(Tween.from(backgroundSprite, SpriteAccessor.ALPHA, 0).target(0))
-				.push(Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-				.push(Tween.to(playButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-				.push(Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-				.push(Tween.to(helpButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-				.push(Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1))
-				.push(Tween.to(exitButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1))
+				.push(Tween.to(playButtonInActive, SpriteAccessor.ALPHA, 0.1f).target(1))
+				.push(Tween.to(playButtonActive, SpriteAccessor.ALPHA, 0.1f).target(1))
+				.push(Tween.to(helpButtonInActive, SpriteAccessor.ALPHA, 0.1f).target(1))
+				.push(Tween.to(helpButtonActive, SpriteAccessor.ALPHA, 0.1f).target(1))
+				.push(Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 0.1f).target(1))
+				.push(Tween.to(exitButtonActive, SpriteAccessor.ALPHA, 0.1f).target(1))
 				.push(Tween.to(volumeButtonFull, SpriteAccessor.ALPHA, 0).target(1))
 				.push(Tween.to(volumeButtonMute, SpriteAccessor.ALPHA, 0).target(1)).end().start(tween);
 
 	}
 
+	/**
+	 * 
+	 * Renders the Main Menu Screen with background, buttons, volume, music, and
+	 * load options.
+	 * 
+	 */
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0);
@@ -210,11 +221,13 @@ public class MainMenu implements Screen {
 		}
 		game.getGameController().getSpriteBatch().end();
 
-		stage.act();
-		stage.draw();
-
 	}
 
+	/**
+	 * Represents the position and area where the play button is drawn.
+	 * 
+	 * @param x coordinate of the button
+	 */
 	private void playButton(int x) {
 
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -231,7 +244,7 @@ public class MainMenu implements Screen {
 
 				}
 
-				if (System.currentTimeMillis() > time + 1500) {
+				if (System.currentTimeMillis() > time + 750) {
 					if (Gdx.input.isTouched()) {
 						Timeline.createSequence().beginSequence()
 								.push(Tween.set(playButtonActive, SpriteAccessor.ALPHA).target(0))
@@ -261,6 +274,12 @@ public class MainMenu implements Screen {
 
 	}
 
+	/**
+	 * Represents the position and area where the new game and load game button is
+	 * drawn.
+	 * 
+	 * @param x coordinate of the buttons
+	 */
 	private void playOptions() {
 		int backX = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
 
@@ -276,6 +295,12 @@ public class MainMenu implements Screen {
 
 	}
 
+	/**
+	 * Represents the position and area where the new game button is drawn. Once it
+	 * is clicked, it will go into the <code>ActiveGame</code>.
+	 * 
+	 * @param x coordinate of the button
+	 */
 	private void newGameButton(int newGameX) {
 		if (Gdx.input.getX() < newGameX + NEWGAME_BUTTON_WIDTH && Gdx.input.getX() > newGameX
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < NEWGAME_BUTTON_Y + NEWGAME_BUTTON_HEIGHT
@@ -315,6 +340,13 @@ public class MainMenu implements Screen {
 		}
 	}
 
+	/**
+	 * Represents the position and area where the load button is drawn. Once it is
+	 * click it will execute <code>loadOptions()</code> which shows the list of
+	 * saved games in the past.
+	 * 
+	 * @param x coordinate of the button
+	 */
 	private void loadGameButton(int loadGameX) {
 
 		if (Gdx.input.getX() < loadGameX + LOADGAME_BUTTON_WIDTH && Gdx.input.getX() > loadGameX
@@ -356,6 +388,12 @@ public class MainMenu implements Screen {
 		}
 	}
 
+	/**
+	 * Represents a list of all the saved games the user has in the past. It will
+	 * display the date and time of the saved game and the user will be able to load
+	 * the game or delete that particular file.
+	 * 
+	 */
 	private void loadOptions() {
 		final GameManager gm = new GameManager(game.getGameController());
 
@@ -366,9 +404,11 @@ public class MainMenu implements Screen {
 		fontYellow.draw(game.getGameController().getSpriteBatch(), "Choose a date to load",
 				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + 300);
 
-		File folder = new File("data/bin");
-		File[] listOfFiles = folder.listFiles();
-		int correctFiles = 0;
+		File folder = new File("data/bin"); //folder which contains the files
+		File[] listOfFiles = folder.listFiles(); //making into an array 
+		int correctFiles = 0;//counter for the number of valid files
+		
+		//Checking if the folder in empty
 		if (listOfFiles.length == 0) {
 			fontYellow.draw(game.getGameController().getSpriteBatch(),
 					"You have no games saved! \n Please go back and start a new game", PrisonEscapeGame.WIDTH / 2 + 100,
@@ -376,11 +416,15 @@ public class MainMenu implements Screen {
 		} else {
 			for (int i = 0; i < listOfFiles.length; i++) {
 
+				//checking if the files only contain numbers and is greater than 12 for time stamps
 				if (listOfFiles[i].getName().matches("[0-9]+") && listOfFiles[i].getName().length() > 12) {
 
+					//checking if it is a valid time stamp.
 					if (isVaildTimeStamp(listOfFiles[i].getName())) {
 
-						correctFiles++;
+						correctFiles++;//correctFile increments each time a file is valid
+						
+						//Formatting the time stamp to dd-MM-yyyy HH:mm:ss
 						DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 						long milliSeconds = Long.parseLong(listOfFiles[i].getName());
 						Date date = new Date(milliSeconds);
@@ -388,6 +432,7 @@ public class MainMenu implements Screen {
 						fontYellow.draw(game.getGameController().getSpriteBatch(), formatter.format(date) + "\n",
 								PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + i * 40);
 
+						//Checking if the mouse is at the load button
 						if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 400 + 100
 								&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 400
 								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40
@@ -401,6 +446,7 @@ public class MainMenu implements Screen {
 							loadButtonActive.draw(game.getGameController().getSpriteBatch());
 
 							if (Gdx.input.isTouched()) {
+								//Once load button is clicked it will execute gm.loadData()
 								gm.loadData(Gdx.files.local("data/bin/" + listOfFiles[i].getName()));
 								loadPressed = false;
 								playPressed = false;
@@ -424,6 +470,7 @@ public class MainMenu implements Screen {
 							loadButtonInActive.draw(game.getGameController().getSpriteBatch());
 						}
 
+						//Checking if the mouse is at the delete button
 						if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 500 + 100
 								&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 500
 								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40
@@ -437,6 +484,7 @@ public class MainMenu implements Screen {
 							deleteButtonActive.draw(game.getGameController().getSpriteBatch());
 
 							if (Gdx.input.isTouched()) {
+								//Once clicked it will delete that file from folder
 								Gdx.files.local("data/bin/" + listOfFiles[i].getName()).delete();
 
 							}
@@ -448,6 +496,7 @@ public class MainMenu implements Screen {
 						}
 					}
 				} else {
+					//If there are no correct files then cannot display them
 					if (correctFiles == 0) {
 						fontYellow.draw(game.getGameController().getSpriteBatch(),
 								"You have no games saved! \n Please go back and start a new game",
@@ -459,15 +508,26 @@ public class MainMenu implements Screen {
 
 	}
 
+	/**
+	 * Returns true if the timestamp is less than current time and parses Date.
+	 * 
+	 * @param String timeStamp
+	 * @return valid or not
+	 */
 	private boolean isVaildTimeStamp(String timeStamp) {
 
-		Date expiry = new Date(Long.parseLong(timeStamp));
-		if (expiry.getTime() < System.currentTimeMillis()) {
+		Date date = new Date(Long.parseLong(timeStamp));
+		if (date.getTime() < System.currentTimeMillis()) {
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Represents the position and area where the back button is drawn.
+	 * 
+	 * @param backX coordinate of the button
+	 */
 	private void backButton(int backX) {
 		if (Gdx.input.getX() < backX + BACK_BUTTON_WIDTH && Gdx.input.getX() > backX
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
@@ -503,6 +563,11 @@ public class MainMenu implements Screen {
 
 	}
 
+	/**
+	 * Represents the position and area where the exit button is drawn.
+	 * 
+	 * @param x coordinate of the button
+	 */
 	private void exitButton(int x) {
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
@@ -532,6 +597,11 @@ public class MainMenu implements Screen {
 
 	}
 
+	/**
+	 * Represents the position and area where the help button is drawn.
+	 * 
+	 * @param x coordinate of the button
+	 */
 	private void helpButton(int x) {
 		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
@@ -560,6 +630,12 @@ public class MainMenu implements Screen {
 
 	}
 
+	/**
+	 * Represents the position and area where the volume button is drawn.
+	 * Checks whether the volume is muted for not.
+	 * 
+	 * @param x coordinate of the button
+	 */
 	private void volumeButton(int x) {
 		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
 				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
@@ -591,26 +667,51 @@ public class MainMenu implements Screen {
 		}
 	}
 
+	/**
+	 * Returns the mouse over sound
+	 * 
+	 * @return mouseOverSound
+	 */
 	public Sound mouseOverSound() {
 
 		return mouseOverSound;
 	}
 
+	/**
+	 * Returns true if the volume is muted
+	 * 
+	 * @return volumeMuted
+	 */
 	public boolean checkSoundMuted() {
 		return volumeMuted;
 
 	}
 
+	/**
+	 * Sets the volume muted true or false
+	 * 
+	 * @param boolean mute
+	 */
 	public void setVolumeMute(boolean mute) {
 		volumeMuted = mute;
 
 	}
 
+	/**
+	 * Returns the Sprite of volume button muted
+	 * 
+	 * @return volumeButtonMute
+	 */
 	public Sprite volumeButtonMuted() {
 		return volumeButtonMute;
 
 	}
 
+	/**
+	 * Returns the Sprite of volume button full (not muted)
+	 * 
+	 * @return volumeButtonFull
+	 */
 	public Sprite volumeButtonFull() {
 		return volumeButtonFull;
 
@@ -650,6 +751,12 @@ public class MainMenu implements Screen {
 		mouseOverSound.dispose();
 	}
 
+	/**
+	 * Returns the instance of MainMenu (Singleton)
+	 * 
+	 * @param game
+	 * @return new MainMenu(game) if no instance or current instance. 
+	 */
 	public static MainMenu getInstance(PrisonEscapeGame game) {
 		if (mainInstance == null) {
 			mainInstance = new MainMenu(game);

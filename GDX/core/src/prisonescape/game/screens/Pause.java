@@ -23,7 +23,8 @@ import prisonescape.game.tween.SpriteAccessor;
 import prisonescape.game.util.Time;
 
 /**
- * Represents the Pause Menu screen when the user presses esc button while game play
+ * Represents the Pause Menu screen when the user presses the "ESC" button while
+ * game play
  * 
  * @author Shibu George
  *
@@ -124,10 +125,9 @@ public class Pause {
 		checkBackButtonMouseOver = false;
 		buttonActive = true;
 		menuPressed = false;
-		//roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 
 	}
-	
+
 	/**
 	 * Represents the position and area where the resume button is drawn
 	 * 
@@ -155,7 +155,7 @@ public class Pause {
 
 				if (Gdx.input.isTouched()) {
 					Time.updateLastTime();
-					menuPressed = false;					
+					menuPressed = false;
 				}
 			}
 		} else {
@@ -169,12 +169,12 @@ public class Pause {
 	}
 
 	/**
-	 * Represents the position and area where the same button is drawn
+	 * Represents the position and area where the save button is drawn
 	 * 
 	 * @param game
-	 * @param tween2 
+	 * @param tween2
 	 */
-	protected void saveButtonMenu(PrisonEscapeGame game, TweenManager tween2) {
+	protected void saveButtonMenu(PrisonEscapeGame game) {
 		GameManager gm = new GameManager(game.getGameController());
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
@@ -195,17 +195,17 @@ public class Pause {
 				}
 
 				if (Gdx.input.isTouched()) {
-					Dialog dialog = new Dialog("", new Skin(Gdx.files.internal("data/story/skin/uiskin.json")), "dialog");
+					Dialog dialog = new Dialog("", new Skin(Gdx.files.internal("data/story/skin/uiskin.json")),
+							"dialog");
 					menuPressed = false;
 					Stage stage = ActiveGame.getStage();
 					DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 					Date date = new Date(System.currentTimeMillis() - 1);
 					dialog.text("Game has been saved! \n File called: " + formatter.format(date));
-					dialog.button("OK", true); //sends "true" as the result
-					dialog.key(Keys.ENTER, true); //sends "true" when the ENTER key is pressed
+					dialog.button("OK", true); // sends "true" as the result
+					dialog.key(Keys.ENTER, true); // sends "true" when the ENTER key is pressed
 					dialog.show(stage);
 					gm.saveData(game);
-					
 
 				}
 
@@ -223,6 +223,7 @@ public class Pause {
 	 * Represents the position and area where the help button is drawn
 	 * 
 	 * @param game
+	 * @param tween
 	 */
 	protected void helpButtonMenu(TweenManager tween, PrisonEscapeGame game) {
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - helpButtonMenuInActive.getWidth() / 2);
@@ -272,6 +273,7 @@ public class Pause {
 	 * Represents the position and area where the exit button is drawn
 	 * 
 	 * @param game
+	 * @param tween
 	 */
 	protected void exitButtonMenu(TweenManager tween, PrisonEscapeGame game) {
 		int x = (int) (PrisonEscapeGame.WIDTH / 2 - exitButtonMenuInActive.getWidth() / 2);
@@ -292,7 +294,7 @@ public class Pause {
 
 				}
 				if (Gdx.input.isTouched()) {
-					
+
 					if (game.getGameController().getAlarm().alarmTriggered()) {
 						game.getGameController().stopAlarmSound();
 					}
@@ -321,35 +323,36 @@ public class Pause {
 	 * Represents the position and area where the help sprites and fonts is drawn
 	 * 
 	 * @param game
+	 * @param tween
 	 */
 	protected void helpScreenUI(PrisonEscapeGame game, TweenManager tween) {
 		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x, game, tween);
-		
+
 		// Drawing wasd keyboard sprite with text
-		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press W,S,A,D for movement" , PrisonEscapeGame.WIDTH / 2 - 400,
-				PrisonEscapeGame.HEIGHT / 2 + 100);
+		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press W,S,A,D for movement",
+				PrisonEscapeGame.WIDTH / 2 - 400, PrisonEscapeGame.HEIGHT / 2 + 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 230;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
 		wasdKeyboard.draw(game.getGameController().getSpriteBatch());
-		
+
 		// Drawing e keyboard sprite with text
-		fontSmall.draw(game.getGameController().getSpriteBatch(),"Press E for interactions \n and going through doors", PrisonEscapeGame.WIDTH / 2 - 400,
-				PrisonEscapeGame.HEIGHT / 2 - 100);
+		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press E for interactions \n and going through doors",
+				PrisonEscapeGame.WIDTH / 2 - 400, PrisonEscapeGame.HEIGHT / 2 - 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 200;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
 		eKeyboard.draw(game.getGameController().getSpriteBatch());
-		
+
 		// Drawing i keyboard sprite with text
-		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press I for inventory", PrisonEscapeGame.WIDTH / 2 + 100,
-				PrisonEscapeGame.HEIGHT / 2 - 100);
+		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press I for inventory",
+				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 - 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 250;
 
@@ -358,8 +361,8 @@ public class Pause {
 		iKeyboard.draw(game.getGameController().getSpriteBatch());
 
 		// Drawing esc keyboard sprite with text
-		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press ESC for pause menu", PrisonEscapeGame.WIDTH / 2 + 100,
-				PrisonEscapeGame.HEIGHT / 2 + 100);
+		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press ESC for pause menu",
+				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + 100);
 
 		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 250;
 
@@ -383,6 +386,7 @@ public class Pause {
 	 * Represents the position and area where the back button is drawn
 	 * 
 	 * @param game
+	 * @param tween
 	 */
 	private void backButton(int x, PrisonEscapeGame game, TweenManager tween) {
 
@@ -427,7 +431,8 @@ public class Pause {
 	}
 
 	/**
-	 * Represents the position and area where the volume button is drawn
+	 * Represents the position and area where the volume button is drawn Checks
+	 * whether the volume button is muted or not.
 	 * 
 	 * @param game
 	 */
@@ -450,7 +455,6 @@ public class Pause {
 
 		Music music = game.getGameController().getMusic();
 		Sound getMouseOverSound = MainMenu.getInstance(game).mouseOverSound();
-	
 
 		if (muted) {
 
@@ -466,8 +470,7 @@ public class Pause {
 			volumeButtonFull.setSize(VOLUME_BUTTON_WIDTH, VOLUME_BUTTON_HEIGHT);
 			volumeButtonFull.draw(game.getGameController().getSpriteBatch());
 			music.play();
-			
-			
+
 		}
 
 	}
@@ -489,7 +492,7 @@ public class Pause {
 		logo.draw(game.getGameController().getSpriteBatch());
 		resumeButtonMenu(game);
 		helpButtonMenu(tween, game);
-		saveButtonMenu(game, tween);
+		saveButtonMenu(game);
 
 		volumeButton(game);
 		if (helpPressed) {

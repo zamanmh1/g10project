@@ -16,7 +16,7 @@ import prisonescape.game.PrisonEscapeGame;
 import prisonescape.game.tween.SpriteAccessor;
 
 /**
- * Represents the full map view with 3 floor: Top floor, Bottom floor and
+ * Represents the mini map view with 3 floor: Top floor, Bottom floor and
  * Basement floor.
  * 
  * @author Shibu George
@@ -33,7 +33,7 @@ public class Minimap implements Screen {
 	private static final int BASEMENTFLOOR_BUTTON_WIDTH = 348;
 	private static final int BASEMENTFLOOR_BUTTON_HEIGHT = 46;
 	private static final int BASEMENTFLOOR_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 350;
-	private static Minimap fullMapInstance;
+	private static Minimap miniMapInstance;
 	private PrisonEscapeGame game;
 	private Sprite bottomFloor;
 	private Sprite blackBackground;
@@ -55,7 +55,7 @@ public class Minimap implements Screen {
 	private boolean checkBasementButtonMouseOver;
 
 	/**
-	 * Constructs a new FullMapScreen based upon which floor is chosen.
+	 * Constructs a new mini map based upon which floor is chosen.
 	 * 
 	 * @param game
 	 */
@@ -110,7 +110,7 @@ public class Minimap implements Screen {
 	}
 
 	/**
-	 * Rendering the Full Map View
+	 * Rendering the mini map view
 	 * 
 	 */
 
@@ -339,11 +339,17 @@ public class Minimap implements Screen {
 
 	}
 
+	/**
+	 * Returns the instance of MiniMap (Singleton)
+	 * 
+	 * @param game
+	 * @return new MiniMap(game) if no instance or current instance. 
+	 */
 	public static Minimap getInstance(PrisonEscapeGame game) {
-		if (fullMapInstance == null) {
-			fullMapInstance = new Minimap(game);
+		if (miniMapInstance == null) {
+			miniMapInstance = new Minimap(game);
 		}
-		return fullMapInstance;
+		return miniMapInstance;
 	}
 
 	public void resize(int width, int height) {

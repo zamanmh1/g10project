@@ -5,19 +5,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import aurelienribon.tweenengine.TweenAccessor;
 
 /**
- * CLASS DESCRIPTION
+ * 
+ * Represents the <code>Sprite</code> accessor so tween (transitions) of
+ * fading can work with <code>Sprite</code>.
  * 
  * @author Shibu George
- * 
- * @version 0.1
- * @since 0.1
- * 
+ *
  */
 
 public class SpriteAccessor implements TweenAccessor<Sprite> {
 
 	public static final int ALPHA = 0;
 	
+	/**
+	 * Gets the Sprite colour
+	 * 
+	 */
 	@Override
 	public int getValues(Sprite target, int tweenType, float[] returnValues) {
 		switch (tweenType) {
@@ -30,6 +33,10 @@ public class SpriteAccessor implements TweenAccessor<Sprite> {
 		}
 	}
 
+	/**
+	 * Sets the Sprite colour
+	 * 
+	 */
 	@Override
 	public void setValues(Sprite target, int tweenType, float[] newValues) {
 		switch (tweenType) {

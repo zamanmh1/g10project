@@ -32,7 +32,8 @@ import prisonescape.game.tween.SpriteAccessor;
 import prisonescape.game.util.Time;
 
 /**
- * CLASS DESCRIPTION
+ * This class represents the current active game play which includes the map,
+ * HUD and pause menu
  * 
  * @author Sam Ward, Shibu George, Sean Corcoran
  * 
@@ -66,6 +67,13 @@ public class ActiveGame implements Screen {
 
 	private static Stage stage;
 
+	/**
+	 * Constructs the stage, sprites, pause menu, actors, tiledMap and input
+	 * handlers
+	 * 
+	 * @param player
+	 * @param game
+	 */
 	public ActiveGame(Actor player, PrisonEscapeGame game) {
 		pauseMenu = new Pause();
 		this.player = player;
@@ -79,9 +87,16 @@ public class ActiveGame implements Screen {
 		inputHandler = new InputMultiplexer();
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
-		
+
 	}
 
+	/**
+	 * Sets the map on the screen from the location to TiledMap and handles Items
+	 * using <code>GameHandler</code>
+	 * 
+	 * @param String      map which contains the location of the map
+	 * @param gameHandler which allows item handlers
+	 */
 	public void setMap(String map, GameHandler gameHandler) {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
@@ -89,7 +104,6 @@ public class ActiveGame implements Screen {
 
 		mapName = map;
 		tilemap = new TmxMapLoader().load(map);
-		
 
 		/**
 		 * If already a map being shown, try to dispose of it. However, if it is the
@@ -114,25 +128,52 @@ public class ActiveGame implements Screen {
 		npcs = new ArrayList<ActorAction>();
 	}
 
+	/**
+	 * Adds an <code>Item</code> to items ArrayList
+	 * 
+	 * @param i is the <code>Item</code>
+	 */
 	// Needed for rendering items in map
 	public void addItemToMap(Item i) {
 		items.add(i);
 	}
 
+	/**
+	 * Removes <code>Item</code> from items ArrayList
+	 * 
+	 * @param i is the <code>Item</code>
+	 */
 	// Stop given item being rendered in map
 	public void removeItemFromMap(Item i) {
 		items.remove(i);
 		foundItem = i;
 	}
 
+	/**
+	 * Adds the NPC's to the map given the action they take and how they behave.
+	 * 
+	 * @param behaviour/action of the NPC
+	 */
 	public void addNPCToMap(ActorAction action) {
 		npcs.add(action);
 	}
-	
+
+	/**
+	 * 
+	 * Removes the NPC's to the map given the action they take and how they behave.
+	 * 
+	 * @param behaviour/action of the NPC
+	 */
 	public void removeNPCFromMap(ActorAction action) {
 		npcs.remove(action);
 	}
 
+	/**
+	 * 
+	 * Represents what is shown when you view this class. Transitions, camera
+	 * position, HUD and setting up input handler.
+	 * 
+	 */
 	@Override
 	public void show() {
 		// Gdx.graphics.setWindowedMode(528, 768);
@@ -140,7 +181,7 @@ public class ActiveGame implements Screen {
 		// Orthogonal (top-down) renderer for the map
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
 		// oCamera.setToOrtho(false, 11,16);
-		//hud = new Hud(game.getGameController().getSpriteBatch());
+		// hud = new Hud(game.getGameController().getSpriteBatch());
 		h = new HUD(game.getGameController());
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
@@ -156,12 +197,16 @@ public class ActiveGame implements Screen {
 
 	}
 
+	/**
+	 * Renders the sprite, maps, transitions, handlers and stage.
+	 * 
+	 */
 	@Override
 	public void render(float delta) {
 		// updates using time since last render call
 		if (!pauseMenu.menuPressed) {
 			movementHandler.update(delta);
-			game.getGameController().update(delta);			
+			game.getGameController().update(delta);
 		}
 		inputHandler.addProcessor(movementHandler);
 		inputHandler.addProcessor(interactionHandler);
@@ -175,46 +220,43 @@ public class ActiveGame implements Screen {
 		oCamera.update();
 
 		mapRenderer.getBatch().begin();
-		
+
 		mapRenderer.getBatch().setColor(game.getGameController().getTime().getTint());
 		mapRenderer.setView(oCamera);
-		//mapRenderer.render();
-		
+		// mapRenderer.render();
+
 		// Array containing all map layers other than the alarm layer.
 		TiledMapTileLayer[] mapLayers = new TiledMapTileLayer[3];
 		mapLayers[0] = model.getLayer("Tile Layer 1"); // Main layer of map.
 		mapLayers[1] = model.getLayer("Tile Layer 3"); // Layer representing tables within map.
 		mapLayers[2] = model.getLayer("Tile Layer 4"); // Layer containing small details.
-		
-		
+
 		for (TiledMapTileLayer layer : mapLayers) {
 			if (layer != null) {
 				mapRenderer.renderTileLayer(layer);
 			}
-		}		
-		
+		}
+
 		TiledMapTileLayer alarmLayer = model.getLayer("Tile Layer 2");
 		if (alarmLayer != null) {
 			if (game.getGameController().getTime().isDay() == true) {
 				mapRenderer.renderTileLayer(alarmLayer);
 			} else {
-			
-				
+
 				mapRenderer.getBatch().setColor(0.9f, 0.0f, 0.0f, 1.0f);
 				mapRenderer.renderTileLayer(alarmLayer);
 			}
 		}
-		
+
 		// set HUD camera
-		//game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
+		// game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
 		// hud.stage.draw();
 
-		
 		/**
 		 * !!! Placed here means that the tint doesn't effect players and items.
 		 */
-		mapRenderer.getBatch().setColor(1,1,1,1);
-		
+		mapRenderer.getBatch().setColor(1, 1, 1, 1);
+
 		mapRenderer.getBatch().draw(player.getSprite(), player.getWorldX(), player.getWorldY(), GameSettings.TILE_SIZE,
 				GameSettings.TILE_SIZE); // Render player
 
@@ -230,17 +272,15 @@ public class ActiveGame implements Screen {
 		}
 
 		mapRenderer.getBatch().end();
-		
+
 		stage.act();
 		stage.draw();
 		Time time = game.getGameController().getTime();
 		h.update(mapName.substring(10, mapName.lastIndexOf('.')), foundItem, time.toString());
 		h.setTimeImage(time.getHour());
 
-		
-		
 		game.getGameController().getSpriteBatch().begin();
-		
+
 		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
 				PrisonEscapeGame.HEIGHT / 2 - roomTransition.getHeight() / 2);
 
@@ -253,29 +293,27 @@ public class ActiveGame implements Screen {
 		}
 
 		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			((Game) Gdx.app.getApplicationListener())
-			.setScreen(new Credits(game));
+			((Game) Gdx.app.getApplicationListener()).setScreen(new Credits(game));
 		}
-
 
 		if (inventoryKeyCheck() == true) {
 		}
-		
+
 		if (Gdx.input.isKeyJustPressed(Keys.M)) {
-			
+
 			game.setScreen(Minimap.getInstance(game));
-		
-	}
-		if (checkIfOutside() == true) {
-			game.getGameController().stopMusic();
-			game.getGameController().setMusic("data/sounds/Outdoor.mp3");
-			game.getGameController().playMusic();
+
 		}
+
 		game.getGameController().getSpriteBatch().end();
 
-		
 	}
 
+	/**
+	 * Returns true if the "I" Key is pressed which opens up the Inventory
+	 * 
+	 * @return boolean true if "I" is pressed
+	 */
 	private boolean inventoryKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.I)) {
 			if (h.isVisible() == false) {
@@ -291,6 +329,11 @@ public class ActiveGame implements Screen {
 
 	}
 
+	/**
+	 * Returns true if the "ESC" Key is pressed which opens up pause menu
+	 * 
+	 * @return boolean true if "ESC" is pressed
+	 */
 	private boolean menuKeyCheck() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			if (pauseMenu.menuPressed == false) {
@@ -302,34 +345,20 @@ public class ActiveGame implements Screen {
 		}
 		return pauseMenu.menuPressed;
 	}
-	
+
 	/**
 	 * Setting Map Screen to black for smoother transition to exit and come back
 	 * 
 	 */
 	public static void setBlackScreen() {
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(0).start(tween);
-		Tween.to(roomTransition, SpriteAccessor.ALPHA,0f).target(1).start(tween);
-		
+		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0f).target(1).start(tween);
+
 	}
-	
+
 	@Override
 	public void resize(int width, int height) {
-		// oCamera.viewportHeight = height;
-		// oCamera.viewportWidth = width;
-		// oCamera.update();
-		// oCamera.position.set(player.getSprite().getX(), player.getSprite().getY(),
-		// 0);
-		// Test stuff; setToOrtho method above achieves the effect much better and
-		// cleaner.
 
-	}
-
-	public boolean checkIfOutside() {
-		if (mapName == "data/maps/outside.tmx") {
-			return true;
-		}
-		return false;
 	}
 
 	@Override
@@ -342,7 +371,7 @@ public class ActiveGame implements Screen {
 
 	@Override
 	public void hide() {
-		//dispose();
+		// dispose();
 	}
 
 	@Override
@@ -358,21 +387,43 @@ public class ActiveGame implements Screen {
 
 	}
 
+	/**
+	 * Returns the tiledMap rendered.
+	 * 
+	 * @return tiledMap
+	 */
 	public TiledMap getTileMap() {
 		return tilemap;
 	}
 
+	/**
+	 * 
+	 * Returns the TiledModel which represents a model of an individual map within the game.
+	 * 
+	 * @return TiledModel
+	 */
 	public TiledModel getTiledModel() {
 		return model;
 	}
 
+	/**
+	 * 
+	 * Returns the stage of the game.
+	 * 
+	 * @return Stage
+	 */
 	public static Stage getStage() {
 		return stage;
 	}
-	
+
+	/**
+	 * 
+	 * Returns the current map name the player is at.
+	 * 
+	 * @return String map name
+	 */
 	public String getMapName() {
 		return mapName;
 	}
 
-	
 }
