@@ -267,7 +267,7 @@ public class GuardChasingBehaviour extends ActorAction {
 	 * @return Time between moves.
 	 */
 	private float calculateWaitTime() {
-		float waitTime = random.nextFloat() * 1 + 1;
+		float waitTime = random.nextFloat() * 1 + 0.5f;
 		return waitTime;
 	}
 }

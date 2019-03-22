@@ -1,5 +1,6 @@
 package prisonescape.game;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import com.badlogic.gdx.Game;
@@ -59,12 +60,24 @@ public class GameManager {
 			fileHandle.writeString("Y," + values.get("playerY") + "," + "\n", true);
 			fileHandle.writeString("Hour," + values.get("time-hour") + "," + "\n", true);
 			fileHandle.writeString("Minute," + values.get("time-min") + "," + "\n", true);
+			try {
+				Runtime.getRuntime().exec("attrib +H data/bin");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void loadData(FileHandle file) {
 		// To decode the saved file
 		//Base64Coder.decode(file.readString());
+		try {
+			Runtime.getRuntime().exec("attrib -H data/bin");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//file.readString();
 		String[] data = file.readString().split(",");
@@ -91,6 +104,12 @@ public class GameManager {
 				controller.playAlarmSound();
 			}
 
+		}
+		try {
+			Runtime.getRuntime().exec("attrib +H data/bin");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
