@@ -197,4 +197,211 @@
 
 <!--ADD MISC NPC DIALOGUE BELOW HERE-->
 
+	<Barry> 
+		<dialogue>
+		She left me... for my own DAMN BROTHER!
+		</dialogue>
+	</Barry>
+	
+	
+	<CrazedPrisoner>
+		<dialogue>
+		I have transcended 
+		</dialogue>
+	</CrazedPrisoner>
+	
+	<LoonyPrisoner>
+		<dialogue>
+		I need to stop eating soap
+		</dialogue>
+	</LoonyPrisoner>
+	
+	<Chatty>
+		<dialogue>
+		Hows the prison life?
+		<choice> Not bad
+			<dialogue>
+				I like the fight block, I go to place bets sometimes
+			</dialogue>
+		</choice>
+		<choice> Awful
+			<dialogue>
+				Yeah, the mob is pretty bad... nothing compared to the guards though
+			</dialogue>
+		</choice>
+		<choice> Fun!
+			<dialogue>
+				You are the first person to say that, you are joking right?
+			</dialogue>
+		</choice>
+		</dialogue>
+	</Chatty>
+	
+	<OldMan>
+		<dialogue>
+		I miss my wife, the second one, the third was a jerk.
+		</dialogue>
+	</OldMan>
+	
+	<MikeTheKidnapper>
+		<dialogue>
+		I'm getting out soon, see me in three months!
+		
+		My neighbour has a child, recon they give life for kidnapping?
+		</dialogue>
+	</MikeTheKidnapper>
+	
+	<MarvintheParanoidPrisoner>
+		<dialogue>
+		What's the answer to life?
+		<choice> Avatar Extended edition
+			<dialogue>
+			In no world, is that the case
+			</dialogue>
+		</choice>
+		<choice>LOTR Extended edition
+			<dialogue>
+			Oh! I agree
+		</dialogue>
+		</choice>
+		</dialogue>
+	</MarvintheParanoidPrisoner>
+	
+	<Raul>
+		<dialogue>
+		Your face honestly disgusts me 
+		</dialogue>
+	</Raul>
+	
+	<Butch>
+		<dialogue>
+		Howdey partner!
+		<choice>I'm restless
+			<dialogue>
+				No good man isn't!
+			</dialogue>
+			
+		</choice>
+		<choice>I'm tense
+			<dialogue>
+				Good, that means you won't miss a thing
+			</dialogue>
+		</choice>
+		<dialogue>
+	</Butch>
+	
+	<Smile>
+		<dialogue>
+		You heard? There is a snitch about.
+		I don't like snitches.
+		Not... one... bit. 
+		</dialogue>
+	</Smile>
+	
+	<Smelly>
+		<dialogue>
+		I don't miss the freash air anymore...
+		</dialogue>
+	</Smelly>
+	
+	<LilDurk>
+		<dialogue>
+		Lil Durk up next!
+		</dialogue>
+	</LilDurk>
+	
+	<Fitz>
+		<dialogue>
+		I hate the feds, but I hate snitches more 
+		</dialogue>
+	</Fitz>
+	
+	<Jack>
+		<dialogue>
+		Got the facetat, what do you think?
+		
+		It's my mum's name tattood on my forehead
+		
+		Yeah her name it Kitty
+		</dialogue>
+	</Jack>
+	
+	<DiceBoy>
+		<dialogue>
+		Just wanna role some dice man
+		</dialogue>
+	</DiceBoy>
+	
+	<LaughingMan>
+		<dialogue>
+		Let's put a smile on that face 
+		</dialogue>
+	</LaughingMan>
+	
+	<Mani>
+		<dialogue>
+		Leave me be man
+		</dialogue>
+	</Mani>
+	
+	<Nitsara>
+		<dialogue>
+		I'm behind on my libary return!
+		</dialogue>
+	</Nitsara>
+	
+	<Notsara>
+		<dialogue>
+		You been the library? Awful, no Shakespeare
+		</dialogue>
+	</Notsara>
+	
+	<rat>
+		<dialogue>
+		Squeak squeak... hey
+		<choice>Jesus, it's alive?
+			<dialogue>
+				Squeak squeak...
+
+				It IT! Why do you have to be so rude about this? My name is Remmy, thanks for asking.
+			</dialogue>
+			
+		</choice>
+		<choice> Hey buddy?
+			<dialogue>
+				Squeak Squeak...
+				
+				Me? Oh im just chilling, see I was dead but now I'm alive and well thanks to the doctors.
+			</dialogue>
+		</choice>
+		<choice>Nope, not today
+			<dialogue>
+				Hey, I used to work in a famous French kitchen, please respect me at least a little.
+			</dialogue>
+			
+		</choice>
+		</dialogue>
+	</rat>
+	
+	
+	<Mike>
+		<dialogue>
+		I did my thing you know
+		</dialogue>
+	</Mike>
+	
+	<Johnny>
+		<dialogue>
+		Ugh, arg, gargle, I need my bed... ughhhh
+		</dialogue>
+	</Johnny>
+	
+	<Peter>
+		<dialogue>
+		Mike... the bastard almost killed Johnny.
+		
+		Im shocked.
+		</dialogue>
+	</Peter>
+
 </speech>

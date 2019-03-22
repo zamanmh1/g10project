@@ -12,11 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.tween.SpriteAccessor;
 
 /**
- * Represents the full map view with 3 floor: Top floor, Bottom floor and
+ * Represents the mini map view with 3 floor: Top floor, Bottom floor and
  * Basement floor.
  * 
  * @author Shibu George
@@ -26,15 +26,15 @@ public class Minimap implements Screen {
 
 	private static final int TOPFLOOR_BUTTON_WIDTH = 355;
 	private static final int TOPFLOOR_BUTTON_HEIGHT = 46;
-	private static final int TOPFLOOR_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 250;
+	private static final int TOPFLOOR_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 250;
 	private static final int BOTTOMFLOOR_BUTTON_WIDTH = 497;
 	private static final int BOTTOMFLOOR_BUTTON_HEIGHT = 46;
-	private static final int BOTTOMFLOOR_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
+	private static final int BOTTOMFLOOR_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 300;
 	private static final int BASEMENTFLOOR_BUTTON_WIDTH = 348;
 	private static final int BASEMENTFLOOR_BUTTON_HEIGHT = 46;
-	private static final int BASEMENTFLOOR_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 350;
-	private static Minimap fullMapInstance;
-	private PrisonEscapeGame game;
+	private static final int BASEMENTFLOOR_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 350;
+	private static Minimap miniMapInstance;
+	private PrisonBreakout game;
 	private Sprite bottomFloor;
 	private Sprite blackBackground;
 	private BitmapFont fontYellow;
@@ -55,11 +55,11 @@ public class Minimap implements Screen {
 	private boolean checkBasementButtonMouseOver;
 
 	/**
-	 * Constructs a new FullMapScreen based upon which floor is chosen.
+	 * Constructs a new mini map based upon which floor is chosen.
 	 * 
 	 * @param game
 	 */
-	private Minimap(PrisonEscapeGame game) {
+	private Minimap(PrisonBreakout game) {
 
 		this.game = game;
 		tween = new TweenManager();
@@ -110,7 +110,7 @@ public class Minimap implements Screen {
 	}
 
 	/**
-	 * Rendering the Full Map View
+	 * Rendering the mini map view
 	 * 
 	 */
 
@@ -119,7 +119,7 @@ public class Minimap implements Screen {
 		this.game.getGameController().getSpriteBatch().begin();
 
 		// Back background in the back
-		blackBackground.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
+		blackBackground.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
 		blackBackground.setPosition(Gdx.graphics.getWidth() / 2 - blackBackground.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 - blackBackground.getHeight() / 2);
 		blackBackground.draw(game.getGameController().getSpriteBatch());
@@ -130,23 +130,23 @@ public class Minimap implements Screen {
 
 		// if the top floor is active then draw the top floor
 		if (topActive) {
-			topFloor.setPosition(PrisonEscapeGame.WIDTH - topFloor.getWidth() / 2 - mouseX,
-					PrisonEscapeGame.HEIGHT / 2 - topFloor.getHeight() + mouseY);
+			topFloor.setPosition(PrisonBreakout.WIDTH - topFloor.getWidth() / 2 - mouseX,
+					PrisonBreakout.HEIGHT / 2 - topFloor.getHeight() + mouseY);
 			topFloor.draw(game.getGameController().getSpriteBatch());
 		}
 		// if the bottom floor is active then draw the bottom floor
 		if (bottomActive) {
 			bottomFloor.setSize(1400, 1200);
-			bottomFloor.setPosition(PrisonEscapeGame.WIDTH - bottomFloor.getWidth() / 2 - mouseX,
-					PrisonEscapeGame.HEIGHT / 2 - bottomFloor.getHeight() + mouseY);
+			bottomFloor.setPosition(PrisonBreakout.WIDTH - bottomFloor.getWidth() / 2 - mouseX,
+					PrisonBreakout.HEIGHT / 2 - bottomFloor.getHeight() + mouseY);
 
 			bottomFloor.draw(game.getGameController().getSpriteBatch());
 		}
 
 		// if the basement floor is active then draw the basement floor
 		if (basementActive) {
-			basementFloor.setPosition(PrisonEscapeGame.WIDTH - basementFloor.getWidth() / 2 - mouseX,
-					PrisonEscapeGame.HEIGHT / 2 - basementFloor.getHeight() + mouseY);
+			basementFloor.setPosition(PrisonBreakout.WIDTH - basementFloor.getWidth() / 2 - mouseX,
+					PrisonBreakout.HEIGHT / 2 - basementFloor.getHeight() + mouseY);
 
 			basementFloor.draw(game.getGameController().getSpriteBatch());
 		}
@@ -162,15 +162,15 @@ public class Minimap implements Screen {
 				Gdx.graphics.getWidth() / 2 + 400, Gdx.graphics.getHeight() / 2 + 350);
 
 		// x is the position of the button
-		int x = PrisonEscapeGame.WIDTH / 2 - TOPFLOOR_BUTTON_WIDTH / 2 + 400;
+		int x = PrisonBreakout.WIDTH / 2 - TOPFLOOR_BUTTON_WIDTH / 2 + 400;
 
 		topFloorButton(x);
 
-		x = PrisonEscapeGame.WIDTH / 2 - BOTTOMFLOOR_BUTTON_WIDTH / 2 + 400;
+		x = PrisonBreakout.WIDTH / 2 - BOTTOMFLOOR_BUTTON_WIDTH / 2 + 400;
 
 		bottomFloorButton(x);
 
-		x = PrisonEscapeGame.WIDTH / 2 - BASEMENTFLOOR_BUTTON_WIDTH / 2 + 400;
+		x = PrisonBreakout.WIDTH / 2 - BASEMENTFLOOR_BUTTON_WIDTH / 2 + 400;
 
 		basementFloorButton(x);
 
@@ -191,8 +191,8 @@ public class Minimap implements Screen {
 	 */
 	private void topFloorButton(int x) {
 		if (Gdx.input.getX() < x + TOPFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < TOPFLOOR_BUTTON_Y + TOPFLOOR_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > TOPFLOOR_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < TOPFLOOR_BUTTON_Y + TOPFLOOR_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > TOPFLOOR_BUTTON_Y) {
 
 			topFloorButtonActive.setPosition(x, TOPFLOOR_BUTTON_Y);
 			topFloorButtonActive.setSize(TOPFLOOR_BUTTON_WIDTH, TOPFLOOR_BUTTON_HEIGHT);
@@ -238,8 +238,8 @@ public class Minimap implements Screen {
 	 */
 	private void bottomFloorButton(int x) {
 		if (Gdx.input.getX() < x + BOTTOMFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BOTTOMFLOOR_BUTTON_Y + BOTTOMFLOOR_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BOTTOMFLOOR_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < BOTTOMFLOOR_BUTTON_Y + BOTTOMFLOOR_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > BOTTOMFLOOR_BUTTON_Y) {
 
 			bottomFloorButtonActive.setPosition(x, BOTTOMFLOOR_BUTTON_Y);
 			bottomFloorButtonActive.setSize(BOTTOMFLOOR_BUTTON_WIDTH, BOTTOMFLOOR_BUTTON_HEIGHT);
@@ -283,8 +283,8 @@ public class Minimap implements Screen {
 	 */
 	private void basementFloorButton(int x) {
 		if (Gdx.input.getX() < x + BASEMENTFLOOR_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BASEMENTFLOOR_BUTTON_Y + BASEMENTFLOOR_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BASEMENTFLOOR_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < BASEMENTFLOOR_BUTTON_Y + BASEMENTFLOOR_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > BASEMENTFLOOR_BUTTON_Y) {
 
 			basementFloorButtonActive.setPosition(x, BASEMENTFLOOR_BUTTON_Y);
 			basementFloorButtonActive.setSize(BASEMENTFLOOR_BUTTON_WIDTH, BASEMENTFLOOR_BUTTON_HEIGHT);
@@ -339,11 +339,17 @@ public class Minimap implements Screen {
 
 	}
 
-	public static Minimap getInstance(PrisonEscapeGame game) {
-		if (fullMapInstance == null) {
-			fullMapInstance = new Minimap(game);
+	/**
+	 * Returns the instance of MiniMap (Singleton)
+	 * 
+	 * @param game
+	 * @return new MiniMap(game) if no instance or current instance. 
+	 */
+	public static Minimap getInstance(PrisonBreakout game) {
+		if (miniMapInstance == null) {
+			miniMapInstance = new Minimap(game);
 		}
-		return fullMapInstance;
+		return miniMapInstance;
 	}
 
 	public void resize(int width, int height) {

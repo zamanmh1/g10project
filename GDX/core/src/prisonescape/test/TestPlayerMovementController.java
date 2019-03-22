@@ -10,7 +10,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import prisonescape.game.GameController;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.io.player.PlayerMovementController;
 import prisonescape.game.model.AlarmSystem;
 import prisonescape.game.model.actors.Actor;
@@ -161,7 +161,7 @@ public class TestPlayerMovementController {
 		}
 
 		@Override
-		public PrisonEscapeGame getGame() {
+		public PrisonBreakout getGame() {
 			return null;
 		}
 
@@ -213,6 +213,18 @@ public class TestPlayerMovementController {
 		@Override
 		public void stopAlarmSound() {
 
+		}
+
+		@Override
+		public void playAlarmBeep() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void stopAlarmBeep() {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 }

@@ -4,7 +4,7 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.tween.SpriteAccessor;
 
 import com.badlogic.gdx.Game;
@@ -15,9 +15,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
- * CLASS DESCRIPTION
+ * Represents the Loading Screen just before going into the <code>ActiveGame</code>
  * 
- * @author Sam Ward
+ * @author Sam Ward, Shibu George
  * 
  * @version 0.2
  * @since 0.1
@@ -26,17 +26,28 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Loading implements Screen {
 
-	private PrisonEscapeGame game;
+	private PrisonBreakout game;
 	private Sprite loading;
 	private TweenManager tween;
 	
-	public Loading (PrisonEscapeGame game) {
+	/**
+	 * Constructs the tween (transitions) and loading sprite.
+	 * 
+	 * @param game
+	 */
+	public Loading (PrisonBreakout game) {
 		this.game = game;
 		tween = new TweenManager();
 
 		loading = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loading.png")));
+		
 	}
 
+	/**
+	 * 
+	 * Renders the loading sprite
+	 * 
+	 */
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -57,11 +68,17 @@ public class Loading implements Screen {
 	public void resize(int width, int height) {
 	}
 
+	/**
+	 * 
+	 * Produces the transition of fading in and fading out of the loading sprite
+	 * 
+	 */
 	@Override
 	public void show() {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 
 		Tween.set(loading, SpriteAccessor.ALPHA).target(0).start(tween);
+		//Fades in and upon fading out, it will go to the ActiveGame Screen.
 		Tween.to(loading, SpriteAccessor.ALPHA, 1.5f).target(1).repeatYoyo(1, .5f).setCallback(new TweenCallback() {
 
 			@Override
