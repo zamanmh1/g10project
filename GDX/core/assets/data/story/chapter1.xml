@@ -250,7 +250,7 @@
 				Good day to you too young buck
 			</dialogue>
 		</choice>
-		</dialogue>
+		<dialogue>
 	</Butch>
 	
 	<Smile>
@@ -367,6 +367,44 @@
 			</dialogue>
 		</choice>
 		</dialogue>
-	</Peter>	
+	</Peter>
+
+	<Gordon>
+		<dialogue>
+		WHERE'S THE LAMB SAURCE
+		</dialogue>
+	</Gordon>
+	
+	<Hans>
+		<dialogue>
+		I just want to be in a controlled enviroment. Have a coke and a tuna sandwich, just mong out to some Snow Patrol
+		</dialogue>
+	</Hans>
+	
+	<Vito>
+		<dialogue>
+		Revenge is a dish best served cold
+		</dialogue>
+	</Vito>
+	
+	<Red>
+		<dialogue>
+		Hope is a dangerous thing. Hope can drive a man insane
+		</dialogue>		
+	</Red>
+	
+	<HallMonitorC>
+		<dialogue>
+		STOP RUNNING IN THE CORRIDOR
+		</dialogue>		
+	</HallMonitorC>
+	
+	<HallMonitorA>
+		<dialogue>
+		Hall pass!
+		
+		Only joking... Or am I?
+		</dialogue>		
+	</HallMonitorA>
 
 </speech>
