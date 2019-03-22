@@ -483,7 +483,7 @@ public class MainMenu implements Screen {
 									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
 							deleteButtonActive.draw(game.getGameController().getSpriteBatch());
 
-							if (Gdx.input.isTouched()) {
+							if (Gdx.input.justTouched()) {
 								//Once clicked it will delete that file from folder
 								Gdx.files.local("data/bin/" + listOfFiles[i].getName()).delete();
 
