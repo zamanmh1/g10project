@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.tween.BitmapAccessor;
 import prisonescape.game.tween.SpriteAccessor;
 
@@ -29,11 +29,11 @@ import prisonescape.game.tween.SpriteAccessor;
  */
 public class Help implements Screen {
 
-	private PrisonEscapeGame game;
+	private PrisonBreakout game;
 	private Sprite backgroundSprite;
 	private TweenManager tween;
 	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 300;
+	private static final int BACK_BUTTON_Y = PrisonBreakout.HEIGHT / 2 + 300;
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private Sprite backButtonActive;
 	private boolean checkBackButtonMouseOver;
@@ -46,23 +46,23 @@ public class Help implements Screen {
 	private Sprite iKeyboard;
 	private Sprite escKeyboard;
 	private Sprite mKeyboard;
-	private static final int E_Y = PrisonEscapeGame.HEIGHT / 2 - 160;
+	private static final int E_Y = PrisonBreakout.HEIGHT / 2 - 160;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
-	private static final int I_Y = PrisonEscapeGame.HEIGHT / 2 - 160;
+	private static final int I_Y = PrisonBreakout.HEIGHT / 2 - 160;
 	private static final int I_WIDTH = 39;
 	private static final int I_HEIGHT = 39;
-	private static final int ESC_Y = PrisonEscapeGame.HEIGHT / 2 + 80;
+	private static final int ESC_Y = PrisonBreakout.HEIGHT / 2 + 80;
 	private static final int ESC_WIDTH = 56;
 	private static final int ESC_HEIGHT = 39;
-	private static final int WASD_Y = PrisonEscapeGame.HEIGHT / 2 + 50;
+	private static final int WASD_Y = PrisonBreakout.HEIGHT / 2 + 50;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
 	private static final int VOLUME_BUTTON_Y = 50;
 	private static final int VOLUME_BUTTON_WIDTH = 50;
 	private static final int VOLUME_BUTTON_HEIGHT = 50;
 	private static final int M_WIDTH = 39;
-	private static final int M_Y = PrisonEscapeGame.HEIGHT / 2 - 280;
+	private static final int M_Y = PrisonBreakout.HEIGHT / 2 - 280;
 	private static final int M_HEIGHT = 39;
 
 	/**
@@ -70,7 +70,7 @@ public class Help implements Screen {
 	 * 
 	 * @param game
 	 */
-	public Help(PrisonEscapeGame game) {
+	public Help(PrisonBreakout game) {
 		this.game = game;
 		tween = new TweenManager();
 		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/background.png")));
@@ -132,14 +132,14 @@ public class Help implements Screen {
 
 		game.getGameController().getSpriteBatch().begin();
 
-		backgroundSprite.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
+		backgroundSprite.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 
 		// Drawing wasd keyboard sprite with text
 		font.draw(game.getGameController().getSpriteBatch(), "Press W,S,A,D for movement", Gdx.graphics.getWidth() / 2 - 110,
 				Gdx.graphics.getHeight() / 2 + 200);
 
-		int x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 80;
+		int x = PrisonBreakout.WIDTH / 2 - WASD_WIDTH / 2 + 80;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
@@ -149,7 +149,7 @@ public class Help implements Screen {
 		font.draw(game.getGameController().getSpriteBatch(), "Press E for interaction \n and going through doors", Gdx.graphics.getWidth() / 2 - 110,
 				Gdx.graphics.getHeight() / 2 - 50);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 110;
+		x = PrisonBreakout.WIDTH / 2 - WASD_WIDTH / 2 + 110;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
@@ -159,7 +159,7 @@ public class Help implements Screen {
 		font.draw(game.getGameController().getSpriteBatch(), "Press I for inventory", Gdx.graphics.getWidth() / 2 + 340,
 				Gdx.graphics.getHeight() / 2 - 50);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 500;
+		x = PrisonBreakout.WIDTH / 2 - WASD_WIDTH / 2 + 500;
 
 		iKeyboard.setPosition(x, I_Y);
 		iKeyboard.setSize(I_WIDTH, I_HEIGHT);
@@ -169,7 +169,7 @@ public class Help implements Screen {
 		font.draw(game.getGameController().getSpriteBatch(), "Press ESC for pause menu", Gdx.graphics.getWidth() / 2 + 340,
 				Gdx.graphics.getHeight() / 2 + 200);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 500;
+		x = PrisonBreakout.WIDTH / 2 - WASD_WIDTH / 2 + 500;
 
 		escKeyboard.setPosition(x, ESC_Y);
 		escKeyboard.setSize(ESC_WIDTH, ESC_HEIGHT);
@@ -179,17 +179,17 @@ public class Help implements Screen {
 		font.draw(game.getGameController().getSpriteBatch(), "Press M for full map view", Gdx.graphics.getWidth() / 2 + 100,
 				Gdx.graphics.getHeight() / 2 - 190);
 
-		x = PrisonEscapeGame.WIDTH / 2 - M_WIDTH / 2 + 280;
+		x = PrisonBreakout.WIDTH / 2 - M_WIDTH / 2 + 280;
 
 		mKeyboard.setPosition(x, M_Y);
 		mKeyboard.setSize(M_WIDTH, M_HEIGHT);
 		mKeyboard.draw(game.getGameController().getSpriteBatch());
 
-		x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
+		x = PrisonBreakout.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
 
 		backButton(x);
 
-		x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
+		x = PrisonBreakout.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
 		volumeButton(x);
 
 		game.getGameController().getSpriteBatch().end();
@@ -203,8 +203,8 @@ public class Help implements Screen {
 	 */
 	private void backButton(int x) {
 		if (Gdx.input.getX() < x + BACK_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BACK_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > BACK_BUTTON_Y) {
 
 			backButtonActive.setPosition(x, BACK_BUTTON_Y);
 			backButtonActive.setSize(BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
@@ -243,8 +243,8 @@ public class Help implements Screen {
 	private void volumeButton(int x) {
 		Boolean muted = MainMenu.getInstance(game).checkSoundMuted();
 		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
 			if (muted == false) {
 
 				MainMenu.getInstance(game).setVolumeMute(true);

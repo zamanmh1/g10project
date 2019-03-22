@@ -1,11 +1,11 @@
 package prisonescape.game.model.actors;
 
 /**
- * CLASS DESCRIPTION
+ * This class models each DIRECTION and their associated values. 
  * 
  * @author Sam Ward
  * 
- * @version 0.2
+ * @version 1.0
  * @since 0.2
  * 
  */

@@ -45,7 +45,7 @@ public interface GameController {
 	
 	ActiveGame getMapScreen();
 	
-	PrisonEscapeGame getGame();
+	PrisonBreakout getGame();
 	
 	void update(float delta);
 	

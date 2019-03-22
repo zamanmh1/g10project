@@ -9,7 +9,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import prisonescape.game.GameController;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.model.AlarmSystem;
 import prisonescape.game.model.actors.Actor;
 import prisonescape.game.model.actors.DIRECTION;
@@ -178,7 +178,7 @@ public class TestActor {
 		}
 
 		@Override
-		public PrisonEscapeGame getGame() {
+		public PrisonBreakout getGame() {
 			return null;
 		}
 

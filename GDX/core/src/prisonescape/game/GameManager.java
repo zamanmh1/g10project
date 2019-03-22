@@ -23,7 +23,7 @@ public class GameManager {
 		fileHandle = Gdx.files.local("data/bin/" + System.currentTimeMillis());
 	}
 
-	public void saveData(PrisonEscapeGame game) {
+	public void saveData(PrisonBreakout game) {
 		setProperty("map", controller.getMapScreen().getMapName());
 		setProperty("state", controller.getGameState());
 		setProperty("currentObjective", controller.getCurrentObjective());

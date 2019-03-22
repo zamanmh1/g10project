@@ -20,7 +20,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 import prisonescape.game.GameHandler;
 import prisonescape.game.GameSettings;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.io.player.InteractionController;
 import prisonescape.game.io.player.PlayerMovementController;
 import prisonescape.game.model.TiledModel;
@@ -57,7 +57,7 @@ public class ActiveGame implements Screen {
 
 	private TiledModel model;
 	private static TweenManager tween;
-	private PrisonEscapeGame game;
+	private PrisonBreakout game;
 	private static Sprite roomTransition;
 	private boolean inventoryPressed;
 	private String mapName;
@@ -74,7 +74,7 @@ public class ActiveGame implements Screen {
 	 * @param player
 	 * @param game
 	 */
-	public ActiveGame(Actor player, PrisonEscapeGame game) {
+	public ActiveGame(Actor player, PrisonBreakout game) {
 		pauseMenu = new Pause();
 		this.player = player;
 		this.game = game;
@@ -281,8 +281,8 @@ public class ActiveGame implements Screen {
 
 		game.getGameController().getSpriteBatch().begin();
 
-		roomTransition.setPosition(PrisonEscapeGame.WIDTH / 2 - roomTransition.getWidth() / 2,
-				PrisonEscapeGame.HEIGHT / 2 - roomTransition.getHeight() / 2);
+		roomTransition.setPosition(PrisonBreakout.WIDTH / 2 - roomTransition.getWidth() / 2,
+				PrisonBreakout.HEIGHT / 2 - roomTransition.getHeight() / 2);
 
 		roomTransition.draw(game.getGameController().getSpriteBatch());
 

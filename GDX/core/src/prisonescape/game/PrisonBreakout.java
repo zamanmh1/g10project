@@ -22,7 +22,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  * 
  */
 
-public class PrisonEscapeGame extends Game {
+public class PrisonBreakout extends Game {
 	
 	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final int WIDTH =(int) screenSize.getWidth();
