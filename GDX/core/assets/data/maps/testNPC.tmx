@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="left-down" width="12" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" source="FullSpriteSheet.tsx"/>
+ <layer id="2" name="Tile Layer 1" width="12" height="8">
+  <data encoding="csv">
+1,66,66,66,66,66,66,66,66,66,66,3,
+35,34,34,34,34,34,34,34,34,34,34,35,
+35,34,34,34,34,34,34,34,34,34,34,35,
+35,34,34,34,34,34,34,34,34,34,34,35,
+35,34,34,34,34,34,34,34,34,34,34,35,
+35,34,34,34,34,34,34,34,34,34,34,35,
+35,34,34,34,34,34,34,34,34,34,34,35,
+65,66,66,66,66,66,66,66,66,66,66,67
+</data>
+ </layer>
+</map>

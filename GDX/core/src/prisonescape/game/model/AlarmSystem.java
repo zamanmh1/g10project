@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import prisonescape.game.GameHandler;
 import prisonescape.game.GameSettings;
+import prisonescape.game.io.DialogueUI;
 import prisonescape.game.model.actors.Actor;
 import prisonescape.game.model.actors.DIRECTION;
 import prisonescape.game.model.actors.GuardChasingBehaviour;
@@ -123,7 +124,9 @@ public class AlarmSystem {
 	    	controller.getPlayer().setFrozen(false);
 	    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
 	    	
-			// !!! Message to player saying caught?
+			// Displays message to player through dialogue box when wakes up in cell.
+	    	DialogueUI dUI = new DialogueUI(controller);
+	    	dUI.showDialogue(controller.getMapScreen().getStage(), "guard");
 		} 
 	}
 	

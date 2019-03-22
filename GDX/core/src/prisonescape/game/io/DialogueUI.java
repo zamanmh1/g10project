@@ -6,9 +6,13 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 
 import prisonescape.game.GameHandler;
 import prisonescape.game.model.Dialogue;
+import prisonescape.game.model.Tile;
+import prisonescape.game.screens.Credits;
 import prisonescape.game.screens.Puzzle;
 
 /**
@@ -26,6 +30,7 @@ public class DialogueUI extends ScreenAdapter
 	private Skin skin = new Skin(Gdx.files.internal("data/story/skin/uiskin.json"));
 	private Dialogue d;
 	private boolean beenCalled = false;
+	//private boolean isVisible = false;
 	private GameHandler gameHandler;
 	
 	public DialogueUI(GameHandler gameHandler) {
@@ -40,6 +45,7 @@ public class DialogueUI extends ScreenAdapter
 		Dialog dialog = new Dialog(name, skin)
 		{
 			{
+				//isVisible = this.isVisible();
 				text(dText);
 				if(d.hasChoices())
 				{
@@ -59,14 +65,19 @@ public class DialogueUI extends ScreenAdapter
 				}
 				if(object.equals("E"))
 				{
-					hide();
-					beenCalled = false;
+					//isVisible = this.isVisible();
+					Tile target = gameHandler.getMapScreen().getTiledModel().getTile(gameHandler.getPlayer().getX() + gameHandler.getPlayer().getFacing().getMoveX(), gameHandler.getPlayer().getY() + gameHandler.getPlayer().getFacing().getMoveY()); // If player facing actor to interact with.
+					if (!target.getTeleporter() == true) {
+						hide();
+						beenCalled = false;
+					}
 				}
 				if(d.hasPuzzle() && object.equals("puzzle")) //Relies on button name being "puzzle"
 				{
 					gameHandler.getGame().setScreen(new Puzzle(gameHandler.getGame(), d.getChoices().get(object)[3]));
 					updateValues(object);
 				}
+
 			}
 		};
 		dialog.setName("dialog");
@@ -92,7 +103,13 @@ public class DialogueUI extends ScreenAdapter
 				{
 					hide();
 					beenCalled = false;
+					if(d.hasEnding() && gameHandler.getGameState().endsWith("z"))
+					{
+						//gameHandler.getGame().setScreen(new Credits(gameHandler.getGame()));
+						setEnding();
+					}
 				}
+
 			}
 		};
 		altDialog.key(Keys.E, true);
@@ -120,8 +137,18 @@ public class DialogueUI extends ScreenAdapter
 		return beenCalled;
 	}
 	
+	public boolean isVisible()
+	{
+		return isVisible();
+	}
+	
 	public void hideAll(Stage s)
 	{
 		s.getRoot().findActor("dialog").remove();
+	}
+	
+	private void setEnding()
+	{
+		gameHandler.getGame().setScreen(new Credits(gameHandler.getGame()));
 	}
 }

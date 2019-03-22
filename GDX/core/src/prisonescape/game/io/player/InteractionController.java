@@ -53,13 +53,19 @@ public class InteractionController extends InputAdapter {
 
 			if (target.getTeleporter() == true) {
 				if (gameHandler.getAlarm().alarmTriggered() == false) {
-					// Find the teleporter.
-					Teleporter teleporter = gameHandler.getMapHandler().getTeleporter(gameHandler.getMapHandler().getCurrentMap(), actor.getX(), actor.getY());
+					if (gameHandler.getItemHandler().getFoundItem("Book") != null) {
+						// Find the teleporter.
+						Teleporter teleporter = gameHandler.getMapHandler().getTeleporter(gameHandler.getMapHandler().getCurrentMap(), actor.getX(), actor.getY());
 
-					// Change showing map and player's location within it.
-					gameHandler.setMap(teleporter.getDestination().getFile(), teleporter.getDestination().getPlayerX(), teleporter.getDestination().getPlayerY());
-					// Change the direction that the player is facing.
-					actor.changeFacing(teleporter.getDestination().getPlayerDirection());
+						// Change showing map and player's location within it.
+						gameHandler.setMap(teleporter.getDestination().getFile(), teleporter.getDestination().getPlayerX(), teleporter.getDestination().getPlayerY());
+						// Change the direction that the player is facing.
+						actor.changeFacing(teleporter.getDestination().getPlayerDirection());
+					}
+					else if(!dBox.beenCalled() && gameHandler.getItemHandler().getFoundItem("Book") == null)
+					{
+						dBox.showDialogue(ActiveGame.getStage(), "door");
+					}
 				} else {
 					/**
 					 * Alarm active, building on lockdown.
