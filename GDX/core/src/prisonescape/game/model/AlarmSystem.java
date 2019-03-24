@@ -10,9 +10,11 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import prisonescape.game.GameHandler;
 import prisonescape.game.GameSettings;
+import prisonescape.game.io.DialogueUI;
 import prisonescape.game.model.actors.Actor;
 import prisonescape.game.model.actors.DIRECTION;
 import prisonescape.game.model.actors.GuardChasingBehaviour;
+import prisonescape.game.screens.ActiveGame;
 import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.ActorAnimation;
 import prisonescape.game.util.Time;
@@ -122,12 +124,18 @@ public class AlarmSystem {
 			controller.setTime(time);
 
 			// Move player to cell and unfreeze.
-			controller.setMap("data/maps/cell.tmx", 3, 1);
-			controller.getPlayer().setFrozen(false);
-			controller.getPlayer().changeFacing(DIRECTION.NORTH);
 
-			// !!! Message to player saying caught?
-		}
+			controller.setMap("data/maps/cell.tmx", 3, 1); 		    	 	   
+	    	controller.getPlayer().setFrozen(false);
+	    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
+	    	
+			// Displays message to player through dialogue box when wakes up in cell.
+	    	DialogueUI dUI = new DialogueUI(controller);
+	    	controller.getMapScreen();
+			dUI.showDialogue(ActiveGame.getStage(), "guard");
+		} 
+
+
 	}
 
 	/**

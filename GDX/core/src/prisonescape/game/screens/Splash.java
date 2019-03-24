@@ -4,7 +4,7 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.tween.SpriteAccessor;
 
 import com.badlogic.gdx.Game;
@@ -27,7 +27,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Splash implements Screen {
 
-	private PrisonEscapeGame game;
+	private PrisonBreakout game;
 	private Sprite splash;
 	private TweenManager tween;
 
@@ -36,7 +36,7 @@ public class Splash implements Screen {
 	 * 
 	 * @param game
 	 */
-	public Splash(PrisonEscapeGame game) {
+	public Splash(PrisonBreakout game) {
 		this.game = game;
 		tween = new TweenManager();
 		splash = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/logo.png")));

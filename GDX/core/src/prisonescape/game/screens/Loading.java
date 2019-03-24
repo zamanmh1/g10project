@@ -4,7 +4,7 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.tween.SpriteAccessor;
 
 import com.badlogic.gdx.Game;
@@ -26,7 +26,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Loading implements Screen {
 
-	private PrisonEscapeGame game;
+	private PrisonBreakout game;
 	private Sprite loading;
 	private TweenManager tween;
 	
@@ -35,7 +35,7 @@ public class Loading implements Screen {
 	 * 
 	 * @param game
 	 */
-	public Loading (PrisonEscapeGame game) {
+	public Loading (PrisonBreakout game) {
 		this.game = game;
 		tween = new TweenManager();
 

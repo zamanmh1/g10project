@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.screens.components.PuzzleTile;
 import prisonescape.game.tween.BitmapAccessor;
 import prisonescape.game.tween.SpriteAccessor;
@@ -26,7 +26,7 @@ import java.util.Random;
  */
 public class Puzzle implements Screen {
 
-	private PrisonEscapeGame game;
+	private PrisonBreakout game;
 	private PuzzleTile[][] tiles;
 	private PuzzleTile swapTile;
 	private boolean isPuzzleFinished;
@@ -34,13 +34,13 @@ public class Puzzle implements Screen {
 	private Sprite actualImage;
 	private static final int QUIT_BUTTON_WIDTH = 96;
 	private static final int QUIT_BUTTON_HEIGHT = 33;
-	private static final int QUIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
+	private static final int QUIT_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 300;
 	private static final int RETURN_BUTTON_WIDTH = 174;
-	private static final int RETURN_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
+	private static final int RETURN_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 300;
 	private static final int RETURN_BUTTON_HEIGHT = 33;
 	private static final int TRYAGAIN_BUTTON_WIDTH = 230;
 	private static final int TRYAGAIN_BUTTON_HEIGHT = 33;
-	private static final int TRYAGAIN_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 300;
+	private static final int TRYAGAIN_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 300;
 	private Sprite quitButtonActive;
 	private Sprite quitButtonInActive;
 	private Sprite returnButtonActive;
@@ -74,7 +74,7 @@ public class Puzzle implements Screen {
 	 * 
 	 * @param game
 	 */
-	public Puzzle(PrisonEscapeGame game, String state) {
+	public Puzzle(PrisonBreakout game, String state) {
 		this.state = state;
 		this.game = game;
 		randomTheme = new Random();
@@ -175,7 +175,7 @@ public class Puzzle implements Screen {
 		tween.update(delta);
 
 		this.game.getGameController().getSpriteBatch().begin();
-		puzzleBackground.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
+		puzzleBackground.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
 		puzzleBackground.setPosition(Gdx.graphics.getWidth() / 2 - puzzleBackground.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2 - puzzleBackground.getHeight() / 2);
 		puzzleBackground.draw(game.getGameController().getSpriteBatch());
@@ -204,7 +204,7 @@ public class Puzzle implements Screen {
 		fontYellow.draw(game.getGameController().getSpriteBatch(), "Selected tile", Gdx.graphics.getWidth() / 2 + 475,
 				Gdx.graphics.getHeight() / 2 + 80);
 
-		int xQuit = PrisonEscapeGame.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 590;
+		int xQuit = PrisonBreakout.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 590;
 
 		quitButton(xQuit);
 
@@ -291,10 +291,10 @@ public class Puzzle implements Screen {
 
 		}
 
-		int xReturn = PrisonEscapeGame.WIDTH / 2 - RETURN_BUTTON_WIDTH / 2 + 200;
+		int xReturn = PrisonBreakout.WIDTH / 2 - RETURN_BUTTON_WIDTH / 2 + 200;
 		returnButton(xReturn);
 		
-		int xTryAgain = PrisonEscapeGame.WIDTH / 2 - TRYAGAIN_BUTTON_WIDTH / 2 + 100;
+		int xTryAgain = PrisonBreakout.WIDTH / 2 - TRYAGAIN_BUTTON_WIDTH / 2 + 100;
 		tryAgainButton(xTryAgain);
 
 		currentSelected.getPuzzleImage().setSize(162, 162);
@@ -312,8 +312,8 @@ public class Puzzle implements Screen {
 	 */
 	private void tryAgainButton(int x) {
 		if (Gdx.input.getX() < x + TRYAGAIN_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < TRYAGAIN_BUTTON_Y + TRYAGAIN_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > TRYAGAIN_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < TRYAGAIN_BUTTON_Y + TRYAGAIN_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > TRYAGAIN_BUTTON_Y) {
 			tryAgainButtonActive.setPosition(x, TRYAGAIN_BUTTON_Y);
 			tryAgainButtonActive.setSize(TRYAGAIN_BUTTON_WIDTH, TRYAGAIN_BUTTON_HEIGHT);
 			tryAgainButtonActive.draw(game.getGameController().getSpriteBatch());
@@ -355,8 +355,8 @@ public class Puzzle implements Screen {
 	 */
 	private void returnButton(int x) {
 		if (Gdx.input.getX() < x + RETURN_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RETURN_BUTTON_Y + RETURN_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > RETURN_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < RETURN_BUTTON_Y + RETURN_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > RETURN_BUTTON_Y) {
 			returnButtonActive.setPosition(x, RETURN_BUTTON_Y);
 			returnButtonActive.setSize(RETURN_BUTTON_WIDTH, RETURN_BUTTON_HEIGHT);
 			returnButtonActive.draw(game.getGameController().getSpriteBatch());
@@ -400,8 +400,8 @@ public class Puzzle implements Screen {
 	 */
 	private void quitButton(int x) {
 		if (Gdx.input.getX() < x + QUIT_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < QUIT_BUTTON_Y + QUIT_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > QUIT_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < QUIT_BUTTON_Y + QUIT_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > QUIT_BUTTON_Y) {
 
 			quitButtonActive.setPosition(x, QUIT_BUTTON_Y);
 			quitButtonActive.setSize(QUIT_BUTTON_WIDTH, QUIT_BUTTON_HEIGHT);

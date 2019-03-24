@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import prisonescape.game.GameManager;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.tween.SpriteAccessor;
 import prisonescape.game.util.Time;
 
@@ -36,18 +36,18 @@ public class Pause {
 	protected Sprite exitButtonMenuInActive;
 	protected boolean menuPressed;
 	private static final int RESUME_BUTTON_WIDTH = 305;
-	private static final int RESUME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 50;
+	private static final int RESUME_BUTTON_Y = PrisonBreakout.HEIGHT / 2 + 50;
 	private static final int RESUME_BUTTON_HEIGHT = 53;
 	protected Sprite resumeButtonMenuActive;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 250;
+	private static final int EXIT_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 250;
 	private static final int HELP_BUTTON_WIDTH = 174;
-	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 150;
+	private static final int HELP_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 150;
 	private static final int HELP_BUTTON_HEIGHT = 52;
 	private static final int SAVE_BUTTON_WIDTH = 427;
 	private static final int SAVE_BUTTON_HEIGHT = 54;
-	private static final int SAVE_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 50;
+	private static final int SAVE_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 50;
 	protected Sprite exitButtonMenuActive;
 	private boolean checkResumeButtonMouseOver;
 	private boolean checkExitButtonMouseOver;
@@ -62,7 +62,7 @@ public class Pause {
 	protected Sprite backButtonActive;
 	protected Sprite backButtonInActive;
 	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 300;
+	private static final int BACK_BUTTON_Y = PrisonBreakout.HEIGHT / 2 + 300;
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private boolean checkBackButtonMouseOver;
 	protected boolean helpPressed;
@@ -72,18 +72,18 @@ public class Pause {
 	protected BitmapFont fontSmall;
 	private static final int WASD_WIDTH = 108;
 	private static final int WASD_HEIGHT = 75;
-	private static final int WASD_Y = PrisonEscapeGame.HEIGHT / 2 - 20;
-	private static final int E_Y = PrisonEscapeGame.HEIGHT / 2 - 210;
+	private static final int WASD_Y = PrisonBreakout.HEIGHT / 2 - 20;
+	private static final int E_Y = PrisonBreakout.HEIGHT / 2 - 210;
 	private static final int E_WIDTH = 39;
 	private static final int E_HEIGHT = 39;
-	private static final int ESC_Y = PrisonEscapeGame.HEIGHT / 2 - 20;
+	private static final int ESC_Y = PrisonBreakout.HEIGHT / 2 - 20;
 	private static final int ESC_WIDTH = 56;
 	private static final int ESC_HEIGHT = 39;
-	private static final int I_Y = PrisonEscapeGame.HEIGHT / 2 - 210;
+	private static final int I_Y = PrisonBreakout.HEIGHT / 2 - 210;
 	private static final int I_WIDTH = 39;
 	private static final int I_HEIGHT = 39;
 	private static final int M_WIDTH = 39;
-	private static final int M_Y = PrisonEscapeGame.HEIGHT / 2 - 330;
+	private static final int M_Y = PrisonBreakout.HEIGHT / 2 - 330;
 	private static final int M_HEIGHT = 39;
 	protected Sprite logo;
 	private Sprite iKeyboard;
@@ -133,12 +133,12 @@ public class Pause {
 	 * 
 	 * @param game
 	 */
-	protected void resumeButtonMenu(PrisonEscapeGame game) {
+	protected void resumeButtonMenu(PrisonBreakout game) {
 		game.getGameController().getPlayer().setFrozen(false);
-		int x = (int) (PrisonEscapeGame.WIDTH / 2 - remumeButtonMenuInActive.getWidth() / 2);
+		int x = (int) (PrisonBreakout.WIDTH / 2 - remumeButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + RESUME_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > RESUME_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < RESUME_BUTTON_Y + RESUME_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > RESUME_BUTTON_Y) {
 
 			resumeButtonMenuActive.setPosition(x, RESUME_BUTTON_Y);
 			resumeButtonMenuActive.setSize(RESUME_BUTTON_WIDTH, RESUME_BUTTON_HEIGHT);
@@ -174,12 +174,12 @@ public class Pause {
 	 * @param game
 	 * @param tween2
 	 */
-	protected void saveButtonMenu(PrisonEscapeGame game) {
+	protected void saveButtonMenu(PrisonBreakout game) {
 		GameManager gm = new GameManager(game.getGameController());
-		int x = (int) (PrisonEscapeGame.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
+		int x = (int) (PrisonBreakout.WIDTH / 2 - saveButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + SAVE_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < SAVE_BUTTON_Y + SAVE_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > SAVE_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < SAVE_BUTTON_Y + SAVE_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > SAVE_BUTTON_Y) {
 
 			saveButtonMenuActive.setPosition(x, SAVE_BUTTON_Y);
 			saveButtonMenuActive.setSize(SAVE_BUTTON_WIDTH, SAVE_BUTTON_HEIGHT);
@@ -225,11 +225,11 @@ public class Pause {
 	 * @param game
 	 * @param tween
 	 */
-	protected void helpButtonMenu(TweenManager tween, PrisonEscapeGame game) {
-		int x = (int) (PrisonEscapeGame.WIDTH / 2 - helpButtonMenuInActive.getWidth() / 2);
+	protected void helpButtonMenu(TweenManager tween, PrisonBreakout game) {
+		int x = (int) (PrisonBreakout.WIDTH / 2 - helpButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
 
 			helpButtonMenuActive.setPosition(x, HELP_BUTTON_Y);
 			helpButtonMenuActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
@@ -275,11 +275,11 @@ public class Pause {
 	 * @param game
 	 * @param tween
 	 */
-	protected void exitButtonMenu(TweenManager tween, PrisonEscapeGame game) {
-		int x = (int) (PrisonEscapeGame.WIDTH / 2 - exitButtonMenuInActive.getWidth() / 2);
+	protected void exitButtonMenu(TweenManager tween, PrisonBreakout game) {
+		int x = (int) (PrisonBreakout.WIDTH / 2 - exitButtonMenuInActive.getWidth() / 2);
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
 
 			exitButtonMenuActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonMenuActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
@@ -325,16 +325,16 @@ public class Pause {
 	 * @param game
 	 * @param tween
 	 */
-	protected void helpScreenUI(PrisonEscapeGame game, TweenManager tween) {
-		int x = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
+	protected void helpScreenUI(PrisonBreakout game, TweenManager tween) {
+		int x = PrisonBreakout.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 500;
 
 		backButton(x, game, tween);
 
 		// Drawing wasd keyboard sprite with text
 		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press W,S,A,D for movement",
-				PrisonEscapeGame.WIDTH / 2 - 400, PrisonEscapeGame.HEIGHT / 2 + 100);
+				PrisonBreakout.WIDTH / 2 - 400, PrisonBreakout.HEIGHT / 2 + 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 230;
+		x = PrisonBreakout.WIDTH / 2 - WASD_WIDTH / 2 - 230;
 
 		wasdKeyboard.setPosition(x, WASD_Y);
 		wasdKeyboard.setSize(WASD_WIDTH, WASD_HEIGHT);
@@ -342,9 +342,9 @@ public class Pause {
 
 		// Drawing e keyboard sprite with text
 		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press E for interactions \n and going through doors",
-				PrisonEscapeGame.WIDTH / 2 - 400, PrisonEscapeGame.HEIGHT / 2 - 100);
+				PrisonBreakout.WIDTH / 2 - 400, PrisonBreakout.HEIGHT / 2 - 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 - 200;
+		x = PrisonBreakout.WIDTH / 2 - WASD_WIDTH / 2 - 200;
 
 		eKeyboard.setPosition(x, E_Y);
 		eKeyboard.setSize(E_WIDTH, E_HEIGHT);
@@ -352,9 +352,9 @@ public class Pause {
 
 		// Drawing i keyboard sprite with text
 		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press I for inventory",
-				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 - 100);
+				PrisonBreakout.WIDTH / 2 + 100, PrisonBreakout.HEIGHT / 2 - 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 250;
+		x = PrisonBreakout.WIDTH / 2 - WASD_WIDTH / 2 + 250;
 
 		iKeyboard.setPosition(x, I_Y);
 		iKeyboard.setSize(I_WIDTH, I_HEIGHT);
@@ -362,9 +362,9 @@ public class Pause {
 
 		// Drawing esc keyboard sprite with text
 		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press ESC for pause menu",
-				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + 100);
+				PrisonBreakout.WIDTH / 2 + 100, PrisonBreakout.HEIGHT / 2 + 100);
 
-		x = PrisonEscapeGame.WIDTH / 2 - WASD_WIDTH / 2 + 250;
+		x = PrisonBreakout.WIDTH / 2 - WASD_WIDTH / 2 + 250;
 
 		escKeyboard.setPosition(x, ESC_Y);
 		escKeyboard.setSize(ESC_WIDTH, ESC_HEIGHT);
@@ -374,7 +374,7 @@ public class Pause {
 		fontSmall.draw(game.getGameController().getSpriteBatch(), "Press M for full map view",
 				Gdx.graphics.getWidth() / 2 - 150, Gdx.graphics.getHeight() / 2 - 240);
 
-		x = PrisonEscapeGame.WIDTH / 2 - M_WIDTH / 2 + 30;
+		x = PrisonBreakout.WIDTH / 2 - M_WIDTH / 2 + 30;
 
 		mKeyboard.setPosition(x, M_Y);
 		mKeyboard.setSize(M_WIDTH, M_HEIGHT);
@@ -388,11 +388,11 @@ public class Pause {
 	 * @param game
 	 * @param tween
 	 */
-	private void backButton(int x, PrisonEscapeGame game, TweenManager tween) {
+	private void backButton(int x, PrisonBreakout game, TweenManager tween) {
 
 		if (Gdx.input.getX() < x + BACK_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BACK_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > BACK_BUTTON_Y) {
 
 			backButtonActive.setPosition(x, BACK_BUTTON_Y);
 			backButtonActive.setSize(BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
@@ -436,14 +436,14 @@ public class Pause {
 	 * 
 	 * @param game
 	 */
-	protected void volumeButton(PrisonEscapeGame game) {
+	protected void volumeButton(PrisonBreakout game) {
 		volumeButtonMuted = MainMenu.getInstance(game).volumeButtonMuted();
 		volumeButtonFull = MainMenu.getInstance(game).volumeButtonFull();
-		int x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
+		int x = PrisonBreakout.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
 		Boolean muted = MainMenu.getInstance(game).checkSoundMuted();
 		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
 			if (muted == false) {
 
 				MainMenu.getInstance(game).setVolumeMute(true);
@@ -481,12 +481,12 @@ public class Pause {
 	 * @param game
 	 * @param tween
 	 */
-	protected void drawPauseMenu(PrisonEscapeGame game, TweenManager tween) {
+	protected void drawPauseMenu(PrisonBreakout game, TweenManager tween) {
 		game.getGameController().getPlayer().setFrozen(true);
-		optionBackground.setPosition(PrisonEscapeGame.WIDTH / 2 - optionBackground.getWidth() / 2,
-				PrisonEscapeGame.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
-		logo.setPosition(PrisonEscapeGame.WIDTH / 2 - logo.getWidth() / 2,
-				PrisonEscapeGame.HEIGHT / 2 - logo.getHeight() / 2 + 250);
+		optionBackground.setPosition(PrisonBreakout.WIDTH / 2 - optionBackground.getWidth() / 2,
+				PrisonBreakout.HEIGHT / 2 - optionBackground.getHeight() / 2 + 200);
+		logo.setPosition(PrisonBreakout.WIDTH / 2 - logo.getWidth() / 2,
+				PrisonBreakout.HEIGHT / 2 - logo.getHeight() / 2 + 250);
 
 		optionBackground.draw(game.getGameController().getSpriteBatch());
 		logo.draw(game.getGameController().getSpriteBatch());

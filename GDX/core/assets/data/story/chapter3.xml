@@ -5,7 +5,7 @@
       x.yz = Current Chapter.Current State(Current Path)
       e.g. 3.4b = Chapter 3, state 4, Mob Boss Path
       a = Gambler(Snitch), b = Mob Boss, c = Gambler(Hacking)-->
-  <mobBoss>
+  <MobBoss>
     <dialogue currState="3">
       "Did you manage to learn how to pick a lock from him?"
       <choice>yes
@@ -29,16 +29,26 @@
         <dialogue>
           "One of the handles can be found in the infirmary, we stashed it near one of the bins."
         </dialogue>
+        <item>LeftHandle,data/itemSprites/LeftHandle.png,data/maps/infirmary.tmx,KEY,5,2</item>
       </choice>
       <choice>Right Handle
         <dialogue>
           "Another handle can be found in the basement."
         </dialogue>
+        <item>RightHandle,data/itemSprites/RightHandle.png,data/maps/basement.tmx,KEY,5,2</item>
       </choice>
       <choice>Cutters
         <dialogue>
           "The cutters can be found outside somewhere. It's a big world outside of here, so you'll have to look."
         </dialogue>
+        <item>Cutters,data/itemSprites/Cutters.png,data/maps/outside.tmx,KEY,5,2</item>
+      </choice>
+
+      <choice>TESTING
+        <dialogue>
+          Moving on to state 3.2
+        </dialogue>
+        <state>3.2</state>
       </choice>
     </dialogue>
     <dialogue currState="3.2">
@@ -53,9 +63,23 @@
       "You did it! We're out!" <!--Update this with better dialogue-->
       <choice>What now?
         <dialogue>
-          "Now we live our lives."
+          "Now we run away from here, I got a safehouse we can go to.
+          From there we can split ways. Hold up while I make a call."
+
+          He pulls out a cell phone.
         </dialogue>
+        <state>3.4bz</state>
+        <objective>
+        Speak to the boss to
+        end the game
+      </objective>
         <!--Ending Tag, calls the ending-->
+      </choice>
+    </dialogue>
+    <dialogue currState="3.4bz">
+      "The safehouse is being prepared for us. Let's go"
+      <choice>OK
+        <ending></ending>
       </choice>
     </dialogue>
     <dialogue currState="3.4c">
@@ -64,13 +88,39 @@
         <dialogue>
           Dying noises
         </dialogue>
+        <state>3.4ckz</state> <!--3.4c(kill)(z=end)-->
+        <objective>Inspect the body</objective>
         <!--Ending Tag-->
       </choice>
       <choice>Do Nothing.
         <dialogue>
           "Let's get out of here, quickly, they'll be on us soon."
         </dialogue>
+        <state>3.4cz</state>
+        <objective>
+        Speak to the Boss
+      to end the game
+    </objective>
         <!--Ending Tag-->
+      </choice>
+      <dialogue currState="3.4ckz">
+        The lifeless corpse of someone who once had a iron grip
+        over your life, and threatened your family stares back at you
+        with a betrayed look. A wave of relief washes over you.
+
+        Thanks for playing!
+        <choice>OK
+          <ending></ending>
+        </choice>
+      </dialogue>
+    </dialogue>
+    <dialogue currState="3.4cz">
+      I can tell. You want to know about your family. They're safe, I wasn't
+      ever going to harm them, but I needed insurance to make sure this plan
+      was put into action. When we get further away from here, I promise you
+      they'll be waiting for you.
+      <choice>Thank you.
+        <ending></ending>
       </choice>
     </dialogue>
     <dialogue currState="3.4a">
@@ -83,7 +133,11 @@
         <state>3.4.1a</state>
       </choice>
     </dialogue>
-  </mobBoss>
+    <dialogue>
+      He stares at you as if to say 'What?'
+    </dialogue>
+  </MobBoss>
+
   <TrippieMaroon>
     <dialogue currState="3.2">
       "Long time no see! Boss told me the plan, here's my idea. When it's night time, sneak into the Warden's
@@ -97,8 +151,12 @@
         <state>3.3b</state>
       </choice>
     </dialogue>
+    <dialogue>
+      Hey, I don't have much for you right now.
+    </dialogue>
   </TrippieMaroon>
-  <warden>
+
+  <Warden>
     <dialogue currState="3.3a">
       "What brings you here?"
       <choice>Tell him what you know.
@@ -125,10 +183,41 @@
 
       I had a note on my desk left by someone saying the mob had your family? I reported it to the police.
       They're safe now, you'll be able to see them soon. Thanks for all you've done."
+      <choice>I get to go free?
+        <dialogue>
+          "Yup, you were in here for only a couple years anyway, and him over there
+          has been sitting cushy getting away with at best, tax fraud.
+
+          You've gave us something to put him away for good and that's more than enough."
+        </dialogue>
+        <state>3.5z</state>
+        <objective>
+          Speak to the Warden
+        to end the game
+        </objective>
+      </choice>
+    </dialogue>
+    <dialogue currState="3.5z">
+      "Thanks for all you've done."
+
+      Thanks for playing!
+      <choice>OK
+        <ending></ending>
+      </choice>
     </dialogue>
     <!--Ending Tag-->
-  </warden>
-  <TheGambler>
+    <dialogue>
+      "What do you need?"
+    </dialogue>
+  </Warden>
+
+  <Gambler>
+    <dialogue currState="3">
+      "Something about the backstory.
+
+      Anyway, you should head back to the boss, tell him what's up."
+      <objective>Speak to the Mob Boss</objective>
+    </dialogue>
     <dialogue currState="3.2">
       "Good, I was looking for you. You know me, I hear all sorts of information with this hobby of mine.
 
@@ -169,53 +258,64 @@
         <state>3.3a</state>
       </choice>
     </dialogue>
-  </TheGambler>
+    <dialogue>
+      "Good to see you!"
+    </dialogue>
+  </Gambler>
+
   <PrisonGuard>
+    <dialogue>
+      "Stop wasting my time."
+    </dialogue>
   </PrisonGuard>
-  <computer>
+
+  <Wardens-Computer>
     <dialogue currState="3.3a">
       "You access the computer."
-      <choice>hack
+      <choice>Hack
         <dialogue>
           "You hack the security and open all the doors."
         </dialogue>
+        <puzzle>3.4c</puzzle>
         <!--Have a puzzle tag to start a puzzle from here.-->
-        <state>3.4c</state>
       </choice>
     </dialogue>
     <dialogue currState="3.3b">
       "You access the computer."
-      <choice>hack
+      <choice>Hack
         <dialogue>
           "You hack the security and open all the doors."
         </dialogue>
+        <puzzle>3.4b</puzzle>
         <!--Have a puzzle tag to start a puzzle from here.-->
-        <state>3.4b</state>
       </choice>
     </dialogue>
-  </computer>
+    <dialogue>
+      You stare at the screen, not really sure what to do.
+    </dialogue>
+  </Wardens-Computer>
 
 <!--ADD MISC NPC DIALOGUE BELOW HERE-->
 
-	<Barry> 
+	<Barry>
 		<dialogue>
 		She left me... for my own DAMN BROTHER!
 		</dialogue>
 	</Barry>
-	
-	
+
+
 	<CrazedPrisoner>
 		<dialogue>
-		I have transcended 
+		I have transcended
 		</dialogue>
 	</CrazedPrisoner>
-	
+
 	<LoonyPrisoner>
 		<dialogue>
 		I need to stop eating soap
 		</dialogue>
 	</LoonyPrisoner>
-	
+
 	<Chatty>
 		<dialogue>
 		Hows the prison life?
@@ -236,21 +336,21 @@
 		</choice>
 		</dialogue>
 	</Chatty>
-	
+
 	<OldMan>
 		<dialogue>
 		I miss my wife, the second one, the third was a jerk.
 		</dialogue>
 	</OldMan>
-	
+
 	<MikeTheKidnapper>
 		<dialogue>
 		I'm getting out soon, see me in three months!
-		
+
 		My neighbour has a child, recon they give life for kidnapping?
 		</dialogue>
 	</MikeTheKidnapper>
-	
+
 	<MarvintheParanoidPrisoner>
 		<dialogue>
 		What's the answer to life?
@@ -266,13 +366,13 @@
 		</choice>
 		</dialogue>
 	</MarvintheParanoidPrisoner>
-	
+
 	<Raul>
 		<dialogue>
-		Your face honestly disgusts me 
+		Your face honestly disgusts me
 		</dialogue>
 	</Raul>
-	
+
 	<Butch>
 		<dialogue>
 		Howdey partner!
@@ -280,82 +380,82 @@
 			<dialogue>
 				No good man isn't!
 			</dialogue>
-			
+
 		</choice>
 		<choice>I'm tense
 			<dialogue>
 				Good, that means you won't miss a thing
 			</dialogue>
 		</choice>
-		<dialogue>
+  </dialogue>
 	</Butch>
-	
+
 	<Smile>
 		<dialogue>
 		You heard? There is a snitch about.
 		I don't like snitches.
-		Not... one... bit. 
+		Not... one... bit.
 		</dialogue>
 	</Smile>
-	
+
 	<Smelly>
 		<dialogue>
 		I don't miss the freash air anymore...
 		</dialogue>
 	</Smelly>
-	
+
 	<LilDurk>
 		<dialogue>
 		Lil Durk up next!
 		</dialogue>
 	</LilDurk>
-	
+
 	<Fitz>
 		<dialogue>
-		I hate the feds, but I hate snitches more 
+		I hate the feds, but I hate snitches more
 		</dialogue>
 	</Fitz>
-	
+
 	<Jack>
 		<dialogue>
 		Got the facetat, what do you think?
-		
+
 		It's my mum's name tattood on my forehead
-		
+
 		Yeah her name it Kitty
 		</dialogue>
 	</Jack>
-	
+
 	<DiceBoy>
 		<dialogue>
 		Just wanna role some dice man
 		</dialogue>
 	</DiceBoy>
-	
+
 	<LaughingMan>
 		<dialogue>
-		Let's put a smile on that face 
+		Let's put a smile on that face
 		</dialogue>
 	</LaughingMan>
-	
+
 	<Mani>
 		<dialogue>
 		Leave me be man
 		</dialogue>
 	</Mani>
-	
+
 	<Nitsara>
 		<dialogue>
 		I'm behind on my libary return!
 		</dialogue>
 	</Nitsara>
-	
+
 	<Notsara>
 		<dialogue>
 		You been the library? Awful, no Shakespeare
 		</dialogue>
 	</Notsara>
-	
+
 	<rat>
 		<dialogue>
 		Squeak squeak... hey
@@ -365,12 +465,12 @@
 
 				It IT! Why do you have to be so rude about this? My name is Remmy, thanks for asking.
 			</dialogue>
-			
+
 		</choice>
 		<choice> Hey buddy?
 			<dialogue>
 				Squeak Squeak...
-				
+
 				Me? Oh im just chilling, see I was dead but now I'm alive and well thanks to the doctors.
 			</dialogue>
 		</choice>
@@ -378,30 +478,80 @@
 			<dialogue>
 				Hey, I used to work in a famous French kitchen, please respect me at least a little.
 			</dialogue>
-			
+
 		</choice>
 		</dialogue>
 	</rat>
-	
-	
+
+
 	<Mike>
 		<dialogue>
 		I did my thing you know
 		</dialogue>
 	</Mike>
-	
+
 	<Johnny>
 		<dialogue>
 		Ugh, arg, gargle, I need my bed... ughhhh
 		</dialogue>
 	</Johnny>
-	
+
 	<Peter>
 		<dialogue>
 		Mike... the bastard almost killed Johnny.
-		
+
 		Im shocked.
 		</dialogue>
 	</Peter>
+
+	<Gordon>
+		<dialogue>
+		For what we are about to eat, I pray it doesn't poison us
+		</dialogue>
+	</Gordon>
+
+	<Hans>
+		<dialogue>
+		Tell you what, that crack is really moreish
+		</dialogue>
+	</Hans>
+
+	<Vito>
+		<dialogue>
+		I spent my life trying not to be careless
+		</dialogue>
+	</Vito>
+
+	<Red>
+		<dialogue>
+		These walls are funny. First you hate ’em. Then you get used to ’em. Enough time passes, you get so you depend on them. That’s institutionalized
+		</dialogue>
+	</Red>
+
+	<HallMonitorC>
+		<dialogue>
+		STOP RUNNING IN THE CORRIDOR
+		</dialogue>
+	</HallMonitorC>
+
+	<HallMonitorA>
+		<dialogue>
+		Hall pass!
+
+		Only joking... Or am I?
+		</dialogue>
+	</HallMonitorA>
+
+  <Testing>
+    <dialogue>
+      Chapter 3
+    </dialogue>
+  </Testing>
+
+  <guard>
+    <dialogue>
+      "Don't let me catch you outside of your cell after hours again!"
+    </dialogue>
+  </guard>
 
 </speech>

@@ -4,10 +4,11 @@ package prisonescape.game.desktop;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 
 /**
  * This class launches the desktop version of Prison Breakout.
@@ -31,7 +32,8 @@ public class DesktopLauncher
 		config.fullscreen = true;
 		config.title = "Prison Breakout!";
 		config.foregroundFPS = 60;
+		config.addIcon("data/icon.png", Files.FileType.Internal);
 		
-		new LwjglApplication(new PrisonEscapeGame(), config);
+		new LwjglApplication(new PrisonBreakout(), config);
 	}
 }

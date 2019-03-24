@@ -20,7 +20,7 @@ import prisonescape.game.GameManager;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.tween.BitmapAccessor;
 import prisonescape.game.tween.SpriteAccessor;
 
@@ -38,27 +38,27 @@ public class MainMenu implements Screen {
 
 	private static final int PLAY_BUTTON_WIDTH = 174;
 	private static final int PLAY_BUTTON_HEIGHT = 52;
-	private static final int PLAY_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 100;
+	private static final int PLAY_BUTTON_Y = PrisonBreakout.HEIGHT / 2 + 100;
 	private static final int EXIT_BUTTON_WIDTH = 174;
 	private static final int EXIT_BUTTON_HEIGHT = 52;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 100;
+	private static final int EXIT_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 100;
 	private static final int HELP_BUTTON_WIDTH = 174;
-	private static final int HELP_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2;
+	private static final int HELP_BUTTON_Y = PrisonBreakout.HEIGHT / 2;
 	private static final int HELP_BUTTON_HEIGHT = 52;
 	private static final int VOLUME_BUTTON_WIDTH = 50;
 	private static final int VOLUME_BUTTON_Y = 50;
 	private static final int VOLUME_BUTTON_HEIGHT = 50;
 	private static final int BACK_BUTTON_WIDTH = 40;
-	private static final int BACK_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 + 300;
+	private static final int BACK_BUTTON_Y = PrisonBreakout.HEIGHT / 2 + 300;
 	private static final int BACK_BUTTON_HEIGHT = 40;
 	private static final int NEWGAME_BUTTON_WIDTH = 427;
 	private static final int NEWGAME_BUTTON_HEIGHT = 54;
-	private static final int NEWGAME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2;
+	private static final int NEWGAME_BUTTON_Y = PrisonBreakout.HEIGHT / 2;
 	private static final int LOADGAME_BUTTON_WIDTH = 427;
 	private static final int LOADGAME_BUTTON_HEIGHT = 54;
-	private static final int LOADGAME_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 100;
+	private static final int LOADGAME_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 100;
 
-	private PrisonEscapeGame game;
+	private PrisonBreakout game;
 	private TweenManager tween;
 	private static MainMenu mainInstance;
 	private Sprite playButtonActive;
@@ -102,7 +102,7 @@ public class MainMenu implements Screen {
 	 * 
 	 * @param game
 	 */
-	private MainMenu(PrisonEscapeGame game) {
+	private MainMenu(PrisonBreakout game) {
 
 		this.game = game;
 
@@ -191,22 +191,22 @@ public class MainMenu implements Screen {
 
 		game.getGameController().getSpriteBatch().begin();
 
-		backgroundSprite.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
+		backgroundSprite.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 
-		int x = PrisonEscapeGame.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 200;
+		int x = PrisonBreakout.WIDTH / 2 - PLAY_BUTTON_WIDTH / 2 + 200;
 
 		playButton(x);
 
-		x = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 200;
+		x = PrisonBreakout.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 200;
 
 		exitButton(x);
 
-		x = PrisonEscapeGame.WIDTH / 2 - HELP_BUTTON_WIDTH / 2 + 200;
+		x = PrisonBreakout.WIDTH / 2 - HELP_BUTTON_WIDTH / 2 + 200;
 
 		helpButton(x);
 
-		x = PrisonEscapeGame.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
+		x = PrisonBreakout.WIDTH / 2 - VOLUME_BUTTON_WIDTH / 2 + 650;
 
 		volumeButton(x);
 
@@ -231,8 +231,8 @@ public class MainMenu implements Screen {
 	private void playButton(int x) {
 
 		if (Gdx.input.getX() < x + PLAY_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > PLAY_BUTTON_Y) {
 
 			playButtonActive.setPosition(x, PLAY_BUTTON_Y);
 			playButtonActive.setSize(PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
@@ -281,15 +281,15 @@ public class MainMenu implements Screen {
 	 * @param x coordinate of the buttons
 	 */
 	private void playOptions() {
-		int backX = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
+		int backX = PrisonBreakout.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
 
 		backButton(backX);
 
-		int newGameX = PrisonEscapeGame.WIDTH / 2 - NEWGAME_BUTTON_WIDTH / 2 + 200;
+		int newGameX = PrisonBreakout.WIDTH / 2 - NEWGAME_BUTTON_WIDTH / 2 + 200;
 
 		newGameButton(newGameX);
 
-		int loadGameX = PrisonEscapeGame.WIDTH / 2 - LOADGAME_BUTTON_WIDTH / 2 + 200;
+		int loadGameX = PrisonBreakout.WIDTH / 2 - LOADGAME_BUTTON_WIDTH / 2 + 200;
 
 		loadGameButton(loadGameX);
 
@@ -303,8 +303,8 @@ public class MainMenu implements Screen {
 	 */
 	private void newGameButton(int newGameX) {
 		if (Gdx.input.getX() < newGameX + NEWGAME_BUTTON_WIDTH && Gdx.input.getX() > newGameX
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < NEWGAME_BUTTON_Y + NEWGAME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > NEWGAME_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < NEWGAME_BUTTON_Y + NEWGAME_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > NEWGAME_BUTTON_Y) {
 
 			newGameActive.setPosition(newGameX, NEWGAME_BUTTON_Y);
 			newGameActive.setSize(NEWGAME_BUTTON_WIDTH, NEWGAME_BUTTON_HEIGHT);
@@ -350,8 +350,8 @@ public class MainMenu implements Screen {
 	private void loadGameButton(int loadGameX) {
 
 		if (Gdx.input.getX() < loadGameX + LOADGAME_BUTTON_WIDTH && Gdx.input.getX() > loadGameX
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < LOADGAME_BUTTON_Y + LOADGAME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > LOADGAME_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < LOADGAME_BUTTON_Y + LOADGAME_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > LOADGAME_BUTTON_Y) {
 
 			loadGameActive.setPosition(loadGameX, LOADGAME_BUTTON_Y);
 			loadGameActive.setSize(LOADGAME_BUTTON_WIDTH, LOADGAME_BUTTON_HEIGHT);
@@ -397,12 +397,12 @@ public class MainMenu implements Screen {
 	private void loadOptions() {
 		final GameManager gm = new GameManager(game.getGameController());
 
-		int backX = PrisonEscapeGame.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
+		int backX = PrisonBreakout.WIDTH / 2 - BACK_BUTTON_WIDTH / 2 - 100;
 
 		backButton(backX);
 
 		fontYellow.draw(game.getGameController().getSpriteBatch(), "Choose a date to load",
-				PrisonEscapeGame.WIDTH / 2 + 100, PrisonEscapeGame.HEIGHT / 2 + 300);
+				PrisonBreakout.WIDTH / 2 + 100, PrisonBreakout.HEIGHT / 2 + 300);
 
 		File folder = new File("data/bin"); // folder which contains the files
 		File[] listOfFiles = folder.listFiles(); // making into an array
@@ -411,8 +411,10 @@ public class MainMenu implements Screen {
 		// Checking if the folder in empty
 		if (listOfFiles.length == 0) {
 			fontYellow.draw(game.getGameController().getSpriteBatch(),
+
 					"            You have no games saved! \n Please go back and start a new game",
-					PrisonEscapeGame.WIDTH / 2, PrisonEscapeGame.HEIGHT / 2);
+					PrisonBreakout.WIDTH / 2, PrisonBreakout.HEIGHT / 2);
+
 		} else {
 			for (int i = 0; i < listOfFiles.length; i++) {
 
@@ -431,19 +433,22 @@ public class MainMenu implements Screen {
 						Date date = new Date(milliSeconds);
 
 						fontYellow.draw(game.getGameController().getSpriteBatch(), formatter.format(date) + "\n",
-								PrisonEscapeGame.WIDTH / 2 + 50, PrisonEscapeGame.HEIGHT / 2 + i * 40);
+
+								PrisonBreakout.WIDTH / 2 + 50, PrisonBreakout.HEIGHT / 2 + i * 40);
 
 						// Checking if the mouse is at the load button
-						if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 350 + 100
-								&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 350
-								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40
-										+ 20
-								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PrisonEscapeGame.HEIGHT / 2 + i * 40
-										- 20) {
+						if (Gdx.input.getX() < PrisonBreakout.WIDTH / 2 + 350 + 100
+								&& Gdx.input.getX() > PrisonBreakout.WIDTH / 2 + 350
+								&& PrisonBreakout.HEIGHT - Gdx.input.getY() < PrisonBreakout.HEIGHT / 2 + i * 40
 
-							loadButtonActive.setSize(100, 40);
-							loadButtonActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 350,
-									PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+										+ 20
+								&& PrisonBreakout.HEIGHT - Gdx.input.getY() > PrisonBreakout.HEIGHT / 2 + i * 40 - 20) {
+
+							loadButtonActive.setSize(94, 28);
+
+							loadButtonActive.setPosition(PrisonBreakout.WIDTH / 2 + 350,
+									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
+
 							loadButtonActive.draw(game.getGameController().getSpriteBatch());
 
 							if (Gdx.input.justTouched()) {
@@ -465,34 +470,39 @@ public class MainMenu implements Screen {
 
 							}
 						} else {
-							loadButtonInActive.setSize(100, 40);
-							loadButtonInActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 350,
-									PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+							loadButtonInActive.setSize(94, 28);
+
+							loadButtonInActive.setPosition(PrisonBreakout.WIDTH / 2 + 350,
+									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
 							loadButtonInActive.draw(game.getGameController().getSpriteBatch());
 						}
 
 						// Checking if the mouse is at the delete button
-						if (Gdx.input.getX() < PrisonEscapeGame.WIDTH / 2 + 450 + 100
-								&& Gdx.input.getX() > PrisonEscapeGame.WIDTH / 2 + 450
-								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < PrisonEscapeGame.HEIGHT / 2 + i * 40
-										+ 20
-								&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > PrisonEscapeGame.HEIGHT / 2 + i * 40
-										- 20) {
+						if (Gdx.input.getX() < PrisonBreakout.WIDTH / 2 + 450 + 100
+								&& Gdx.input.getX() > PrisonBreakout.WIDTH / 2 + 450
+								&& PrisonBreakout.HEIGHT - Gdx.input.getY() < PrisonBreakout.HEIGHT / 2 + i * 40
 
-							deleteButtonActive.setSize(100, 40);
-							deleteButtonActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 450,
-									PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+										+ 20
+								&& PrisonBreakout.HEIGHT - Gdx.input.getY() > PrisonBreakout.HEIGHT / 2 + i * 40 - 20) {
+
+							deleteButtonActive.setSize(137, 28);
+
+							deleteButtonActive.setPosition(PrisonBreakout.WIDTH / 2 + 450,
+									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
 							deleteButtonActive.draw(game.getGameController().getSpriteBatch());
 
 							if (Gdx.input.justTouched()) {
 								// Once clicked it will delete that file from folder
+
 								Gdx.files.local("data/bin/" + listOfFiles[i].getName()).delete();
 
 							}
 						} else {
-							deleteButtonInActive.setSize(100, 40);
-							deleteButtonInActive.setPosition(PrisonEscapeGame.WIDTH / 2 + 450,
-									PrisonEscapeGame.HEIGHT / 2 + i * 40 - 20);
+							deleteButtonInActive.setSize(137, 28);
+
+							deleteButtonInActive.setPosition(PrisonBreakout.WIDTH / 2 + 450,
+									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
+
 							deleteButtonInActive.draw(game.getGameController().getSpriteBatch());
 						}
 					}
@@ -500,8 +510,10 @@ public class MainMenu implements Screen {
 					// If there are no correct files then cannot display them
 					if (correctFiles == 0) {
 						fontYellow.draw(game.getGameController().getSpriteBatch(),
+
 								"            You have no games saved! \n Please go back and start a new game",
-								PrisonEscapeGame.WIDTH / 2, PrisonEscapeGame.HEIGHT / 2);
+								PrisonBreakout.WIDTH / 2, PrisonBreakout.HEIGHT / 2);
+
 					}
 				}
 			}
@@ -531,8 +543,8 @@ public class MainMenu implements Screen {
 	 */
 	private void backButton(int backX) {
 		if (Gdx.input.getX() < backX + BACK_BUTTON_WIDTH && Gdx.input.getX() > backX
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > BACK_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < BACK_BUTTON_Y + BACK_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > BACK_BUTTON_Y) {
 
 			backButtonActive.setPosition(backX, BACK_BUTTON_Y);
 			backButtonActive.setSize(BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
@@ -571,8 +583,8 @@ public class MainMenu implements Screen {
 	 */
 	private void exitButton(int x) {
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
 
 			exitButtonActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
@@ -605,8 +617,8 @@ public class MainMenu implements Screen {
 	 */
 	private void helpButton(int x) {
 		if (Gdx.input.getX() < x + HELP_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < HELP_BUTTON_Y + HELP_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > HELP_BUTTON_Y) {
 
 			helpButtonActive.setPosition(x, HELP_BUTTON_Y);
 			helpButtonActive.setSize(HELP_BUTTON_WIDTH, HELP_BUTTON_HEIGHT);
@@ -639,8 +651,8 @@ public class MainMenu implements Screen {
 	 */
 	private void volumeButton(int x) {
 		if (Gdx.input.getX() < x + VOLUME_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < VOLUME_BUTTON_Y + VOLUME_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > VOLUME_BUTTON_Y && Gdx.input.justTouched()) {
 			if (volumeMuted == false) {
 				volumeMuted = true;
 
@@ -758,7 +770,7 @@ public class MainMenu implements Screen {
 	 * @param game
 	 * @return new MainMenu(game) if no instance or current instance.
 	 */
-	public static MainMenu getInstance(PrisonEscapeGame game) {
+	public static MainMenu getInstance(PrisonBreakout game) {
 		if (mainInstance == null) {
 			mainInstance = new MainMenu(game);
 		}

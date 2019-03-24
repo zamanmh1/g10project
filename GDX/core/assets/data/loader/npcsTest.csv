@@ -1,0 +1,11 @@
+NPC Name,Sprite Prefix,Map Appears In,Spawn X,Spawn Y,Move Limit North,Move Limit South,Move Limit East,Move Limit West,Minimum Move Interval,Maxmimum Move Interval,Random Seed
+TrippieMaroon,npc04_,data/maps/testNPC.tmx,3,2,0,0,0,0,0,0,0
+mobMember,guard01_,data/maps/testNPC.tmx,2,2,0,0,0,0,0,0,0
+Testing,guard01_,data/maps/testNPC.tmx,1,2,0,0,0,0,0,0,0
+Rainbow,npc02_,data/maps/testNPC.tmx,4,2,0,0,0,0,0,0,0
+Rat,guard01_,data/maps/testNPC.tmx,5,2,0,0,0,0,0,0,0
+DinnerLady,dinnerlady_,data/maps/testNPC.tmx,6,2,0,0,0,0,0,0,0
+Gambler,npc05_,data/maps/testNPC.tmx,1,4,0,0,0,0,0,0,0
+MobBoss,npc01_,data/maps/testNPC.tmx,2,4,0,0,0,0,0,0,0
+Warden,npc01_,data/maps/testNPC.tmx,3,4,0,0,0,0,0,0,0
+Guard,guard01_,data/maps/testNPC.tmx,4,4,0,0,0,0,0,0,0

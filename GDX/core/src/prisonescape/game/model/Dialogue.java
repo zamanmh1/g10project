@@ -37,6 +37,7 @@ public class Dialogue
 	private boolean hasChoice;
 	private GameHandler controller;
 	private boolean hasPuzzle;
+	private boolean hasEnding;
 	
 	public Dialogue(GameHandler controller)
 	{ 
@@ -62,6 +63,7 @@ public class Dialogue
 	 */
 	public String getDialogue(String name)
 	{
+		updateReader();
 		entityRoot = root.getChildByName(name); //new root xml node
 		Iterator<Element> iterator_dialogue = entityRoot.getChildrenByName("dialogue").iterator(); 
 
@@ -69,6 +71,7 @@ public class Dialogue
 		{
 			hasChoice = false;
 			hasPuzzle = false;
+			hasEnding = false;
 			Element currElement = (Element) iterator_dialogue.next();
 			if(currElement.hasAttribute("currState") == false || currElement.get("currState").equals(controller.getGameState()))
 			{
@@ -92,7 +95,7 @@ public class Dialogue
 						Element currChoice = (Element) iterateChoices.next();
 						String choice = currChoice.getText();
 						String choiceText = "";
-						String[] choiceData = new String[4];
+						String[] choiceData = new String[5];
 						if(currChoice.hasChild("dialogue"))
 						{
 							choiceText = currChoice.getChildByName("dialogue").getText();
@@ -110,10 +113,21 @@ public class Dialogue
 						{
 							hasPuzzle = true;
 						}
+						if(currChoice.hasChild("ending"))
+						{
+							hasEnding = true;
+							/*
+							 * Need to discuss how to make each ending 'different', like how do we indicate what happens
+							 * after the fact? Can we pass text to the Credits class to display on screen
+							 * e.g.
+							 * "Your sentence is commuted, and your family are safe."
+							 */
+						}
 						choiceData[0] = choiceText;
 						choiceData[1] = checkObjectiveGet(currChoice);
 						choiceData[2] = checkStateGet(currChoice);
 						choiceData[3] = checkPuzzleGet(currChoice);
+						choiceData[4] = checkWarpGet(currChoice);
 
 						choiceMap.put(choice, choiceData);
 					}
@@ -200,9 +214,24 @@ public class Dialogue
 		}
 		return "";
 	}
+	
+	private String checkWarpGet(Element e)
+	{
+		if(e.hasChild("warp"))
+		{
+			return e.getChildByName("warp").getText();
+		}
+		return "";
+	}
+	
 	public boolean hasPuzzle()
 	{
 		return hasPuzzle;
+	}
+	
+	public boolean hasEnding()
+	{
+		return hasEnding;
 	}
 	
 	private void spawnItem(String[] newItem)
@@ -242,6 +271,11 @@ public class Dialogue
 			break;
 		}
 		return chapter;
+	}
+	
+	private void updateReader()
+	{
+		root = xReader.parse(Gdx.files.internal(xmlLoc + getChapter() + ".xml"));
 	}
 	
 }

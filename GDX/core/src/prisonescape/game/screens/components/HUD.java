@@ -45,6 +45,9 @@ public class HUD
 	private Label sliderValueLabel;
 	private GameController controller;
 	private int rowCounter = 0;
+	private int itemCounter = 0;
+	
+	private Label stateLabel;
 	
 	/**
 	 * Constructor for the <code>HUD</code> class.
@@ -64,16 +67,22 @@ public class HUD
 		
 		areaName = new Label("map", skin);
 		timeHud = new Label("time", skin);
+		//Testing
+		stateLabel = new Label("state", skin);
 		timeImage = new Image(moon);
 		
 		table = new Table();
 		table.left().top();
 		table.setFillParent(true);
 		table.padLeft(100);
+		table.padTop(15);
+		table.padRight(15);
 		
 		table.add(areaName);
 		table.row();
 		table.add(timeHud, timeImage);
+		table.row();
+		table.add(stateLabel);
 
 		stage.addActor(table);
 		
@@ -83,8 +92,6 @@ public class HUD
 
 		
 		this.controller = controller;
-		
-
 	}
 	
 	private void inventory()
@@ -95,6 +102,7 @@ public class HUD
 		invTable.setVisible(false);
 		invTable.setFillParent(true);
 		invTable.padTop(100);
+		invTable.padLeft(15);
 		
 		invTable.add(inv);
 		invTable.row();
@@ -115,15 +123,16 @@ public class HUD
 	{
 		areaName.setText("Area: " + mapName);
 		timeHud.setText("Time: " + time);
+		stateLabel.setText("State: " + controller.getGameState());
 		
 		//If item exists and hasn't already been found yet then set the item into the inventory
 		if(item != null && item.getFound() == false)
 		{
 			rowCounter++;
 			setItem(item);
+			checkItems(item);
 		}
 		
-
 		//Sets the value of the current objective HUD element
 		currObjective.setText(controller.getCurrentObjective());
 		
@@ -199,7 +208,7 @@ public class HUD
 		questTable.right().top();
 		questTable.setFillParent(true);
 		questTable.padTop(300);
-		questTable.padRight(10);
+		questTable.padRight(20);
 		
 		Label trackTitle = new Label("Current Objective:", skin);
 		currObjective = new Label("", skin);
@@ -304,5 +313,22 @@ public class HUD
 	public boolean sleepIsVisible()
 	{
 		return sleepWin.isVisible();
-	}	
+	}
+	
+	private void checkItems(Item i)
+	{
+		//Checks list of items for certain story items and updates the state
+		String[] clippers = {"LeftHandle", "RightHandle", "Cutters"};
+		for(String s : clippers)
+		{
+			if(i.getName().equals(s))
+			{
+				itemCounter++;
+			}
+		}
+		if(itemCounter == 3)
+		{
+			controller.setGameState("3.2");
+		}
+	}
 }

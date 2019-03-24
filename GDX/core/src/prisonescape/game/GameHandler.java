@@ -10,7 +10,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.helpers.ItemHandler;
 import prisonescape.game.helpers.MapHandler;
 import prisonescape.game.helpers.NPCHandler;
@@ -35,7 +35,7 @@ import prisonescape.game.util.Time;
 
 public class GameHandler implements GameController {
 
-	private final PrisonEscapeGame game;
+	private final PrisonBreakout game;
 	private ActiveGame currentMap;
 
 	private MapHandler mapHandler;
@@ -56,7 +56,7 @@ public class GameHandler implements GameController {
 	private Time time;
 	private Sound alarm_beep;
 
-	public GameHandler(PrisonEscapeGame game) {
+	public GameHandler(PrisonBreakout game) {
 		this.game = game;
 
 		batch = new SpriteBatch();
@@ -229,6 +229,7 @@ public class GameHandler implements GameController {
 		setTime(Time.getTime(getTime().getCalendar(), GameSettings.TIME_SCALE));
 	}
 
+	@Override
 	public ItemHandler getItemHandler() {
 		return this.itemHandler;
 	}
@@ -241,7 +242,7 @@ public class GameHandler implements GameController {
 		return this.currentMap;
 	}
 
-	public PrisonEscapeGame getGame() {
+	public PrisonBreakout getGame() {
 		return this.game;
 	}
 

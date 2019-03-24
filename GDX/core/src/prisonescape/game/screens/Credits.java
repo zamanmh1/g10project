@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
-import prisonescape.game.PrisonEscapeGame;
+import prisonescape.game.PrisonBreakout;
 import prisonescape.game.tween.BitmapAccessor;
 import prisonescape.game.tween.SpriteAccessor;
 
@@ -25,14 +25,14 @@ import prisonescape.game.tween.SpriteAccessor;
 public class Credits implements Screen {
 
 	private static final int RETURN_BUTTON_WIDTH = 643;
-	private static final int RETURN_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 50;
+	private static final int RETURN_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 50;
 	private static final int RETURN_BUTTON_HEIGHT = 46;
 	private static final int EXIT_BUTTON_WIDTH = 301;
-	private static final int EXIT_BUTTON_Y = PrisonEscapeGame.HEIGHT / 2 - 120;
+	private static final int EXIT_BUTTON_Y = PrisonBreakout.HEIGHT / 2 - 120;
 	private static final int EXIT_BUTTON_HEIGHT = 46;
 	private BitmapFont fontYellow;
 	private TweenManager tween;
-	private PrisonEscapeGame game;
+	private PrisonBreakout game;
 	private Sprite backgroundSprite;
 	private static String[] credits_strs = { "Created by:", "Samuel Ward", "Sean Corcoran", "Shibu George",
 			"(Mohammed) Hamza Zaman", "Adam Collins", "Kevinjeet Singh", "Maxwell Trimnell", "Jai Kumar",
@@ -54,7 +54,7 @@ public class Credits implements Screen {
 	 * 
 	 * @param game
 	 */
-	public Credits(PrisonEscapeGame game) {
+	public Credits(PrisonBreakout game) {
 
 		this.game = game;
 		tween = new TweenManager();
@@ -99,25 +99,25 @@ public class Credits implements Screen {
 		tween.update(delta);
 		this.game.getGameController().getSpriteBatch().begin();
 
-		backgroundSprite.setSize(PrisonEscapeGame.WIDTH, PrisonEscapeGame.HEIGHT);
+		backgroundSprite.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
 
 		credit_y = credit_y + 40 * delta;
 		theEndSprite.setScale(0.5f);
-		theEndSprite.setPosition(PrisonEscapeGame.WIDTH / 2 - 160, credit_y + 40);
+		theEndSprite.setPosition(PrisonBreakout.WIDTH / 2 - 160, credit_y + 40);
 		theEndSprite.draw(game.getGameController().getSpriteBatch());
 
-		theEndSprite2.setPosition(PrisonEscapeGame.WIDTH / 2 - 160, PrisonEscapeGame.HEIGHT / 2 + 30);
+		theEndSprite2.setPosition(PrisonBreakout.WIDTH / 2 - 160, PrisonBreakout.HEIGHT / 2 + 30);
 		theEndSprite2.draw(game.getGameController().getSpriteBatch());
 
 		for (int i = 0; i < credits_strs.length; i++) {
 			GlyphLayout layout = new GlyphLayout();
 			layout.setText(fontYellow, credits_strs[i]);
 			float w = layout.width;
-			fontYellow.draw(game.getGameController().getSpriteBatch(), layout, (PrisonEscapeGame.WIDTH - w) / 2 + 200,
+			fontYellow.draw(game.getGameController().getSpriteBatch(), layout, (PrisonBreakout.WIDTH - w) / 2 + 200,
 					credit_y - i * 40);
 		}
-		if (credit_y > PrisonEscapeGame.HEIGHT + 380) {
+		if (credit_y > PrisonBreakout.HEIGHT + 380) {
 			buttonActive = true;
 			Tween.to(theEndSprite2, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
 			Tween.to(returnButtonActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
@@ -126,10 +126,10 @@ public class Credits implements Screen {
 			Tween.to(exitButtonInActive, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
 		}
 
-		int xReturn = PrisonEscapeGame.WIDTH / 2 - RETURN_BUTTON_WIDTH / 2 + 200;
+		int xReturn = PrisonBreakout.WIDTH / 2 - RETURN_BUTTON_WIDTH / 2 + 200;
 		returnButton(xReturn);
 
-		int xExit = PrisonEscapeGame.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 200;
+		int xExit = PrisonBreakout.WIDTH / 2 - EXIT_BUTTON_WIDTH / 2 + 200;
 		exitButton(xExit);
 
 		this.game.getGameController().getSpriteBatch().end();
@@ -146,8 +146,8 @@ public class Credits implements Screen {
 	 */
 	private void exitButton(int x) {
 		if (Gdx.input.getX() < x + EXIT_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > EXIT_BUTTON_Y) {
 
 			exitButtonActive.setPosition(x, EXIT_BUTTON_Y);
 			exitButtonActive.setSize(EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
@@ -189,8 +189,8 @@ public class Credits implements Screen {
 	 */
 	private void returnButton(int x) {
 		if (Gdx.input.getX() < x + RETURN_BUTTON_WIDTH && Gdx.input.getX() > x
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() < RETURN_BUTTON_Y + RETURN_BUTTON_HEIGHT
-				&& PrisonEscapeGame.HEIGHT - Gdx.input.getY() > RETURN_BUTTON_Y) {
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() < RETURN_BUTTON_Y + RETURN_BUTTON_HEIGHT
+				&& PrisonBreakout.HEIGHT - Gdx.input.getY() > RETURN_BUTTON_Y) {
 			returnButtonActive.setPosition(x, RETURN_BUTTON_Y);
 			returnButtonActive.setSize(RETURN_BUTTON_WIDTH, RETURN_BUTTON_HEIGHT);
 			returnButtonActive.draw(game.getGameController().getSpriteBatch());

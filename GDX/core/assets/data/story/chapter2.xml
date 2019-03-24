@@ -1,7 +1,7 @@
 <!-- daytime !-->
 <speech>
-  <mobBoss>
-    <dialogue currstate="2">
+  <MobBoss>
+    <dialogue currState="2">
       "Finally I've been waiting for you.
 
       I need your skills to escape."
@@ -12,6 +12,7 @@
           he owes me a favour so he'll teach you how to pick the locks in here."
         </dialogue>
         <state>2.1</state>
+        <objective>Find the Gambler</objective>
       </choice>
       <choice>Why me?
         <dialogue>
@@ -19,21 +20,35 @@
           now find the Gambler, he'll teach you what you need to know."
         </dialogue>
         <state>2.1</state>
+        <objective>Find the Gambler</objective>
       </choice>
-    </mobBoss>
+    </dialogue>
+    <dialogue>
+      "Get out of here!"
+    </dialogue>
+  </MobBoss>
 
     <!-- TO BE DONE ALL IN NIGHT TIME, MISSION 1 !-->
     <!-- Link up with gambler, do what you need to do for him and get him to teach you on how to pick locks !-->
-    <TheGambler>
-      <dialogue currstate="2.1">
+    <Gambler>
+      <dialogue currState="2.5">
+        "I got word from Rainbow, he says you're alrght kid.
+        dunno how, but that boys always been good at picking the bad apples out the bunch.
+
+        I guess I could teach you a thing or two about picking locks"
+        <choice>Teach me
+          <puzzle>2.6</puzzle>
+          <objective>Speak to the Gambler</objective>
+        </choice>
+      </dialogue>
+      <dialogue currState="2.1">
         "I wonder why someone like you would be helping that evil man escape.
         I'm not sure if I can trust you kid. Rainbow's a good judge of character,
-        If he vouches for you, then we'll talk.
+        If he vouches for you, then we'll talk."
         <state>2.2</state>
         <objective>Find Rainbow</objective>
       </dialogue>
-
-      <dialogue currstate="2.5">
+      <dialogue currState="2.5">
         "I got word from Rainbow, he says you're alrght kid.
         dunno how, but that boys always been good at picking the bad apples out the bunch.
 
@@ -44,7 +59,7 @@
         </choice>
       </dialogue>
       <!--puzzle take you to 2.6-->
-      <dialogue currstate="2.6">
+      <dialogue currState="2.6">
         You're a fast learner, you picked that up quick.
         Though you won't be breaking into any high tech vaults with this,
         but getting around these old prison doors should be a breeze now."
@@ -58,7 +73,10 @@
           <objective>Speak to the Gambler again</objective>
         </choice>
       </dialogue>
-    </TheGambler>
+      <dialogue>
+        "If you ever want to play, I'll gladly take your money."
+      </dialogue>
+    </Gambler>
 
     <Rainbow>
       <!-- Minigame with rainbow which allows player to do minigames in free time !-->
@@ -104,6 +122,9 @@
         <state>2.5</state>
         <objective>Speak to the Gambler</objective>
       </dialogue>
+      <dialogue>
+        "Can't believe I went 11/11 and now I'm here."
+      </dialogue>
     </Rainbow>
 
     <Computer>
@@ -120,7 +141,7 @@
       <dialogue currState="2.3.1">
         You've made it into Trippie's emails. You rummage around and find
         the site he uses for these messages.
-        <choice>Keep Going
+        <choice>Hack
           <puzzle>2.3.2</puzzle>
           <objective>Hack Trippie[2/3]</objective>
         </choice>
@@ -150,11 +171,17 @@
           <objective>Speak to Rainbow</objective>
         </choice>
       </dialogue>
+      <dialogue>
+        You load up a game called 'Prison Breakout', it looks oddly familiar.
+
+        You think to yourself, this was a hella fun game.
+        Whoever made it are prodigies.
+      </dialogue>
     </Computer>
 
     <!--ADD MISC NPC DIALOGUE HERE-->
-	
-	<Barry> 
+
+	<Barry>
 		<dialogue>
 		Do I look good today? My wife is visiting
 		<choice> You look great! Hope she is good
@@ -174,20 +201,20 @@
 		</choice>
 		</dialogue>
 	</Barry>
-	
-	
+
+
 	<CrazedPrisoner>
 		<dialogue>
 		I keep seeing things... scary things.
 		</dialogue>
 	</CrazedPrisoner>
-	
+
 	<LoonyPrisoner>
 		<dialogue>
 		I need to stop eating soap
 		</dialogue>
 	</LoonyPrisoner>
-	
+
 	<Chatty>
 		<dialogue>
 		Hows the prison life?
@@ -195,7 +222,7 @@
 			<dialogue>
 				I like the fight block, I go to place bets sometimes
 			</dialogue>
-			
+
 		</choice>
 		<choice> Awful
 			<dialogue>
@@ -209,19 +236,19 @@
 		</choice>
 		</dialogue>
 	</Chatty>
-	
+
 	<OldMan>
 		<dialogue>
 		I never got to see my grandkids learn to shoot a gun...
 		</dialogue>
 	</OldMan>
-	
+
 	<MikeTheKidnapper>
 		<dialogue>
 		I love it here, last time I got out I kidnapped an old lady to get back in.
 		</dialogue>
 	</MikeTheKidnapper>
-	
+
 	<MarvintheParanoidPrisoner>
 		<dialogue>
 		What's the answer to life?
@@ -237,13 +264,13 @@
 		</choice>
 		</dialogue>
 	</MarvintheParanoidPrisoner>
-	
+
 	<Raul>
 		<dialogue>
 		I really don't like your face
 		</dialogue>
 	</Raul>
-	
+
 	<Butch>
 		<dialogue>
 		Howdey partner!
@@ -251,80 +278,80 @@
 			<dialogue>
 				Just shootin' the shit
 			</dialogue>
-			
+
 		</choice>
 		<choice>I'm hungry
 			<dialogue>
 				Grab some grub from the dinner lady then!
 			</dialogue>
 		</choice>
-		<dialogue>
+  </dialogue>
 	</Butch>
-	
+
 	<Smile>
 		<dialogue>
 		You heard? There is a snitch about.
 		I don't like snitches.
-		Not... one... bit. 
+		Not... one... bit.
 		</dialogue>
 	</Smile>
-	
+
 	<Smelly>
 		<dialogue>
 		I'm gonna go outside
 		</dialogue>
 	</Smelly>
-	
+
 	<LilDurk>
 		<dialogue>
 		Follow my souncloud when I get out
 		</dialogue>
 	</LilDurk>
-	
+
 	<Fitz>
 		<dialogue>
-		I hate the feds, but I hate snitches more 
+		I hate the feds, but I hate snitches more
 		</dialogue>
 	</Fitz>
-	
+
 	<Jack>
 		<dialogue>
 		I'm getting the facetat tomorrow!
-		
+
 		I will look so hard.
 		</dialogue>
 	</Jack>
-	
+
 	<DiceBoy>
 		<dialogue>
 		Just wanna role some dice man
 		</dialogue>
 	</DiceBoy>
-	
+
 	<LaughingMan>
 		<dialogue>
-		Let's put a smile on that face 
+		Let's put a smile on that face
 		</dialogue>
 	</LaughingMan>
-	
+
 	<Mani>
 		<dialogue>
 		Leave me be man
 		</dialogue>
 	</Mani>
-	
+
 	<Nitsara>
 		<dialogue>
 		I have a great book on car's
 		</dialogue>
 	</Nitsara>
-	
+
 	<Notsara>
 		<dialogue>
 		You been the library? Awful, no Shakespeare
 		</dialogue>
 	</Notsara>
-	
+
 	<rat>
 		<dialogue>
 		Squeak squeak... hey
@@ -334,12 +361,11 @@
 
 				It IT! Why do you have to be so rude about this? My name is Remmy, thanks for asking.
 			</dialogue>
-			
 		</choice>
 		<choice> Hey buddy?
 			<dialogue>
 				Squeak Squeak...
-				
+
 				Me? Oh im just chilling, see I was dead but now I'm alive and well thanks to the doctors.
 			</dialogue>
 		</choice>
@@ -347,23 +373,22 @@
 			<dialogue>
 				Hey, I used to work in a famous French kitchen, please respect me at least a little.
 			</dialogue>
-			
 		</choice>
 		</dialogue>
 	</rat>
-	
+
 	<Mike>
 		<dialogue>
 		It was rigged I swear! I'll win the final round
 		</dialogue>
 	</Mike>
-	
+
 	<Johnny>
 		<dialogue>
 		I lied, my Nan fights better...
 		</dialogue>
 	</Johnny>
-	
+
 	<Peter>
 		<dialogue>
 		Johnny wiped the floor with him, but I say Mike might come back.
@@ -371,14 +396,89 @@
 			<dialogue>
 				Okay man safe bet, lets see.
 			</dialogue>
-			
 		</choice>
-		<choice>Johnny 
+		<choice>Johnny
 			<dialogue>
 				Ah, I like your style.
 			</dialogue>
 		</choice>
 		</dialogue>
 	</Peter>
+
+	<Gordon>
+		<dialogue>
+		WHAT ARE YOU, AN IDIOT SANDWICH
+		</dialogue>
+	</Gordon>
+
+	<Hans>
+		<dialogue>
+		People like Coldplay and voted for the Nazis, you can’t trust people
+		</dialogue>
+	</Hans>
+
+	<Vito>
+		<dialogue>
+		A friend should always underestimate your virtues and an enemy overestimate your faults
+		</dialogue>
+	</Vito>
+
+	<Red>
+		<dialogue>
+		I have to remind myself that some birds aren’t meant to be caged
+		</dialogue>
+	</Red>
+
+	<HallMonitorC>
+		<dialogue>
+		STOP RUNNING IN THE CORRIDOR
+		</dialogue>
+	</HallMonitorC>
+
+	<HallMonitorA>
+		<dialogue>
+		Hall pass!
+
+		Only joking... Or am I?
+		</dialogue>
+	</HallMonitorA>
+
+  <Testing>
+    <dialogue>
+      Chapter 2
+    </dialogue>
+  </Testing>
+
+  <TrippieMaroon>
+    <dialogue>
+      "Hey man, I've not got anything for you at the moment."
+    </dialogue>
+  </TrippieMaroon>
+
+  <DinnerLady>
+    <dialogue>
+      "Today we are serving our special of sardines and sadness...
+
+      Unless you got something for me?"
+    </dialogue>
+  </DinnerLady>
+
+  <Ehrmantraut>
+    <dialogue>
+      "Move along!"
+    </dialogue>
+  </Ehrmantraut>
+
+  <Warden>
+    <dialogue>
+      "Need something?"
+    </dialogue>
+  </Warden>
+
+  <guard>
+    <dialogue>
+      "Don't let me catch you outside of your cell after hours again!"
+    </dialogue>
+  </guard>
 
   </speech>
