@@ -110,9 +110,9 @@ public class GameManager {
 
 		for (String i : foundItems) {
 
-			controller.getMapScreen();
-			ActiveGame.h.setItem(controller.getItemHandler().getAllItems().get(i));
+			
 			controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
+			
 		}
 
 		Calendar cal = controller.getTime().getCalendar();
