@@ -14,6 +14,7 @@ import prisonescape.game.io.DialogueUI;
 import prisonescape.game.model.actors.Actor;
 import prisonescape.game.model.actors.DIRECTION;
 import prisonescape.game.model.actors.GuardChasingBehaviour;
+import prisonescape.game.screens.ActiveGame;
 import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.ActorAnimation;
 import prisonescape.game.util.Time;
@@ -130,7 +131,8 @@ public class AlarmSystem {
 	    	
 			// Displays message to player through dialogue box when wakes up in cell.
 	    	DialogueUI dUI = new DialogueUI(controller);
-	    	dUI.showDialogue(controller.getMapScreen().getStage(), "guard");
+	    	controller.getMapScreen();
+			dUI.showDialogue(ActiveGame.getStage(), "guard");
 		} 
 
 

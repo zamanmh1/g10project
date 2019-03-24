@@ -3,6 +3,7 @@ package prisonescape.game;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import prisonescape.game.helpers.ItemHandler;
 import prisonescape.game.model.AlarmSystem;
 import prisonescape.game.model.actors.Actor;
 import prisonescape.game.model.actors.MapActor;
@@ -68,5 +69,7 @@ public interface GameController {
 	void playAlarmBeep();
 
 	void stopAlarmBeep();
+	
+	ItemHandler getItemHandler();
 
 }

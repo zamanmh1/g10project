@@ -229,6 +229,7 @@ public class GameHandler implements GameController {
 		setTime(Time.getTime(getTime().getCalendar(), GameSettings.TIME_SCALE));
 	}
 
+	@Override
 	public ItemHandler getItemHandler() {
 		return this.itemHandler;
 	}

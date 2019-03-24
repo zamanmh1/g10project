@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import prisonescape.game.GameController;
 import prisonescape.game.PrisonBreakout;
+import prisonescape.game.helpers.ItemHandler;
 import prisonescape.game.io.player.PlayerMovementController;
 import prisonescape.game.model.AlarmSystem;
 import prisonescape.game.model.actors.Actor;
@@ -225,6 +226,12 @@ public class TestPlayerMovementController {
 		public void stopAlarmBeep() {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public ItemHandler getItemHandler() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 }
