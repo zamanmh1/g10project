@@ -618,7 +618,7 @@
       "Pick up some cards, and let's play."
     </dialogue>
   </Gambler>
-  
+
 	<Gordon>
 		<dialogue>
 		WHERE'S THE LAMB SAURCE
@@ -656,5 +656,11 @@
 		Only joking... Or am I?
 		</dialogue>
 	</HallMonitorA>
+
+  <guard>
+    <dialogue>
+      "Don't let me catch you outside of your cell after hours again!"
+    </dialogue>
+  </guard>
 
 </speech>

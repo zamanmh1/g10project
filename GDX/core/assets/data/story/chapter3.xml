@@ -548,4 +548,10 @@
     </dialogue>
   </Testing>
 
+  <guard>
+    <dialogue>
+      "Don't let me catch you outside of your cell after hours again!"
+    </dialogue>
+  </guard>
+
 </speech>
