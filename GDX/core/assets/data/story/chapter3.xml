@@ -504,6 +504,44 @@
 		</dialogue>
 	</Peter>
 
+	<Gordon>
+		<dialogue>
+		For what we are about to eat, I pray it doesn't poison us
+		</dialogue>
+	</Gordon>
+
+	<Hans>
+		<dialogue>
+		Tell you what, that crack is really moreish
+		</dialogue>
+	</Hans>
+
+	<Vito>
+		<dialogue>
+		I spent my life trying not to be careless
+		</dialogue>
+	</Vito>
+
+	<Red>
+		<dialogue>
+		These walls are funny. First you hate ’em. Then you get used to ’em. Enough time passes, you get so you depend on them. That’s institutionalized
+		</dialogue>
+	</Red>
+
+	<HallMonitorC>
+		<dialogue>
+		STOP RUNNING IN THE CORRIDOR
+		</dialogue>
+	</HallMonitorC>
+
+	<HallMonitorA>
+		<dialogue>
+		Hall pass!
+
+		Only joking... Or am I?
+		</dialogue>
+	</HallMonitorA>
+
   <Testing>
     <dialogue>
       Chapter 3
