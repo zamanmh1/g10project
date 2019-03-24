@@ -554,4 +554,22 @@
     </dialogue>
   </guard>
 
+  <Computer-1>
+    <dialogue>
+      You wonder why it is that a prison has freely accessible PCs.
+
+      However, you don't want to have them take away these cat videos,
+      so you decide to not question it.
+    </dialogue>
+  </Computer-1>
+
+  <Computer-2>
+    <dialogue>
+      You wonder why it is that a prison has freely accessible PCs.
+
+      However, you don't want to have them take away these cat videos,
+      so you decide to not question it.
+    </dialogue>
+  </Computer-2>
+
 </speech>

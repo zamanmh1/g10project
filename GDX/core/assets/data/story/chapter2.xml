@@ -533,4 +533,10 @@
     </dialogue>
   </guard>
 
+  <Wardens-Computer>
+    <dialogue>
+      It's the Warden's computer.
+    </dialogue>
+  </Wardens-Computer>
+
   </speech>
