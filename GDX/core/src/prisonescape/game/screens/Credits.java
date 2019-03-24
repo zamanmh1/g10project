@@ -48,6 +48,9 @@ public class Credits implements Screen {
 	private Sprite exitButtonInActive;
 	private boolean checkExitButtonMouseOver;
 	private Sprite theEndSprite2;
+	private BitmapFont fontBlack;
+	private Sprite logo;
+	private String endingText;
 
 	/**
 	 * Constructs a new EndScreen with sprites and font for credits
@@ -58,15 +61,18 @@ public class Credits implements Screen {
 
 		this.game = game;
 		tween = new TweenManager();
-		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/background.png")));
+		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/plainbackground.png")));
 		theEndSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/the_end.png")));
 		theEndSprite2 = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/the_end.png")));
+		logo = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/logo.png")));
 		returnButtonActive = new Sprite(new Texture("data/menuSprites/return_to_main_menu_active.png"));
 		returnButtonInActive = new Sprite(new Texture("data/menuSprites/return_to_main_menu_inactive.png"));
 		exitButtonActive = new Sprite(new Texture("data/menuSprites/exitgame_active.png"));
 		exitButtonInActive = new Sprite(new Texture("data/menuSprites/exitgame_inactive.png"));
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
+		fontBlack = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-black.fnt"));
 		buttonActive = false;
+		
 
 	}
 
@@ -80,6 +86,8 @@ public class Credits implements Screen {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(theEndSprite, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.to(theEndSprite, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(logo, SpriteAccessor.ALPHA).target(0).start(tween);
+		Tween.to(logo, SpriteAccessor.ALPHA, 0.2f).target(1).start(tween);
 		Tween.set(theEndSprite2, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.set(returnButtonActive, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.set(returnButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
@@ -87,6 +95,8 @@ public class Credits implements Screen {
 		Tween.set(exitButtonInActive, SpriteAccessor.ALPHA).target(0).start(tween);
 		Tween.set(fontYellow, BitmapAccessor.ALPHA).target(0).start(tween);
 		Tween.to(fontYellow, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
+		Tween.set(fontBlack, BitmapAccessor.ALPHA).target(0).start(tween);
+		Tween.to(fontBlack, BitmapAccessor.ALPHA, 0.2f).target(1).start(tween);
 
 	}
 
@@ -101,6 +111,12 @@ public class Credits implements Screen {
 
 		backgroundSprite.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
 		backgroundSprite.draw(game.getGameController().getSpriteBatch());
+
+		logo.setPosition(PrisonBreakout.WIDTH / 2 - 630, PrisonBreakout.HEIGHT / 2 + 200);
+		logo.draw(game.getGameController().getSpriteBatch());
+
+		fontBlack.draw(game.getGameController().getSpriteBatch(), endingText, PrisonBreakout.WIDTH / 2 - 600,
+				PrisonBreakout.HEIGHT / 2);
 
 		credit_y = credit_y + 40 * delta;
 		theEndSprite.setScale(0.5f);
@@ -226,6 +242,18 @@ public class Credits implements Screen {
 
 		}
 
+	}
+
+	public String ending1() {
+		return endingText = "Ending1";
+	}
+
+	public String ending2() {
+		return endingText = "Ending2";
+	}
+
+	public String ending3() {
+		return endingText = "Ending3";
 	}
 
 	public void resize(int width, int height) {

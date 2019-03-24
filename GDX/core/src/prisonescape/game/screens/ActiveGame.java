@@ -293,7 +293,10 @@ public class ActiveGame implements Screen {
 		}
 
 		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			((Game) Gdx.app.getApplicationListener()).setScreen(new Credits(game));
+			Credits credits = new Credits(game);
+			credits.ending2();
+					
+			((Game) Gdx.app.getApplicationListener()).setScreen(credits);
 		}
 
 		if (inventoryKeyCheck() == true) {
