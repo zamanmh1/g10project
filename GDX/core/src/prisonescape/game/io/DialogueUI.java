@@ -137,7 +137,6 @@ public class DialogueUI extends ScreenAdapter
 		if(!cData[4].isEmpty())
 		{
 			String[] mapChange = cData[4].split(",");
-			//System.out.println(mapChange[0] + Integer.parseInt(mapChange[1]) + Integer.parseInt(mapChange[2]));
 			gameHandler.setMap(mapChange[0], Integer.parseInt(mapChange[1]), Integer.parseInt(mapChange[2]));
 			gameHandler.getPlayer().setFrozen(false);
 		}

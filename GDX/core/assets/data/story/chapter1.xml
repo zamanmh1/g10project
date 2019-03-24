@@ -195,7 +195,7 @@
           Get this man away from me, he's got a knife on him!"
         </dialogue>
         <state>2</state>
-        <warp>data/maps/maxsec.tmx,15,15</warp>
+        <warp>data/maps/maxsec.tmx,29,12</warp>
       </choice>
       <choice>No
         <dialogue>
@@ -206,7 +206,7 @@
           Get this man away from me, he's got a knife on him!"
         </dialogue>
         <state>2</state>
-        <warp>data/maps/maxsec.tmx,29,19</warp>
+        <warp>data/maps/maxsec.tmx,29,12</warp>
       </choice>
     </dialogue>
     <dialogue>
