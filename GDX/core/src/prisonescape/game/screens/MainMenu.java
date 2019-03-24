@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import prisonescape.game.GameManager;
 
@@ -90,7 +89,7 @@ public class MainMenu implements Screen {
 	private boolean checkLoadButtonMouseOver;
 	private boolean checkNewButtonMouseOver;
 	private long time;
-	
+
 	private BitmapFont fontYellow;
 	private boolean loadPressed;
 	private Sprite loadButtonInActive;
@@ -125,7 +124,8 @@ public class MainMenu implements Screen {
 		volumeButtonMute = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/Volume-off.png")));
 		loadButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loadButton_inactive.png")));
 		loadButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/loadButton_active.png")));
-		deleteButtonInActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/deleteButton_inactive.png")));
+		deleteButtonInActive = new Sprite(
+				new Texture(Gdx.files.internal("data/menuSprites/deleteButton_inactive.png")));
 		deleteButtonActive = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/deleteButton_active.png")));
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		mouseOverSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/MouseOver.ogg"));
@@ -404,49 +404,55 @@ public class MainMenu implements Screen {
 		fontYellow.draw(game.getGameController().getSpriteBatch(), "Choose a date to load",
 				PrisonBreakout.WIDTH / 2 + 100, PrisonBreakout.HEIGHT / 2 + 300);
 
-		File folder = new File("data/bin"); //folder which contains the files
-		File[] listOfFiles = folder.listFiles(); //making into an array 
-		int correctFiles = 0;//counter for the number of valid files
-		
-		//Checking if the folder in empty
+		File folder = new File("data/bin"); // folder which contains the files
+		File[] listOfFiles = folder.listFiles(); // making into an array
+		int correctFiles = 0;// counter for the number of valid files
+
+		// Checking if the folder in empty
 		if (listOfFiles.length == 0) {
 			fontYellow.draw(game.getGameController().getSpriteBatch(),
-					"You have no games saved! \n Please go back and start a new game", PrisonBreakout.WIDTH / 2 + 100,
-					PrisonBreakout.HEIGHT / 2);
+
+					"            You have no games saved! \n Please go back and start a new game",
+					PrisonBreakout.WIDTH / 2, PrisonBreakout.HEIGHT / 2);
+
 		} else {
 			for (int i = 0; i < listOfFiles.length; i++) {
 
-				//checking if the files only contain numbers and is greater than 12 for time stamps
+				// checking if the files only contain numbers and is greater than 12 for time
+				// stamps
 				if (listOfFiles[i].getName().matches("[0-9]+") && listOfFiles[i].getName().length() > 12) {
 
-					//checking if it is a valid time stamp.
+					// checking if it is a valid time stamp.
 					if (isVaildTimeStamp(listOfFiles[i].getName())) {
 
-						correctFiles++;//correctFile increments each time a file is valid
-						
-						//Formatting the time stamp to dd-MM-yyyy HH:mm:ss
+						correctFiles++;// correctFile increments each time a file is valid
+
+						// Formatting the time stamp to dd-MM-yyyy HH:mm:ss
 						DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 						long milliSeconds = Long.parseLong(listOfFiles[i].getName());
 						Date date = new Date(milliSeconds);
 
 						fontYellow.draw(game.getGameController().getSpriteBatch(), formatter.format(date) + "\n",
-								PrisonBreakout.WIDTH / 2 + 100, PrisonBreakout.HEIGHT / 2 + i * 40);
 
-						//Checking if the mouse is at the load button
-						if (Gdx.input.getX() < PrisonBreakout.WIDTH / 2 + 400 + 100
-								&& Gdx.input.getX() > PrisonBreakout.WIDTH / 2 + 400
+								PrisonBreakout.WIDTH / 2 + 50, PrisonBreakout.HEIGHT / 2 + i * 40);
+
+						// Checking if the mouse is at the load button
+						if (Gdx.input.getX() < PrisonBreakout.WIDTH / 2 + 350 + 100
+								&& Gdx.input.getX() > PrisonBreakout.WIDTH / 2 + 350
 								&& PrisonBreakout.HEIGHT - Gdx.input.getY() < PrisonBreakout.HEIGHT / 2 + i * 40
-										+ 20
-								&& PrisonBreakout.HEIGHT - Gdx.input.getY() > PrisonBreakout.HEIGHT / 2 + i * 40
-										- 20) {
 
-							loadButtonActive.setSize(100, 40);
-							loadButtonActive.setPosition(PrisonBreakout.WIDTH / 2 + 400,
+										+ 20
+								&& PrisonBreakout.HEIGHT - Gdx.input.getY() > PrisonBreakout.HEIGHT / 2 + i * 40 - 20) {
+
+							loadButtonActive.setSize(94, 28);
+
+							loadButtonActive.setPosition(PrisonBreakout.WIDTH / 2 + 350,
 									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
+
 							loadButtonActive.draw(game.getGameController().getSpriteBatch());
 
-							if (Gdx.input.isTouched()) {
-								//Once load button is clicked it will execute gm.loadData()
+							if (Gdx.input.justTouched()) {
+								// Once load button is clicked it will execute gm.loadData()
 								gm.loadData(Gdx.files.local("data/bin/" + listOfFiles[i].getName()));
 								loadPressed = false;
 								playPressed = false;
@@ -464,43 +470,50 @@ public class MainMenu implements Screen {
 
 							}
 						} else {
-							loadButtonInActive.setSize(100, 40);
-							loadButtonInActive.setPosition(PrisonBreakout.WIDTH / 2 + 400,
+							loadButtonInActive.setSize(94, 28);
+
+							loadButtonInActive.setPosition(PrisonBreakout.WIDTH / 2 + 350,
 									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
 							loadButtonInActive.draw(game.getGameController().getSpriteBatch());
 						}
 
-						//Checking if the mouse is at the delete button
-						if (Gdx.input.getX() < PrisonBreakout.WIDTH / 2 + 500 + 100
-								&& Gdx.input.getX() > PrisonBreakout.WIDTH / 2 + 500
+						// Checking if the mouse is at the delete button
+						if (Gdx.input.getX() < PrisonBreakout.WIDTH / 2 + 450 + 100
+								&& Gdx.input.getX() > PrisonBreakout.WIDTH / 2 + 450
 								&& PrisonBreakout.HEIGHT - Gdx.input.getY() < PrisonBreakout.HEIGHT / 2 + i * 40
-										+ 20
-								&& PrisonBreakout.HEIGHT - Gdx.input.getY() > PrisonBreakout.HEIGHT / 2 + i * 40
-										- 20) {
 
-							deleteButtonActive.setSize(100, 40);
-							deleteButtonActive.setPosition(PrisonBreakout.WIDTH / 2 + 500,
+										+ 20
+								&& PrisonBreakout.HEIGHT - Gdx.input.getY() > PrisonBreakout.HEIGHT / 2 + i * 40 - 20) {
+
+							deleteButtonActive.setSize(137, 28);
+
+							deleteButtonActive.setPosition(PrisonBreakout.WIDTH / 2 + 450,
 									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
 							deleteButtonActive.draw(game.getGameController().getSpriteBatch());
 
 							if (Gdx.input.justTouched()) {
-								//Once clicked it will delete that file from folder
+								// Once clicked it will delete that file from folder
+
 								Gdx.files.local("data/bin/" + listOfFiles[i].getName()).delete();
 
 							}
 						} else {
-							deleteButtonInActive.setSize(100, 40);
-							deleteButtonInActive.setPosition(PrisonBreakout.WIDTH / 2 + 500,
+							deleteButtonInActive.setSize(137, 28);
+
+							deleteButtonInActive.setPosition(PrisonBreakout.WIDTH / 2 + 450,
 									PrisonBreakout.HEIGHT / 2 + i * 40 - 20);
+
 							deleteButtonInActive.draw(game.getGameController().getSpriteBatch());
 						}
 					}
 				} else {
-					//If there are no correct files then cannot display them
+					// If there are no correct files then cannot display them
 					if (correctFiles == 0) {
 						fontYellow.draw(game.getGameController().getSpriteBatch(),
-								"You have no games saved! \n Please go back and start a new game",
-								PrisonBreakout.WIDTH / 2 + 100, PrisonBreakout.HEIGHT / 2);
+
+								"            You have no games saved! \n Please go back and start a new game",
+								PrisonBreakout.WIDTH / 2, PrisonBreakout.HEIGHT / 2);
+
 					}
 				}
 			}
@@ -631,8 +644,8 @@ public class MainMenu implements Screen {
 	}
 
 	/**
-	 * Represents the position and area where the volume button is drawn.
-	 * Checks whether the volume is muted for not.
+	 * Represents the position and area where the volume button is drawn. Checks
+	 * whether the volume is muted for not.
 	 * 
 	 * @param x coordinate of the button
 	 */
@@ -755,7 +768,7 @@ public class MainMenu implements Screen {
 	 * Returns the instance of MainMenu (Singleton)
 	 * 
 	 * @param game
-	 * @return new MainMenu(game) if no instance or current instance. 
+	 * @return new MainMenu(game) if no instance or current instance.
 	 */
 	public static MainMenu getInstance(PrisonBreakout game) {
 		if (mainInstance == null) {

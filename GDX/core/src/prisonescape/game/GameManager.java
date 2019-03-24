@@ -108,11 +108,12 @@ public class GameManager {
 		controller.setCurrentObjective(currentObjective);
 		String[] foundItems = data[15].split("\\+");
 
-		for (String i : foundItems) {
+		if (!foundItems[0].isEmpty()) {
+			for (String i : foundItems) {
 
-			controller.getMapScreen();
-			ActiveGame.h.setItem(controller.getItemHandler().getAllItems().get(i));
-			controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
+				controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
+
+			}
 		}
 
 		Calendar cal = controller.getTime().getCalendar();
