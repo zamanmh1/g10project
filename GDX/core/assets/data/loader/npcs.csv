@@ -41,3 +41,14 @@ Prisoner4,npc01_,data/maps/cellblockG.tmx,30,15,1,5,3,5,1,3,3
 Prisoner5,npc01_,data/maps/cellblock.tmx,12,3,0,1,5,4,0,3,3
 Prisoner6,npc01_,data/maps/cellblock.tmx,32,10,2,3,4,4,0,2,3
 Prisoner7,npc01_,data/maps/cellblock.tmx,30,2,1,2,3,5,1,3,3
+TrippieMaroon,trippie_,data/maps/testNPC.tmx,3,2,0,0,0,0,0,0,0
+mobMember,guard01_,data/maps/testNPC.tmx,2,2,0,0,0,0,0,0,0
+Testing,guard01_,data/maps/testNPC.tmx,1,2,0,0,0,0,0,0,0
+Rainbow,rainbow_,data/maps/testNPC.tmx,4,2,0,0,0,0,0,0,0
+Rat,rat_,data/maps/testNPC.tmx,5,2,0,0,0,0,0,0,0
+DinnerLady,dinnerlady_,data/maps/testNPC.tmx,6,2,0,0,0,0,0,0,0
+Gambler,gambler_,data/maps/testNPC.tmx,1,4,0,0,0,0,0,0,0
+MobBoss,mobboss_,data/maps/testNPC.tmx,2,4,0,0,0,0,0,0,0
+Warden,warden_,data/maps/testNPC.tmx,3,4,0,0,0,0,0,0,0
+Guard,guard01_,data/maps/testNPC.tmx,4,4,0,0,0,0,0,0,0
+Ehrmantraut,guard01_,data/maps/testNPC.tmx,7,4,0,0,0,0,0,0,0

@@ -72,10 +72,14 @@ public class DialogueUI extends ScreenAdapter
 						beenCalled = false;
 					}
 				}
-				if(d.hasPuzzle() && object.equals("puzzle")) //Relies on button name being "puzzle"
+				if(d.hasPuzzle() && (object.equals("Teach me") || object.equals("Hack"))) //Relies on button name being "puzzle"
 				{
 					gameHandler.getGame().setScreen(new Puzzle(gameHandler.getGame(), d.getChoices().get(object)[3]));
 					updateValues(object);
+				}
+				if(d.hasEnding() && gameHandler.getGameState().endsWith("z"))
+				{
+					setEnding();
 				}
 
 			}
@@ -129,6 +133,13 @@ public class DialogueUI extends ScreenAdapter
 		if(!cData[2].isEmpty())//If State is not empty
 		{
 			d.setState(cData[2]);
+		}
+		if(!cData[4].isEmpty())
+		{
+			String[] mapChange = cData[4].split(",");
+			//System.out.println(mapChange[0] + Integer.parseInt(mapChange[1]) + Integer.parseInt(mapChange[2]));
+			gameHandler.setMap(mapChange[0], Integer.parseInt(mapChange[1]), Integer.parseInt(mapChange[2]));
+			gameHandler.getPlayer().setFrozen(false);
 		}
 	}
 	

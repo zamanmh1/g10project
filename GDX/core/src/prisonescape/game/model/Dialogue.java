@@ -95,7 +95,7 @@ public class Dialogue
 						Element currChoice = (Element) iterateChoices.next();
 						String choice = currChoice.getText();
 						String choiceText = "";
-						String[] choiceData = new String[4];
+						String[] choiceData = new String[5];
 						if(currChoice.hasChild("dialogue"))
 						{
 							choiceText = currChoice.getChildByName("dialogue").getText();
@@ -116,7 +116,6 @@ public class Dialogue
 						if(currChoice.hasChild("ending"))
 						{
 							hasEnding = true;
-							System.out.println(hasEnding);
 							/*
 							 * Need to discuss how to make each ending 'different', like how do we indicate what happens
 							 * after the fact? Can we pass text to the Credits class to display on screen
@@ -128,6 +127,7 @@ public class Dialogue
 						choiceData[1] = checkObjectiveGet(currChoice);
 						choiceData[2] = checkStateGet(currChoice);
 						choiceData[3] = checkPuzzleGet(currChoice);
+						choiceData[4] = checkWarpGet(currChoice);
 
 						choiceMap.put(choice, choiceData);
 					}
@@ -211,6 +211,15 @@ public class Dialogue
 		if(e.hasChild("puzzle"))
 		{
 			return e.getChildByName("puzzle").getText();
+		}
+		return "";
+	}
+	
+	private String checkWarpGet(Element e)
+	{
+		if(e.hasChild("warp"))
+		{
+			return e.getChildByName("warp").getText();
 		}
 		return "";
 	}

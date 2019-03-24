@@ -1,30 +1,145 @@
 <speech>
-  <TrippieMaroon>
-    <dialogue currState = "1.7">
-        "Well done... Looks like we're going to get along just fine..."
+  <Book>
+    <dialogue>
+      "Hello, just woke up? You're in jail for life...
+      You probably don't remember why but that doesn't matter right now.
+      Why don't you have a little look around? Maybe you'll get some hints as to why.
+      Enclosed in this book is the key to your cell, tread carefully..."
 
-        Trippie seems to trust you more.
-        <state>1.8</state>
+      You obtained the key to your cell.
+      <objective>Leave your cell</objective>
+    </dialogue>
+  </Book>
+
+  <Rainbow>
+    <dialogue currState="1.4">
+      "What's up?"
+      <choice>Sneak in the laxatives
+        <dialogue>
+          Whilst in conversation you sneak probably more laxatives than recommended
+          into his drink. You idly maintain conversation as you watch him take a swig.
+          It doesn't take long before the noises happen...
+
+          "Oh Jesus! That lady cooked up something real bad!"
+
+          He takes off awkwardly in a half-run, half-waddle.
+        </dialogue>
+        <state>1.5</state>
+        <objective>Return to Trippie</objective>
+      </choice>
+    </dialogue>
+    <dialogue currState="1.6">
+      He gives you a grimace as his stomach makes some more noises.
+    </dialogue>
+    <dialogue>
+      "Can't believe I went 11/11 and now I'm here."
+    </dialogue>
+  </Rainbow>
+
+  <DinnerLady>
+    <dialogue currState="1.3">
+      "You'd think I wouldn't have my sense of smell anymore, but I know tobacco anywhere.
+      Trippie sent you? He ordered this the other day, slide what you got under the tray."
+      <choice>Give Cigarettes
+        <dialogue>
+          You've never seen someone grab something so fast in their life.
+
+          She slides a couple on inconspicuous pills under the tray.
+        </dialogue>
+        <state>1.4</state>
+        <objective>Find Rainbow</objective>
+      </choice>
+    </dialogue>
+    <dialogue currState="1.4">
+      "You know what those are right? Don't even try one else you won't be out of your cell for while."
+    </dialogue>
+    <dialogue>
+      "Today we are serving our special of sardines and sadness...
+
+      Unless you got something for me?"
+    </dialogue>
+  </DinnerLady>
+
+  <TrippieMaroon>
+    <dialogue currState="1">
+      "What you staring at?"
+    </dialogue>
+    <dialogue currState="1.1">
+      "Yo, WrayTay sent you? Pass that here."
+
+      Trippie Maroon opens the package
+
+      "Yes! I needed this...
+      Hey, if you get bored, talk to me again yeah."
+      <state>1.2</state>
+      <objective>Talk to Trippie</objective>
+    </dialogue>
+    <dialogue currState="1.2">
+      "You got bored quick, there is this guy with rainbow hair in this block I hate
+      He has been messing with me for weeks now, I need you to take care of him.
+      The dinner lady has the worst smoking habit this side on the ocean and you can
+      trade her cigarettes for pretty much anything. Take these and buy me some laxatives."
+
+      Trippie hands you 5 cigarettes
+      <state> 1.3</state>
+      <objective>Speak to the Dinner Lady</objective>
+    </dialogue>
+    <dialogue currState="1.3">
+      "Get going!"
+      <choice>Where's the dinner lady?
+        <dialogue>
+          "Where do you normally find them? In the kitchen.
+          Go to the food hall, bottom floor, to the east."
+        </dialogue>
+      </choice>
+    </dialogue>
+    <dialogue currState="1.4">
+      "What do you need?"
+      <choice>Where can I find Rainbow?
+        <dialogue>
+          "You might be able to guess, but he's the one with the obnoxious
+          rainbow hair. Usually knocks around the ground floor cell block."
+        </dialogue>
+      </choice>
+    </dialogue>
+    <dialogue currState="1.5">
+      "Ha! I saw the rainbow haired prick waddling to his cell. Cheers pal, I just might have more use for you..."
+        <state>1.6</state>
+        <objective></objective><!--Empty String to clear the objective-->
+    </dialogue>
+    <dialogue currState = "1.6">
+        "Well done... Looks like we're going to get along just fine..."
+        <choice>What now?
+          <dialogue>
+            After you did that, I think I can trust you.
+
+            I gotta go grab something, but when you're ready, come speak
+            to me again.
+          </dialogue>
+          <state>1.8</state>
+          <objective>Speak to Trippie</objective>
+        </choice>
     </dialogue>
 
     <dialogue currState = "1.8">
       "I'll need your help again, hide this knife for me.
-        Put it in the library, the foodhall; hell! Put it in your cell just get this thing out of here quick!
-        Meet me after it's done."
+      Put it in the library, the foodhall; hell! Put it in your cell just get this thing out of here quick!
+      Meet me after it's done."
 
       You acquired a knife from Trippie.
+      <objective>Hide the knife</objective>
       <choice>Your Cell
         <dialogue>
           "Yeah, just shove it anywhere. You got a desk? The back of that is good."
         </dialogue>
-        <item>Book2,data/itemSprites/newbook.png,data/maps/cell.tmx,INTERACT,5,5</item> <!--Change-->
+        <item>Hide-Knife-In-Cell,data/itemSprites/HidingSpot.png,data/maps/cell.tmx,INTERACT,5,5</item> <!--Change-->
       </choice>
 
       <choice>The Library
         <dialogue>
           "There's plenty of bins in the Library, shove it one of them, they'll never know."
         </dialogue>
-        <item>Book2,data/itemSprites/newbook.png,data/maps/library.tmx,INTERACT,5,5</item>
+        <item>Hide-Knife-In-Library,data/itemSprites/HidingSpot.png,data/maps/library.tmx,INTERACT,5,5</item>
       </choice>
 
       <choice>The Foodhall
@@ -32,14 +147,45 @@
           "Probably makes the most sense, but of course the knives have some serious eyes on them.
           The old hag in there can usually be bought with some cigs but if you don't get caught you'll be alright."
         </dialogue>
-        <item>Book2,data/itemSprites/newbook.png,data/maps/foodhall.tmx,INTERACT,5,5</item>
+        <item>Hide-Knife-In-FoodHall,data/itemSprites/HidingSpot.png,data/maps/foodhall.tmx,INTERACT,5,5</item>
+      </choice>
+      <!--TESTING-->
+      <choice>TESTING
+        <dialogue>
+          Progressing to 1.8.1
+        </dialogue>
+        <state>1.8.1</state>
+      </choice>
+    </dialogue>
+    <dialogue currState="1.8.1">
+      "You hid the knife? Good. I heard one of the guards knocking around up here
+      needs to speak to you. You ain't narc'in' on us now are you?
+
+      Go find out what's up."
+      <state>1.8.2</state>
+      <objective>Speak to the guards</objective>
+    </dialogue>
+    <dialogue currState="1.8.2">
+      "Go speak to the guards up here. I dunno which one needed you."
+    </dialogue>
+    <dialogue currState="1.8.3">
+      "What's up then?"
+      <choice>Show him the knife
+        <dialogue>
+          "Jesus! You almost fucked that up for yourself didn't you.
+          It's good news anyway, I needed you to get that knife back anyway.
+
+          Finish anything you were doing, and come speak to me again."
+        </dialogue>
+        <state>1.9</state>
       </choice>
     </dialogue>
       <!--"We'll need a yes/no input from the player so that they can make a decision"!-->
 
       <!-- When mission has been successful, comes back to trippy!-->
-    <dialogue currState = "1.8b">
-      "I just got news, boss is in maximum security, we need to break him out and you're the man for the job."
+    <dialogue currState = "1.9">
+      "I got news then; boss is in maximum security, we need to break him out and
+      you're the man for the job. You ready for this?"
       <choice>Sure
         <dialogue>
           "We'll we need to get you in...Just follow my lead...
@@ -48,7 +194,8 @@
 
           Get this man away from me, he's got a knife on him!"
         </dialogue>
-        <state>1.8c</state>
+        <state>2</state>
+        <warp>data/maps/maxsec.tmx,15,15</warp>
       </choice>
       <choice>No
         <dialogue>
@@ -58,8 +205,12 @@
 
           Get this man away from me, he's got a knife on him!"
         </dialogue>
-        <state>1.8c</state>
+        <state>2</state>
+        <warp>data/maps/maxsec.tmx,29,19</warp>
       </choice>
+    </dialogue>
+    <dialogue>
+      "I might have some more work for you soon. I'll be in touch."
     </dialogue>
     <!-- we need a prompt here for them to accept the job !-->
     <!-- Irrespective of them choosing y/n he'll be set up and put into max security !-->
@@ -80,6 +231,76 @@
       -Trippie
     </dialogue>
   </noteUnderDoor>
+
+  <Ehrmantraut>
+    <dialogue currState="1.8.2">
+      "Listen. You don't need to know why, but I'm forced to look out for
+      your boss. You ought to hide your things better. Take it and don't get caught,
+      or else I'm force to put you in maximum."
+      <state>1.8.3</state>
+      <objective>Tell Trippie</objective>
+    </dialogue>
+    <dialogue>
+      "Move along!"
+    </dialogue>
+  </Ehrmantraut>
+
+  <Hide-Knife-In-Cell>
+    <dialogue>
+      Hide the knife here?
+      <choice>no
+        <dialogue>
+          You decide against hiding the knife here.
+        </dialogue>
+      </choice>
+      <choice>yes
+        <dialogue>
+          You hide the knife here.
+        </dialogue>
+        <state>1.8.1</state>
+        <objective>Return to Trippie</objective>
+        <item>Hide-Knife-In-Cell,remove</item>
+      </choice>
+    </dialogue>
+  </Hide-Knife-In-Cell>
+
+  <Hide-Knife-In-Kitchen>
+    <dialogue>
+      Hide the knife here?
+      <choice>no
+        <dialogue>
+          You decide against hiding the knife here.
+        </dialogue>
+      </choice>
+      <choice>yes
+        <dialogue>
+          You hide the knife here.
+        </dialogue>
+        <state>1.8.1</state>
+        <objective>Return to Trippie</objective>
+        <item>Hide-Knife-In-Kitchen,remove</item>
+      </choice>
+    </dialogue>
+  </Hide-Knife-In-Kitchen>
+
+  <Hide-Knife-In-Library>
+    <dialogue>
+      Hide the knife here?
+      <choice>no
+        <dialogue>
+          You decide against hiding the knife here.
+        </dialogue>
+      </choice>
+      <choice>yes
+        <dialogue>
+          You hide the knife here.
+        </dialogue>
+        <state>1.8.1</state>
+        <objective>Return to Trippie</objective>
+        <item>Hide-Knife-In-Library,remove</item>
+      </choice>
+    </dialogue>
+  </Hide-Knife-In-Library>
 
   <Testing>
     <dialogue currState="1.5a">
@@ -145,8 +366,8 @@
   </Book2>
 
   <!--ADD MISC NPC DIALOGUE BELOW HERE-->
-  
-  	<Barry> 
+
+  	<Barry>
 		<dialogue>
 		Do I look good today? My wife is visiting
 		<choice> You look great! Hope she is good
@@ -161,25 +382,25 @@
 		</choice>
 		<choice> Re-comb over that hair maybe
 			<dialogue>
-			Oh will do! I once tried buying a wig of the dinner lady you know.
+			Oh will do! I once tried buying a wig off the dinner lady you know.
 			</dialogue>
 		</choice>
 		</dialogue>
 	</Barry>
-	
-	
+
+
 	<CrazedPrisoner>
 		<dialogue>
 		The rat... the rat talks... TALKS!
 		</dialogue>
 	</CrazedPrisoner>
-	
+
 	<LoonyPrisoner>
 		<dialogue>
 		I need to stop eating soap
 		</dialogue>
 	</LoonyPrisoner>
-	
+
 	<Chatty>
 		<dialogue>
 		Hows the prison life?
@@ -187,7 +408,6 @@
 			<dialogue>
 				I like the fight block, I go to place bets sometimes
 			</dialogue>
-			
 		</choice>
 		<choice> Awful
 			<dialogue>
@@ -201,19 +421,19 @@
 		</choice>
 		</dialogue>
 	</Chatty>
-	
+
 	<OldMan>
 		<dialogue>
 		I've been here for 40 years now
 		</dialogue>
 	</OldMan>
-	
+
 	<MikeTheKidnapper>
 		<dialogue>
 		I love it here, last time I got out I kidnapped an old lady to get back in.
 		</dialogue>
 	</MikeTheKidnapper>
-	
+
 	<MarvintheParanoidPrisoner>
 		<dialogue>
 		What's the answer to life?
@@ -229,13 +449,13 @@
 		</choice>
 		</dialogue>
 	</MarvintheParanoidPrisoner>
-	
+
 	<Raul>
 		<dialogue>
 		I don't like your face
 		</dialogue>
 	</Raul>
-	
+
 	<Butch>
 		<dialogue>
 		Howdey partner!
@@ -243,7 +463,7 @@
 			<dialogue>
 				Well, I wont keep ya
 			</dialogue>
-			
+
 		</choice>
 		<choice>Good day sir!
 			<dialogue>
@@ -252,67 +472,67 @@
 		</choice>
 		</dialogue>
 	</Butch>
-	
+
 	<Smile>
 		<dialogue>
 		I can't wait to cut some thing...
 		</dialogue>
 	</Smile>
-	
+
 	<Smelly>
 		<dialogue>
 		I miss the fresh air
 		</dialogue>
 	</Smelly>
-	
+
 	<LilDurk>
 		<dialogue>
 		The names Durk... Lil Durk
 		</dialogue>
 	</LilDurk>
-	
+
 	<Fitz>
 		<dialogue>
-		I hate the feds, but I hate snitches more 
+		I hate the feds, but I hate snitches more
 		</dialogue>
 	</Fitz>
-	
+
 	<Jack>
 		<dialogue>
 		Recon I should get a face tat? Think it would look cool
 		</dialogue>
 	</Jack>
-	
+
 	<DiceBoy>
 		<dialogue>
 		Just wanna role some dice man
 		</dialogue>
 	</DiceBoy>
-	
+
 	<LaughingMan>
 		<dialogue>
-		Let's put a smile on that face 
+		Let's put a smile on that face
 		</dialogue>
 	</LaughingMan>
-	
+
 	<Mani>
 		<dialogue>
 		Leave me be man
 		</dialogue>
 	</Mani>
-	
+
 	<Nitsara>
 		<dialogue>
 		You been the library? It's fantastic
 		</dialogue>
 	</Nitsara>
-	
+
 	<Notsara>
 		<dialogue>
 		You been the library? Awful, no Shakespeare
 		</dialogue>
 	</Notsara>
-	
+
 	<rat>
 		<dialogue>
 		Squeak squeak... hey
@@ -322,12 +542,12 @@
 
 				It IT! Why do you have to be so rude about this? My name is Remmy, thanks for asking.
 			</dialogue>
-			
+
 		</choice>
 		<choice> Hey buddy?
 			<dialogue>
 				Squeak Squeak...
-				
+
 				Me? Oh im just chilling, see I was dead but now I'm alive and well thanks to the doctors.
 			</dialogue>
 		</choice>
@@ -335,23 +555,23 @@
 			<dialogue>
 				Hey, I used to work in a famous French kitchen, please respect me at least a little.
 			</dialogue>
-			
+
 		</choice>
 		</dialogue>
 	</rat>
-	
+
 	<Mike>
 		<dialogue>
 		I will wipe the floor with that puta!
 		</dialogue>
 	</Mike>
-	
+
 	<Johnny>
 		<dialogue>
 		This man thinks he us McGreggor but he fights like my nan!
 		</dialogue>
 	</Johnny>
-	
+
 	<Peter>
 		<dialogue>
 		Hello Sir! Round 2, who's your money on?
@@ -359,7 +579,7 @@
 			<dialogue>
 				Hmm risky, come back later and see
 			</dialogue>
-			
+
 		</choice>
 		<choice>Johnny
 			<dialogue>
@@ -367,6 +587,36 @@
 			</dialogue>
 		</choice>
 		</dialogue>
-	</Peter>	
+	</Peter>
+
+  <Computer>
+    <dialogue>
+      You surf the web. Those cat videos give you life.
+    </dialogue>
+  </Computer>
+
+  <door>
+    <dialogue>
+      It's a prison. Of course it's locked.
+    </dialogue>
+  </door>
+
+  <Warden>
+    <dialogue>
+      "Need something?"
+    </dialogue>
+  </Warden>
+
+  <MobBoss>
+    <dialogue>
+      "..."
+    </dialogue>
+  </MobBoss>
+
+  <Gambler>
+    <dialogue>
+      "Pick up some cards, and let's play."
+    </dialogue>
+  </Gambler>
 
 </speech>

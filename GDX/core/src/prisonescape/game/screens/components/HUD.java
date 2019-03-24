@@ -45,6 +45,7 @@ public class HUD
 	private Label sliderValueLabel;
 	private GameController controller;
 	private int rowCounter = 0;
+	private int itemCounter = 0;
 	
 	private Label stateLabel;
 	
@@ -129,6 +130,7 @@ public class HUD
 		{
 			rowCounter++;
 			setItem(item);
+			checkItems(item);
 		}
 		
 		//Sets the value of the current objective HUD element
@@ -311,5 +313,22 @@ public class HUD
 	public boolean sleepIsVisible()
 	{
 		return sleepWin.isVisible();
-	}	
+	}
+	
+	private void checkItems(Item i)
+	{
+		//Checks list of items for certain story items and updates the state
+		String[] clippers = {"LeftHandle", "RightHandle", "Cutters"};
+		for(String s : clippers)
+		{
+			if(i.getName().equals(s))
+			{
+				itemCounter++;
+			}
+		}
+		if(itemCounter == 3)
+		{
+			controller.setGameState("3.2");
+		}
+	}
 }
