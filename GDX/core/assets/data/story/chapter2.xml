@@ -127,7 +127,7 @@
       </dialogue>
     </Rainbow>
 
-    <Computer>
+    <Computer-1>
       <dialogue currState="2.3">
         You log onto the computer.
         Everything seems so familiar to you, but you don't know why.
@@ -177,7 +177,59 @@
         You think to yourself, this was a hella fun game.
         Whoever made it are prodigies.
       </dialogue>
-    </Computer>
+    </Computer-1>
+
+    <Computer-2>
+      <dialogue currState="2.3">
+        You log onto the computer.
+        Everything seems so familiar to you, but you don't know why.
+
+        Let's do the job.
+        <choice>Hack
+          <puzzle>2.3.1</puzzle>
+          <objective>Hack Trippie[1/3]</objective>
+        </choice>
+      </dialogue>
+      <dialogue currState="2.3.1">
+        You've made it into Trippie's emails. You rummage around and find
+        the site he uses for these messages.
+        <choice>Hack
+          <puzzle>2.3.2</puzzle>
+          <objective>Hack Trippie[2/3]</objective>
+        </choice>
+      </dialogue>
+      <dialogue currState="2.3.2">
+        You've pwned both the email and his site account now.
+        Time to send the final message.
+        <!--Have a choice here to ruin Trippie or not?-->
+        <choice>Send Heartless Message
+          <dialogue>
+            You craft a cold and cruel message to break up with this poor girl.
+
+            You feel a little guilty, but maybe she shouldn't be with Trippie anyway.
+            Your inner monologue makes you feel a bit better about yourself.
+          </dialogue>
+          <state>2.4</state>
+          <objective>Speak to Rainbow</objective>
+        </choice>
+        <choice>Let her down gently
+          <dialogue>
+            You put some effort into trying to be as gentle as possible with this.
+
+            You suddenly realise that you're really invested in this fictional breakup
+            and that you've also wrote 5 pages. Maybe it's time to click send.
+          </dialogue>
+          <state>2.4</state>
+          <objective>Speak to Rainbow</objective>
+        </choice>
+      </dialogue>
+      <dialogue>
+        You load up a game called 'Prison Breakout', it looks oddly familiar.
+
+        You think to yourself, this was a hella fun game.
+        Whoever made it are prodigies.
+      </dialogue>
+    </Computer-2>
 
     <!--ADD MISC NPC DIALOGUE HERE-->
 
@@ -480,5 +532,11 @@
       "Don't let me catch you outside of your cell after hours again!"
     </dialogue>
   </guard>
+
+  <Wardens-Computer>
+    <dialogue>
+      It's the Warden's computer.
+    </dialogue>
+  </Wardens-Computer>
 
   </speech>

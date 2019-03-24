@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 import prisonescape.game.GameHandler;
 import prisonescape.game.model.Dialogue;
 import prisonescape.game.model.Tile;
+import prisonescape.game.model.actors.Item;
 import prisonescape.game.screens.Credits;
 import prisonescape.game.screens.Puzzle;
 
@@ -71,11 +72,14 @@ public class DialogueUI extends ScreenAdapter
 						hide();
 						beenCalled = false;
 					}
+					hide();
+					beenCalled = false;
 				}
 				if(d.hasPuzzle() && (object.equals("Teach me") || object.equals("Hack"))) //Relies on button name being "puzzle"
 				{
 					gameHandler.getGame().setScreen(new Puzzle(gameHandler.getGame(), d.getChoices().get(object)[3]));
 					updateValues(object);
+					beenCalled = false;
 				}
 				if(d.hasEnding() && gameHandler.getGameState().endsWith("z"))
 				{

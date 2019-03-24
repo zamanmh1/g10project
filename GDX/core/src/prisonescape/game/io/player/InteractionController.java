@@ -119,9 +119,16 @@ public class InteractionController extends InputAdapter {
 						}
 					} else if (i.getType() == Item.ITEM_TYPE.INTERACT)
 					{
-						if(d.hasDialogue(i.getName()) && dBox.beenCalled() == false)
+						if(actor.getFrozen() != true)
 						{
-							dBox.showDialogue(ActiveGame.getStage(), i.getName());
+							if(d.hasDialogue(i.getName()) && !dBox.beenCalled())
+							{
+								dBox.showDialogue(ActiveGame.getStage(), i.getName());
+								actor.setFrozen(true);
+							}
+						}
+						else {
+							actor.setFrozen(false);
 						}
 					} else {
 						gameHandler.getItemHandler().foundItem(i); // Set item as found.

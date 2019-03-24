@@ -589,11 +589,17 @@
 		</dialogue>
 	</Peter>
 
-  <Computer>
+  <Computer-1>
     <dialogue>
       You surf the web. Those cat videos give you life.
     </dialogue>
-  </Computer>
+  </Computer-1>
+
+  <Computer-2>
+    <dialogue>
+      You surf the web. Those cat videos give you life.
+    </dialogue>
+  </Computer-2>
 
   <door>
     <dialogue>
@@ -662,5 +668,11 @@
       "Don't let me catch you outside of your cell after hours again!"
     </dialogue>
   </guard>
+
+  <Wardens-Computer>
+    <dialogue>
+      It's the Warden's computer.
+    </dialogue>
+  </Wardens-Computer>
 
 </speech>
