@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="left-up" width="17" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.0" orientation="orthogonal" renderorder="left-up" width="17" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
  <tileset firstgid="1" source="FullSpriteSheet.tsx"/>
  <layer id="1" name="Tile Layer 1" width="17" height="22">
   <data encoding="csv">
@@ -58,7 +58,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,2684354861,0,0,0,0,0,0,3221225773,0,
 0,0,0,0,0,0,0,0,0,1610613261,2684355056,494,2684355056,1610613229,0,0,0,
-0,0,0,0,0,0,0,0,0,0,1610613069,0,1610613069,1610613069,0,0,0,
+0,0,0,0,0,0,0,0,0,1610613069,322,333,322,1610613069,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,1610613453,1610613453,0,0,0,0,0,0,0,0,0,2147484176,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,3221225965,2147484176,0,

@@ -2,5 +2,6 @@ Item Name,Item Sprite Path,Map Contained In,Item Type,X-Coord,Y-Coord
 Book,data/itemSprites/newbook.png,data/maps/cell.tmx,KEY,5,4
 SpawnSleep,data/itemSprites/sleep.png,data/maps/cell.tmx,SLEEP,1,1
 SpawnSleep2,data/itemSprites/sleep.png,data/maps/cell.tmx,SLEEP,2,1
-Computer,data/itemSprites/Computer.png,data/maps/testNPC.tmx,INTERACT,5,4
-Wardens-Computer,data/itemSprites/Computer.png,data/maps/testNPC.tmx,INTERACT,6,4
+Computer-1,data/itemSprites/Computer.png,data/maps/library.tmx,INTERACT,10,19
+Computer-2,data/itemSprites/Computer.png,data/maps/library.tmx,INTERACT,12,19
+Wardens-Computer,data/itemSprites/Warden-PC.png,data/maps/mainoffice.tmx,INTERACT,3,4
