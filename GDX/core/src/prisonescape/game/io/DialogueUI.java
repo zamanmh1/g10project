@@ -13,6 +13,8 @@ import prisonescape.game.GameHandler;
 import prisonescape.game.model.Dialogue;
 import prisonescape.game.model.Tile;
 import prisonescape.game.model.actors.Item;
+import prisonescape.game.model.actors.Item.ITEM_TYPE;
+import prisonescape.game.model.actors.MapActor;
 import prisonescape.game.screens.Credits;
 import prisonescape.game.screens.Puzzle;
 
@@ -72,8 +74,18 @@ public class DialogueUI extends ScreenAdapter
 						hide();
 						beenCalled = false;
 					}
-					hide();
-					beenCalled = false;
+					if(target.getActor() != null) {
+						MapActor a = target.getActor();
+						if (a instanceof Item) {
+							Item i = (Item) a;
+							if (i.getType() == ITEM_TYPE.INTERACT) {
+								hide();
+								beenCalled = false;
+							}
+						}
+					}
+					//hide();
+					//beenCalled = false;
 				}
 				if(d.hasPuzzle() && (object.equals("Teach me") || object.equals("Hack"))) //Relies on button name being "puzzle"
 				{
