@@ -292,13 +292,6 @@ public class ActiveGame implements Screen {
 
 		}
 
-		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			Credits credits = new Credits(game);
-			credits.ending2();
-					
-			((Game) Gdx.app.getApplicationListener()).setScreen(credits);
-		}
-
 		if (inventoryKeyCheck() == true) {
 		}
 
@@ -428,5 +421,7 @@ public class ActiveGame implements Screen {
 	public String getMapName() {
 		return mapName;
 	}
+
+	
 
 }

@@ -9,6 +9,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 //import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.ObjectMap;
+
+import prisonescape.game.model.actors.Item;
+import prisonescape.game.screens.ActiveGame;
 import prisonescape.game.screens.Loading;
 import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.Time;
@@ -21,9 +24,10 @@ import prisonescape.game.util.Time;
  */
 public class GameManager {
 	private GameController controller;
-	
+
 	/**
 	 * Represent objects in the game, values are typically obtained from
+	 * 
 	 * @see #controller
 	 */
 	private ObjectMap<String, Object> values = new ObjectMap<String, Object>();
@@ -32,16 +36,18 @@ public class GameManager {
 	 * Holds the game state properties once saved
 	 */
 	private FileHandle fileHandle;
-	
+
 	/**
 	 * Holds a list of items player keeps before game save
+	 * 
 	 * @see #controller
 	 */
 	private ArrayList<String> items;
 
 	/*
-	 * Creates a <code>GameManager</code> object, initialises a controller
-	 * a list of items and a file based on system time
+	 * Creates a <code>GameManager</code> object, initialises a controller a list of
+	 * items and a file based on system time
+	 * 
 	 * @param GameController
 	 */
 	public GameManager(GameController controller) {
@@ -51,8 +57,8 @@ public class GameManager {
 	}
 
 	/**
-	 * Takes items/data to store from {@link #controller} and inserts into
-	 * map
+	 * Takes items/data to store from {@link #controller} and inserts into map
+	 * 
 	 * @param game - instance of PrisionBreakout
 	 */
 	public void saveData(PrisonBreakout game) {
@@ -111,6 +117,7 @@ public class GameManager {
 
 	/**
 	 * Loads in data from a game save
+	 * 
 	 * @param file - file to be loaded from a list of saves
 	 */
 	public void loadData(FileHandle file) {
@@ -136,15 +143,6 @@ public class GameManager {
 		controller.setMap(map, x, y);
 		controller.setGameState(state);
 		controller.setCurrentObjective(currentObjective);
-		String[] foundItems = data[15].split("\\+");
-
-		if (!foundItems[0].isEmpty()) {
-			for (String i : foundItems) {
-
-				controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
-
-			}
-		}
 
 		Calendar cal = controller.getTime().getCalendar();
 		Time.setTime(cal, hour, minute);
@@ -165,12 +163,27 @@ public class GameManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String[] foundItems = data[15].split("\\+");
+
+		if (!foundItems[0].isEmpty()) {
+			for (String i : foundItems) {
+
+				if (controller.getItemHandler().itemExists(i)) {
+
+				
+					controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
+
+				}
+
+			}
+		}
 
 	}
 
 	/**
 	 * Assigns game objects for easy storage and retrieval
-	 * @param key - reference to the game component
+	 * 
+	 * @param key    - reference to the game component
 	 * @param object - object corresponding to game component
 	 */
 	public void setProperty(String key, Object object) {
@@ -179,6 +192,7 @@ public class GameManager {
 
 	/**
 	 * Lists a sequence of items
+	 * 
 	 * @param list - list of items
 	 * @return result - number of items within a list
 	 */
@@ -192,8 +206,9 @@ public class GameManager {
 
 	/**
 	 * Retrieves elements from an object map
-	 * @param <T> - class type identifier of stored object
-	 * @param key - identifier of object
+	 * 
+	 * @param      <T> - class type identifier of stored object
+	 * @param key  - identifier of object
 	 * @param type - type of object
 	 * @return composite property of an object
 	 */
@@ -206,9 +221,10 @@ public class GameManager {
 		property = (T) values.get(key);
 		return property;
 	}
-	
+
 	/**
 	 * Returns a <code>FileHandle</code>
+	 * 
 	 * @return fileHandle
 	 */
 	public FileHandle getFileHandle() {
