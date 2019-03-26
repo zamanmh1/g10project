@@ -147,7 +147,8 @@ public class GameManager {
 				
 				if(!controller.getItemHandler().getFoundItems().contains(i))
 				{
-					Item item = new Item(new Sprite(new Texture(Gdx.files.internal(newItem[1]))), newItem[0], newItem[2], newItem[3], Integer.parseInt(newItem[4]), Integer.parseInt(newItem[5]));
+					Item item = new Item(new Sprite(new Texture(Gdx.files.internal(i+".png"))), i, "data/maps/cell.tmx", "KEY", 1, 1);
+					controller.getItemHandler().foundItem(item);
 				}
 				controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
 
