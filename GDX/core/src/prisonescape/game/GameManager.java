@@ -7,8 +7,12 @@ import java.util.Calendar;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 //import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.ObjectMap;
+
+import prisonescape.game.model.actors.Item;
 import prisonescape.game.screens.Loading;
 import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.Time;
@@ -140,7 +144,11 @@ public class GameManager {
 
 		if (!foundItems[0].isEmpty()) {
 			for (String i : foundItems) {
-
+				
+				if(!controller.getItemHandler().getFoundItems().contains(i))
+				{
+					Item item = new Item(new Sprite(new Texture(Gdx.files.internal(newItem[1]))), newItem[0], newItem[2], newItem[3], Integer.parseInt(newItem[4]), Integer.parseInt(newItem[5]));
+				}
 				controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
 
 			}
