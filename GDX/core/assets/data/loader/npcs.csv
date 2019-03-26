@@ -5,12 +5,12 @@ Rainbow,rainbow_,data/maps/cellblockG.tmx,31,15,2,7,4,3,1,4,3
 Barry,npc01_,data/maps/cellblockG.tmx,20,7,5,1,5,2,0,1,3
 LaughingMan,npc03_,data/maps/cellblockG.tmx,30,15,1,5,3,5,1,3,3
 Chatty,npc04_,data/maps/cellblockG.tmx,29,15,1,5,3,5,1,3,3
-mobMember,npc04_,data/maps/cellblockG.tmx,21,7,0,0,0,0,100,100,3
+MobMember,mobmember_,data/maps/cellblockG.tmx,21,7,0,0,0,0,100,100,3
 MobBoss,mobboss_,data/maps/maxsec.tmx,28,18,0,0,0,1,100,100,3
 OldMan,npc07_,data/maps/maxsec.tmx,2,12,1,0,2,0,1,3,3
 Nitsara,npc01_,data/maps/maxsec.tmx,9,5,2,3,0,3,2,4,3
 rat,rat_,data/maps/basement.tmx,5,4,0,0,0,0,100,100,3
-DinnerLady,dinnerlady_,data/maps/foodhall.tmx,9,4,0,0,0,1,100,100,3
+DinnerLady,dinnerlady_,data/maps/foodhall.tmx,9,5,0,0,0,1,100,100,3
 Gambler,gambler_,data/maps/janitor.tmx,4,3,0,0,0,0,100,100,3
 Warden,warden_,data/maps/mainoffice.tmx,2,2,0,0,1,0,100,100,3
 Guard,guard01_,data/maps/mainoffice.tmx,2,9,4,3,2,1,3,4,3

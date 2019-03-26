@@ -7,26 +7,54 @@ import java.util.Calendar;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Base64Coder;
+//import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.ObjectMap;
-import prisonescape.game.screens.ActiveGame;
 import prisonescape.game.screens.Loading;
 import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.Time;
 
+/**
+ * 
+ * @author Hamza Zaman, Shibu George
+ * @version 1.0
+ *
+ */
 public class GameManager {
 	private GameController controller;
+	
+	/**
+	 * Represent objects in the game, values are typically obtained from
+	 * @see #controller
+	 */
 	private ObjectMap<String, Object> values = new ObjectMap<String, Object>();
 
+	/**
+	 * Holds the game state properties once saved
+	 */
 	private FileHandle fileHandle;
+	
+	/**
+	 * Holds a list of items player keeps before game save
+	 * @see #controller
+	 */
 	private ArrayList<String> items;
 
+	/*
+	 * Creates a <code>GameManager</code> object, initialises a controller
+	 * a list of items and a file based on system time
+	 * @param GameController
+	 */
 	public GameManager(GameController controller) {
 		this.controller = controller;
 		items = new ArrayList<String>();
 		fileHandle = Gdx.files.local("data/bin/" + System.currentTimeMillis());
 	}
 
+	/**
+	 * Takes items/data to store from {@link #controller} and inserts into
+	 * map
+	 * @param game - instance of PrisionBreakout
+	 */
 	public void saveData(PrisonBreakout game) {
 		setProperty("map", controller.getMapScreen().getMapName());
 		setProperty("state", controller.getGameState());
@@ -76,19 +104,21 @@ public class GameManager {
 			try {
 				Runtime.getRuntime().exec("attrib +H data/bin");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
+	/**
+	 * Loads in data from a game save
+	 * @param file - file to be loaded from a list of saves
+	 */
 	public void loadData(FileHandle file) {
 		// To decode the saved file
 		// Base64Coder.decode(file.readString());
 		try {
 			Runtime.getRuntime().exec("attrib -H data/bin");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -138,10 +168,20 @@ public class GameManager {
 
 	}
 
+	/**
+	 * Assigns game objects for easy storage and retrieval
+	 * @param key - reference to the game component
+	 * @param object - object corresponding to game component
+	 */
 	public void setProperty(String key, Object object) {
 		values.put(key, object);
 	}
 
+	/**
+	 * Lists a sequence of items
+	 * @param list - list of items
+	 * @return result - number of items within a list
+	 */
 	public static String listToString(ArrayList<String> list) {
 		String result = "";
 		for (int i = 0; i < list.size(); i++) {
@@ -150,6 +190,13 @@ public class GameManager {
 		return result;
 	}
 
+	/**
+	 * Retrieves elements from an object map
+	 * @param <T> - class type identifier of stored object
+	 * @param key - identifier of object
+	 * @param type - type of object
+	 * @return composite property of an object
+	 */
 	@SuppressWarnings("unchecked")
 	public <T extends Object> T getProperty(String key, Class<T> type) {
 		T property = null;
@@ -159,7 +206,11 @@ public class GameManager {
 		property = (T) values.get(key);
 		return property;
 	}
-
+	
+	/**
+	 * Returns a <code>FileHandle</code>
+	 * @return fileHandle
+	 */
 	public FileHandle getFileHandle() {
 		return this.fileHandle;
 	}
