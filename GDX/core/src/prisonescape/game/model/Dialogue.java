@@ -101,10 +101,13 @@ public class Dialogue
 							choiceText = currChoice.getChildByName("dialogue").getText();
 						}
 						if(currChoice.hasChild("item"))
-						{							
+						{	
 							String[] newItem = currChoice.getChildByName("item").getText().split(",");
-							spawnItem(newItem);
-							if(newItem[1].equals("remove"))
+							if(!newItem[1].equals("remove"))
+							{
+								spawnItem(newItem);
+							}
+							else
 							{
 								removeItem(newItem[0]);
 							}
@@ -238,6 +241,7 @@ public class Dialogue
 	{
 		if(!controller.getItemHandler().itemExists(newItem[0]))
 		{
+			System.out.println("Spawning: " + newItem[0] + " at " + newItem[2]);
 			Item i = new Item(new Sprite(new Texture(Gdx.files.internal(newItem[1]))), newItem[0], newItem[2], newItem[3], Integer.parseInt(newItem[4]), Integer.parseInt(newItem[5]));
 			controller.getItemHandler().addItem(i.getName(), i);
 			//controller.getMapScreen().addItemToMap(i);
