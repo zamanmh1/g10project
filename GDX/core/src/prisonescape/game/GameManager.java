@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import prisonescape.game.model.actors.Item;
+import prisonescape.game.screens.ActiveGame;
 import prisonescape.game.screens.Loading;
 import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.Time;
@@ -92,6 +93,8 @@ public class GameManager {
 			 * Base64Coder.encodeString(values.get("time-hour").toString()); String
 			 * encodedTimeMin = Base64Coder.encodeString(values.get("time-min").toString());
 			 * 
+			 * String encodedItems = Base64Coder.encodeString(listToString(items));
+			 * 
 			 * replace below lines with encoded strings
 			 */
 
@@ -159,14 +162,13 @@ public class GameManager {
 						
 					
 				}else {
+//					controller.getMapScreen();
+//					ActiveGame.h.setItem(controller.getItemHandler().getAllItems().get(i));
 				controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
 				}
 			}
 		}
-		for (Item s : controller.getItemHandler().getFoundItems()) {
-			System.out.println(s.getName());
-		}
-
+		
 		Calendar cal = controller.getTime().getCalendar();
 		Time.setTime(cal, hour, minute);
 		Boolean muted = MainMenu.getInstance(controller.getGame()).checkSoundMuted();

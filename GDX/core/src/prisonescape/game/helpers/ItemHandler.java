@@ -70,18 +70,6 @@ public class ItemHandler {
 		}
 	}
 	
-	/**
-	 * Finds item and processes this action.
-	 * 
-	 * @param i The found item.
-	 */
-	public void foundItemLoadGame(Item i) {
-		if (!foundItems.contains(i)) {
-			// Add item to found list.
-			foundItems.add(i);
-			
-		}
-	}
 	
 	/**
 	 * Retrieves a list of all found items.
