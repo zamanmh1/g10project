@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import prisonescape.game.screens.components.PuzzleTile;
 
-public class TestPuzzleTile extends GameTest{
+public class TestPuzzleTile{
 
 	private PuzzleTile puzzleTile1;
 
