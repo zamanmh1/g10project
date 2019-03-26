@@ -95,14 +95,13 @@ public class HUD
 		questTracker();
 		sleepUI();
 
+		shownItems = new HashMap<String,Image>();
 		
 		this.controller = controller;
 	}
 	
 	private void inventory()
-	{
-		shownItems = new HashMap<String,Image>();
-		
+	{		
 		Label inv = new Label("Inventory", skin);
 		invTable = new Table();
 		invTable.left().top();
@@ -110,6 +109,7 @@ public class HUD
 		invTable.setFillParent(true);
 		invTable.padTop(100);
 		invTable.padLeft(15);
+		invTable.setName("Inventory");
 		
 		invTable.add(inv);
 		invTable.row();
@@ -139,7 +139,7 @@ public class HUD
 			setItem(item);
 			checkItems(item);
 		}
-		
+
 		//Sets the value of the current objective HUD element
 		currObjective.setText(controller.getCurrentObjective());
 		
@@ -154,8 +154,6 @@ public class HUD
 			sliderValue = ((int) sleepSlide.getValue() + ":00");
 		}
 		sliderValueLabel.setText(sliderValue);
-
-		currObjective.setText(controller.getCurrentObjective());
 
 	}
 	
@@ -176,6 +174,7 @@ public class HUD
 		Image img = new Image(item.getSprite());
 		invTable.add(img);
 		shownItems.put(item.getName(), img);
+		System.out.print(item.getName() + " " + img);
 		if(rowCounter == 2) //When 2 items are on the same row in the inventory, next item starts a new row
 		{
 			invTable.row();
@@ -359,7 +358,9 @@ public class HUD
 			removeItem("RightHandle");
 			removeItem("Cutters");
 			setItem(cutters);
+			controller.getItemHandler().foundItem(cutters); //Adds the cutters to the list of found items.
 			controller.setCurrentObjective("Return to the boss");
 		}
 	}
+	
 }

@@ -717,4 +717,10 @@ they'll be waiting for you.
 </dialogue>
 </MobBoss-Outside>
 
+<door>
+  <dialogue>
+    It's a prison. Of course it's locked.
+  </dialogue>
+</door>
+
 </speech>

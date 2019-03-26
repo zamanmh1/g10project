@@ -19,10 +19,12 @@ import prisonescape.game.model.actors.Item;
  * <p>
  * The only required node to enable dialogue is <code>dialogue</code> within the entity node.
  * Additional functionality can be provided with the use of <code>state</code>, <code>objective</code>, and <code>choice</code> nodes.
+ * <p>
+ * You may also use <code>puzzle, item, warp</code> to create a puzzle screen, spawn/remove items and warp to a new map.
  * 
  * @author Sean Corcoran
  * 
- * @version 0.5
+ * @version 0.7
  * @since 0.1
  * 
  */
@@ -141,6 +143,11 @@ public class Dialogue
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param name String name of a potential entity with dialogue
+	 * @return <code>boolean</code> Whether the given name has a node defined in the XML document.
+	 */
 	public boolean hasDialogue(String name)
 	{
 		if(root.hasChild(name))
@@ -159,22 +166,38 @@ public class Dialogue
 		return choiceMap;
 	}
 	
+	/**
+	 * 
+	 * @return Whether or not the current dialogue node contains a choice tag
+	 */
 	public boolean hasChoices()
 	{
 		return hasChoice; 
 	}
 	
+	/**
+	 * 
+	 * @param objective String to set the current objective
+	 */
 	public void setObjective(String objective)
 	{
 		controller.setCurrentObjective(objective);
 	}
 	
+	/**
+	 * 
+	 * @param state String to set the current game state
+	 */
 	public void setState(String state)
 	{
 
 		controller.setGameState(state);
 	}
 	
+	/**
+	 * Checks the current element for an objective tag, if it exists it sets the objective
+	 * @param e Current <code>Element</code> 
+	 */
 	public void checkObjectiveSet(Element e)
 	{
 		if(e.hasChild("objective"))
@@ -183,6 +206,10 @@ public class Dialogue
 		}
 	}
 	
+	/**
+	 * Checks the current element for a state tag, if it exists it sets the game state
+	 * @param e Current <code>Element</code>
+	 */
 	public void checkStateSet(Element e)
 	{
 		if(e.hasChild("state"))
@@ -227,11 +254,19 @@ public class Dialogue
 		return "";
 	}
 	
+	/**
+	 * 
+	 * @return Whether a puzzle tag exists in the current node
+	 */
 	public boolean hasPuzzle()
 	{
 		return hasPuzzle;
 	}
 	
+	/**
+	 * 
+	 * @return Whether an ending tag exists in the current node
+	 */
 	public boolean hasEnding()
 	{
 		return hasEnding;
