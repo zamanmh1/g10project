@@ -10,7 +10,9 @@
       "Did you manage to learn how to pick a lock from him?"
       <choice>yes
         <dialogue>
-          "Good! Now we can carry on with this escape. Let me think for a minute and talk to me again"
+          "Good! Now we can carry on with this escape.
+
+      Let me think for a minute and talk to me again"
         </dialogue>
         <state>3.1</state>
       </choice>
@@ -21,27 +23,32 @@
       </choice>
     </dialogue>
     <dialogue currState="3.1">
-      "We need some bolt cutters. Last ones we had broke into a bunch of pieces, but before we got
-      caught, we hid them around. Now's the time to get them again.
+      "We need some wire cutters. Last ones we had broke into a bunch of pieces,
+   but before we gotcaught, we hid them around.
+   Now's the time to get them again.
 
-      I know where all the pieces are, but I get watched like a hawk, so you'll have to get them for me."
+  I know where all the pieces are, but I get watched like a hawk,
+  so you'll have to get them for me."
+  <objective>Find the wire cutter parts</objective>
       <choice>Left Handle
         <dialogue>
-          "One of the handles can be found in the infirmary, we stashed it near one of the bins."
+          "One of the handles can be found in the infirmary,
+      we stashed it near one of the bins."
         </dialogue>
-        <item>LeftHandle,data/itemSprites/LeftHandle.png,data/maps/infirmary.tmx,KEY,5,2</item>
+        <item>LeftHandle,data/itemSprites/wirecutter_lefthandle.png,data/maps/infirmary.tmx,KEY,9,3</item>
       </choice>
       <choice>Right Handle
         <dialogue>
           "Another handle can be found in the basement."
         </dialogue>
-        <item>RightHandle,data/itemSprites/RightHandle.png,data/maps/basement.tmx,KEY,5,2</item>
+        <item>RightHandle,data/itemSprites/wirecutter_righthandle.png,data/maps/basement.tmx,KEY,2,9</item>
       </choice>
       <choice>Cutters
         <dialogue>
-          "The cutters can be found outside somewhere. It's a big world outside of here, so you'll have to look."
+          "The cutters can be found outside somewhere.
+      It's a big world outside of here, so you'll have to look."
         </dialogue>
-        <item>Cutters,data/itemSprites/Cutters.png,data/maps/outside.tmx,KEY,5,2</item>
+        <item>Cutters,data/itemSprites/wirecutter_head.png,data/maps/outside.tmx,KEY,21,19</item>
       </choice>
 
       <choice>TESTING
@@ -52,11 +59,14 @@
       </choice>
     </dialogue>
     <dialogue currState="3.2">
-      "Great you've got all the parts. Now we need a distraction to get out of here. Trippie had some ideas,
-      I need you to go speak to him to find out what he has in mind.
+      "Great you've got all the parts. We'll use those to cut a hole in the
+  fence outside during our escape.
+  Now we need a distraction to get out of here.
+  Trippie had some ideas, I need you to go speak to him to find out
+  what he has in mind.
 
-      I've also heard the Gambler was looking for you, but we haven't got time for this now,
-      we need to get this done as soon as we can."
+  I also heard the Gambler was looking for you, but we haven't got time for this now,
+  we need to get this done as soon as we can."
       <objective>Find a distraction</objective>
     </dialogue>
     <dialogue currState="3.4b">
@@ -64,9 +74,9 @@
       <choice>What now?
         <dialogue>
           "Now we run away from here, I got a safehouse we can go to.
-          From there we can split ways. Hold up while I make a call."
+      From there we can split ways. Hold up while I make a call."
 
-          He pulls out a cell phone.
+      He pulls out a cell phone.
         </dialogue>
         <state>3.4bz</state>
         <objective>
@@ -105,10 +115,10 @@
       </choice>
       <dialogue currState="3.4ckz">
         The lifeless corpse of someone who once had a iron grip
-        over your life, and threatened your family stares back at you
-        with a betrayed look. A wave of relief washes over you.
+    over your life, and threatened your family stares back at you
+    with a betrayed look. A wave of relief washes over you.
 
-        Thanks for playing!
+    Thanks for playing!
         <choice>OK
           <ending></ending>
         </choice>
@@ -116,9 +126,9 @@
     </dialogue>
     <dialogue currState="3.4cz">
       I can tell. You want to know about your family. They're safe, I wasn't
-      ever going to harm them, but I needed insurance to make sure this plan
-      was put into action. When we get further away from here, I promise you
-      they'll be waiting for you.
+  ever going to harm them, but I needed insurance to make sure this plan
+  was put into action. When we get further away from here, I promise you
+  they'll be waiting for you.
       <choice>Thank you.
         <ending></ending>
       </choice>
@@ -141,8 +151,8 @@
   <TrippieMaroon>
     <dialogue currState="3.2">
       "Long time no see! Boss told me the plan, here's my idea. When it's night time, sneak into the Warden's
-      office and use what you know, and hack into his PC. He has full control over the entire security system,
-      open all the doors and we've got a riot on our hands. Some of the goons in here will make sure of that."
+  office and use what you know, and hack into his PC. He has full control over the entire security system,
+  open all the doors and we've got a riot on our hands. Some of the goons in here will make sure of that."
       <choice>Sounds good.
         <dialogue>
           "Great. We'll be waiting."
@@ -163,10 +173,11 @@
         <dialogue>
           "I knew he was trouble, but we could never get enough on him to book him.
 
-          Alright, I'm gonna open the doors up and we'll catch him in the act red handed.
-          Carry on with what you would be doing in this plan so it seems normal."
+      Alright, I'm gonna open the doors up and we'll catch him in the act red handed.
+      Carry on with what you would be doing in this plan so it seems normal."
         </dialogue>
         <objective>Escape and group up with the mob</objective>
+        <warp>data/maps/fightcellblockRIOT.tmx,2,11</warp>
         <state>3.4a</state>
       </choice>
       <choice>Say nothing.
@@ -181,14 +192,15 @@
     <dialogue currState="3.4.1a">
       "This one's going away for a long time. I'm writing a referral to have your sentence pardoned.
 
-      I had a note on my desk left by someone saying the mob had your family? I reported it to the police.
-      They're safe now, you'll be able to see them soon. Thanks for all you've done."
+  I had a note on my desk left by someone saying the mob had your family?
+  I reported it to the police.
+  They're safe now, you'll be able to see them soon. Thanks for all you've done."
       <choice>I get to go free?
         <dialogue>
           "Yup, you were in here for only a couple years anyway, and him over there
-          has been sitting cushy getting away with at best, tax fraud.
+      has been sitting cushy getting away with at best, tax fraud.
 
-          You've gave us something to put him away for good and that's more than enough."
+      You've gave us something to put him away for good and that's more than enough."
         </dialogue>
         <state>3.5z</state>
         <objective>
@@ -200,7 +212,7 @@
     <dialogue currState="3.5z">
       "Thanks for all you've done."
 
-      Thanks for playing!
+  Thanks for playing!
       <choice>OK
         <ending></ending>
       </choice>
@@ -215,18 +227,22 @@
     <dialogue currState="3">
       "Something about the backstory.
 
-      Anyway, you should head back to the boss, tell him what's up."
+  Anyway, you should head back to the boss, tell him what's up."
       <objective>Speak to the Mob Boss</objective>
     </dialogue>
     <dialogue currState="3.2">
-      "Good, I was looking for you. You know me, I hear all sorts of information with this hobby of mine.
+      "Good, I was looking for you.
+  You know me, I hear all sorts of information with this hobby of mine.
 
-      I thought you definitely needed to hear this so here goes..."
+  I thought you definitely needed to hear this so here goes..."
       <choice>This doesn't sound good...
         <dialogue>
-          "It ain't. The mob's got your family. They're keeping them as collateral in case you don't come through for them.
+          "It ain't.
+      The mob's got your family.
+      They're keeping them as collateral in case you don't come through for them.
 
-          I'm sorry you had to find out this way, but I'm a family man myself, I can't let this go by unheard."
+      I'm sorry you had to find out this way, but I'm a family man myself,
+      I can't let this go by unheard."
         </dialogue>
       </choice>
       <objective>Speak to the Gambler again</objective>
@@ -237,22 +253,24 @@
       <choice>Tell him.
         <dialogue>
           "OK. I know what we can do. Rainbow taught you how to hack, but as much as I don't like it
-          family comes first. Snitch. Go to the warden -- He's here during the day --  and tell him
-          exactly what you just told me.
+      family comes first. Snitch. Go to the warden -- He's here during the day --  and tell him
+      exactly what you just told me.
 
-          If you're really against it though, I have another idea. Hold on, let me grab something."
+      If you're really against it though, I have another idea. Hold on, let me grab something."
         </dialogue>
         <state>3.2.1a</state>
       </choice>
     </dialogue>
     <dialogue currState="3.2.1a">
-      "Alright, I've got this piece of paper here. Rainbow gave it to me. From what I can gather, you need to
-      get onto the Warden's PC -- He isn't here during the night so that's prime time for you -- and hack the
-      security, open up all the doors and that's an instant riot for you right there."
+      "Alright, I've got this piece of paper here. Rainbow gave it to me.
+  From what I can gather, you need to get onto the Warden's PC --
+  He isn't here during the night so that's prime time for you --
+  and hack the security, open up all the doors and that's
+  an instant riot for you right there."
       <choice>Then what?
         <dialogue>
-          "Well that's it. You can escape, no doubt the boss will be running too. That's where you can make your move
-          and take him out there and then for what he's done."
+          "Well that's it. You can escape, no doubt the boss will be running too.
+      That's where you can make your move and take him out there and then for what he's done."
         </dialogue>
         <objective>Make your choice. Hack or Snitch</objective>
         <state>3.3a</state>
@@ -277,6 +295,7 @@
           "You hack the security and open all the doors."
         </dialogue>
         <puzzle>3.4c</puzzle>
+        <warp>data/maps/fightcellblockRIOTA.tmx,2,11</warp>
         <!--Have a puzzle tag to start a puzzle from here.-->
       </choice>
     </dialogue>
@@ -287,6 +306,7 @@
           "You hack the security and open all the doors."
         </dialogue>
         <puzzle>3.4b</puzzle>
+        <warp>data/maps/fightcellblockRIOTA.tmx,2,11</warp>
         <!--Have a puzzle tag to start a puzzle from here.-->
       </choice>
     </dialogue>
@@ -524,7 +544,8 @@
 
 	<Red>
 		<dialogue>
-		These walls are funny. First you hate ’em. Then you get used to ’em. Enough time passes, you get so you depend on them. That’s institutionalized
+		These walls are funny. First you hate ’em. Then you get used to ’em.
+    Enough time passes, you get so you depend on them. That’s institutionalized
 		</dialogue>
 	</Red>
 
@@ -557,9 +578,8 @@
   <Computer-1>
     <dialogue>
       You wonder why it is that a prison has freely accessible PCs.
-
-      However, you don't want to have them take away these cat videos,
-      so you decide to not question it.
+  However, you don't want to have them take away these cat videos,
+  so you decide to not question it.
     </dialogue>
   </Computer-1>
 
@@ -567,9 +587,134 @@
     <dialogue>
       You wonder why it is that a prison has freely accessible PCs.
 
-      However, you don't want to have them take away these cat videos,
-      so you decide to not question it.
+  However, you don't want to have them take away these cat videos,
+  so you decide to not question it.
     </dialogue>
   </Computer-2>
+
+<Warden-Outside>
+  <dialogue currState="3.4a">
+    "You should say your final words to this one here. He's not gonna be around for much longer."
+  </dialogue>
+  <dialogue currState="3.4.1a">
+    "This one's going away for a long time. I'm writing a referral to have your sentence pardoned.
+
+I had a note on my desk left by someone saying the mob had your family?
+I reported it to the police.
+They're safe now, you'll be able to see them soon. Thanks for all you've done."
+    <choice>I get to go free?
+      <dialogue>
+        "Yup, you were in here for only a couple years anyway, and him over there
+    has been sitting cushy getting away with at best, tax fraud.
+
+    You've gave us something to put him away for good and that's more than enough."
+      </dialogue>
+      <state>3.5z</state>
+      <objective>
+        Speak to the Warden
+      to end the game
+      </objective>
+    </choice>
+  </dialogue>
+  <dialogue currState="3.5z">
+    "Thanks for all you've done."
+
+Thanks for playing!
+    <choice>OK
+      <ending></ending>
+    </choice>
+  </dialogue>
+  <!--Ending Tag-->
+  <dialogue>
+    "What do you need?"
+  </dialogue>
+</Warden-Outside>
+
+<!--MobBoss-Outside and the A variant are for the two different versions of road.tmx. One which will have both the
+warden and the boss in it together, the other is just the mob boss.-->
+<MobBoss-OutsideA>
+<dialogue currState="3.4b">
+  "You did it! We're out!" <!--Update this with better dialogue-->
+  <choice>What now?
+    <dialogue>
+      "Now we run away from here, I got a safehouse we can go to.
+  From there we can split ways. Hold up while I make a call."
+
+  He pulls out a cell phone.
+    </dialogue>
+    <state>3.4bz</state>
+    <objective>
+    Speak to the boss to
+    end the game
+  </objective>
+    <!--Ending Tag, calls the ending-->
+  </choice>
+</dialogue>
+<dialogue currState="3.4bz">
+  "The safehouse is being prepared for us. Let's go"
+  <choice>OK
+    <ending></ending>
+  </choice>
+</dialogue>
+<dialogue currState="3.4c">
+  "You did it! We're out!"
+  <choice>Kill him.
+    <dialogue>
+      Dying noises
+    </dialogue>
+    <state>3.4ckz</state> <!--3.4c(kill)(z=end)-->
+    <objective>Inspect the body</objective>
+    <!--Ending Tag-->
+  </choice>
+  <choice>Do Nothing.
+    <dialogue>
+      "Let's get out of here, quickly, they'll be on us soon."
+    </dialogue>
+    <state>3.4cz</state>
+    <objective>
+    Speak to the Boss
+  to end the game
+    </objective>
+    <!--Ending Tag-->
+  </choice>
+</dialogue>
+  <dialogue currState="3.4ckz">
+    The lifeless corpse of someone who once had a iron grip
+over your life, and threatened your family stares back at you
+with a betrayed look. A wave of relief washes over you.
+
+Thanks for playing!
+    <choice>OK
+      <ending></ending>
+    </choice>
+  </dialogue>
+<dialogue currState="3.4cz">
+  I can tell. You want to know about your family. They're safe, I wasn't
+ever going to harm them, but I needed insurance to make sure this plan
+was put into action. When we get further away from here, I promise you
+they'll be waiting for you.
+  <choice>Thank you.
+    <ending></ending>
+  </choice>
+</dialogue>
+<dialogue>
+  He has a relieved look across his face.
+</dialogue>
+</MobBoss-OutsideA>
+<MobBoss-Outside>
+<dialogue currState="3.4a">
+  "OI! What's going on here? What did you do? This was a flawless plan."
+  <choice>You fucked me over first.
+    <dialogue>
+      "What? What do you mean?"
+    </dialogue>
+    <objective>Speak to the Warden</objective>
+    <state>3.4.1a</state>
+  </choice>
+</dialogue>
+<dialogue>
+  He stares at you as if to say 'What?'
+</dialogue>
+</MobBoss-Outside>
 
 </speech>

@@ -1,12 +1,15 @@
 package prisonescape.game.screens.components;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Array;
 
 import prisonescape.game.GameController;
 import prisonescape.game.GameSettings;
@@ -48,6 +51,8 @@ public class HUD
 	private int itemCounter = 0;
 	
 	private Label stateLabel;
+	
+	private HashMap<String, Image> shownItems;
 	
 	/**
 	 * Constructor for the <code>HUD</code> class.
@@ -96,6 +101,8 @@ public class HUD
 	
 	private void inventory()
 	{
+		shownItems = new HashMap<String,Image>();
+		
 		Label inv = new Label("Inventory", skin);
 		invTable = new Table();
 		invTable.left().top();
@@ -168,12 +175,30 @@ public class HUD
 	{
 		Image img = new Image(item.getSprite());
 		invTable.add(img);
+		shownItems.put(item.getName(), img);
 		if(rowCounter == 2) //When 2 items are on the same row in the inventory, next item starts a new row
 		{
 			invTable.row();
 			rowCounter = 0;
 		}
 		item.setFound(true);
+	}
+	
+	public void removeItem(String itemName)
+	{
+		invTable.removeActor(shownItems.get(itemName));
+		shownItems.remove(itemName);
+		if(rowCounter != 0)
+		{
+			rowCounter--;
+		}
+		else
+		{
+			//If the rowCounter is 0 then a new row is made, this removes the last row which is unused
+			Array<Cell> cells = invTable.getCells();
+			cells.ordered = false;
+			cells.removeIndex(cells.size-1);
+		}
 	}
 	
 	/**
@@ -329,6 +354,12 @@ public class HUD
 		if(itemCounter == 3)
 		{
 			controller.setGameState("3.2");
+			Item cutters = new Item(new Sprite(new Texture(Gdx.files.internal("data/itemSprites/wirecutters.png"))),"BoltCutters","data/maps/basement.tmx","KEY",5,2);
+			removeItem("LeftHandle");
+			removeItem("RightHandle");
+			removeItem("Cutters");
+			setItem(cutters);
+			controller.setCurrentObjective("Return to the boss");
 		}
 	}
 }
