@@ -26,6 +26,6 @@ public class TestTiledModel {
 	@Test
 	public void testModel_NotNull() {
 		//assertNotNull(model);
-		Gdx.files.internal("data/maps/cell.tmx");
+		Gdx.files.internal("dgdfgdfg");
 	}
 }
