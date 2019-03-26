@@ -2,11 +2,15 @@ package prisonescape.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import prisonescape.game.GameController;
@@ -29,45 +33,17 @@ public class TestGameManager {
 
 	@After
 	public void tearDown() throws Exception {
-		// release resources after tests
 		//gm = null;
 	}
 
 	@Test
-	public void testGameManager() {
-		assertNotNull(gm);
-	}
-
-	@Test
-	public void testSaveData() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testLoadData() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetProperty() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testListToString() {
-		fail("Not yet implemented");
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("Book"); list.add("Key"); list.add("Jigsaw");
+		assertEquals(list.toString(),GameManager.listToString(list));
+		
 	}
 
-	@Test
-	public void testGetProperty() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetFileHandle() {
-		assertEquals("file", gm.getFileHandle());
-	}
-	
 	private class TestGC implements GameController{
 
 		@Override
