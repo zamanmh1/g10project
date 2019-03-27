@@ -23,7 +23,7 @@ import prisonescape.game.screens.Puzzle;
  * 
  * @author Sean Corcoran
  * 
- * @version 0.3
+ * @version 0.5
  * @since 0.1
  * 
  */
@@ -41,6 +41,11 @@ public class DialogueUI extends ScreenAdapter
 		d = new Dialogue(gameHandler);
 	}
 	
+	/**
+	 * Displays the dialogue box to show the interacted with entity's text
+	 * @param s a Scene2D <code>Stage</code> used to add the dialogue box to
+	 * @param name The String name of the interacted with entity used to title the dialogue box and get the dialogue
+	 */
 	public void showDialogue(final Stage s, final String name)
 	{
 		beenCalled = true;
@@ -95,7 +100,7 @@ public class DialogueUI extends ScreenAdapter
 				}
 				if(d.hasEnding() && gameHandler.getGameState().endsWith("z"))
 				{
-					setEnding();
+					setEnding(d.getChoices().get(object)[5]);
 				}
 
 			}
@@ -108,6 +113,12 @@ public class DialogueUI extends ScreenAdapter
 		s.addActor(dialog);
 	}
 	
+	/**
+	 * If the initial dialogue contains a choice, then a follow up dialogue is made and displayed here according to the choice made
+	 * @param s A Scene2D <code>Stage</code> to add the dialogue box to
+	 * @param name The String name of the interacted with entity
+	 * @param cText A String Array of data from the choice
+	 */
 	private void showAlternateDialog(Stage s, String name, final String[] cText)
 	{
 		beenCalled = true;
@@ -126,7 +137,7 @@ public class DialogueUI extends ScreenAdapter
 					if(d.hasEnding() && gameHandler.getGameState().endsWith("z"))
 					{
 						//gameHandler.getGame().setScreen(new Credits(gameHandler.getGame()));
-						setEnding();
+						setEnding(cText[5]); //Ending text
 					}
 				}
 
@@ -139,6 +150,10 @@ public class DialogueUI extends ScreenAdapter
 		s.addActor(altDialog);
 	}
 	
+	/**
+	 * Updates any values made after a choice such as the objective, state and map changes after warping
+	 * @param o The given object key for a hashmap of data value for that choicex
+	 */
 	private void updateValues(Object o)
 	{
 		String[] cData = d.getChoices().get(o);
@@ -158,23 +173,51 @@ public class DialogueUI extends ScreenAdapter
 		}
 	}
 	
+	/**
+	 * 
+	 * @return Whether a dialogue box has been called and is currently displayed
+	 */
 	public boolean beenCalled()
 	{
 		return beenCalled;
 	}
 	
+	/**
+	 * 
+	 * @return Whether a dialogue box is currently visible
+	 */
 	public boolean isVisible()
 	{
 		return isVisible();
 	}
 	
+	/**
+	 * If a dialog box is present on screen, remove all dialog boxes from the stage
+	 * @param s A Scene2D <code>Stage</code>
+	 */
 	public void hideAll(Stage s)
 	{
 		s.getRoot().findActor("dialog").remove();
 	}
 	
-	private void setEnding()
+	/**
+	 * Creates a new Credits screen when a choice is made leading to the ending of the game
+	 */
+	private void setEnding(String endingNumber)
 	{
-		gameHandler.getGame().setScreen(new Credits(gameHandler.getGame()));
+		Credits credits = new Credits(gameHandler.getGame());
+		gameHandler.getGame().setScreen(credits);
+		switch(endingNumber.charAt(0))
+		{
+		case '1':
+			credits.ending1();
+			break;
+		case '2':
+			credits.ending2();
+			break;
+		case '3':
+			credits.ending3();
+			break;
+		}
 	}
 }

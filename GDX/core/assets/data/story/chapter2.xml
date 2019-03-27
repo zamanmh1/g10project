@@ -101,7 +101,7 @@
       </dialogue>
       <dialogue currState="2.3">
         "You done that thing for me yet?"
-        <choice>I don't know how to hack
+        <choice>Teach me
           <dialogue>
             "I heard you were good with these things though... Hm."
 
@@ -544,5 +544,11 @@
       It's a prison. Of course it's locked.
     </dialogue>
   </door>
+
+  <MobMember>
+    <dialogue>
+      "Need something?"
+    </dialogue>
+  </MobMember>
 
   </speech>

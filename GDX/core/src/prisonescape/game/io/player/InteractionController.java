@@ -16,7 +16,7 @@ import prisonescape.game.model.actors.MapActor;
 import prisonescape.game.screens.ActiveGame;
 
 /**
- * CLASS DESCRIPTION
+ * Handles what will happen upon pressing the Interact key [E]
  * 
  * @author Sam Ward, Sean Corcoran
  * 
@@ -36,11 +36,18 @@ public class InteractionController extends InputAdapter {
 		this.actor = actor;				
 	}
 
+	/**
+	 * Sets up the Item Handler used for when interacting with items.
+	 * <p>
+	 * Also sets the Dialogue and DialogueUI objects used in creating any dialogue when in an interaction
+	 * @param gameHandler
+	 */
 	public void setItemHandler(GameHandler gameHandler) {
 		this.gameHandler = gameHandler;
 		dBox = new DialogueUI(gameHandler);
 		d = new Dialogue(gameHandler);
 	}
+
 
 	@Override
 	public boolean keyUp(int keycode) {

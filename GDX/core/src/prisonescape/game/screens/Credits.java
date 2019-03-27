@@ -57,7 +57,7 @@ public class Credits implements Screen {
 	 * 
 	 * @param game
 	 */
-	public Credits(PrisonBreakout game) {
+	public Credits(PrisonBreakout game) {//, String endText) {
 
 		this.game = game;
 		tween = new TweenManager();
@@ -72,7 +72,7 @@ public class Credits implements Screen {
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		fontBlack = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-black.fnt"));
 		buttonActive = false;
-		
+		//endingText = endText;
 
 	}
 
@@ -115,7 +115,7 @@ public class Credits implements Screen {
 		logo.setPosition(PrisonBreakout.WIDTH / 2 - 630, PrisonBreakout.HEIGHT / 2 + 200);
 		logo.draw(game.getGameController().getSpriteBatch());
 
-		fontBlack.draw(game.getGameController().getSpriteBatch(), endingText, PrisonBreakout.WIDTH / 2 - 600,
+		fontBlack.draw(game.getGameController().getSpriteBatch(), endingText, PrisonBreakout.WIDTH / 2 - 710,
 				PrisonBreakout.HEIGHT / 2);
 
 		credit_y = credit_y + 40 * delta;
@@ -245,15 +245,44 @@ public class Credits implements Screen {
 	}
 
 	public String ending1() {
-		return endingText = "Ending1";
+		return endingText = "It took a few hours for the riots to\n"
+				+ "settle down and for them to eventually \n"
+				+ "find out that 2 prisoners had escaped, \n"
+				+ "however you had already made it to the\n"
+				+ "safehouse before that. The mob stayed true\n"
+				+ "to their word and your family is safe. \n"
+				+ "There was not much time left but before a\n"
+				+ "widespread manhunt started to take place. \n"
+				+ "Being the mob they had connections. \n"
+				+ "They offered you to ride with them across \n"
+				+ "the border and have them drop you and your \n"
+				+ "family somewhere. \n\nSomewhere you can start again.";
 	}
 
 	public String ending2() {
-		return endingText = "Ending2";
+		return endingText = "You don't know why, \n"
+				+ "but this felt so right to you. \n"
+				+ "Mixed feelings of guilt, rage \n"
+				+ "and confusion overwhelmed you. \n"
+				+ "But revenge felt so right, after all, \n"
+				+ "they threatened your family. \n"
+				+ "This is no time to gawk. You're free.\n\n" + 
+				"I just hope they're safe.";
 	}
 
 	public String ending3() {
-		return endingText = "Ending3";
+		return endingText = "The Warden managed to commute your \n"
+				+ "sentence down to just a couple more months. \n"
+				+ "It wasn't an easy ride. \n"
+				+ "Snitches get stitches after all. \n"
+				+ "Even the Gambler had to cut contact \n"
+				+ "just to save face. \n"
+				+ "Those gruelling few months are over now, \n"
+				+ "and just beyond those gates leading to \n"
+				+ "freedom your family awaits. \n"
+				+ "Witness protection was granted. \n\n"
+				+ "The mob will never put your family \n"
+				+ "in harms way again.";
 	}
 
 	public void resize(int width, int height) {

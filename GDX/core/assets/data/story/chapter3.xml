@@ -35,27 +35,20 @@
           "One of the handles can be found in the infirmary,
       we stashed it near one of the bins."
         </dialogue>
-        <item>LeftHandle,data/itemSprites/wirecutter_lefthandle.png,data/maps/infirmary.tmx,KEY,9,3</item>
+        <item>LeftHandle,data/itemSprites/LeftHandle.png,data/maps/infirmary.tmx,KEY,9,3</item>
       </choice>
       <choice>Right Handle
         <dialogue>
           "Another handle can be found in the basement."
         </dialogue>
-        <item>RightHandle,data/itemSprites/wirecutter_righthandle.png,data/maps/basement.tmx,KEY,2,9</item>
+        <item>RightHandle,data/itemSprites/RightHandle.png,data/maps/basement.tmx,KEY,2,9</item>
       </choice>
       <choice>Cutters
         <dialogue>
           "The cutters can be found outside somewhere.
       It's a big world outside of here, so you'll have to look."
         </dialogue>
-        <item>Cutters,data/itemSprites/wirecutter_head.png,data/maps/outside.tmx,KEY,21,19</item>
-      </choice>
-
-      <choice>TESTING
-        <dialogue>
-          Moving on to state 3.2
-        </dialogue>
-        <state>3.2</state>
+        <item>Cutters,data/itemSprites/Cutters.png,data/maps/outside.tmx,KEY,21,19</item>
       </choice>
     </dialogue>
     <dialogue currState="3.2">
@@ -295,6 +288,7 @@
           "You hack the security and open all the doors."
         </dialogue>
         <puzzle>3.4c</puzzle>
+        <objective>Escape with the mob</objective>
         <warp>data/maps/fightcellblockRIOTA.tmx,2,11</warp>
         <!--Have a puzzle tag to start a puzzle from here.-->
       </choice>
@@ -306,6 +300,7 @@
           "You hack the security and open all the doors."
         </dialogue>
         <puzzle>3.4b</puzzle>
+        <objective>Escape with the mob</objective>
         <warp>data/maps/fightcellblockRIOTA.tmx,2,11</warp>
         <!--Have a puzzle tag to start a puzzle from here.-->
       </choice>
@@ -621,7 +616,7 @@ They're safe now, you'll be able to see them soon. Thanks for all you've done."
 
 Thanks for playing!
     <choice>OK
-      <ending></ending>
+      <ending>3</ending>
     </choice>
   </dialogue>
   <!--Ending Tag-->
@@ -653,7 +648,7 @@ warden and the boss in it together, the other is just the mob boss.-->
 <dialogue currState="3.4bz">
   "The safehouse is being prepared for us. Let's go"
   <choice>OK
-    <ending></ending>
+    <ending>1</ending>
   </choice>
 </dialogue>
 <dialogue currState="3.4c">
@@ -685,16 +680,16 @@ with a betrayed look. A wave of relief washes over you.
 
 Thanks for playing!
     <choice>OK
-      <ending></ending>
+      <ending>2</ending>
     </choice>
   </dialogue>
 <dialogue currState="3.4cz">
   I can tell. You want to know about your family. They're safe, I wasn't
 ever going to harm them, but I needed insurance to make sure this plan
 was put into action. When we get further away from here, I promise you
-they'll be waiting for you.
+they'll be waiting for you. The mob always repay their debts.
   <choice>Thank you.
-    <ending></ending>
+    <ending>1</ending>
   </choice>
 </dialogue>
 <dialogue>
@@ -722,5 +717,11 @@ they'll be waiting for you.
     It's a prison. Of course it's locked.
   </dialogue>
 </door>
+
+<MobMember>
+  <dialogue>
+    "Need something?"
+  </dialogue>
+</MobMember>
 
 </speech>
