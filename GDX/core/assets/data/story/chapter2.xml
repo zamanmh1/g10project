@@ -38,6 +38,7 @@
     I guess I could teach you a thing or two about picking locks"
         <choice>Teach me
           <puzzle>2.6</puzzle>
+          <dialogue>Damn fine</dialogue>
           <objective>Speak to the Gambler</objective>
         </choice>
       </dialogue>
@@ -67,7 +68,8 @@
           <dialogue>
             "You really don't remember?
         Damn... they must have done a number on you,
-        It's a lot to explain. Mostly rumors, but before you do anything drastic come back and we'll talk"
+        It's a lot to explain.
+        Mostly rumors, but before you do anything drastic come back and we'll talk"
           </dialogue>
           <state>3</state> <!--end of chapter 2-->
           <objective>Speak to the Gambler again</objective>
@@ -135,6 +137,7 @@
     Let's do the job.
         <choice>Hack
           <puzzle>2.3.1</puzzle>
+          <dialogue>One down, a couple more to go</dialogue>
           <objective>Hack Trippie[1/3]</objective>
         </choice>
       </dialogue>
@@ -143,6 +146,7 @@
     the site he uses for these messages.
         <choice>Hack
           <puzzle>2.3.2</puzzle>
+          <dialogue>Time for the finale!</dialogue>
           <objective>Hack Trippie[2/3]</objective>
         </choice>
       </dialogue>
@@ -187,6 +191,7 @@
     Let's do the job.
         <choice>Hack
           <puzzle>2.3.1</puzzle>
+          <dialogue>One down, a couple more to go</dialogue>
           <objective>Hack Trippie[1/3]</objective>
         </choice>
       </dialogue>
@@ -195,6 +200,7 @@
     the site he uses for these messages.
         <choice>Hack
           <puzzle>2.3.2</puzzle>
+          <dialogue>Time for the finale!</dialogue>
           <objective>Hack Trippie[2/3]</objective>
         </choice>
       </dialogue>

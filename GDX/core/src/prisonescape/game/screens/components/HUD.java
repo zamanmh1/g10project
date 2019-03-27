@@ -380,24 +380,27 @@ public class HUD
 	public void checkItems(Item i)
 	{
 		//Checks list of items for certain story items and updates the state
-		String[] clippers = {"LeftHandle", "RightHandle", "Cutters"};
-		for(String s : clippers)
+		if(controller.getGameState().equals("3.1"))
 		{
-			if(i.getName().equals(s))
+			String[] clippers = {"LeftHandle", "RightHandle", "Cutters"};
+			for(String s : clippers)
 			{
-				itemCounter++;
+				if(i.getName().equals(s))
+				{
+					itemCounter++;
+				}
 			}
-		}
-		if(itemCounter == 3)
-		{
-			controller.setGameState("3.2");
-			Item cutters = new Item(new Sprite(new Texture(Gdx.files.internal("data/itemSprites/wirecutters.png"))),"Wirecutters","data/maps/basement.tmx","KEY",5,2);
-			removeItem("LeftHandle");
-			removeItem("RightHandle");
-			removeItem("Cutters");
-			setItem(cutters);
-			controller.getItemHandler().foundItem(cutters); //Adds the cutters to the list of found items.
-			controller.setCurrentObjective("Return to the boss");
+			if(itemCounter == 3)
+			{
+				controller.setGameState("3.2");
+				Item cutters = new Item(new Sprite(new Texture(Gdx.files.internal("data/itemSprites/wirecutters.png"))),"Wirecutters","data/maps/basement.tmx","KEY",5,2);
+				removeItem("LeftHandle");
+				removeItem("RightHandle");
+				removeItem("Cutters");
+				setItem(cutters);
+				controller.getItemHandler().foundItem(cutters); //Adds the cutters to the list of found items.
+				controller.setCurrentObjective("Return to the boss");
+			}
 		}
 	}
 }
