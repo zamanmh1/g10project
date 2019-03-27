@@ -176,8 +176,8 @@ public class Puzzle implements Screen {
 
 		this.game.getGameController().getSpriteBatch().begin();
 		puzzleBackground.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
-		puzzleBackground.setPosition(Gdx.graphics.getWidth() / 2 - puzzleBackground.getWidth() / 2,
-				Gdx.graphics.getHeight() / 2 - puzzleBackground.getHeight() / 2);
+		puzzleBackground.setPosition(PrisonBreakout.WIDTH / 2 - puzzleBackground.getWidth() / 2,
+				PrisonBreakout.HEIGHT / 2 - puzzleBackground.getHeight() / 2);
 		puzzleBackground.draw(game.getGameController().getSpriteBatch());
 
 		actualImage.setSize(351, 351);
