@@ -21,9 +21,9 @@ import prisonescape.game.screens.Puzzle;
 /**
  * DialogueUI creates the dialogue boxes used to display the text the <code>Dialogue</code> class provides.
  * 
- * @author Sean Corcoran
+ * @author Sean Corcoran, Sam Ward
  * 
- * @version 0.5
+ * @version 1.0
  * @since 0.1
  * 
  */
@@ -33,7 +33,6 @@ public class DialogueUI extends ScreenAdapter
 	private Skin skin = new Skin(Gdx.files.internal("data/story/skin/uiskin.json"));
 	private Dialogue d;
 	private boolean beenCalled = false;
-	//private boolean isVisible = false;
 	private GameHandler gameHandler;
 	
 	public DialogueUI(GameHandler gameHandler) {
@@ -53,7 +52,6 @@ public class DialogueUI extends ScreenAdapter
 		Dialog dialog = new Dialog(name, skin)
 		{
 			{
-				//isVisible = this.isVisible();
 				text(dText);
 				if(d.hasChoices())
 				{
@@ -73,7 +71,6 @@ public class DialogueUI extends ScreenAdapter
 				}
 				if(object.equals("E"))
 				{
-					//isVisible = this.isVisible();
 					Tile target = gameHandler.getMapScreen().getTiledModel().getTile(gameHandler.getPlayer().getX() + gameHandler.getPlayer().getFacing().getMoveX(), gameHandler.getPlayer().getY() + gameHandler.getPlayer().getFacing().getMoveY()); // If player facing actor to interact with.
 					if (!target.getTeleporter() == true) {
 						hide();
@@ -89,8 +86,6 @@ public class DialogueUI extends ScreenAdapter
 							}
 						}
 					}
-					//hide();
-					//beenCalled = false;
 				}
 				if(d.hasPuzzle() && (object.equals("Teach me") || object.equals("Hack"))) //Relies on button name being "puzzle"
 				{
@@ -136,7 +131,6 @@ public class DialogueUI extends ScreenAdapter
 					beenCalled = false;
 					if(d.hasEnding() && gameHandler.getGameState().endsWith("z"))
 					{
-						//gameHandler.getGame().setScreen(new Credits(gameHandler.getGame()));
 						setEnding(cText[5]); //Ending text
 					}
 				}

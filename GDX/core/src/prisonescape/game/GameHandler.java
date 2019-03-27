@@ -26,7 +26,7 @@ import prisonescape.game.util.Time;
 /**
  * This class provides a concrete handler for the execution of a PrisonBreakout game.
  * 
- * @author Sam Ward
+ * @author Sam Ward, Shibu George, Sean Corcoran
  * 
  * @version 1.0
  * @since 0.1
@@ -250,7 +250,6 @@ public class GameHandler implements GameController {
 	 */
 	@Override
 	public void playAlarmSound() {
-		//alarmSound.play(1f);
 		alarmSound.loop(1f);
 	}
 	

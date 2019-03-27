@@ -13,7 +13,7 @@ import prisonescape.game.util.Time;
 /**
  * This class provides an interface for the handling of a PrisonBreakout game.
  * 
- * @author Sam Ward
+ * @author Sam Ward, Shibu George
  * 
  * @version 1.0
  * @since 0.1

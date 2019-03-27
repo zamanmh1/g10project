@@ -718,6 +718,12 @@ they'll be waiting for you. The mob always repay their debts.
   </dialogue>
 </door>
 
+  <lockdown>
+    <dialogue>
+      You can't run, the building is on lockdown!
+    </dialogue>
+  </lockdown>
+
 <MobMember>
   <dialogue>
     "Need something?"

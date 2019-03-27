@@ -23,7 +23,7 @@ import prisonescape.game.util.Time;
  * 
  * @author Hamza Zaman, Shibu George
  * @version 1.0
- *
+ * @since 1.0
  */
 public class GameManager {
 	private GameController controller;
