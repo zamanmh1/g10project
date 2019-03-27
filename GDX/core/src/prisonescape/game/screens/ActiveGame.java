@@ -279,15 +279,7 @@ public class ActiveGame implements Screen {
 			pauseMenu.drawPauseMenu(game, tween);
 
 		}
-
-		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			Credits credits = new Credits(game);
-			credits.ending1();
-					
-			((Game) Gdx.app.getApplicationListener()).setScreen(credits);
-		}
 		
-
 		if (inventoryKeyCheck() == true) {
 		}
 

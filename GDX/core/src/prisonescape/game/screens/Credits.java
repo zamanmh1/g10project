@@ -148,9 +148,6 @@ public class Credits implements Screen {
 		exitButton(xExit);
 
 		this.game.getGameController().getSpriteBatch().end();
-		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			((Game) Gdx.app.getApplicationListener()).setScreen(game.getGameController().getMapScreen());
-		}
 	}
 
 	/**
