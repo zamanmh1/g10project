@@ -8,9 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import prisonescape.game.GameController;
@@ -23,19 +21,38 @@ import prisonescape.game.model.actors.MapActor;
 import prisonescape.game.screens.ActiveGame;
 import prisonescape.game.util.Time;
 
+/**
+ * This class tests the GameManager class
+ * @author Hamza Zaman, Shibu George
+ * 
+ * @version 1.0
+ * @since 1.0
+ */
 public class TestGameManager {
 	private GameManager gm;
 
+	/**
+	 * Sets up an instance of GameManager throughout tests
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		gm = new GameManager(new TestGC());
 	}
 
+	/**
+	 * Releases resources after tests
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
-		//gm = null;
+		gm = null;
 	}
 
+	/**
+	 * Tests if GameManager populates a string full of items
+	 * @see GameManager
+	 */
 	@Test
 	public void testListToString() {
 		ArrayList<String> list = new ArrayList<String>();

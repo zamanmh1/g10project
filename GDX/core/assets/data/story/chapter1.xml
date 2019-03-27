@@ -602,6 +602,12 @@ You can remove the first two tabs after the first line to correct the misalignme
       It's a prison. Of course it's locked.
     </dialogue>
   </door>
+  
+  <lockdown>
+    <dialogue>
+      You can't run, the building is on lockdown!
+    </dialogue>
+  </lockdown>
 
   <Warden>
     <dialogue>

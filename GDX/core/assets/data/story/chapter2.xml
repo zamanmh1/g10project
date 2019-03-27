@@ -550,6 +550,12 @@
       It's a prison. Of course it's locked.
     </dialogue>
   </door>
+  
+  <lockdown>
+    <dialogue>
+      You can't run, the building is on lockdown!
+    </dialogue>
+  </lockdown>
 
   <MobMember>
     <dialogue>

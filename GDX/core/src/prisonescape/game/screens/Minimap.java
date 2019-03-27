@@ -7,10 +7,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
-
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
@@ -22,7 +18,9 @@ import prisonescape.game.tween.SpriteAccessor;
  * Basement floor.
  * 
  * @author Shibu George
- *
+ *  
+ * @version 1.0
+ * @since 1.0
  */
 public class Minimap implements Screen {
 

@@ -24,7 +24,7 @@ import prisonescape.game.model.actors.Item;
  * 
  * @author Sean Corcoran
  * 
- * @version 0.7
+ * @version 1.0
  * @since 0.1
  * 
  */
@@ -312,12 +312,6 @@ public class Dialogue
 		{
 			Item i = new Item(new Sprite(new Texture(Gdx.files.internal(newItem[1]))), newItem[0], newItem[2], newItem[3], Integer.parseInt(newItem[4]), Integer.parseInt(newItem[5]));
 			controller.getItemHandler().addItem(i.getName(), i);
-//			if(controller.getItemHandler().foundItemExists(newItem[0]))
-//			{
-//				removeItem(newItem[0]);
-//			}
-			//controller.getMapScreen().addItemToMap(i);
-			//Adds the item sprite to the map, but doesn't seem to make it an interactable actor.
 		}
 	}
 	
@@ -328,9 +322,6 @@ public class Dialogue
 	private void removeItem(String name)
 	{
 		controller.getItemHandler().removeItem(name);
-		//Item i = controller.getItemHandler().getAllItems().get(name);
-		//controller.getMapScreen().removeItemFromMap(i);
-		//Removes the item from the map render, still has collision
 	}
 	
 	/**

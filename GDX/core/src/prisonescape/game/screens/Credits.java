@@ -21,6 +21,8 @@ import prisonescape.game.tween.SpriteAccessor;
  * 
  * @author Shibu George
  *
+ * @version 1.0
+ * @since 1.0
  */
 public class Credits implements Screen {
 
@@ -57,8 +59,7 @@ public class Credits implements Screen {
 	 * 
 	 * @param game
 	 */
-	public Credits(PrisonBreakout game) {//, String endText) {
-
+	public Credits(PrisonBreakout game) {
 		this.game = game;
 		tween = new TweenManager();
 		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/plainbackground.png")));
@@ -72,8 +73,6 @@ public class Credits implements Screen {
 		fontYellow = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font.fnt"));
 		fontBlack = new BitmapFont(Gdx.files.internal("data/fonts/vision-bold-font-black.fnt"));
 		buttonActive = false;
-		//endingText = endText;
-
 	}
 
 	/**

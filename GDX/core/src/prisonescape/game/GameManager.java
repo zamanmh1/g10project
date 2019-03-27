@@ -3,8 +3,6 @@ package prisonescape.game;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -14,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import prisonescape.game.model.actors.Item;
-import prisonescape.game.screens.ActiveGame;
 import prisonescape.game.screens.Loading;
 import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.Time;
@@ -23,7 +20,7 @@ import prisonescape.game.util.Time;
  * 
  * @author Hamza Zaman, Shibu George
  * @version 1.0
- *
+ * @since 1.0
  */
 public class GameManager {
 	private GameController controller;
@@ -47,7 +44,7 @@ public class GameManager {
 	 */
 	private ArrayList<String> items;
 
-	/*
+	/**
 	 * Creates a <code>GameManager</code> object, initialises a controller a list of
 	 * items and a file based on system time
 	 * 

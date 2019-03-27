@@ -20,7 +20,7 @@ import prisonescape.game.screens.ActiveGame;
  * 
  * @author Sam Ward, Sean Corcoran
  * 
- * @version 0.3
+ * @version 1.0
  * @since 0.2
  * 
  */
@@ -73,11 +73,8 @@ public class InteractionController extends InputAdapter {
 					{
 						dBox.showDialogue(ActiveGame.getStage(), "door");
 					}
-				} else {
-					/**
-					 * Alarm active, building on lockdown.
-					 * !!! Display message to user?
-					 */
+				} else if (!dBox.beenCalled() && gameHandler.getAlarm().alarmTriggered() == true) {
+					dBox.showDialogue(ActiveGame.getStage(), "lockdown");
 				}
 			}			
 
@@ -111,18 +108,10 @@ public class InteractionController extends InputAdapter {
 					Item i = (Item) interactingActor;
 					// Interact with Item
 					if (i.getType() == Item.ITEM_TYPE.SLEEP) {		
-						/**
-						 * !!! Need GUI to allow for user to enter the time that they want to change to.
-						 */
-						//	Calendar cal = gameHandler.getTime().getCalendar();
-						//	Time time = Time.getTime(cal);
-						//	time = time.setTime(cal, /*hour*/, /*minute*/);
-						//	gameHandler.setTime(time);
 						if(ActiveGame.h.sleepIsVisible() != true)
 						{
 							ActiveGame.h.sleepUI();
-							ActiveGame.h.showSleepUI();
-							
+							ActiveGame.h.showSleepUI();							
 						}
 					} else if (i.getType() == Item.ITEM_TYPE.INTERACT)
 					{
@@ -144,7 +133,6 @@ public class InteractionController extends InputAdapter {
 						if(d.hasDialogue(i.getName()) && dBox.beenCalled() == false) //Null pointer safety in case dialogue doesn't exist
 						{
 							dBox.showDialogue(ActiveGame.getStage(), i.getName());
-							//System.out.println(d.getDialogue(i.getName()));
 						}
 
 						return true;

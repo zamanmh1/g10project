@@ -9,7 +9,7 @@ import prisonescape.game.model.actors.Item;
 /**
  * A class to handle all of the items while the game is running.
  * 
- * @author Sam Ward
+ * @author Sam Ward, Sean Corcoran
  * 
  * @version 1.0
  * @since 0.2

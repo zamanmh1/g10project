@@ -8,17 +8,12 @@ import java.util.Date;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
 import prisonescape.game.GameManager;
 
 import aurelienribon.tweenengine.Timeline;
@@ -31,11 +26,10 @@ import prisonescape.game.tween.SpriteAccessor;
 /**
  * Represents the Main Menu Screen once the user has loaded the screen.
  * 
- * @author Sam Ward, Shibu George
+ * @author Sam Ward, Shibu George, Hamza Zaman
  * 
- * @version 0.1
+ * @version 1.0
  * @since 0.1
- * 
  */
 
 public class MainMenu implements Screen {

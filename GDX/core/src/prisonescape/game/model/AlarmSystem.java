@@ -2,7 +2,6 @@ package prisonescape.game.model;
 
 import java.util.Calendar;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.GridPoint2;
@@ -15,7 +14,6 @@ import prisonescape.game.model.actors.Actor;
 import prisonescape.game.model.actors.DIRECTION;
 import prisonescape.game.model.actors.GuardChasingBehaviour;
 import prisonescape.game.screens.ActiveGame;
-import prisonescape.game.screens.MainMenu;
 import prisonescape.game.util.ActorAnimation;
 import prisonescape.game.util.Time;
 
@@ -101,7 +99,7 @@ public class AlarmSystem {
 		controller.playAlarmSound();
 	}
 
-	/*
+	/**
 	 * The triggered alarm has finished it's execution.
 	 */
 	private void resetAlarm() {
@@ -123,8 +121,6 @@ public class AlarmSystem {
 			time = Time.setTime(cal, 7, 15);
 			controller.setTime(time);
 
-			// Move player to cell and unfreeze.
-
 			controller.setMap("data/maps/cell.tmx", 3, 1); 		    	 	   
 	    	controller.getPlayer().setFrozen(false);
 	    	controller.getPlayer().changeFacing(DIRECTION.NORTH);  
@@ -134,8 +130,6 @@ public class AlarmSystem {
 	    	controller.getMapScreen();
 			dUI.showDialogue(ActiveGame.getStage(), "guard");
 		} 
-
-
 	}
 
 	/**

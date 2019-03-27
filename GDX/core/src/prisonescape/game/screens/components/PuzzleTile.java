@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * Represents the individual puzzle tile in the PuzzleScreen
  * 
  * @author Shibu George
- *
+ * 
+ * @version 1.0
+ * @since 1.0
  */
 public class PuzzleTile {
 	private Sprite puzzleImage;
