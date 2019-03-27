@@ -112,11 +112,11 @@ public class GameManager {
 
 			fileHandle.writeString("Items," + listToString(items) + "," + "\n", true);
 
-//			try {
-//				Runtime.getRuntime().exec("attrib +H data/bin");
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				Runtime.getRuntime().exec("attrib +H data/bin");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -128,11 +128,11 @@ public class GameManager {
 	public void loadData(FileHandle file) {
 		// To decode the saved file
 		// Base64Coder.decode(file.readString());
-//		try {
-//			Runtime.getRuntime().exec("attrib -H data/bin");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			Runtime.getRuntime().exec("attrib -H data/bin");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		// file.readString();
 		String[] data = file.readString().split(",");
@@ -166,8 +166,7 @@ public class GameManager {
 						controller.getItemHandler().foundItem(item);
 						controller.getMapScreen().h.setItem(item);
 						controller.getMapScreen().h.checkItems(item);
-						
-					
+
 				}else {
 //					controller.getMapScreen();
 //					ActiveGame.h.setItem(controller.getItemHandler().getAllItems().get(i));

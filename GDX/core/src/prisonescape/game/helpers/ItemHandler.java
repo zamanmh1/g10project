@@ -67,6 +67,7 @@ public class ItemHandler {
 			foundItems.add(i);
 			// Remove item from items list.
 			items.remove(i.getName());
+			
 		}
 	}
 	

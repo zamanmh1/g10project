@@ -115,8 +115,8 @@ public class Credits implements Screen {
 		logo.setPosition(PrisonBreakout.WIDTH / 2 - 630, PrisonBreakout.HEIGHT / 2 + 200);
 		logo.draw(game.getGameController().getSpriteBatch());
 
-		fontBlack.draw(game.getGameController().getSpriteBatch(), endingText, PrisonBreakout.WIDTH / 2 - 710,
-				PrisonBreakout.HEIGHT / 2);
+		fontBlack.draw(game.getGameController().getSpriteBatch(), endingText, PrisonBreakout.WIDTH / 2 - 680,
+				PrisonBreakout.HEIGHT / 2 + 50);
 
 		credit_y = credit_y + 40 * delta;
 		theEndSprite.setScale(0.5f);
@@ -249,14 +249,14 @@ public class Credits implements Screen {
 				+ "settle down and for them to eventually \n"
 				+ "find out that 2 prisoners had escaped, \n"
 				+ "however you had already made it to the\n"
-				+ "safehouse before that. The mob stayed true\n"
-				+ "to their word and your family is safe. \n"
+				+ "safehouse before that. The mob stayed\n"
+				+ "true to their word and your family is safe. \n"
 				+ "There was not much time left but before a\n"
 				+ "widespread manhunt started to take place. \n"
 				+ "Being the mob they had connections. \n"
 				+ "They offered you to ride with them across \n"
-				+ "the border and have them drop you and your \n"
-				+ "family somewhere. \n\nSomewhere you can start again.";
+				+ "the border and have them drop you and \n"
+				+ "your family somewhere. \n\nSomewhere you can start again.";
 	}
 
 	public String ending2() {
@@ -272,8 +272,8 @@ public class Credits implements Screen {
 
 	public String ending3() {
 		return endingText = "The Warden managed to commute your \n"
-				+ "sentence down to just a couple more months. \n"
-				+ "It wasn't an easy ride. \n"
+				+ "sentence down to just a couple more \n"
+				+ "months. It wasn't an easy ride. \n"
 				+ "Snitches get stitches after all. \n"
 				+ "Even the Gambler had to cut contact \n"
 				+ "just to save face. \n"
