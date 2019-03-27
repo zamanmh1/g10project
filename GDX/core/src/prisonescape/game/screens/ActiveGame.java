@@ -301,7 +301,7 @@ public class ActiveGame implements Screen {
 
 		if (Gdx.input.isKeyJustPressed(Keys.P)) {
 			Credits credits = new Credits(game);
-			credits.ending3();
+			credits.ending1();
 					
 			((Game) Gdx.app.getApplicationListener()).setScreen(credits);
 		}
