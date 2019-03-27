@@ -376,9 +376,7 @@ public class Puzzle implements Screen {
 				}
 
 				if (Gdx.input.isTouched()) {
-					Stage stage = ActiveGame.getStage();
 					game.getGameController().setGameState(state);
-					stage.clear();
 					this.game.setScreen(game.getGameController().getMapScreen());
 				}
 
@@ -420,8 +418,6 @@ public class Puzzle implements Screen {
 				}
 
 				if (Gdx.input.justTouched()) {
-					Stage stage = ActiveGame.getStage();
-					stage.clear();
 					this.game.setScreen(game.getGameController().getMapScreen());
 
 				}
