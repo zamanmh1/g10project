@@ -44,7 +44,7 @@ public class GameManager {
 	 */
 	private ArrayList<String> items;
 
-	/*
+	/**
 	 * Creates a <code>GameManager</code> object, initialises a controller a list of
 	 * items and a file based on system time
 	 * 
