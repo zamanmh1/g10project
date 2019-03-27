@@ -20,7 +20,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * 
  * @author Sam Ward, Shibu George
  * 
- * @version 0.1
+ * @version 1.0
  * @since 0.1
  * 
  */

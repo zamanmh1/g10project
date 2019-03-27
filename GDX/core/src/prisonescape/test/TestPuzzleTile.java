@@ -11,7 +11,9 @@ import prisonescape.game.screens.components.PuzzleTile;
  * A class which test if the puzzle tiles are in the correct position
  * 
  * @author Shibu George
- *
+ * 
+ * @version 1.0
+ * @since 1.0
  */
 public class TestPuzzleTile {
 

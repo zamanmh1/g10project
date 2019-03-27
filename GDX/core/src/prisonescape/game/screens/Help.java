@@ -23,7 +23,7 @@ import prisonescape.game.tween.SpriteAccessor;
  * 
  * @author Shibu George
  * 
- * @version 0.1
+ * @version 1.0
  * @since 0.1
  * 
  */

@@ -21,6 +21,8 @@ import aurelienribon.tweenengine.TweenAccessor;
  * 
  * @author Shibu George
  *
+ * @version 1.0
+ * @since 0.2
  */
 public class BitmapAccessor implements TweenAccessor<BitmapFont> {
 

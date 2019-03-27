@@ -8,9 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import prisonescape.game.GameController;
@@ -26,7 +24,9 @@ import prisonescape.game.util.Time;
 /**
  * This class tests the GameManager class
  * @author Hamza Zaman, Shibu George
- *
+ * 
+ * @version 1.0
+ * @since 1.0
  */
 public class TestGameManager {
 	private GameManager gm;

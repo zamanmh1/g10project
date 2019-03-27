@@ -235,19 +235,16 @@ public class TestActor {
 
 		@Override
 		public void playAlarmBeep() {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void stopAlarmBeep() {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public ItemHandler getItemHandler() {
-			// TODO Auto-generated method stub
 			return null;
 		}
 	}

@@ -10,7 +10,9 @@ import aurelienribon.tweenengine.TweenAccessor;
  * fading can work with <code>Sprite</code>.
  * 
  * @author Shibu George
- *
+ * 
+ * @version 1.0
+ * @since 0.2
  */
 
 public class SpriteAccessor implements TweenAccessor<Sprite> {

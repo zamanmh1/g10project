@@ -26,8 +26,10 @@ import prisonescape.game.util.Time;
  * Represents the Pause Menu screen when the user presses the "ESC" button while
  * game play
  * 
- * @author Shibu George
- *
+ * @author Shibu George, Sam Ward, Hamza Zaman
+ * 
+ * @version 1.0
+ * @since 0.2
  */
 public class Pause {
 

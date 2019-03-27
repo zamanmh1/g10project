@@ -9,12 +9,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader.Parameters;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -37,9 +35,9 @@ import prisonescape.game.util.Time;
  * This class represents the current active game play which includes the map,
  * HUD and pause menu
  * 
- * @author Sam Ward, Shibu George, Sean Corcoran
+ * @author Sam Ward, Shibu George, Sean Corcoran, Hamza Zaman
  * 
- * @version 0.2
+ * @version 1.0
  * @since 0.1
  * 
  */
@@ -104,15 +102,9 @@ public class ActiveGame implements Screen {
 		Tween.registerAccessor(Sprite.class, new SpriteAccessor());
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
-
-		//Params testing to fix issue with higher resolutions
-		//Parameters params = new Parameters();
-		//params.textureMinFilter = TextureFilter.Linear;
-		//params.textureMagFilter = TextureFilter.Nearest;
 		
 		mapName = map;
 		tilemap = new TmxMapLoader().load(map);
-		//tilemap = new TmxMapLoader().load(map, params);
 
 		/**
 		 * If already a map being shown, try to dispose of it. However, if it is the
@@ -124,14 +116,12 @@ public class ActiveGame implements Screen {
 
 		} catch (NullPointerException e) {
 			// Initial call to method to setup first map.
-			// Maybe output a message to welcome player to game?
 		}
 
 		mapRenderer.setMap(tilemap);
 		model = new TiledModel(tilemap);
 
-		interactionHandler.setItemHandler(gameHandler); // high coupling (bad) provides way for interaction controller
-														// to handle finding items
+		interactionHandler.setItemHandler(gameHandler);
 
 		items = new ArrayList<Item>(); // Resets items in map
 		npcs = new ArrayList<ActorAction>();
@@ -185,11 +175,7 @@ public class ActiveGame implements Screen {
 	 */
 	@Override
 	public void show() {
-		// Gdx.graphics.setWindowedMode(528, 768);
-		// mapRenderer = new OrthogonalTiledMapRenderer(tilemap); //initialises the
-		// Orthogonal (top-down) renderer for the map
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
-		// oCamera.setToOrtho(false, 11,16);
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to
@@ -230,7 +216,6 @@ public class ActiveGame implements Screen {
 
 		mapRenderer.getBatch().setColor(game.getGameController().getTime().getTint());
 		mapRenderer.setView(oCamera);
-		// mapRenderer.render();
 
 		// Array containing all map layers other than the alarm layer.
 		TiledMapTileLayer[] mapLayers = new TiledMapTileLayer[3];
@@ -255,12 +240,8 @@ public class ActiveGame implements Screen {
 			}
 		}
 
-		// set HUD camera
-		// game.getGameController().getSpriteBatch().setProjectionMatrix(hud.stage.getCamera().combined);
-		// hud.stage.draw();
-
 		/**
-		 * !!! Placed here means that the tint doesn't effect players and items.
+		 * Placed here means that the tint doesn't effect players and items.
 		 */
 		mapRenderer.getBatch().setColor(1, 1, 1, 1);
 
@@ -274,7 +255,7 @@ public class ActiveGame implements Screen {
 
 		// Rendering the items in the given map
 		for (Item i : items) {
-			i.getSprite().setPosition(i.getWorldX(), i.getWorldY()); // Testing if restartItems() was being called.
+			i.getSprite().setPosition(i.getWorldX(), i.getWorldY());
 			i.getSprite().draw(mapRenderer.getBatch());
 		}
 
@@ -382,7 +363,7 @@ public class ActiveGame implements Screen {
 
 	@Override
 	public void hide() {
-		// dispose();
+
 	}
 
 	@Override

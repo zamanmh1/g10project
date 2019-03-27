@@ -72,7 +72,7 @@ public class HUD
 		
 		areaName = new Label("map", skin);
 		timeHud = new Label("time", skin);
-		//Testing
+
 		stateLabel = new Label("state", skin);
 		timeImage = new Image(moon);
 		
@@ -261,9 +261,7 @@ public class HUD
 		
 		Label trackTitle = new Label("Current Objective:", skin);
 		currObjective = new Label("", skin);
-//		currObjective.setWrap(false);
-//		currObjective.setWidth(currObjective.getPrefWidth());;
-		//Playing with the values here to try and have the label wrap without being so wide
+
 		questTable.add(trackTitle);
 		questTable.row();
 		questTable.add(currObjective);
