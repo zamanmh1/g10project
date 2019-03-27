@@ -97,7 +97,7 @@ public class Dialogue
 						Element currChoice = (Element) iterateChoices.next();
 						String choice = currChoice.getText();
 						String choiceText = "";
-						String[] choiceData = new String[5];
+						String[] choiceData = new String[6];
 						if(currChoice.hasChild("dialogue"))
 						{
 							choiceText = currChoice.getChildByName("dialogue").getText();
@@ -133,6 +133,7 @@ public class Dialogue
 						choiceData[2] = checkStateGet(currChoice);
 						choiceData[3] = checkPuzzleGet(currChoice);
 						choiceData[4] = checkWarpGet(currChoice);
+						choiceData[5] = checkEndingGet(currChoice);
 
 						choiceMap.put(choice, choiceData);
 					}
@@ -218,6 +219,11 @@ public class Dialogue
 		}
 	}
 		
+	/**
+	 * Checks for an objective tag, if it exists, returns the given information inside the tag
+	 * @param e Current <code>Element</code>
+	 * @return The data required for setting the objective
+	 */
 	private String checkObjectiveGet(Element e)
 	{
 		if(e.hasChild("objective"))
@@ -227,6 +233,11 @@ public class Dialogue
 		return "";
 	}
 	
+	/**
+	 * Checks for a state tag, if it exists, returns the given information inside the tag
+	 * @param e Current <code>Element</code>
+	 * @return The data for setting the state
+	 */
 	private String checkStateGet(Element e)
 	{
 		if(e.hasChild("state"))
@@ -236,6 +247,11 @@ public class Dialogue
 		return "";
 	}
 	
+	/**
+	 * Checks for a puzzle tag, if it exists, return the given information inside the tag
+	 * @param e Current <code>Element</code>
+	 * @return The data for setting the state after a puzzle is completed
+	 */
 	private String checkPuzzleGet(Element e)
 	{
 		if(e.hasChild("puzzle"))
@@ -245,11 +261,25 @@ public class Dialogue
 		return "";
 	}
 	
+	/**
+	 * Checks for a warp tag, if it exists, return the given information inside the tag
+	 * @param e Current <code>Element</code>
+	 * @returns The data for setting the new location in a map
+	 */
 	private String checkWarpGet(Element e)
 	{
 		if(e.hasChild("warp"))
 		{
 			return e.getChildByName("warp").getText();
+		}
+		return "";
+	}
+	
+	private String checkEndingGet(Element e)
+	{
+		if(e.hasChild("ending"))
+		{
+			return e.getChildByName("ending").getText();
 		}
 		return "";
 	}
@@ -272,18 +302,29 @@ public class Dialogue
 		return hasEnding;
 	}
 	
+	/**
+	 * Spawns a new item from the XML
+	 * @param newItem String array containing the data for a new item
+	 */
 	private void spawnItem(String[] newItem)
 	{
-		if(!controller.getItemHandler().itemExists(newItem[0]))
+		if(!controller.getItemHandler().itemExists(newItem[0]) && !controller.getItemHandler().foundItemExists(newItem[0]))
 		{
-			System.out.println("Spawning: " + newItem[0] + " at " + newItem[2]);
 			Item i = new Item(new Sprite(new Texture(Gdx.files.internal(newItem[1]))), newItem[0], newItem[2], newItem[3], Integer.parseInt(newItem[4]), Integer.parseInt(newItem[5]));
 			controller.getItemHandler().addItem(i.getName(), i);
+//			if(controller.getItemHandler().foundItemExists(newItem[0]))
+//			{
+//				removeItem(newItem[0]);
+//			}
 			//controller.getMapScreen().addItemToMap(i);
 			//Adds the item sprite to the map, but doesn't seem to make it an interactable actor.
 		}
 	}
 	
+	/**
+	 * Removes the given item from the map
+	 * @param name of the item
+	 */
 	private void removeItem(String name)
 	{
 		controller.getItemHandler().removeItem(name);
@@ -292,6 +333,10 @@ public class Dialogue
 		//Removes the item from the map render, still has collision
 	}
 	
+	/**
+	 * 
+	 * @return The current chapter according the the state
+	 */
 	private String getChapter()
 	{
 		//State follows a standard. e.g. 1.2(b) -> chapter.state(path)
@@ -312,6 +357,9 @@ public class Dialogue
 		return chapter;
 	}
 	
+	/**
+	 * Updates the XML reader to look at the next chapter
+	 */
 	private void updateReader()
 	{
 		root = xReader.parse(Gdx.files.internal(xmlLoc + getChapter() + ".xml"));

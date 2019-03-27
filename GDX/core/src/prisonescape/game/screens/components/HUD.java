@@ -100,6 +100,9 @@ public class HUD
 		this.controller = controller;
 	}
 	
+	/**
+	 * Sets up and formats the table for the Inventory after which it is added to the stage
+	 */
 	private void inventory()
 	{		
 		Label inv = new Label("Inventory", skin);
@@ -135,7 +138,6 @@ public class HUD
 		//If item exists and hasn't already been found yet then set the item into the inventory
 		if(item != null && item.getFound() == false)
 		{
-			rowCounter++;
 			setItem(item);
 			checkItems(item);
 		}
@@ -157,24 +159,37 @@ public class HUD
 
 	}
 	
-	//Set the visibility of the inventory table
+	/**
+	 * Sets the visibility of the inventory table
+	 * @param isVisible boolean to set the visibility
+	 */
 	public void setVisible(boolean isVisible)
 	{
 		invTable.setVisible(isVisible);
 	}
 	
+	/**
+	 * 
+	 * @return The visibility of the inventory table
+	 */
 	public boolean isVisible()
 	{
 		return invTable.isVisible();
 	}
 	
 	//Sets the item sprite into the inventory
+	/**
+	 * Sets an item sprite to be displayed in the inventory
+	 * <p>
+	 * If two items are being displayed on one row then a new row is added to the inventory
+	 * @param item of type <code>Item</code> is taken to get the sprite value
+	 */
 	public void setItem(Item item)
 	{
+		rowCounter++;
 		Image img = new Image(item.getSprite());
 		invTable.add(img);
 		shownItems.put(item.getName(), img);
-		System.out.print(item.getName() + " " + img);
 		if(rowCounter == 2) //When 2 items are on the same row in the inventory, next item starts a new row
 		{
 			invTable.row();
@@ -183,6 +198,13 @@ public class HUD
 		item.setFound(true);
 	}
 	
+	/**
+	 * Removes an item from being displayed in the inventory
+	 * <p>
+	 * If items were displayed on a new row and no more items are being displayed on the row, then this also removes the
+	 * unused row
+	 * @param itemName Takes the String name of the item
+	 */
 	public void removeItem(String itemName)
 	{
 		invTable.removeActor(shownItems.get(itemName));
@@ -226,6 +248,9 @@ public class HUD
 		}
 	}
 	
+	/**
+	 * Sets up and formats the table required for the quest/objective tracker and adds it to the stage
+	 */
 	private void questTracker()
 	{
 		questTable = new Table(skin);
@@ -247,6 +272,10 @@ public class HUD
 		
 	}
 	
+	/**
+	 * Sets up and formats the Sleeping UI, used in changing the time.
+	 * 
+	 */
 	public void sleepUI()
 	{
 		sleepWin = new Window("Sleep until?", skin);
@@ -316,6 +345,10 @@ public class HUD
 		stage.addActor(sleepWin);
 	}
 	
+	/**
+	 * Sets the time to the given value
+	 * @param slept The value to set the time to
+	 */
 	private void sleepClicked(float slept)
 	{
 		Calendar cal = controller.getTime().getCalendar();
@@ -339,7 +372,12 @@ public class HUD
 		return sleepWin.isVisible();
 	}
 	
-	private void checkItems(Item i)
+	/**
+	 * Checks the given item against a list of story items required in the game. If all items are found, the items are combined
+	 * into a new item, the parts are removed and the state and objective is updated.
+	 * @param i Takes an <code>Item</code> in order to check if it's a required story item
+	 */
+	public void checkItems(Item i)
 	{
 		//Checks list of items for certain story items and updates the state
 		String[] clippers = {"LeftHandle", "RightHandle", "Cutters"};
@@ -353,7 +391,7 @@ public class HUD
 		if(itemCounter == 3)
 		{
 			controller.setGameState("3.2");
-			Item cutters = new Item(new Sprite(new Texture(Gdx.files.internal("data/itemSprites/wirecutters.png"))),"BoltCutters","data/maps/basement.tmx","KEY",5,2);
+			Item cutters = new Item(new Sprite(new Texture(Gdx.files.internal("data/itemSprites/wirecutters.png"))),"Wirecutters","data/maps/basement.tmx","KEY",5,2);
 			removeItem("LeftHandle");
 			removeItem("RightHandle");
 			removeItem("Cutters");
@@ -362,5 +400,4 @@ public class HUD
 			controller.setCurrentObjective("Return to the boss");
 		}
 	}
-	
 }

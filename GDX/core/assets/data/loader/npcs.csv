@@ -10,8 +10,8 @@ MobBoss,mobboss_,data/maps/maxsec.tmx,28,18,0,0,0,1,100,100,3
 OldMan,npc07_,data/maps/maxsec.tmx,2,12,1,0,2,0,1,3,3
 Nitsara,npc01_,data/maps/maxsec.tmx,9,5,2,3,0,3,2,4,3
 rat,rat_,data/maps/basement.tmx,5,4,0,0,0,0,100,100,3
-DinnerLady,dinnerlady_,data/maps/foodhall.tmx,9,5,0,0,0,1,100,100,3
-Gambler,gambler_,data/maps/janitor.tmx,4,3,0,0,0,0,100,100,3
+DinnerLady,dinnerlady_,data/maps/foodhall.tmx,9,4,0,0,0,1,100,100,3
+Gambler,gambler_,data/maps/maxsec.tmx,13,16,0,0,0,0,100,100,3
 Warden,warden_,data/maps/mainoffice.tmx,2,2,0,0,1,0,100,100,3
 Guard,guard01_,data/maps/mainoffice.tmx,2,9,4,3,2,1,3,4,3
 ArmedGuard1,guardgun_,data/maps/prisonGuardCentre.tmx,1,6,0,0,0,0,100,100,3

@@ -16,11 +16,11 @@ import prisonescape.game.model.actors.MapActor;
 import prisonescape.game.screens.ActiveGame;
 
 /**
- * CLASS DESCRIPTION
+ * Handles what will happen upon pressing the Interact key [E]
  * 
  * @author Sam Ward, Sean Corcoran
  * 
- * @version 0.3
+ * @version 1.0
  * @since 0.2
  * 
  */
@@ -36,11 +36,18 @@ public class InteractionController extends InputAdapter {
 		this.actor = actor;				
 	}
 
+	/**
+	 * Sets up the Item Handler used for when interacting with items.
+	 * <p>
+	 * Also sets the Dialogue and DialogueUI objects used in creating any dialogue when in an interaction
+	 * @param gameHandler
+	 */
 	public void setItemHandler(GameHandler gameHandler) {
 		this.gameHandler = gameHandler;
 		dBox = new DialogueUI(gameHandler);
 		d = new Dialogue(gameHandler);
 	}
+
 
 	@Override
 	public boolean keyUp(int keycode) {
@@ -66,11 +73,8 @@ public class InteractionController extends InputAdapter {
 					{
 						dBox.showDialogue(ActiveGame.getStage(), "door");
 					}
-				} else {
-					/**
-					 * Alarm active, building on lockdown.
-					 * !!! Display message to user?
-					 */
+				} else if (!dBox.beenCalled() && gameHandler.getAlarm().alarmTriggered() == true) {
+					dBox.showDialogue(ActiveGame.getStage(), "lockdown");
 				}
 			}			
 

@@ -9,7 +9,6 @@ You can remove the first two tabs after the first line to correct the misalignme
   Enclosed in this book is the key to your cell, tread carefully..."
 
   You obtained the key to your cell.
-      <objective>Leave your cell</objective>
     </dialogue>
   </Book>
 
@@ -30,7 +29,7 @@ You can remove the first two tabs after the first line to correct the misalignme
         <objective>Return to Trippie</objective>
       </choice>
     </dialogue>
-    <dialogue currState="1.6">
+    <dialogue currState="1.5">
       He gives you a grimace as his stomach makes some more noises.
     </dialogue>
     <dialogue>
@@ -105,12 +104,13 @@ You can remove the first two tabs after the first line to correct the misalignme
       </choice>
     </dialogue>
     <dialogue currState="1.5">
-      "Ha! I saw the rainbow haired prick waddling to his cell. Cheers pal, I just might have more use for you..."
+      "Ha! I saw the rainbow haired prick waddling to his cell.
+  Cheers pal, I just might have more use for you..."
         <state>1.6</state>
         <objective></objective><!--Empty String to clear the objective-->
     </dialogue>
     <dialogue currState = "1.6">
-        "Well done... Looks like we're going to get along just fine..."
+        "Looks like we're going to get along just fine..."
         <choice>What now?
           <dialogue>
             After you did that, I think I can trust you.
@@ -146,18 +146,9 @@ You can remove the first two tabs after the first line to correct the misalignme
 
       <choice>The Foodhall
         <dialogue>
-          "Probably makes the most sense, but of course the knives have some serious eyes on them.
-    The old hag in there can usually be bought with some cigs
-    but if you don't get caught you'll be alright."
+          "Probably makes the most sense, Just stash it somewhere in there."
         </dialogue>
-        <item>Hide-Knife-In-FoodHall,data/itemSprites/HidingSpot.png,data/maps/foodhall.tmx,INTERACT,13,6</item>
-      </choice>
-      <!--TESTING-->
-      <choice>TESTING
-        <dialogue>
-          Progressing to 1.8.1
-        </dialogue>
-        <state>1.8.1</state>
+        <item>Hide-Knife-In-FoodHall,data/itemSprites/BinHighlight.png,data/maps/foodhall.tmx,INTERACT,2,14</item>
       </choice>
     </dialogue>
     <dialogue currState="1.8.1">
@@ -183,6 +174,9 @@ You can remove the first two tabs after the first line to correct the misalignme
 
       Finish anything you were doing, and come speak to me again."
         </dialogue>
+        <item>Hide-Knife-In-Library,remove</item>
+        <item>Hide-Knife-In-FoodHall,remove</item>
+        <item>Hide-Knife-In-Cell,remove</item>
         <state>1.9</state>
       </choice>
     </dialogue>
@@ -201,6 +195,7 @@ You can remove the first two tabs after the first line to correct the misalignme
       Get this man away from me, he's got a knife on him!"
         </dialogue>
         <state>2</state>
+        <objective>Find the Mob Boss</objective>
         <warp>data/maps/maxsec.tmx,29,12</warp>
       </choice>
       <choice>No
@@ -212,6 +207,7 @@ You can remove the first two tabs after the first line to correct the misalignme
       Get this man away from me, he's got a knife on him!"
         </dialogue>
         <state>2</state>
+        <objective>Find the Mob Boss</objective>
         <warp>data/maps/maxsec.tmx,29,12</warp>
       </choice>
     </dialogue>
@@ -241,9 +237,12 @@ You can remove the first two tabs after the first line to correct the misalignme
   <Ehrmantraut>
     <dialogue currState="1.8.2">
       "Listen. You don't need to know why, but I'm forced to look out for
-  your boss. You ought to hide your things better. Take it and don't get caught,
-  or else I'm force to put you in maximum."
+  your boss. You ought to hide your things better. Take your knife and don't get caught,
+  or else I'm forced to put you in maximum."
       <state>1.8.3</state>
+      <item>Hide-Knife-In-FoodHall,remove</item>
+      <item>Hide-Knife-In-Library,remove</item>
+      <item>Hide-Knife-In-Cell,remove</item>
       <objective>Tell Trippie</objective>
     </dialogue>
     <dialogue>
@@ -263,6 +262,9 @@ You can remove the first two tabs after the first line to correct the misalignme
         <dialogue>
           You hide the knife here.
         </dialogue>
+        <item>Hide-Knife-In-Cell,remove</item>
+        <item>Hide-Knife-In-FoodHall,remove</item>
+        <item>Hide-Knife-In-Library,remove</item>
         <state>1.8.1</state>
         <objective>Return to Trippie</objective>
       </choice>
@@ -285,6 +287,9 @@ You can remove the first two tabs after the first line to correct the misalignme
           You hide the knife here.
         </dialogue>
         <state>1.8.1</state>
+        <item>Hide-Knife-In-Cell,remove</item>
+        <item>Hide-Knife-In-FoodHall,remove</item>
+        <item>Hide-Knife-In-Library,remove</item>
         <objective>Return to Trippie</objective>
       </choice>
     </dialogue>
@@ -306,6 +311,9 @@ You can remove the first two tabs after the first line to correct the misalignme
           You hide the knife here.
         </dialogue>
         <state>1.8.1</state>
+        <item>Hide-Knife-In-Cell,remove</item>
+        <item>Hide-Knife-In-FoodHall,remove</item>
+        <item>Hide-Knife-In-Library,remove</item>
         <objective>Return to Trippie</objective>
       </choice>
     </dialogue>
@@ -314,62 +322,35 @@ You can remove the first two tabs after the first line to correct the misalignme
     </dialogue>
   </Hide-Knife-In-Library>
 
-  <Testing>
-    <dialogue currState="1.5a">
-			"You've hid the knife in the cell?"
-			<choice>yes
-				<dialogue>"Good."</dialogue>
-				<item>Book2,remove</item>
-				<objective>Check if item is removed</objective>
-			</choice>
-		</dialogue>
-		<dialogue currState="1.4a">
-      "You said you were gonna hide it in your cell. Put it behind your drawers."
-		</dialogue>
-		<dialogue currState="1.2">
-      "Good job."
-			<objective>Puzzle Completed</objective>
-			<state>1</state>
-		</dialogue>
-		<dialogue currState="1.1">
-			"Go deliver that to Trippie. He's usually knocking around the top floor"
-		</dialogue>
-		<dialogue currState="1">
+  <MobMember>
+    <dialogue currState="1">
       "Psst. Hey, stupid, I'm in with some powerful people round here; You still owe us more favours.
   In return for your continued loyalty, we will protect you.
   Deliver this package to Trippie Maroon on the top floor."
-			<choice>Yes
-				<dialogue>
-          "Cheers buddy"
-
-      You obtained a small package
-				</dialogue>
-				<objective>Deliver Package</objective>
-				<state>1.1</state>
-			</choice>
-			<choice>No
-				<dialogue>"I'm gonna pretend I didn't hear that and ask you again..."
-				<state>1</state>
-				</dialogue>
-			</choice>
-			<choice>cell
-				<dialogue>
-					"In your cell? A good spot is usally sticking it to the back of your drawers."
-				</dialogue>
-				<!--String name, Sprite sprite, String appearsIn, String type, int x, int y-->
-				<item>Book2,data/itemSprites/newbook.png,data/maps/cell.tmx,INTERACT,5,2</item>
-				<state>1.4a</state>
-				<objective>hide knife</objective>
-			</choice>
-      <choice>puzzle
-        <puzzle>1.1a</puzzle>
-        <objective>Puzzle Complete</objective>
-      </choice>
-		</dialogue>
-		<dialogue>
-			"Don't ask any questions you don't wanna know the answer to."
-		</dialogue>
-  </Testing>
+  <choice>OK
+    <dialogue>
+    "Good choice. Trippie's around here somewhere, he's usually knocking around
+    on the top floor somewhere."
+    </dialogue>
+    <objective>Deliver the package to Trippie</objective>
+    <state>1.1</state>
+  </choice>
+  <choice>No?
+    <dialogue>
+    "Rhetorical question mate. I was just giving you the illusion of choice to seem
+    a little nicer. Now go, take it"
+  </dialogue>
+  <state>1.1</state>
+  <objective>Deliver the package to Trippie</objective>
+  </choice>
+</dialogue>
+<dialogue currState="1.1">
+  "Trippie's usually on the top floor somewhere"
+</dialogue>
+<dialogue>
+  "Need something?"
+</dialogue>
+  </MobMember>
 
   <Book2>
     <dialogue>
@@ -621,6 +602,12 @@ You can remove the first two tabs after the first line to correct the misalignme
       It's a prison. Of course it's locked.
     </dialogue>
   </door>
+  
+  <lockdown>
+    <dialogue>
+      You can't run, the building is on lockdown!
+    </dialogue>
+  </lockdown>
 
   <Warden>
     <dialogue>

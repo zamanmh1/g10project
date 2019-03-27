@@ -9,10 +9,12 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader.Parameters;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -87,6 +89,7 @@ public class ActiveGame implements Screen {
 		inputHandler = new InputMultiplexer();
 		roomTransition = new Sprite(new Texture(Gdx.files.internal("data/menuSprites/black_background.jpg")));
 		inventoryPressed = false;
+		h = new HUD(game.getGameController());
 
 	}
 
@@ -102,8 +105,14 @@ public class ActiveGame implements Screen {
 		Tween.set(roomTransition, SpriteAccessor.ALPHA).target(1).start(tween);
 		Tween.to(roomTransition, SpriteAccessor.ALPHA, 0.5f).target(0).start(tween);
 
+		//Params testing to fix issue with higher resolutions
+		//Parameters params = new Parameters();
+		//params.textureMinFilter = TextureFilter.Linear;
+		//params.textureMagFilter = TextureFilter.Nearest;
+		
 		mapName = map;
 		tilemap = new TmxMapLoader().load(map);
+		//tilemap = new TmxMapLoader().load(map, params);
 
 		/**
 		 * If already a map being shown, try to dispose of it. However, if it is the
@@ -181,8 +190,6 @@ public class ActiveGame implements Screen {
 		// Orthogonal (top-down) renderer for the map
 		oCamera = new OrthographicCamera(); // creates a camera to display the map on screen
 		// oCamera.setToOrtho(false, 11,16);
-		// hud = new Hud(game.getGameController().getSpriteBatch());
-		h = new HUD(game.getGameController());
 
 		oCamera.setToOrtho(false, Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 		// Sets the camera and renders the scene from the bottom left. /3 to zoom in to
@@ -294,10 +301,11 @@ public class ActiveGame implements Screen {
 
 		if (Gdx.input.isKeyJustPressed(Keys.P)) {
 			Credits credits = new Credits(game);
-			credits.ending2();
+			credits.ending1();
 					
 			((Game) Gdx.app.getApplicationListener()).setScreen(credits);
 		}
+		
 
 		if (inventoryKeyCheck() == true) {
 		}

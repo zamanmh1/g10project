@@ -9,7 +9,7 @@ import prisonescape.game.model.actors.Item;
 /**
  * A class to handle all of the items while the game is running.
  * 
- * @author Sam Ward
+ * @author Sam Ward, Sean Corcoran
  * 
  * @version 1.0
  * @since 0.2
@@ -67,8 +67,10 @@ public class ItemHandler {
 			foundItems.add(i);
 			// Remove item from items list.
 			items.remove(i.getName());
+			
 		}
 	}
+	
 	
 	/**
 	 * Retrieves a list of all found items.
@@ -126,5 +128,22 @@ public class ItemHandler {
 	public boolean itemExists(String name)
 	{
 		return items.containsKey(name);
+	}
+	
+	/**
+	 * Finds whether a found item exists
+	 * @param name
+	 * @return
+	 */
+	public boolean foundItemExists(String name)
+	{
+		for(Item item : foundItems)
+		{
+			if(item.getName().equals(name))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

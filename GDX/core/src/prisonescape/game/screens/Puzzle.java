@@ -175,34 +175,35 @@ public class Puzzle implements Screen {
 		tween.update(delta);
 
 		this.game.getGameController().getSpriteBatch().begin();
+		
 		puzzleBackground.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
-		puzzleBackground.setPosition(Gdx.graphics.getWidth() / 2 - puzzleBackground.getWidth() / 2,
-				Gdx.graphics.getHeight() / 2 - puzzleBackground.getHeight() / 2);
+		puzzleBackground.setPosition(PrisonBreakout.WIDTH / 2 - puzzleBackground.getWidth() / 2,
+				PrisonBreakout.HEIGHT / 2 - puzzleBackground.getHeight() / 2);
 		puzzleBackground.draw(game.getGameController().getSpriteBatch());
 
 		actualImage.setSize(351, 351);
-		actualImage.setPosition(Gdx.graphics.getWidth() / 2 - actualImage.getWidth() / 2 - 433,
-				Gdx.graphics.getHeight() / 2 - actualImage.getHeight() / 2 - 145);
+		actualImage.setPosition(PrisonBreakout.WIDTH / 2 - 600,
+				PrisonBreakout.HEIGHT / 2 - 350);
 
 		actualImage.draw(game.getGameController().getSpriteBatch());
 
 		fontBigBlack.draw(game.getGameController().getSpriteBatch(), "Total Moves: " + moveCounter,
-				Gdx.graphics.getWidth() / 2 - 550, Gdx.graphics.getHeight() / 2 + 300);
+				PrisonBreakout.WIDTH / 2 - 550, PrisonBreakout.HEIGHT / 2 + 300);
 		
 		fontBigBlack.draw(game.getGameController().getSpriteBatch(), "Goal: 15 moves",
-				Gdx.graphics.getWidth() / 2 - 550, Gdx.graphics.getHeight() / 2 + 180);
+				PrisonBreakout.WIDTH / 2 - 550, PrisonBreakout.HEIGHT / 2 + 180);
 
 		fontBigYellow.draw(game.getGameController().getSpriteBatch(), "Solve puzzle to continue...",
-				Gdx.graphics.getWidth() / 2 - 20, Gdx.graphics.getHeight() / 2 + 320);
+				PrisonBreakout.WIDTH / 2 - 20, PrisonBreakout.HEIGHT / 2 + 320);
 
-		fontBigBlack.draw(game.getGameController().getSpriteBatch(), "Actual Image", Gdx.graphics.getWidth() / 2 - 550,
-				Gdx.graphics.getHeight() / 2 + 75);
+		fontBigBlack.draw(game.getGameController().getSpriteBatch(), "Actual Image", PrisonBreakout.WIDTH / 2 - 550,
+				PrisonBreakout.HEIGHT / 2 + 75);
 
 		fontYellow.draw(game.getGameController().getSpriteBatch(), "Click on any tile to select and drop",
-				Gdx.graphics.getWidth() / 2 - 20, Gdx.graphics.getHeight() / 2 + 200);
+				PrisonBreakout.WIDTH / 2 - 20, PrisonBreakout.HEIGHT / 2 + 200);
 
-		fontYellow.draw(game.getGameController().getSpriteBatch(), "Selected tile", Gdx.graphics.getWidth() / 2 + 475,
-				Gdx.graphics.getHeight() / 2 + 80);
+		fontYellow.draw(game.getGameController().getSpriteBatch(), "Selected tile", PrisonBreakout.WIDTH / 2 + 475,
+				PrisonBreakout.HEIGHT / 2 + 80);
 
 		int xQuit = PrisonBreakout.WIDTH / 2 - QUIT_BUTTON_WIDTH / 2 + 590;
 
@@ -376,9 +377,7 @@ public class Puzzle implements Screen {
 				}
 
 				if (Gdx.input.isTouched()) {
-					Stage stage = ActiveGame.getStage();
 					game.getGameController().setGameState(state);
-					stage.clear();
 					this.game.setScreen(game.getGameController().getMapScreen());
 				}
 
@@ -420,8 +419,6 @@ public class Puzzle implements Screen {
 				}
 
 				if (Gdx.input.justTouched()) {
-					Stage stage = ActiveGame.getStage();
-					stage.clear();
 					this.game.setScreen(game.getGameController().getMapScreen());
 
 				}

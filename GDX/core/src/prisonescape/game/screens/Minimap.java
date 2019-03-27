@@ -178,8 +178,6 @@ public class Minimap implements Screen {
 
 		// When M pressed, returns to the MapScreen
 		if (Gdx.input.isKeyJustPressed(Keys.M)) {
-			Stage stage = ActiveGame.getStage();
-			stage.clear();
 			game.setScreen(game.getGameController().getMapScreen());
 		}
 		this.game.getGameController().getSpriteBatch().end();
