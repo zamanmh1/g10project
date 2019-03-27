@@ -3,6 +3,7 @@ package prisonescape.game;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -111,11 +112,11 @@ public class GameManager {
 
 			fileHandle.writeString("Items," + listToString(items) + "," + "\n", true);
 
-			try {
-				Runtime.getRuntime().exec("attrib +H data/bin");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				Runtime.getRuntime().exec("attrib +H data/bin");
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 
@@ -127,11 +128,11 @@ public class GameManager {
 	public void loadData(FileHandle file) {
 		// To decode the saved file
 		// Base64Coder.decode(file.readString());
-		try {
-			Runtime.getRuntime().exec("attrib -H data/bin");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Runtime.getRuntime().exec("attrib -H data/bin");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 		// file.readString();
 		String[] data = file.readString().split(",");
@@ -154,17 +155,25 @@ public class GameManager {
 
 				if (!controller.getItemHandler().itemExists(i)) {
 
+					if(controller.getGameState().equals("3.1"))
+					{
+						controller.setCurrentObjective("Speak to the Boss");
+					}
 						Item item = new Item(new Sprite(new Texture(Gdx.files.internal("data/itemSprites/" + i + ".png"))), i,
 								"data/maps/cell.tmx", "KEY", 1, 1);
 						
 						controller.getItemHandler().addItem(i, item);
 						controller.getItemHandler().foundItem(item);
+						controller.getMapScreen().h.setItem(item);
+						controller.getMapScreen().h.checkItems(item);
 						
 					
 				}else {
 //					controller.getMapScreen();
 //					ActiveGame.h.setItem(controller.getItemHandler().getAllItems().get(i));
-				controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
+					Item item = controller.getItemHandler().getAllItems().get(i);
+					controller.getItemHandler().foundItem(item);
+					controller.getMapScreen().h.setItem(item);
 				}
 			}
 		}

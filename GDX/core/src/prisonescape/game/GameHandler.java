@@ -51,7 +51,7 @@ public class GameHandler implements GameController {
 	private boolean restarting;
 	
 	private String currentObjective;
-	private String gameState = "1";
+	private String gameState = "3.1";
 	private Sound alarmSound;
 	private Time time;
 	private Sound alarm_beep;

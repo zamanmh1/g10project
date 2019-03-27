@@ -128,4 +128,21 @@ public class ItemHandler {
 	{
 		return items.containsKey(name);
 	}
+	
+	/**
+	 * Finds whether a found item exists
+	 * @param name
+	 * @return
+	 */
+	public boolean foundItemExists(String name)
+	{
+		for(Item item : foundItems)
+		{
+			if(item.getName().equals(name))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

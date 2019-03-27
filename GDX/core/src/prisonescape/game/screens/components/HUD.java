@@ -138,7 +138,6 @@ public class HUD
 		//If item exists and hasn't already been found yet then set the item into the inventory
 		if(item != null && item.getFound() == false)
 		{
-			rowCounter++;
 			setItem(item);
 			checkItems(item);
 		}
@@ -187,6 +186,7 @@ public class HUD
 	 */
 	public void setItem(Item item)
 	{
+		rowCounter++;
 		Image img = new Image(item.getSprite());
 		invTable.add(img);
 		shownItems.put(item.getName(), img);
@@ -377,7 +377,7 @@ public class HUD
 	 * into a new item, the parts are removed and the state and objective is updated.
 	 * @param i Takes an <code>Item</code> in order to check if it's a required story item
 	 */
-	private void checkItems(Item i)
+	public void checkItems(Item i)
 	{
 		//Checks list of items for certain story items and updates the state
 		String[] clippers = {"LeftHandle", "RightHandle", "Cutters"};

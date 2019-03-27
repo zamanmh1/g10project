@@ -308,11 +308,14 @@ public class Dialogue
 	 */
 	private void spawnItem(String[] newItem)
 	{
-		if(!controller.getItemHandler().itemExists(newItem[0]))
+		if(!controller.getItemHandler().itemExists(newItem[0]) && !controller.getItemHandler().foundItemExists(newItem[0]))
 		{
-			System.out.println("Spawning: " + newItem[0] + " at " + newItem[2]);
 			Item i = new Item(new Sprite(new Texture(Gdx.files.internal(newItem[1]))), newItem[0], newItem[2], newItem[3], Integer.parseInt(newItem[4]), Integer.parseInt(newItem[5]));
 			controller.getItemHandler().addItem(i.getName(), i);
+//			if(controller.getItemHandler().foundItemExists(newItem[0]))
+//			{
+//				removeItem(newItem[0]);
+//			}
 			//controller.getMapScreen().addItemToMap(i);
 			//Adds the item sprite to the map, but doesn't seem to make it an interactable actor.
 		}
