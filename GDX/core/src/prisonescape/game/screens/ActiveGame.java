@@ -305,6 +305,7 @@ public class ActiveGame implements Screen {
 					
 			((Game) Gdx.app.getApplicationListener()).setScreen(credits);
 		}
+		
 
 		if (inventoryKeyCheck() == true) {
 		}

@@ -159,12 +159,15 @@ public class GameManager {
 						
 						controller.getItemHandler().addItem(i, item);
 						controller.getItemHandler().foundItem(item);
+						controller.getMapScreen().h.setItem(item);
 						
 					
 				}else {
 //					controller.getMapScreen();
 //					ActiveGame.h.setItem(controller.getItemHandler().getAllItems().get(i));
-				controller.getItemHandler().foundItem(controller.getItemHandler().getAllItems().get(i));
+					Item item = controller.getItemHandler().getAllItems().get(i);
+					controller.getItemHandler().foundItem(item);
+					controller.getMapScreen().h.setItem(item);
 				}
 			}
 		}
