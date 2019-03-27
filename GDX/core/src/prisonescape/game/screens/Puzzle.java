@@ -175,8 +175,8 @@ public class Puzzle implements Screen {
 		tween.update(delta);
 
 		this.game.getGameController().getSpriteBatch().begin();
-		puzzleBackground.setSize(PrisonBreakout.WIDTH, PrisonBreakout.HEIGHT);
-		puzzleBackground.setPosition(PrisonBreakout.WIDTH / 2 - puzzleBackground.getWidth() / 2,
+		
+		puzzleBackground.setPosition(PrisonBreakout.WIDTH / 2 - puzzleBackground.getWidth() / 2 + 100,
 				PrisonBreakout.HEIGHT / 2 - puzzleBackground.getHeight() / 2);
 		puzzleBackground.draw(game.getGameController().getSpriteBatch());
 
