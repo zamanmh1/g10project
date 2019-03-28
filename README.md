@@ -15,15 +15,15 @@ Click the Prison Breakout.jar file
 
 ## Contributors
 
-Sam Ward
-Sean Corcoran
-Shibu George
-(Mohammed) Hamza Zaman
-Adam Collins
-Kevinjeet Singh
-Maxwell Trimnell
-Jai Kumar
-Hasan Ahmed
+Sam Ward <br/>
+Sean Corcoran <br/>
+Shibu George <br/>
+(Mohammed) Hamza Zaman <br/>
+Adam Collins <br/>
+Kevinjeet Singh <br/>
+Maxwell Trimnell <br/>
+Jai Kumar <br/>
+Hasan Ahmed <br/>
 
 ## License
 
