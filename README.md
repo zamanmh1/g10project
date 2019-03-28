@@ -11,8 +11,19 @@ Click this link to see a full installation: [How to import from GitHub to Eclips
 
 ## Usage
 
+Click the Prison Breakout.jar file
 
 ## Contributors
 
+Sam Ward
+Sean Corcoran
+Shibu George
+(Mohammed) Hamza Zaman
+Adam Collins
+Kevinjeet Singh
+Maxwell Trimnell
+Jai Kumar
+Hasan Ahmed
 
 ## License
+
