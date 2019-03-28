@@ -5,15 +5,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.kotcrab.vis.ui.widget.toast.Toast;
+
 import prisonescape.game.GameManager;
 
 import aurelienribon.tweenengine.Timeline;
@@ -451,7 +459,8 @@ public class MainMenu implements Screen {
 
 							if (Gdx.input.justTouched()) {
 								// Once load button is clicked it will execute gm.loadData()
-								
+								try {
+									
 								gm.loadData(Gdx.files.local("data/bin/" + listOfFiles[i].getName()));
 								loadPressed = false;
 								playPressed = false;
@@ -466,6 +475,11 @@ public class MainMenu implements Screen {
 									game.getGameController().setMusic("data/sounds/MainGameMusic.mp3");
 									game.getGameController().playMusic();
 								}
+								}
+								catch (Exception e) {
+									
+								}
+								
 								
 								
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Base64Coder;
 //import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.ObjectMap;
 
@@ -78,42 +79,31 @@ public class GameManager {
 
 		if (controller != null) {
 
-			/*
-			 * String encodedMap = Base64Coder.encodeString(values.get("map").toString());
-			 * String encodedState =
-			 * Base64Coder.encodeString(values.get("state").toString()); String
-			 * encodedObjective =
-			 * Base64Coder.encodeString(values.get("currentObjective").toString()); String
-			 * encodedPlayerX = Base64Coder.encodeString(values.get("playerX").toString());
-			 * String encodedPlayerY =
-			 * Base64Coder.encodeString(values.get("playerY").toString()); String
-			 * encodedTimeHour =
-			 * Base64Coder.encodeString(values.get("time-hour").toString()); String
-			 * encodedTimeMin = Base64Coder.encodeString(values.get("time-min").toString());
-			 * 
-			 * String encodedItems = Base64Coder.encodeString(listToString(items));
-			 * 
-			 * replace below lines with encoded strings
-			 */
+			String encodedMap = Base64Coder.encodeString(values.get("map").toString());
+			String encodedState = Base64Coder.encodeString(values.get("state").toString());
+			String encodedObjective = Base64Coder.encodeString(values.get("currentObjective").toString());
+			String encodedPlayerX = Base64Coder.encodeString(values.get("playerX").toString());
+			String encodedPlayerY = Base64Coder.encodeString(values.get("playerY").toString());
+			String encodedTimeHour = Base64Coder.encodeString(values.get("time-hour").toString());
+			String encodedTimeMin = Base64Coder.encodeString(values.get("time-min").toString());
 
-			fileHandle.writeString("Map," + values.get("map") + "," + "\n", false);
+			String encodedItems = Base64Coder.encodeString(listToString(items));
 
-			fileHandle.writeString("State," + values.get("state") + "," + "\n", true);
-			fileHandle.writeString("currentObjective," + values.get("currentObjective") + "," + "\n", true);
+			fileHandle.writeString(Base64Coder.encodeString("Map") + "," + encodedMap + "," + "\n", false);
 
-			fileHandle.writeString("X," + values.get("playerX") + "," + "\n", true);
+			fileHandle.writeString(Base64Coder.encodeString("State") + "," + encodedState + "," + "\n", true);
+			fileHandle.writeString(Base64Coder.encodeString("currentObjective") + "," + encodedObjective + "," + "\n", true);
 
-			fileHandle.writeString("Y," + values.get("playerY") + "," + "\n", true);
-			fileHandle.writeString("Hour," + values.get("time-hour") + "," + "\n", true);
-			fileHandle.writeString("Minute," + values.get("time-min") + "," + "\n", true);
+			fileHandle.writeString(Base64Coder.encodeString("X") + "," + encodedPlayerX + "," + "\n", true);
+			
+			fileHandle.writeString(Base64Coder.encodeString("Y") + "," + encodedPlayerY + "," + "\n", true);
 
-			fileHandle.writeString("Items," + listToString(items) + "," + "\n", true);
+			fileHandle.writeString(Base64Coder.encodeString("Hour") + "," + encodedTimeHour + "," + "\n", true);
 
-			try {
-				Runtime.getRuntime().exec("attrib +H data/bin");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			fileHandle.writeString(Base64Coder.encodeString("Minute") + "," + encodedTimeMin + "," + "\n", true);
+			
+			fileHandle.writeString(Base64Coder.encodeString("Items") + "," + encodedItems + "," + "\n", true);
+			
 		}
 	}
 
@@ -124,56 +114,47 @@ public class GameManager {
 	 */
 	public void loadData(FileHandle file) {
 		// To decode the saved file
-		// Base64Coder.decode(file.readString());
-		try {
-			Runtime.getRuntime().exec("attrib -H data/bin");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		// file.readString();
 		String[] data = file.readString().split(",");
-		String map = data[1];
-		int x = Integer.parseInt(data[7]);
-		int y = Integer.parseInt(data[9]);
-		String state = data[3];
-		String currentObjective = data[5];
-		int hour = Integer.parseInt(data[11]);
-		int minute = Integer.parseInt(data[13]);
+		String map = Base64Coder.decodeString(data[1]);
+		int x = Integer.parseInt(Base64Coder.decodeString(data[7]));
+		int y = Integer.parseInt(Base64Coder.decodeString(data[9]));
+		String state = Base64Coder.decodeString(data[3]);
+		String currentObjective = Base64Coder.decodeString(data[5]);
+		int hour = Integer.parseInt(Base64Coder.decodeString(data[11]));
+		int minute = Integer.parseInt(Base64Coder.decodeString(data[13]));
 
 		((Game) Gdx.app.getApplicationListener()).setScreen(new Loading(controller.getGame()));
 		controller.setMap(map, x, y);
 		controller.setGameState(state);
 		controller.setCurrentObjective(currentObjective);
-		String[] foundItems = data[15].split("\\+");
+		String[] foundItems = Base64Coder.decodeString(data[15]).split("\\+");
 
 		if (!foundItems[0].isEmpty()) {
 			for (String i : foundItems) {
 
 				if (!controller.getItemHandler().itemExists(i)) {
 
-					if(controller.getGameState().equals("3.1"))
-					{
+					if (controller.getGameState().equals("3.1")) {
 						controller.setCurrentObjective("Speak to the Boss");
 					}
-						Item item = new Item(new Sprite(new Texture(Gdx.files.internal("data/itemSprites/" + i + ".png"))), i,
-								"data/maps/cell.tmx", "KEY", 1, 1);
-						
-						controller.getItemHandler().addItem(i, item);
-						controller.getItemHandler().foundItem(item);
-						controller.getMapScreen().h.setItem(item);
-						controller.getMapScreen().h.checkItems(item);
+					Item item = new Item(new Sprite(new Texture(Gdx.files.internal("data/itemSprites/" + i + ".png"))),
+							i, "data/maps/cell.tmx", "KEY", 1, 1);
 
-				}else {
-//					controller.getMapScreen();
-//					ActiveGame.h.setItem(controller.getItemHandler().getAllItems().get(i));
+					controller.getItemHandler().addItem(i, item);
+					controller.getItemHandler().foundItem(item);
+					controller.getMapScreen().h.setItem(item);
+					controller.getMapScreen().h.checkItems(item);
+
+				} else {
+
 					Item item = controller.getItemHandler().getAllItems().get(i);
 					controller.getItemHandler().foundItem(item);
 					controller.getMapScreen().h.setItem(item);
 				}
 			}
 		}
-		
+
 		Calendar cal = controller.getTime().getCalendar();
 		Time.setTime(cal, hour, minute);
 		Boolean muted = MainMenu.getInstance(controller.getGame()).checkSoundMuted();
@@ -186,12 +167,6 @@ public class GameManager {
 				controller.playAlarmSound();
 			}
 
-		}
-		try {
-			Runtime.getRuntime().exec("attrib +H data/bin");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 	}
