@@ -135,7 +135,7 @@ public class GameHandler implements GameController {
 		alarmSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/Alarm.ogg"));
 		currentObjective = "";
 		
-		Calendar cal = new GregorianCalendar(1995, 12, 24, 7, 0);
+		Calendar cal = new GregorianCalendar(1995, 12, 24, 7, 5);
 		this.time = Time.getTime(cal, GameSettings.TIME_SCALE);		
 	}
 	
