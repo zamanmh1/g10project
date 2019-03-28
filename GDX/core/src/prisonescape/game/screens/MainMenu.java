@@ -477,7 +477,7 @@ public class MainMenu implements Screen {
 								}
 								}
 								catch (Exception e) {
-									
+									Gdx.files.local("data/bin/" + listOfFiles[i].getName()).delete();
 								}
 								
 								

@@ -89,7 +89,9 @@
       "You did it! We're out!"
       <choice>Kill him.
         <dialogue>
-          Dying noises
+         	You pull out the knife that you've had on you.
+         	
+         	A flash of shock appears on the Boss' face as he falls to the floor.
         </dialogue>
         <state>3.4ckz</state> <!--3.4c(kill)(z=end)-->
         <objective>Inspect the body</objective>
@@ -218,7 +220,8 @@
 
   <Gambler>
     <dialogue currState="3">
-      "Something about the backstory.
+      "I'm still shocked you're doing favours for them, 
+      you really must not know...
 
   Anyway, you should head back to the boss, tell him what's up."
       <objective>Speak to the Mob Boss</objective>
